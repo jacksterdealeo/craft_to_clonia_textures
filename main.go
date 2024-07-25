@@ -65,7 +65,7 @@ release = 01`, inName, outName)
 	}
 
 	srcLocation := inName + "/assets/minecraft/textures/"
-	textures := [...][2]string{
+	blocksAndItems := [...][2]string{
 		// mcl_amethyst
 		{"block/amethyst_block.png", f["amethyst"] + "mcl_amethyst_amethyst_block.png"},
 		{"block/large_amethyst_bud.png", f["amethyst"] + "mcl_amethyst_amethyst_bud_large.png"},
@@ -124,13 +124,113 @@ release = 01`, inName, outName)
 		{"block/acacia_planks.png", f["core"] + "default_acacia_wood.png"},
 		{"item/apple.png", f["core"] + "default_apple.png"},
 		{"block/bricks.png", f["core"] + "default_brick.png"},
-
-		//{"", f["core"] + "default_clay.png"},
-		//{"", f["core"] + "default_clay_brick.png"},
-		//{"", f["core"] + "default_clay_lump.png"},
-		//{"", f["core"] + "default_coal_block.png"},
-		//{"", f["core"] + "default_coal_lump.png"},
-		//{"", f["core"] + "default_cobble.png"},
+		{"block/clay.png", f["core"] + "default_clay.png"},
+		{"item/brick.png", f["core"] + "default_clay_brick.png"},
+		{"item/clay_ball.png", f["core"] + "default_clay_lump.png"},
+		{"block/coal_block.png", f["core"] + "default_coal_block.png"},
+		{"item/coal.png", f["core"] + "default_coal_lump.png"},
+		{"block/cobblestone.png", f["core"] + "default_cobble.png"},
+		{"item/diamond.png", f["core"] + "default_diamond.png"},
+		{"block/diamond_block.png", f["core"] + "default_diamond_block.png"},
+		{"block/dirt.png", f["core"] + "default_dirt.png"},
+		{"block/dead_bush.png", f["core"] + "default_dry_shrub.png"},
+		{"item/flint.png", f["core"] + "default_flint.png"},
+		{"block/glass.png", f["core"] + "default_glass.png"},
+		//{"block/", f["core"] + "default_glass_detail.png"},		//no match?
+		{"block/gold_block.png", f["core"] + "default_gold_block.png"},
+		{"ingot/gold_ingot.png", f["core"] + "default_gold_ingot.png"},
+		{"block/gravel.png", f["core"] + "default_gravel.png"},
+		{"block/ice.png", f["core"] + "default_ice.png"},
+		{"block/jungle_leaves.png", f["core"] + "default_jungleleaves.png"},
+		{"block/jungle_sapling.png", f["core"] + "default_junglesapling.png"},
+		{"block/jungle_log.png", f["core"] + "default_jungletree.png"},
+		{"block/jungle_log_top.png", f["core"] + "default_jungletree_top.png"},
+		{"block/jungle_planks.png", f["core"] + "default_junglewood.png"},
+		{"block/ladder.png", f["core"] + "default_ladder.png"},
+		{"block/lava_flow.png", f["core"] + "default_lava_flowing_animated.png"}, //special attention
+		{"block/lava_still.png", f["core"] + "default_lava_source_animated.png"}, //special attention
+		{"block/oak_leaves.png", f["core"] + "default_leaves.png"},
+		{"block/mossy_cobblestone.png", f["core"] + "default_mossycobble.png"},
+		{"block/obsidian.png", f["core"] + "default_obsidian.png"},
+		{"item/paper.png", f["core"] + "default_paper.png"},
+		{"block/sand.png", f["core"] + "default_sand.png"},
+		{"block/oak_sapling.png", f["core"] + "default_sapling.png"},
+		{"block/snow.png", f["core"] + "default_snow.png"},
+		{"block/iron_block.png", f["core"] + "default_steel_block.png"},
+		{"item/iron_ingot.png", f["core"] + "default_steel_ingot.png"},
+		{"item/stick.png", f["core"] + "default_stick.png"},
+		{"block/stone_bricks.png", f["core"] + "default_stone_brick.png"},
+		{"block/oak_log.png", f["core"] + "default_tree.png"},
+		{"block/oak_log_top.png", f["core"] + "default_tree_top.png"},
+		{"block/water_flow.png", f["core"] + "default_water_flowing_animated.png"}, //special attention
+		{"block/water_still.png", f["core"] + "default_water_source_animated.png"}, //special attention
+		{"block/oak_planks.png", f["core"] + "default_wood.png"},
+		{"block/andesite.png", f["core"] + "mcl_core_andesite.png"},
+		{"block/polished_andesite.png", f["core"] + "mcl_core_andesite_smooth.png"},
+		{"item/golden_apple.png", f["core"] + "mcl_core_apple_golden.png"},
+		{"item/barrier.png", f["core"] + "mcl_core_barrier.png"},
+		{"block/bedrock.png", f["core"] + "mcl_core_bedrock.png"},
+		{"block/bone_block_side.png", f["core"] + "mcl_core_bone_block_side.png"},
+		{"block/bone_block_top.png", f["core"] + "mcl_core_bone_block_top.png"},
+		{"item/bowl.png", f["core"] + "mcl_core_bowl.png"},
+		{"block/cactus_bottom.png", f["core"] + "mcl_core_cactus_bottom.png"},
+		{"block/cactus_side.png", f["core"] + "mcl_core_cactus_side.png"},
+		{"block/cactus_top.png", f["core"] + "mcl_core_cactus_top.png"},
+		{"item/charcoal.png", f["core"] + "mcl_core_charcoal.png"},
+		{"block/coal_ore.png", f["core"] + "mcl_core_coal_ore.png"},
+		{"block/coarse_dirt.png", f["core"] + "mcl_core_coarse_dirt.png"},
+		{"block/crying_obsidian.png", f["core"] + "mcl_core_crying_obsidian.png"}, //special attention? might be ok
+		//{"block/", f["core"] + "mcl_core_crying_obsidian_tear.png"},		//no match?
+		//{"block/", f["core"] + "mcl_core_crying_obsidian_tear2.png"},		//no match?
+		//{"block/", f["core"] + "mcl_core_crying_obsidian_tear3.png"},		//no match?
+		{"block/diamond_ore.png", f["core"] + "mcl_core_diamond_ore.png"},
+		{"block/diorite.png", f["core"] + "mcl_core_diorite.png"},
+		{"block/polished_diorite.png", f["core"] + "mcl_core_diorite_smooth.png"},
+		{"block/podzol_side.png", f["core"] + "mcl_core_dirt_podzol_side.png"},
+		{"block/podzol_top.png", f["core"] + "mcl_core_dirt_podzol_top.png"},
+		{"item/emerald.png", f["core"] + "mcl_core_emerald.png"},
+		{"block/emerald_block.png", f["core"] + "mcl_core_emerald_block.png"},
+		{"block/emerald_ore.png", f["core"] + "mcl_core_emerald_ore.png"},
+		{"block/frosted_ice_0.png", f["core"] + "mcl_core_frosted_ice_0.png"},
+		{"block/frosted_ice_1.png", f["core"] + "mcl_core_frosted_ice_1.png"},
+		{"block/frosted_ice_2.png", f["core"] + "mcl_core_frosted_ice_2.png"},
+		{"block/frosted_ice_3.png", f["core"] + "mcl_core_frosted_ice_3.png"},
+		//Glass TODO All glass has normal and "detail" textures. Must create "detail".
+		{"block/black_stained_glass.png", f["core"] + "mcl_core_glass_black.png"},
+		{"block/black_stained_glass.png", f["core"] + "mcl_core_glass_black_detail.png"},
+		{"block/blue_stained_glass.png", f["core"] + "mcl_core_glass_blue.png"},
+		{"block/blue_stained_glass.png", f["core"] + "mcl_core_glass_blue_detail.png"},
+		{"block/brown_stained_glass.png", f["core"] + "mcl_core_glass_brown.png"},
+		{"block/brown_stained_glass.png", f["core"] + "mcl_core_glass_brown_detail.png"},
+		{"block/cyan_stained_glass.png", f["core"] + "mcl_core_glass_cyan.png"},
+		{"block/cyan_stained_glass.png", f["core"] + "mcl_core_glass_cyan_detail.png"},
+		{"block/gray_stained_glass.png", f["core"] + "mcl_core_glass_gray.png"},
+		{"block/gray_stained_glass.png", f["core"] + "mcl_core_glass_gray_detail.png"},
+		{"block/green_stained_glass.png", f["core"] + "mcl_core_glass_green.png"},
+		{"block/green_stained_glass.png", f["core"] + "mcl_core_glass_green_detail.png"},
+		{"block/light_blue_stained_glass.png", f["core"] + "mcl_core_glass_light_blue.png"},
+		{"block/light_blue_stained_glass.png", f["core"] + "mcl_core_glass_light_blue_detail.png"},
+		{"block/lime_stained_glass.png", f["core"] + "mcl_core_glass_lime.png"},
+		{"block/lime_stained_glass.png", f["core"] + "mcl_core_glass_lime_detail.png"},
+		{"block/magenta_stained_glass.png", f["core"] + "mcl_core_glass_magenta.png"},
+		{"block/magenta_stained_glass.png", f["core"] + "mcl_core_glass_magenta_detail.png"},
+		{"block/orange_stained_glass.png", f["core"] + "mcl_core_glass_orange.png"},
+		{"block/orange_stained_glass.png", f["core"] + "mcl_core_glass_orange_detail.png"},
+		{"block/pink_stained_glass.png", f["core"] + "mcl_core_glass_pink.png"},
+		{"block/pink_stained_glass.png", f["core"] + "mcl_core_glass_pink_detail.png"},
+		{"block/purple_stained_glass.png", f["core"] + "mcl_core_glass_purple.png"},
+		{"block/purple_stained_glass.png", f["core"] + "mcl_core_glass_purple_detail.png"},
+		{"block/red_stained_glass.png", f["core"] + "mcl_core_glass_red.png"},
+		{"block/red_stained_glass.png", f["core"] + "mcl_core_glass_red_detail.png"},
+		{"block/light_gray_stained_glass.png", f["core"] + "mcl_core_glass_silver.png"},
+		{"block/light_gray_stained_glass.png", f["core"] + "mcl_core_glass_silver_detail.png"},
+		{"block/white_stained_glass.png", f["core"] + "mcl_core_glass_white.png"},
+		{"block/white_stained_glass.png", f["core"] + "mcl_core_glass_white_detail.png"},
+		{"block/yellow_stained_glass.png", f["core"] + "mcl_core_glass_yellow.png"},
+		{"block/yellow_stained_glass.png", f["core"] + "mcl_core_glass_yellow_detail.png"},
+		//Glass TODO
+		{"item/gold_nugget.png", f["core"] + "mcl_core_gold_nugget.png"},
+		{"block/", f["core"] + ""},
 
 		// mcl_crafting_table
 		// mcl_crimson
@@ -229,11 +329,11 @@ release = 01`, inName, outName)
 		// screwdriver
 		//{"", f[""] + ""},
 	}
-	_ = textures
 
-	for _, e := range textures {
+	for _, e := range blocksAndItems {
 		copyTexture(srcLocation+e[0], outName+e[1])
 	}
+
 }
 
 func copyTexture(src string, dest string) {
