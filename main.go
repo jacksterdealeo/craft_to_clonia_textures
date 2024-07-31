@@ -50,13 +50,13 @@ release = 01`, inName, outName)
 	if src, err := imaging.Open(inName + "/pack.png"); err != nil {
 		fmt.Println("Pack icon error~")
 	} else {
-		background := imaging.Fill(src, 1000, 572, imaging.Center, imaging.Lanczos)
+		background := imaging.Fill(src, 350, 233, imaging.Center, imaging.Lanczos)
 		background = imaging.Blur(background, 10)
-		foreground := imaging.Resize(src, 572, 0, imaging.Lanczos)
+		foreground := imaging.Resize(src, 233, 0, imaging.Lanczos)
 
-		dst := imaging.New(1000, 572, color.NRGBA{0, 0, 0, 0})
+		dst := imaging.New(350, 233, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Paste(dst, background, image.Pt(0, 0))
-		dst = imaging.Paste(dst, foreground, image.Pt(214, 0))
+		dst = imaging.Paste(dst, foreground, image.Pt(58, 0))
 		err = imaging.Save(dst, outName+"/screenshot.png")
 	}
 
