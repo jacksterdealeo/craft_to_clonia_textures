@@ -18,9 +18,9 @@ func main() {
 	if fs.ValidPath(outName) {
 		if err := os.Mkdir(outName, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {
-				fmt.Printf("Folder %s is an \"invalid argument\". Maybe rename %s?\n", outName, inName)
+				log.Panicf("Folder %s is an \"invalid argument\". Maybe rename %s?\n", outName, inName)
 			} else if errors.Is(err, fs.ErrPermission) {
-				fmt.Printf("Permission was denied. %s was not made.\n", outName)
+				log.Panicf("Permission was denied. %s was not made.\n", outName)
 			} else if errors.Is(err, fs.ErrExist) {
 				fmt.Printf("Folder %s already exists. Writing into it.\n", outName)
 			} else {
@@ -49,6 +49,7 @@ release = 01`, inName, outName)
 		"amethyst":       "/ITEMS/mcl_amethyst/textures/",
 		"anvils":         "/ITEMS/mcl_anvils/textures/",
 		"blast_furnace":  "/ITEMS/mcl_blast_furnace/textures/",
+		"copper":         "/ITEMS/mcl_copper/textures/",
 		"core":           "/ITEMS/mcl_core/textures/",
 		"furnaces":       "/ITEMS/mcl_furnaces/textures/",
 		"mud":            "/ITEMS/mcl_mud/textures/",
@@ -116,6 +117,22 @@ release = 01`, inName, outName)
 		// mcl_composters
 		// mcl_conduits
 		// mcl_copper
+		//{"block/", f["copper"] + "mcl_copper_anti_oxidation_particle.png"}, //no match?
+		{"block/copper_block.png", f["copper"] + "mcl_copper_block.png"},
+		{"block/copper_bulb.png", f["copper"] + "mcl_copper_block_bulb_off.png"},
+		{"block/copper_bulb_lit.png", f["copper"] + "mcl_copper_block_bulb_on.png"},
+		{"block/copper_bulb_powered.png", f["copper"] + "mcl_copper_block_bulb_powered_off.png"},
+		{"block/copper_bulb_lit_powered.png", f["copper"] + "mcl_copper_block_bulb_powered_on.png"},
+		{"block/chiseled_copper.png", f["copper"] + "mcl_copper_block_chiseled.png"},
+		{"block/cut_copper.png", f["copper"] + "mcl_copper_block_cut.png"},
+		{"block/copper_grate.png", f["copper"] + "mcl_copper_block_grate.png"},
+		{"block/raw_copper_block.png", f["copper"] + "mcl_copper_block_raw.png"},
+		{"item/copper_door.png", f["copper"] + "mcl_copper_door.png"},
+		{"block/copper_door_bottom.png", f["copper"] + "mcl_copper_door_bottom.png"},
+		{"item/exposed_copper_door.png", f["copper"] + "mcl_copper_door_exposed.png"},
+		{"block/exposed_copper_door_bottom.png", f["copper"] + "mcl_copper_door_exposed_bottom.png"},
+		//{"block/", f["copper"] + ""},
+		//{"item/", f["copper"] + ""},
 		// mcl_core
 		{"block/acacia_leaves.png", f["core"] + "default_acacia_leaves.png"},
 		{"block/acacia_sapling.png", f["core"] + "default_acacia_sapling.png"},
@@ -138,7 +155,7 @@ release = 01`, inName, outName)
 		{"block/glass.png", f["core"] + "default_glass.png"},
 		//{"block/", f["core"] + "default_glass_detail.png"},		//no match?
 		{"block/gold_block.png", f["core"] + "default_gold_block.png"},
-		{"ingot/gold_ingot.png", f["core"] + "default_gold_ingot.png"},
+		{"item/gold_ingot.png", f["core"] + "default_gold_ingot.png"},
 		{"block/gravel.png", f["core"] + "default_gravel.png"},
 		{"block/ice.png", f["core"] + "default_ice.png"},
 		{"block/jungle_leaves.png", f["core"] + "default_jungleleaves.png"},
@@ -195,7 +212,7 @@ release = 01`, inName, outName)
 		{"block/frosted_ice_1.png", f["core"] + "mcl_core_frosted_ice_1.png"},
 		{"block/frosted_ice_2.png", f["core"] + "mcl_core_frosted_ice_2.png"},
 		{"block/frosted_ice_3.png", f["core"] + "mcl_core_frosted_ice_3.png"},
-		//Glass TODO All glass has normal and "detail" textures. Must create "detail".
+		//Glass TODO: All glass has normal and "detail" textures. Must create "detail".
 		{"block/black_stained_glass.png", f["core"] + "mcl_core_glass_black.png"},
 		{"block/black_stained_glass.png", f["core"] + "mcl_core_glass_black_detail.png"},
 		{"block/blue_stained_glass.png", f["core"] + "mcl_core_glass_blue.png"},
@@ -230,7 +247,97 @@ release = 01`, inName, outName)
 		{"block/yellow_stained_glass.png", f["core"] + "mcl_core_glass_yellow_detail.png"},
 		//Glass TODO
 		{"item/gold_nugget.png", f["core"] + "mcl_core_gold_nugget.png"},
-		{"block/", f["core"] + ""},
+		{"block/gold_ore.png", f["core"] + "mcl_core_gold_ore.png"},
+		{"block/granite.png", f["core"] + "mcl_core_granite.png"},
+		{"block/polished_granite.png", f["core"] + "mcl_core_granite_smooth.png"},
+		{"block/grass_block_side_overlay.png", f["core"] + "mcl_core_grass_block_side_overlay.png"},
+		{"block/grass_block_top.png", f["core"] + "mcl_core_grass_block_top.png"},
+		{"block/dirt_path_side.png", f["core"] + "mcl_core_grass_path_side.png"},
+		{"block/dirt_path_top.png", f["core"] + "mcl_core_grass_path_top.png"},
+		{"block/grass_block_snow.png", f["core"] + "mcl_core_grass_side_snowed.png"},
+		{"block/packed_ice.png", f["core"] + "mcl_core_ice_packed.png"},
+		{"item/iron_nugget.png", f["core"] + "mcl_core_iron_nugget.png"},
+		{"block/iron_ore.png", f["core"] + "mcl_core_iron_ore.png"},
+		{"item/lapis_lazuli.png", f["core"] + "mcl_core_lapis.png"},
+		{"block/lapis_block.png", f["core"] + "mcl_core_lapis_block.png"},
+		{"block/lapis_ore.png", f["core"] + "mcl_core_lapis_ore.png"},
+		{"block/dark_oak_leaves.png", f["core"] + "mcl_core_leaves_big_oak.png"},
+		{"block/birch_leaves.png", f["core"] + "mcl_core_leaves_birch.png"},
+		{"block/spruce_leaves.png", f["core"] + "mcl_core_leaves_spruce.png"},
+		{"item/light_00.png", f["core"] + "mcl_core_light_0.png"},
+		{"item/light_01.png", f["core"] + "mcl_core_light_1.png"},
+		{"item/light_02.png", f["core"] + "mcl_core_light_2.png"},
+		{"item/light_03.png", f["core"] + "mcl_core_light_3.png"},
+		{"item/light_04.png", f["core"] + "mcl_core_light_4.png"},
+		{"item/light_05.png", f["core"] + "mcl_core_light_5.png"},
+		{"item/light_06.png", f["core"] + "mcl_core_light_6.png"},
+		{"item/light_07.png", f["core"] + "mcl_core_light_7.png"},
+		{"item/light_08.png", f["core"] + "mcl_core_light_8.png"},
+		{"item/light_09.png", f["core"] + "mcl_core_light_9.png"},
+		{"item/light_10.png", f["core"] + "mcl_core_light_10.png"},
+		{"item/light_11.png", f["core"] + "mcl_core_light_11.png"},
+		{"item/light_12.png", f["core"] + "mcl_core_light_12.png"},
+		{"item/light_13.png", f["core"] + "mcl_core_light_13.png"},
+		{"item/light_14.png", f["core"] + "mcl_core_light_14.png"}, //no light_15 in Mineclonia
+		{"block/dark_oak_log.png", f["core"] + "mcl_core_log_big_oak.png"},
+		{"block/dark_oak_log_top.png", f["core"] + "mcl_core_log_big_oak_top.png"},
+		{"block/birch_log.png", f["core"] + "mcl_core_log_birch.png"},
+		{"block/birch_log_top.png", f["core"] + "mcl_core_log_birch_top.png"},
+		{"block/spruce_log.png", f["core"] + "mcl_core_log_spruce.png"},
+		{"block/spruce_log_top.png", f["core"] + "mcl_core_log_spruce_top.png"},
+		//{"block/", f["core"] + "mcl_core_mycelium_particle.png"}, 	//special attention
+		{"block/mycelium_side.png", f["core"] + "mcl_core_mycelium_side.png"},
+		{"block/mycelium_top.png", f["core"] + "mcl_core_mycelium_top.png"},
+		//{"block/", f["core"] + "mcl_core_palette_grass.png"}, 	//special attention
+		//{"block/", f["core"] + "mcl_core_palette_leaves.png"}, 		//special attention
+		{"block/sugar_cane.png", f["core"] + "mcl_core_papyrus.png"},
+		{"block/dark_oak_planks.png", f["core"] + "mcl_core_planks_big_oak.png"},
+		{"block/birch_planks.png", f["core"] + "mcl_core_planks_birch.png"},
+		{"block/spruce_planks.png", f["core"] + "mcl_core_planks_spruce.png"},
+		{"block/red_sand.png", f["core"] + "mcl_core_red_sand.png"},
+		{"block/red_sandstone_bottom.png", f["core"] + "mcl_core_red_sandstone_bottom.png"},
+		{"block/chiseled_red_sandstone.png", f["core"] + "mcl_core_red_sandstone_carved.png"},
+		{"block/red_sandstone.png", f["core"] + "mcl_core_red_sandstone_normal.png"},
+		{"block/cut_red_sandstone.png", f["core"] + "mcl_core_red_sandstone_smooth.png"},
+		{"block/red_sandstone_top.png", f["core"] + "mcl_core_red_sandstone_top.png"},
+		{"block/redstone_ore.png", f["core"] + "mcl_core_redstone_ore.png"},
+		{"item/sugar_cane.png", f["core"] + "mcl_core_reeds.png"},
+		{"block/sandstone_bottom.png", f["core"] + "mcl_core_sandstone_bottom.png"},
+		{"block/chiseled_sandstone.png", f["core"] + "mcl_core_sandstone_carved.png"},
+		{"block/sandstone.png", f["core"] + "mcl_core_sandstone_normal.png"},
+		{"block/cut_sandstone.png", f["core"] + "mcl_core_sandstone_smooth.png"},
+		{"block/sandstone_top.png", f["core"] + "mcl_core_sandstone_top.png"},
+		{"block/dark_oak_sapling.png", f["core"] + "mcl_core_sapling_big_oak.png"},
+		{"block/birch_sapling.png", f["core"] + "mcl_core_sapling_birch.png"},
+		{"block/spruce_sapling.png", f["core"] + "mcl_core_sapling_spruce.png"},
+		{"block/slime_block.png", f["core"] + "mcl_core_slime.png"},
+		{"block/chiseled_stone_bricks.png", f["core"] + "mcl_core_stonebrick_carved.png"},
+		{"block/cracked_stone_bricks.png", f["core"] + "mcl_core_stonebrick_cracked.png"},
+		{"block/mossy_stone_bricks.png", f["core"] + "mcl_core_stonebrick_mossy.png"},
+		{"block/stripped_acacia_log.png", f["core"] + "mcl_core_stripped_acacia_side.png"},
+		{"block/stripped_acacia_log_top.png", f["core"] + "mcl_core_stripped_acacia_top.png"},
+		{"block/stripped_birch_log.png", f["core"] + "mcl_core_stripped_birch_side.png"},
+		{"block/stripped_birch_log_top.png", f["core"] + "mcl_core_stripped_birch_top.png"},
+		{"block/stripped_dark_oak_log.png", f["core"] + "mcl_core_stripped_dark_oak_side.png"},
+		{"block/stripped_dark_oak_log_top.png", f["core"] + "mcl_core_stripped_dark_oak_top.png"},
+		{"block/stripped_jungle_log.png", f["core"] + "mcl_core_stripped_jungle_side.png"},
+		{"block/stripped_jungle_log_top.png", f["core"] + "mcl_core_stripped_jungle_top.png"},
+		{"block/stripped_oak_log.png", f["core"] + "mcl_core_stripped_oak_side.png"},
+		{"block/stripped_oak_log_top.png", f["core"] + "mcl_core_stripped_oak_top.png"},
+		{"block/stripped_spruce_log.png", f["core"] + "mcl_core_stripped_spruce_side.png"},
+		{"block/stripped_spruce_log_top.png", f["core"] + "mcl_core_stripped_spruce_top.png"},
+		{"item/sugar.png", f["core"] + "mcl_core_sugar.png"},
+		{"block/vine.png", f["core"] + "mcl_core_vine.png"}, //special attention
+		//{"block/", f["core"] + "mcl_core_void.png"},         //no match
+		{"block/cobweb.png", f["core"] + "mcl_core_web.png"},
+		{"block/grass_block_side_overlay.png", f["core"] + "mcl_dirt_grass_shadow.png"}, //special attention?
+		//{"block/", f["core"] + "mcl_particles_lava.png"},    //special attention
+		//{"block/", f["core"] + "mcl_stairs_andesite_smooth_slab.png"}, //special attention
+		//{"block/", f["core"] + "mcl_stairs_diorite_smooth_slab.png"},  //special attention
+		//{"block/", f["core"] + "mcl_stairs_granite_smooth_slab.png"},  //special attention
+
+		//{"block/", f["core"] + ""},
+		//{"item/", f["core"] + ""},
 
 		// mcl_crafting_table
 		// mcl_crimson
