@@ -6,6 +6,7 @@ import (
 	imaging "github.com/disintegration/imaging"
 	"image"
 	"image/color"
+	_ "image/png"
 	"io"
 	"io/fs"
 	"log"
@@ -35,7 +36,7 @@ func main() {
 
 	packConfigFile := fmt.Sprintf(`title = %s
 name = %s
-description = A converted Minecraft texture pack
+description = A Minecraft texture pack converted to Mineclonia
 author = Unknown
 release = 01`, inName, outName)
 
@@ -56,7 +57,7 @@ release = 01`, inName, outName)
 
 		dst := imaging.New(350, 233, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Paste(dst, background, image.Pt(0, 0))
-		dst = imaging.Paste(dst, foreground, image.Pt(58, 0))
+		dst = imaging.OverlayCenter(dst, foreground, 1.0)
 		err = imaging.Save(dst, outName+"/screenshot.png")
 	}
 
@@ -102,9 +103,9 @@ release = 01`, inName, outName)
 		// FIX: anvil damaged texture is not wide enough for all the model.
 		{g["block"] + "anvil.png", f["anvils"] + "mcl_anvils_anvil_base.png"},
 		{g["block"] + "anvil.png", f["anvils"] + "mcl_anvils_anvil_side.png"},
-		{g["block"] + "anvil_top.png", f["anvils"] + "mcl_anvils_anvil_top_damaged_0.png"},
-		{g["block"] + "chipped_anvil_top.png", f["anvils"] + "mcl_anvils_anvil_top_damaged_1.png"},
-		{g["block"] + "damaged_anvil_top.png", f["anvils"] + "mcl_anvils_anvil_top_damaged_2.png"},
+		//{g["block"] + "anvil_top.png", f["anvils"] + "mcl_anvils_anvil_top_damaged_0.png"},
+		//{g["block"] + "chipped_anvil_top.png", f["anvils"] + "mcl_anvils_anvil_top_damaged_1.png"},
+		//{g["block"] + "damaged_anvil_top.png", f["anvils"] + "mcl_anvils_anvil_top_damaged_2.png"},
 		// mcl_armor
 		// mcl_armor_stand
 		// mcl_bamboo
@@ -461,6 +462,50 @@ release = 01`, inName, outName)
 	for _, e := range blocksAndItems {
 		copyTexture(inName+e[0], outName+e[1])
 	}
+
+	//special casses
+	////anvil
+	anvil := func() {
+		abase, err := imaging.Open(inName + g["block"] + "anvil.png")
+		if err != nil {
+			fmt.Println("AnvilBase error~", g["block"]+"anvil.png")
+			return
+		}
+		a0, err := imaging.Open(inName + g["block"] + "anvil_top.png")
+		if err != nil {
+			fmt.Println("Anvil0 error~")
+			return
+		}
+		a1, err := imaging.Open(inName + g["block"] + "chipped_anvil_top.png")
+		if err != nil {
+			fmt.Println("Anvil1 error~")
+			return
+		}
+		a2, err := imaging.Open(inName + g["block"] + "damaged_anvil_top.png")
+		if err != nil {
+			fmt.Println("Anvil2 error~")
+			return
+		}
+		anvilX := abase.Bounds().Dx()
+		anvilY := abase.Bounds().Dy()
+
+		dst := imaging.New(anvilX, anvilY, color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Paste(dst, abase, image.Pt(0, 0))
+		dst = imaging.OverlayCenter(dst, a0, 1.0)
+
+		if err = imaging.Save(dst, outName+f["anvils"]+"mcl_anvils_anvil_top_damaged_0.png"); err != nil {
+			fmt.Println("Anvil undamaged failed!")
+		}
+		dst = imaging.OverlayCenter(dst, a1, 1.0)
+		if err = imaging.Save(dst, outName+f["anvils"]+"mcl_anvils_anvil_top_damaged_1.png"); err != nil {
+			fmt.Println("Anvil damaged1 failed!")
+		}
+		dst = imaging.OverlayCenter(dst, a2, 1.0)
+		if err = imaging.Save(dst, outName+f["anvils"]+"mcl_anvils_anvil_top_damaged_2.png"); err != nil {
+			fmt.Println("Anvil damaged2 failed!")
+		}
+	}
+	anvil()
 
 }
 
