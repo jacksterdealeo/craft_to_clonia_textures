@@ -16,7 +16,7 @@ import (
 
 func main() {
 	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v0.0.0\n")
-	inName := "Faithful 32x - 1.21"
+	inName := "Ashen_1.7.2"
 	outName := fmt.Sprintf("%s_mc_converted", strings.ReplaceAll(strings.ToLower(inName), " ", "_"))
 
 	if fs.ValidPath(outName) {
@@ -523,23 +523,23 @@ release = 01`, inName, outName)
 			wStillY := wStill.Bounds().Dy()
 			dst := imaging.New(wStillX, wStillY/2, color.NRGBA{0, 0, 0, 0})
 			//For still water, I use every other frame.
-			for i := 0; i < 16; i++ {
+			for i := 0; i < wStillY/wStillX; i++ {
 				a := imaging.Crop(wStill, image.Rect(0, (i*2)*wStillX, wStillX, ((i*2)+1)*wStillX))
 				dst = imaging.Overlay(dst, a, image.Point{0, i * wStillX}, 1.0)
 			}
 			plainWater := imaging.AdjustFunc(dst,
 				func(c color.NRGBA) color.NRGBA {
-					r := int(c.B) - 120
-					g := int(c.G) - 80
-					b := int(c.B) - 55
+					r := int(c.R) - 105
+					g := int(c.G) - 40
+					b := int(c.B) + 20
 					if r < 0 {
 						r = 0
 					}
 					if g < 0 {
 						g = 0
 					}
-					if b < 0 {
-						b = 0
+					if b > 255 {
+						b = 255
 					}
 					return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 				})
@@ -549,17 +549,17 @@ release = 01`, inName, outName)
 
 			riverWater := imaging.AdjustFunc(dst,
 				func(c color.NRGBA) color.NRGBA {
-					r := int(c.B) - 95
-					g := int(c.G) - 30
-					b := int(c.B) - 20
+					r := int(c.R) - 105
+					g := int(c.G) - 0
+					b := int(c.B) + 45
 					if r < 0 {
 						r = 0
 					}
 					if g < 0 {
 						g = 0
 					}
-					if b < 0 {
-						b = 0
+					if b > 255 {
+						b = 255
 					}
 					return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 				})
