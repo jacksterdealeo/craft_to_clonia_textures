@@ -201,8 +201,8 @@ release = 01`, inName, outName)
 		{g["block"] + "stone_bricks.png", f["core"] + "default_stone_brick.png"},
 		{g["block"] + "oak_log.png", f["core"] + "default_tree.png"},
 		{g["block"] + "oak_log_top.png", f["core"] + "default_tree_top.png"},
-		{g["block"] + "water_flow.png", f["core"] + "default_water_flowing_animated.png"}, //special attention
-		{g["block"] + "water_still.png", f["core"] + "default_water_source_animated.png"}, //special attention
+		//{g["block"] + "water_flow.png", f["core"] + "default_water_flowing_animated.png"}, //special attention
+		//{g["block"] + "water_still.png", f["core"] + "default_water_source_animated.png"}, //special attention
 		{g["block"] + "oak_planks.png", f["core"] + "default_wood.png"},
 		{g["block"] + "andesite.png", f["core"] + "mcl_core_andesite.png"},
 		{g["block"] + "polished_andesite.png", f["core"] + "mcl_core_andesite_smooth.png"},
@@ -464,7 +464,6 @@ release = 01`, inName, outName)
 	}
 
 	//special casses
-	////anvil
 	anvil := func() {
 		abase, err := imaging.Open(inName + g["block"] + "anvil.png")
 		if err != nil {
@@ -507,6 +506,77 @@ release = 01`, inName, outName)
 	}
 	anvil()
 
+	water := func() {
+		/*
+			craft water
+			  still   :  16 x 512
+			  flowing :  32 x 1024
+			clonia water (and river water)
+			  still   :  16 x 256
+			  flowing :  16 x 1024
+		*/
+		wStill, err := imaging.Open(inName + g["block"] + "water_still.png")
+		if err != nil {
+			fmt.Println("water_still.png error~", g["block"]+"water.png")
+		} else {
+			wStillX := wStill.Bounds().Dx()
+			wStillY := wStill.Bounds().Dy()
+			dst := imaging.New(wStillX, wStillY/2, color.NRGBA{0, 0, 0, 0})
+			//For still water, I use every other frame.
+			for i := 0; i < 16; i++ {
+				a := imaging.Crop(wStill, image.Rect(0, (i*2)*wStillX, wStillX, ((i*2)+1)*wStillX))
+				dst = imaging.Overlay(dst, a, image.Point{0, i * wStillX}, 1.0)
+			}
+			plainWater := imaging.AdjustFunc(dst,
+				func(c color.NRGBA) color.NRGBA {
+					r := int(c.B) - 120
+					g := int(c.G) - 80
+					b := int(c.B) - 55
+					if r < 0 {
+						r = 0
+					}
+					if g < 0 {
+						g = 0
+					}
+					if b < 0 {
+						b = 0
+					}
+					return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+				})
+			if err = imaging.Save(plainWater, outName+f["core"]+"default_water_source_animated.png"); err != nil {
+				fmt.Println("default_water_source_animated.png save failed!")
+			}
+
+			riverWater := imaging.AdjustFunc(dst,
+				func(c color.NRGBA) color.NRGBA {
+					r := int(c.B) - 95
+					g := int(c.G) - 30
+					b := int(c.B) - 20
+					if r < 0 {
+						r = 0
+					}
+					if g < 0 {
+						g = 0
+					}
+					if b < 0 {
+						b = 0
+					}
+					return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+				})
+			if err = imaging.Save(riverWater, outName+f["core"]+"default_river_water_source_animated.png"); err != nil {
+				fmt.Println("default_river_water_source_animated.png save failed!")
+			}
+
+		}
+
+		wFlowing, err := imaging.Open(inName + g["block"] + "water_still.png")
+		_ = wFlowing
+		if err != nil {
+			fmt.Println("FlowingWater error~", g["block"]+"water_still.png")
+			return
+		}
+	}
+	water()
 }
 
 func copyTexture(src string, dest string) {
