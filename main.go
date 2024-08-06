@@ -62,6 +62,7 @@ release = 01`, inName, outName)
 	}
 
 	craftPaths := map[string]string{
+		"armor":    "/assets/minecraft/textures/models/armor/",
 		"block":    "/assets/minecraft/textures/block/",
 		"item":     "/assets/minecraft/textures/item/",
 		"particle": "/assets/minecraft/textures/particle/",
@@ -70,6 +71,8 @@ release = 01`, inName, outName)
 	cloniaPaths := map[string]string{
 		"amethyst":       "/ITEMS/mcl_amethyst/textures/",
 		"anvils":         "/ITEMS/mcl_anvils/textures/",
+		"armor_stand":    "/ITEMS/mcl_armor_stand/textures/",
+		"bamboo":         "/ITEMS/mcl_bamboo/textures/",
 		"blast_furnace":  "/ITEMS/mcl_blast_furnace/textures/",
 		"copper":         "/ITEMS/mcl_copper/textures/",
 		"core":           "/ITEMS/mcl_core/textures/",
@@ -115,7 +118,33 @@ release = 01`, inName, outName)
 		//{"block", "damaged_anvil_top.png", "anvils", "mcl_anvils_anvil_top_damaged_2.png"},
 		// mcl_armor
 		// mcl_armor_stand
+		{"item", "armor_stand.png", "armor_stand", "armor_stand.png"},
 		// mcl_bamboo
+		//{"block", ".png", "bamboo", "mcl_bamboo_bamboo.png"},
+		{"block", "bamboo_block.png", "bamboo", "mcl_bamboo_bamboo_block.png"},
+		{"block", "stripped_bamboo_block.png", "bamboo", "mcl_bamboo_bamboo_block_stripped.png"},
+		{"block", "bamboo_block_top.png", "bamboo", "mcl_bamboo_bamboo_bottom.png"},
+		{"block", "stripped_bamboo_block_top.png", "bamboo", "mcl_bamboo_bamboo_bottom_stripped.png"},
+		//{"block", ".png", "bamboo", "mcl_bamboo_bamboo_fpm.png"},    //special attention
+		{"block", "bamboo_planks.png", "bamboo", "mcl_bamboo_bamboo_plank.png"},
+		{"block", "bamboo_mosaic.png", "bamboo", "mcl_bamboo_bamboo_plank_mosaic.png"},
+		{"item", "bamboo.png", "bamboo", "mcl_bamboo_bamboo_shoot.png"},
+		//{"block", ".png", "bamboo", "mcl_bamboo_bamboo_sign.png"},    //special attention
+		{"item", "bamboo_sign.png", "bamboo", "mcl_bamboo_bamboo_sign_wield.png"},
+		{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom.png"}, //reverse this texture
+		//{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom_alt.png"},    //test
+		{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top.png"}, //reverse this texture
+		//{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top_alt.png"},    //test
+		{"item", "bamboo_door.png", "bamboo", "mcl_bamboo_door_wield.png"},
+		//{"block", ".png", "bamboo", "mcl_bamboo_endcap.png"}, //what is this?
+		{"block", "bamboo_fence_particle.png", "bamboo", "mcl_bamboo_fence_bamboo.png"},
+		{"block", "bamboo_fence_gate_particle.png", "bamboo", "mcl_bamboo_fence_gate_bamboo.png"},
+		////scaffolding is broken in vanilla Mineclonia right now.
+		//{"block", "bamboo_stage0.png", "bamboo", "mcl_bamboo_flower_pot.png"},    //broken?
+		{"block", "scaffolding_bottom.png", "bamboo", "mcl_bamboo_scaffolding_bottom.png"}, //broken?
+		{"block", "scaffolding_side.png", "bamboo", "mcl_bamboo_scaffolding_side.png"},     //broken?
+		{"block", "scaffolding_top.png", "bamboo", "mcl_bamboo_scaffolding_top.png"},
+		{"block", "bamboo_trapdoor.png", "bamboo", "mcl_bamboo_trapdoor_side.png"},
 		// mcl_banners
 		// mcl_barrels
 		// mcl_beacons
