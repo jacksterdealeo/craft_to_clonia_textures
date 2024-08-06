@@ -81,6 +81,7 @@ release = 01`, inName, outName)
 		"smithing_table": "/ITEMS/mcl_smithing_table/textures/",
 		"smoker":         "/ITEMS/mcl_smoker/textures/",
 		"sus_stew":       "/ITEMS/mcl_sus_stew/textures/",
+		"wool":           "/ITEMS/mcl_wool/textures/",
 	}
 	for _, v := range cloniaPaths {
 		if err := os.MkdirAll(outName+v, 0755); err != nil {
@@ -548,12 +549,28 @@ release = 01`, inName, outName)
 		// mcl_trees
 		// mcl_walls
 		// mcl_wool
+		{"block", "light_blue_wool.png", "wool", "mcl_wool_light_blue.png"},
+		{"block", "lime_wool.png", "wool", "mcl_wool_lime.png"},
+		{"block", "black_wool.png", "wool", "wool_black.png"},
+		{"block", "blue_wool.png", "wool", "wool_blue.png"},
+		{"block", "brown_wool.png", "wool", "wool_brown.png"},
+		{"block", "cyan_wool.png", "wool", "wool_cyan.png"},
+		{"block", "green_wool.png", "wool", "wool_dark_green.png"},
+		{"block", "gray_wool.png", "wool", "wool_dark_grey.png"},
+		{"block", "light_gray_wool.png", "wool", "wool_grey.png"},
+		{"block", "magenta_wool.png", "wool", "wool_magenta.png"},
+		{"block", "orange_wool.png", "wool", "wool_orange.png"},
+		{"block", "pink_wool.png", "wool", "wool_pink.png"},
+		{"block", "red_wool.png", "wool", "wool_red.png"},
+		{"block", "purple_wool.png", "wool", "wool_violet.png"},
+		{"block", "white_wool.png", "wool", "wool_white.png"},
+		{"block", "yellow_wool.png", "wool", "wool_yellow.png"},
 		// mclx_core
 		// mclx_fences
 		// mclx_stairs
 		// REDSTONE
 		// screwdriver
-		//{"", f[""] + ""},
+		//{"block", ".png", "", ".png"},
 	}
 
 	for _, e := range blocksAndItems {
