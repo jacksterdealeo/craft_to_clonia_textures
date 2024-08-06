@@ -81,6 +81,7 @@ release = 01`, inName, outName)
 		"smithing_table": "/ITEMS/mcl_smithing_table/textures/",
 		"smoker":         "/ITEMS/mcl_smoker/textures/",
 		"sus_stew":       "/ITEMS/mcl_sus_stew/textures/",
+		"tnt":            "/ITEMS/mcl_tnt/textures/",
 		"wool":           "/ITEMS/mcl_wool/textures/",
 	}
 	for _, v := range cloniaPaths {
@@ -543,6 +544,9 @@ release = 01`, inName, outName)
 		{"item", "suspicious_stew.png", "sus_stew", "sus_stew.png"},
 		// mcl_throwing
 		// mcl_tnt
+		{"block", "tnt_bottom.png", "tnt", "default_tnt_bottom.png"},
+		{"block", "tnt_side.png", "tnt", "default_tnt_side.png"},
+		{"block", "tnt_top.png", "tnt", "default_tnt_top.png"},
 		// mcl_tools
 		// mcl_torches
 		// mcl_totems
