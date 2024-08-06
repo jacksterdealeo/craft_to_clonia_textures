@@ -46,7 +46,7 @@ release = 01`, inName, outName)
 		log.Panic(err)
 	}
 
-	// pack icon
+	//// pack icon
 	//copyTexture(inName+"/pack.png", outName+"/screenshot.png")
 	if src, err := imaging.Open(inName + "/pack.png"); err != nil {
 		fmt.Println("Pack icon error~")
@@ -79,6 +79,8 @@ release = 01`, inName, outName)
 		"blast_furnace":  "/ITEMS/mcl_blast_furnace/textures/",
 		"copper":         "/ITEMS/mcl_copper/textures/",
 		"core":           "/ITEMS/mcl_core/textures/",
+		"crafting_table": "/ITEMS/mcl_crafting_table/textures/",
+		"crimson":        "/ITEMS/mcl_crimson/textures/",
 		"deepslate":      "/ITEMS/mcl_deepslate/textures/",
 		"furnaces":       "/ITEMS/mcl_furnaces/textures/",
 		"mud":            "/ITEMS/mcl_mud/textures/",
@@ -102,7 +104,7 @@ release = 01`, inName, outName)
 
 	//srcLocation := inName + "/assets/minecraft/textures/"
 	blocksAndItems := [...][4]string{
-		// mcl_amethyst
+		//// mcl_amethyst
 		{"block", "amethyst_block.png", "amethyst", "mcl_amethyst_amethyst_block.png"},
 		{"block", "large_amethyst_bud.png", "amethyst", "mcl_amethyst_amethyst_bud_large.png"},
 		{"block", "medium_amethyst_bud.png", "amethyst", "mcl_amethyst_amethyst_bud_medium.png"},
@@ -112,16 +114,16 @@ release = 01`, inName, outName)
 		{"block", "budding_amethyst.png", "amethyst", "mcl_amethyst_budding_amethyst.png"},
 		{"block", "calcite.png", "amethyst", "mcl_amethyst_calcite_block.png"},
 		{"block", "tinted_glass.png", "amethyst", "mcl_amethyst_tinted_glass.png"},
-		// mcl_anvils
+		//// mcl_anvils
 		{"block", "anvil.png", "anvils", "mcl_anvils_anvil_base.png"},
 		{"block", "anvil.png", "anvils", "mcl_anvils_anvil_side.png"},
 		//"mcl_anvils_anvil_top_damaged_0.png" handled elsewhere
 		//"mcl_anvils_anvil_top_damaged_1.png" handled elsewhere
 		//"mcl_anvils_anvil_top_damaged_2.png" handled elsewhere
-		// mcl_armor
-		// mcl_armor_stand
+		//// mcl_armor
+		//// mcl_armor_stand
 		{"item", "armor_stand.png", "armor_stand", "armor_stand.png"},
-		// mcl_bamboo
+		//// mcl_bamboo
 		//{"block", ".png", "bamboo", "mcl_bamboo_bamboo.png"},
 		{"block", "bamboo_block.png", "bamboo", "mcl_bamboo_bamboo_block.png"},
 		{"block", "stripped_bamboo_block.png", "bamboo", "mcl_bamboo_bamboo_block_stripped.png"},
@@ -147,15 +149,15 @@ release = 01`, inName, outName)
 		{"block", "scaffolding_side.png", "bamboo", "mcl_bamboo_scaffolding_side.png"},     //broken?
 		{"block", "scaffolding_top.png", "bamboo", "mcl_bamboo_scaffolding_top.png"},
 		{"block", "bamboo_trapdoor.png", "bamboo", "mcl_bamboo_trapdoor_side.png"},
-		// mcl_banners
-		// mcl_barrels
+		//// mcl_banners
+		//// mcl_barrels
 		{"block", "barrel_bottom.png", "barrels", "mcl_barrels_barrel_bottom.png"},
 		{"block", "barrel_side.png", "barrels", "mcl_barrels_barrel_side.png"},
 		{"block", "barrel_top.png", "barrels", "mcl_barrels_barrel_top.png"},
 		{"block", "barrel_top_open.png", "barrels", "mcl_barrels_barrel_top_open.png"},
-		// mcl_beacons
-		//// special attention
-		// mcl_beds
+		//// mcl_beacons
+		////// special attention
+		//// mcl_beds
 		{"bed", "black.png", "beds", "mcl_beds_bed_black.png"},
 		//"mcl_beds_bed_black_inv.png"  no match
 		{"bed", "blue.png", "beds", "mcl_beds_bed_blue.png"},
@@ -196,33 +198,33 @@ release = 01`, inName, outName)
 		{"block", "respawn_anchor_side4.png", "beds", "respawn_anchor_side4.png"},
 		{"block", "respawn_anchor_top_off.png", "beds", "respawn_anchor_top_off.png"},
 		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},
-		// mcl_beehives
-		// mcl_bells
-		// mcl_blackstone
-		// mcl_blast_furnace
+		//// mcl_beehives
+		//// mcl_bells
+		//// mcl_blackstone
+		//// mcl_blast_furnace
 		{"block", "blast_furnace_front.png", "blast_furnace", "blast_furnace_front.png"},
 		{"block", "blast_furnace_front_on.png", "blast_furnace", "blast_furnace_front_on.png"},
 		{"block", "blast_furnace_side.png", "blast_furnace", "blast_furnace_side.png"},
 		{"block", "blast_furnace_top.png", "blast_furnace", "blast_furnace_top.png"},
-		// mcl_bone_meal
-		// mcl_books
-		// mcl_bows
-		// mcl_brewing
-		// mcl_buckets
-		// mcl_cake
-		// mcl_campfires
-		// mcl_cartography_table
-		// mcl_cauldrons
-		// mcl_cherry_blossom
-		// mcl_chests
-		// mcl_clock
-		// mcl_cocoas
-		// mcl_colorblocks
-		// mcl_compass
-		// mcl_composters
-		// mcl_conduits
-		// mcl_copper
-		//{"block", "", "copper", "mcl_copper_anti_oxidation_particle.png"}, //no match?
+		//// mcl_bone_meal
+		//// mcl_books
+		//// mcl_bows
+		//// mcl_brewing
+		//// mcl_buckets
+		//// mcl_cake
+		//// mcl_campfires
+		//// mcl_cartography_table
+		//// mcl_cauldrons
+		//// mcl_cherry_blossom
+		//// mcl_chests
+		//// mcl_clock
+		//// mcl_cocoas
+		//// mcl_colorblocks
+		//// mcl_compass
+		//// mcl_composters
+		//// mcl_conduits
+		//// mcl_copper
+		//"mcl_copper_anti_oxidation_particle.png" //no match?
 		{"block", "copper_block.png", "copper", "mcl_copper_block.png"},
 		{"block", "copper_bulb.png", "copper", "mcl_copper_block_bulb_off.png"},
 		{"block", "copper_bulb_lit.png", "copper", "mcl_copper_block_bulb_on.png"},
@@ -307,7 +309,7 @@ release = 01`, inName, outName)
 		{"block", "weathered_chiseled_copper.png", "copper", "mcl_copper_weathered_chiseled.png"},
 		{"block", "weathered_cut_copper.png", "copper", "mcl_copper_weathered_cut.png"},
 		{"block", "weathered_copper_grate.png", "copper", "mcl_copper_weathered_grate.png"},
-		// mcl_core
+		//// mcl_core
 		{"block", "acacia_leaves.png", "core", "default_acacia_leaves.png"},
 		{"block", "acacia_sapling.png", "core", "default_acacia_sapling.png"},
 		{"block", "acacia_log.png", "core", "default_acacia_tree.png"},
@@ -327,7 +329,7 @@ release = 01`, inName, outName)
 		{"block", "dead_bush.png", "core", "default_dry_shrub.png"},
 		{"item", "flint.png", "core", "default_flint.png"},
 		{"block", "glass.png", "core", "default_glass.png"},
-		//{"block", "", "core", "default_glass_detail.png"},		//no match?
+		//"default_glass_detail.png"	//no match?
 		{"block", "gold_block.png", "core", "default_gold_block.png"},
 		{"item", "gold_ingot.png", "core", "default_gold_ingot.png"},
 		{"block", "gravel.png", "core", "default_gravel.png"},
@@ -371,9 +373,9 @@ release = 01`, inName, outName)
 		{"block", "coal_ore.png", "core", "mcl_core_coal_ore.png"},
 		{"block", "coarse_dirt.png", "core", "mcl_core_coarse_dirt.png"},
 		{"block", "crying_obsidian.png", "core", "mcl_core_crying_obsidian.png"}, //special attention? might be ok
-		//{"block", "", "core", "mcl_core_crying_obsidian_tear.png"},		//no match?
-		//{"block", "", "core", "mcl_core_crying_obsidian_tear2.png"},		//no match?
-		//{"block", "", "core", "mcl_core_crying_obsidian_tear3.png"},		//no match?
+		//"mcl_core_crying_obsidian_tear.png"		//no match?
+		//"mcl_core_crying_obsidian_tear2.png"		//no match?
+		//"mcl_core_crying_obsidian_tear3.png"		//no match?
 		{"block", "diamond_ore.png", "core", "mcl_core_diamond_ore.png"},
 		{"block", "diorite.png", "core", "mcl_core_diorite.png"},
 		{"block", "polished_diorite.png", "core", "mcl_core_diorite_smooth.png"},
@@ -388,7 +390,7 @@ release = 01`, inName, outName)
 		{"block", "frosted_ice_3.png", "core", "mcl_core_frosted_ice_3.png"},
 		//Glass TODO: All glass has normal and "detail" textures. Must create "detail".
 		{"block", "black_stained_glass.png", "core", "mcl_core_glass_black.png"},
-		//{"block", "black_stained_glass.png", "core", "mcl_core_glass_black_detail.png"},
+		{"block", "black_stained_glass.png", "core", "mcl_core_glass_black_detail.png"},
 		{"block", "blue_stained_glass.png", "core", "mcl_core_glass_blue.png"},
 		{"block", "blue_stained_glass.png", "core", "mcl_core_glass_blue_detail.png"},
 		{"block", "brown_stained_glass.png", "core", "mcl_core_glass_brown.png"},
@@ -501,21 +503,73 @@ release = 01`, inName, outName)
 		{"block", "stripped_spruce_log.png", "core", "mcl_core_stripped_spruce_side.png"},
 		{"block", "stripped_spruce_log_top.png", "core", "mcl_core_stripped_spruce_top.png"},
 		{"item", "sugar.png", "core", "mcl_core_sugar.png"},
-		{"block", "vine.png", "core", "mcl_core_vine.png"}, //special attention
-		//{"block", "", "core", "mcl_core_void.png"},         //no match
+		//{"block", "vine.png", "core", "mcl_core_vine.png"}, //special attention
+		//"mcl_core_void.png"     //no match
 		{"block", "cobweb.png", "core", "mcl_core_web.png"},
 		{"block", "grass_block_side_overlay.png", "core", "mcl_dirt_grass_shadow.png"}, //special attention?
 		{"particle", "lava.png", "core", "mcl_particles_lava.png"},
 		//{"block", "", "core", "mcl_stairs_andesite_smooth_slab.png"}, //special attention
 		//{"block", "", "core", "mcl_stairs_diorite_smooth_slab.png"},  //special attention
 		//{"block", "", "core", "mcl_stairs_granite_smooth_slab.png"},  //special attention
-
-		//{"block", "", "core", ""},
-		//{"item", "", "core", ""},
-
-		// mcl_crafting_table
-		// mcl_crimson
-		// mcl_deepslate
+		//// mcl_crafting_table
+		{"block", "crafting_table_front.png", "crafting_table", "crafting_workbench_front.png"},
+		{"block", "crafting_table_side.png", "crafting_table", "crafting_workbench_side.png"},
+		{"block", "crafting_table_top.png", "crafting_table", "crafting_workbench_top.png"},
+		//"gui_crafting_arrow.png"
+		//"mcl_crafting_table_inv_fill.png" //no match
+		//// mcl_crimson
+		{"block", "crimson_stem_top.png", "crimson", "crimson_hyphae.png"},
+		//{"block", "crimson_stem.png", "crimson", "crimson_hyphae_side.png"},  //special attention
+		{"block", "crimson_planks.png", "crimson", "crimson_hyphae_wood.png"},
+		{"block", "crimson_nylium.png", "crimson", "crimson_nylium.png"},
+		{"block", "crimson_nylium_side.png", "crimson", "crimson_nylium_side.png"},
+		{"block", "crimson_roots.png", "crimson", "crimson_roots.png"},
+		{"block", "stripped_crimson_stem.png", "crimson", "crimson_stem_stripped_side.png"},
+		{"block", "stripped_crimson_stem_top.png", "crimson", "crimson_stem_stripped_top.png"},
+		{"block", "crimson_fungus.png", "crimson", "farming_crimson_fungus.png"},
+		{"block", "warped_fungus.png", "crimson", "farming_warped_fungus.png"},
+		{"item", "crimson_door.png", "crimson", "mcl_crimson_crimson_door.png"},
+		{"block", "crimson_door_bottom.png", "crimson", "mcl_crimson_crimson_door_bottom.png"},
+		{"block", "crimson_door_top.png", "crimson", "mcl_crimson_crimson_door_top.png"},  //flip
+		{"block", "crimson_planks.png", "crimson", "mcl_crimson_crimson_fence.png"},  //flip
+		//{"block", ".png", "crimson", "mcl_crimson_crimson_fence_side.png"},
+		//{"block", ".png", "crimson", "mcl_crimson_crimson_fence_top.png"},
+		{"block", "crimson_trapdoor.png", "crimson", "mcl_crimson_crimson_trapdoor.png"},
+		//{"block", ".png", "crimson", "mcl_crimson_crimson_trapdoor_side.png"},
+		{"item", "warped_door.png", "crimson", "mcl_crimson_warped_door.png"},
+		{"block", "warped_door_bottom.png", "crimson", "mcl_crimson_warped_door_bottom.png"}, //flip
+		{"block", "warped_door_top.png", "crimson", "mcl_crimson_warped_door_top.png"},  //flip
+		{"block", "warped_planks.png", "crimson", "mcl_crimson_warped_fence.png"},
+		//{"block", ".png", "crimson", "mcl_crimson_warped_fence_side.png"},
+		//{"block", ".png", "crimson", "mcl_crimson_warped_fence_top.png"},
+		{"block", "warped_trapdoor.png", "crimson", "mcl_crimson_warped_trapdoor.png"},
+		//{"block", ".png", "crimson", "mcl_crimson_warped_trapdoor_side.png"},
+		{"block", "weeping_vines_plant.png", "crimson", "mcl_crimson_weeping_vines.png"},
+		//{"block", ".png", "crimson", "mcl_doors_door_crimson_side_lower.png"},
+		//{"block", ".png", "crimson", "mcl_doors_door_crimson_side_upper.png"},
+		//{"block", ".png", "crimson", "mcl_doors_door_warped_side_lower.png"},
+		//{"block", ".png", "crimson", "mcl_doors_door_warped_side_upper.png"},
+		{"block", "nether_sprouts.png", "crimson", "nether_sprouts.png"},
+		{"block", "nether_wart_block.png", "crimson", "nether_wart_block.png"},
+		{"block", "shroomlight.png", "crimson", "shroomlight.png"},
+		{"block", "stripped_crimson_stem.png", "crimson", "stripped_crimson_stem.png"},
+		{"block", "stripped_crimson_stem.png", "crimson", "stripped_crimson_stem_side.png"},
+		{"block", "stripped_crimson_stem_top.png", "crimson", "stripped_crimson_stem_top.png"},
+		{"block", "stripped_warped_stem.png", "crimson", "stripped_warped_stem.png"},
+		{"block", "stripped_warped_stem.png", "crimson", "stripped_warped_stem_side.png"},
+		{"block", "stripped_warped_stem_top.png", "crimson", "stripped_warped_stem_top.png"},
+		{"block", "twisting_vines.png", "crimson", "twisting_vines.png"},
+		{"block", "twisting_vines_plant.png", "crimson", "twisting_vines_plant.png"},
+		{"block", "warped_stem_top.png", "crimson", "warped_hyphae.png"},
+		//{"block", "warped_stem.png", "crimson", "warped_hyphae_side.png"},  //special attention
+		{"block", "warped_planks.png", "crimson", "warped_hyphae_wood.png"},
+		{"block", "warped_nylium.png", "crimson", "warped_nylium.png"},
+		{"block", "warped_nylium_side.png", "crimson", "warped_nylium_side.png"},
+		{"block", "warped_roots.png", "crimson", "warped_roots.png"},
+		//{"block", "stripped_warped_stem.png", "crimson", "warped_stem_stripped_side.png"},  //unused?
+		{"block", "stripped_warped_stem_top.png", "crimson", "warped_stem_stripped_top.png"},
+		{"block", "warped_wart_block.png", "crimson", "warped_wart_block.png"},
+		//// mcl_deepslate
 		{"block", "deepslate.png", "deepslate", "mcl_deepslate.png"},
 		{"block", "deepslate_bricks.png", "deepslate", "mcl_deepslate_bricks.png"},
 		{"block", "cracked_deepslate_bricks.png", "deepslate", "mcl_deepslate_bricks_cracked.png"},
@@ -543,45 +597,45 @@ release = 01`, inName, outName)
 		{"block", "chiseled_tuff_bricks_top.png", "deepslate", "mcl_deepslate_tuff_chiseled_bricks_top.png"},
 		{"block", "chiseled_tuff_top.png", "deepslate", "mcl_deepslate_tuff_chiseled_top.png"},
 		{"block", "polished_tuff.png", "deepslate", "mcl_deepslate_tuff_polished.png"},
-		// mcl_doors
-		// mcl_dyes
-		// mcl_enchanting
-		// mcl_end
-		// mcl_farming
-		// mcl_fences
-		// mcl_fire
-		// mcl_fireworks
-		// mcl_fishing
-		// mcl_fletching_table
-		// mcl_flowerpots
-		// mcl_flowers
-		// mcl_furnaces
+		//// mcl_doors
+		//// mcl_dyes
+		//// mcl_enchanting
+		//// mcl_end
+		//// mcl_farming
+		//// mcl_fences
+		//// mcl_fire
+		//// mcl_fireworks
+		//// mcl_fishing
+		//// mcl_fletching_table
+		//// mcl_flowerpots
+		//// mcl_flowers
+		//// mcl_furnaces
 		{"block", "furnace_top.png", "furnaces", "default_furnace_bottom.png"}, //Minecraft does not have this texture.
 		{"block", "furnace_front.png", "furnaces", "default_furnace_front.png"},
 		{"block", "furnace_front_on.png", "furnaces", "default_furnace_front_active.png"},
 		{"block", "furnace_side.png", "furnaces", "default_furnace_side.png"},
 		{"block", "furnace_top.png", "furnaces", "default_furnace_top.png"},
-		// mcl_grindstone
-		// mcl_heads
-		// mcl_honey
-		// mcl_hoppers
-		// mcl_itemframes
-		// mcl_jukebox
-		// mcl_lanterns
-		// mcl_lectern
-		// mcl_lightning_rods
-		// mcl_loom
-		// mcl_lush_caves
-		// mcl_mangrove
-		// mcl_maps
-		// mcl_mobitems
-		// mcl_mobspawners
-		// mcl_monster_eggs
-		// mcl_mud
+		//// mcl_grindstone
+		//// mcl_heads
+		//// mcl_honey
+		//// mcl_hoppers
+		//// mcl_itemframes
+		//// mcl_jukebox
+		//// mcl_lanterns
+		//// mcl_lectern
+		//// mcl_lightning_rods
+		//// mcl_loom
+		//// mcl_lush_caves
+		//// mcl_mangrove
+		//// mcl_maps
+		//// mcl_mobitems
+		//// mcl_mobspawners
+		//// mcl_monster_eggs
+		//// mcl_mud
 		{"block", "mud.png", "mud", "mcl_mud.png"},
 		{"block", "mud_bricks.png", "mud", "mcl_mud_bricks.png"},
 		{"block", "packed_mud.png", "mud", "mcl_mud_packed_mud.png"},
-		// mcl_mushrooms
+		//// mcl_mushrooms
 		{"block", "brown_mushroom.png", "mushrooms", "farming_mushroom_brown.png"},
 		{"block", "red_mushroom.png", "mushrooms", "farming_mushroom_red.png"},
 		{"item", "mushroom_stew.png", "mushrooms", "farming_mushroom_stew.png"},
@@ -589,49 +643,49 @@ release = 01`, inName, outName)
 		{"block", "brown_mushroom_block.png", "mushrooms", "mcl_mushrooms_mushroom_block_skin_brown.png"},
 		{"block", "red_mushroom_block.png", "mushrooms", "mcl_mushrooms_mushroom_block_skin_red.png"},
 		{"block", "mushroom_stem.png", "mushrooms", "mcl_mushrooms_mushroom_block_skin_stem.png"},
-		// mcl_nether
-		// mcl_ocean
-		// mcl_panes
-		// mcl_portals
-		// mcl_potions
-		// mcl_pottery_sherds
-		// mcl_raw_ores
+		//// mcl_nether
+		//// mcl_ocean
+		//// mcl_panes
+		//// mcl_portals
+		//// mcl_potions
+		//// mcl_pottery_sherds
+		//// mcl_raw_ores
 		{"item", "raw_gold.png", "raw_ores", "mcl_raw_ores_raw_gold.png"},
 		{"block", "raw_gold_block.png", "raw_ores", "mcl_raw_ores_raw_gold_block.png"},
 		{"item", "raw_iron.png", "raw_ores", "mcl_raw_ores_raw_iron.png"},
 		{"block", "raw_iron_block.png", "raw_ores", "mcl_raw_ores_raw_iron_block.png"},
-		// mcl_sculk
-		// mcl_shields
-		// mcl_signs
-		// mcl_smithing_table
+		//// mcl_sculk
+		//// mcl_shields
+		//// mcl_signs
+		//// mcl_smithing_table
 		{"block", "smithing_table_bottom.png", "smithing_table", "mcl_smithing_table_bottom.png"},
 		{"block", "smithing_table_front.png", "smithing_table", "mcl_smithing_table_front.png"},
 		{"item", "empty_slot_smithing_template_armor_trim.png", "smithing_table", "mcl_smithing_table_inventory_trim_bg.png"},
 		{"block", "smithing_table_side.png", "smithing_table", "mcl_smithing_table_side.png"},
 		{"block", "smithing_table_top.png", "smithing_table", "mcl_smithing_table_top.png"},
-		// mcl_smoker
+		//// mcl_smoker
 		{"block", "smoker_bottom.png", "smoker", "smoker_bottom.png"},
 		{"block", "smoker_front.png", "smoker", "smoker_front.png"},
 		{"block", "smoker_front_on.png", "smoker", "smoker_front_on.png"},
 		{"block", "smoker_side.png", "smoker", "smoker_side.png"},
 		{"block", "smoker_top.png", "smoker", "smoker_top.png"},
-		// mcl_sponges
-		// mcl_spyglass
-		// mcl_stairs
-		// mcl_stonecutter
+		//// mcl_sponges
+		//// mcl_spyglass
+		//// mcl_stairs
+		//// mcl_stonecutter
 		{"block", "stonecutter_bottom.png", "stonecutter", "mcl_stonecutter_bottom.png"},
 		//{"block", "stonecutter_saw.png", "stonecutter", "mcl_stonecutter_saw.png"},  //special attention
 		{"block", "stonecutter_side.png", "stonecutter", "mcl_stonecutter_side.png"},
 		{"block", "stonecutter_top.png", "stonecutter", "mcl_stonecutter_top.png"},
-		// mcl_sus_nodes
-		// mcl_sus_stew
+		//// mcl_sus_nodes
+		//// mcl_sus_stew
 		{"item", "suspicious_stew.png", "sus_stew", "sus_stew.png"},
-		// mcl_throwing
-		// mcl_tnt
+		//// mcl_throwing
+		//// mcl_tnt
 		{"block", "tnt_bottom.png", "tnt", "default_tnt_bottom.png"},
 		{"block", "tnt_side.png", "tnt", "default_tnt_side.png"},
 		{"block", "tnt_top.png", "tnt", "default_tnt_top.png"},
-		// mcl_tools
+		//// mcl_tools
 		{"item", "diamond_axe.png", "tools", "default_tool_diamondaxe.png"},
 		{"item", "diamond_pickaxe.png", "tools", "default_tool_diamondpick.png"},
 		{"item", "diamond_shovel.png", "tools", "default_tool_diamondshovel.png"},
@@ -661,13 +715,13 @@ release = 01`, inName, outName)
 		//{"block", ".png", "tools", "mcl_tools_heavy_core_side.png"},  //special attention
 		//{"block", ".png", "tools", "mcl_tools_heavy_core_top.png"},  //special attention
 		{"item", "mace.png", "tools", "mcl_tools_mace.png"},
-		// mcl_torches
+		//// mcl_torches
 		{"block", "torch.png", "torches", "default_torch_on_floor.png"},
 		{"block", "torch.png", "torches", "default_torch_on_floor_animated.png"},
-		// mcl_totems
-		// mcl_trees
-		// mcl_walls
-		// mcl_wool
+		//// mcl_totems
+		//// mcl_trees
+		//// mcl_walls
+		//// mcl_wool
 		{"block", "light_blue_wool.png", "wool", "mcl_wool_light_blue.png"},
 		{"block", "lime_wool.png", "wool", "mcl_wool_lime.png"},
 		{"block", "black_wool.png", "wool", "wool_black.png"},
@@ -684,11 +738,11 @@ release = 01`, inName, outName)
 		{"block", "purple_wool.png", "wool", "wool_violet.png"},
 		{"block", "white_wool.png", "wool", "wool_white.png"},
 		{"block", "yellow_wool.png", "wool", "wool_yellow.png"},
-		// mclx_core
-		// mclx_fences
-		// mclx_stairs
-		// REDSTONE
-		// screwdriver
+		//// mclx_core
+		//// mclx_fences
+		//// mclx_stairs
+		//// REDSTONE
+		//// screwdriver
 		//{"block", ".png", "", ".png"},
 	}
 
@@ -700,22 +754,22 @@ release = 01`, inName, outName)
 	anvil := func() {
 		abase, err := imaging.Open(inName + craftPaths["block"] + "anvil.png")
 		if err != nil {
-			fmt.Println("AnvilBase error~", "block, anvil.png")
+			fmt.Println("AnvilBase error ~", "block, anvil.png")
 			return
 		}
 		a0, err := imaging.Open(inName + craftPaths["block"] + "anvil_top.png")
 		if err != nil {
-			fmt.Println("Anvil0 error~")
+			fmt.Println("Anvil0 error ~")
 			return
 		}
 		a1, err := imaging.Open(inName + craftPaths["block"] + "chipped_anvil_top.png")
 		if err != nil {
-			fmt.Println("Anvil1 error~")
+			fmt.Println("Anvil1 error ~")
 			return
 		}
 		a2, err := imaging.Open(inName + craftPaths["block"] + "damaged_anvil_top.png")
 		if err != nil {
-			fmt.Println("Anvil2 error~")
+			fmt.Println("Anvil2 error ~")
 			return
 		}
 		anvilX := abase.Bounds().Dx()
@@ -750,7 +804,7 @@ release = 01`, inName, outName)
 		*/
 		wStill, err := imaging.Open(inName + craftPaths["block"] + "water_still.png")
 		if err != nil {
-			fmt.Println("water_still.png error~", craftPaths["block"]+"water.png")
+			fmt.Println("water_still.png error ~", craftPaths["block"]+"water.png")
 		} else {
 			wStillX := wStill.Bounds().Dx()
 			wStillY := wStill.Bounds().Dy()
@@ -815,13 +869,13 @@ release = 01`, inName, outName)
 func copyTexture(src string, dest string) {
 	source, err := os.Open(src)
 	if err != nil {
-		fmt.Printf(err.Error() + " //// Copy for texture skipped.\n")
+		fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")
 		return
 	}
 	defer source.Close()
 	destination, err := os.Create(dest)
 	if err != nil {
-		fmt.Printf(err.Error() + " //// Copy for texture skipped.\n")
+		fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")
 		return
 	}
 	defer destination.Close()
