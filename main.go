@@ -83,6 +83,7 @@ release = 01`, inName, outName)
 		"sus_stew":       "/ITEMS/mcl_sus_stew/textures/",
 		"tnt":            "/ITEMS/mcl_tnt/textures/",
 		"tools":          "/ITEMS/mcl_tools/textures/",
+		"torches":        "/ITEMS/mcl_torches/textures/",
 		"wool":           "/ITEMS/mcl_wool/textures/",
 	}
 	for _, v := range cloniaPaths {
@@ -579,6 +580,8 @@ release = 01`, inName, outName)
 		//{"block", ".png", "tools", "mcl_tools_heavy_core_top.png"},  //special attention
 		{"item", "mace.png", "tools", "mcl_tools_mace.png"},
 		// mcl_torches
+		{"block", "torch.png", "torches", "default_torch_on_floor.png"},
+		{"block", "torch.png", "torches", "default_torch_on_floor_animated.png"},
 		// mcl_totems
 		// mcl_trees
 		// mcl_walls
