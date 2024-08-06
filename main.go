@@ -63,6 +63,7 @@ release = 01`, inName, outName)
 
 	craftPaths := map[string]string{
 		"armor":    "/assets/minecraft/textures/models/armor/",
+		"bed":      "/assets/minecraft/textures/entity/bed/",
 		"block":    "/assets/minecraft/textures/block/",
 		"item":     "/assets/minecraft/textures/item/",
 		"particle": "/assets/minecraft/textures/particle/",
@@ -73,6 +74,8 @@ release = 01`, inName, outName)
 		"anvils":         "/ITEMS/mcl_anvils/textures/",
 		"armor_stand":    "/ITEMS/mcl_armor_stand/textures/",
 		"bamboo":         "/ITEMS/mcl_bamboo/textures/",
+		"barrels":        "/ITEMS/mcl_barrels/textures/",
+		"beds":           "/ITEMS/mcl_beds/textures/",
 		"blast_furnace":  "/ITEMS/mcl_blast_furnace/textures/",
 		"copper":         "/ITEMS/mcl_copper/textures/",
 		"core":           "/ITEMS/mcl_core/textures/",
@@ -110,12 +113,11 @@ release = 01`, inName, outName)
 		{"block", "calcite.png", "amethyst", "mcl_amethyst_calcite_block.png"},
 		{"block", "tinted_glass.png", "amethyst", "mcl_amethyst_tinted_glass.png"},
 		// mcl_anvils
-		// FIX: anvil damaged texture is not wide enough for all the model.
 		{"block", "anvil.png", "anvils", "mcl_anvils_anvil_base.png"},
 		{"block", "anvil.png", "anvils", "mcl_anvils_anvil_side.png"},
-		//{"block", "anvil_top.png", "anvils", "mcl_anvils_anvil_top_damaged_0.png"},
-		//{"block", "chipped_anvil_top.png", "anvils", "mcl_anvils_anvil_top_damaged_1.png"},
-		//{"block", "damaged_anvil_top.png", "anvils", "mcl_anvils_anvil_top_damaged_2.png"},
+		//"mcl_anvils_anvil_top_damaged_0.png" handled elsewhere
+		//"mcl_anvils_anvil_top_damaged_1.png" handled elsewhere
+		//"mcl_anvils_anvil_top_damaged_2.png" handled elsewhere
 		// mcl_armor
 		// mcl_armor_stand
 		{"item", "armor_stand.png", "armor_stand", "armor_stand.png"},
@@ -147,8 +149,53 @@ release = 01`, inName, outName)
 		{"block", "bamboo_trapdoor.png", "bamboo", "mcl_bamboo_trapdoor_side.png"},
 		// mcl_banners
 		// mcl_barrels
+		{"block", "barrel_bottom.png", "barrels", "mcl_barrels_barrel_bottom.png"},
+		{"block", "barrel_side.png", "barrels", "mcl_barrels_barrel_side.png"},
+		{"block", "barrel_top.png", "barrels", "mcl_barrels_barrel_top.png"},
+		{"block", "barrel_top_open.png", "barrels", "mcl_barrels_barrel_top_open.png"},
 		// mcl_beacons
+		//// special attention
 		// mcl_beds
+		{"bed", "black.png", "beds", "mcl_beds_bed_black.png"},
+		//"mcl_beds_bed_black_inv.png"  no match
+		{"bed", "blue.png", "beds", "mcl_beds_bed_blue.png"},
+		//"mcl_beds_bed_blue_inv.png"  no match
+		{"bed", "brown.png", "beds", "mcl_beds_bed_brown.png"},
+		//"mcl_beds_bed_brown_inv.png"  no match
+		{"bed", "cyan.png", "beds", "mcl_beds_bed_cyan.png"},
+		//"mcl_beds_bed_cyan_inv.png"  no match
+		{"bed", "green.png", "beds", "mcl_beds_bed_green.png"},
+		//"mcl_beds_bed_green_inv.png"  no match
+		{"bed", "gray.png", "beds", "mcl_beds_bed_grey.png"},
+		//"mcl_beds_bed_grey_inv.png"  no match
+		{"bed", "light_blue.png", "beds", "mcl_beds_bed_light_blue.png"},
+		//"mcl_beds_bed_light_blue_inv.png"  no match
+		{"bed", "lime.png", "beds", "mcl_beds_bed_lime.png"},
+		//"mcl_beds_bed_lime_inv.png"  no match
+		{"bed", "magenta.png", "beds", "mcl_beds_bed_magenta.png"},
+		//"mcl_beds_bed_magenta_inv.png"  no match
+		{"bed", "orange.png", "beds", "mcl_beds_bed_orange.png"},
+		//"mcl_beds_bed_orange_inv.png"  no match
+		{"bed", "pink.png", "beds", "mcl_beds_bed_pink.png"},
+		//"mcl_beds_bed_pink_inv.png"  no match
+		{"bed", "purple.png", "beds", "mcl_beds_bed_purple.png"},
+		//"mcl_beds_bed_purple_inv.png"  no match
+		{"bed", "red.png", "beds", "mcl_beds_bed_red.png"},
+		//"mcl_beds_bed_red_inv.png"  no match
+		{"bed", "light_gray.png", "beds", "mcl_beds_bed_silver.png"},
+		//"mcl_beds_bed_silver_inv.png"  no match
+		{"bed", "white.png", "beds", "mcl_beds_bed_white.png"},
+		//"mcl_beds_bed_white_inv.png"  no match
+		{"bed", "yellow.png", "beds", "mcl_beds_bed_yellow.png"},
+		//"mcl_beds_bed_yellow_inv.png"  no match
+		{"block", "respawn_anchor_bottom.png", "beds", "respawn_anchor_bottom.png"},
+		{"block", "respawn_anchor_side0.png", "beds", "respawn_anchor_side0.png"},
+		{"block", "respawn_anchor_side1.png", "beds", "respawn_anchor_side1.png"},
+		{"block", "respawn_anchor_side2.png", "beds", "respawn_anchor_side2.png"},
+		{"block", "respawn_anchor_side3.png", "beds", "respawn_anchor_side3.png"},
+		{"block", "respawn_anchor_side4.png", "beds", "respawn_anchor_side4.png"},
+		{"block", "respawn_anchor_top_off.png", "beds", "respawn_anchor_top_off.png"},
+		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},
 		// mcl_beehives
 		// mcl_bells
 		// mcl_blackstone
