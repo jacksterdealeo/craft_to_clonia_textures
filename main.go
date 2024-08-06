@@ -73,6 +73,7 @@ release = 01`, inName, outName)
 		"blast_furnace":  "/ITEMS/mcl_blast_furnace/textures/",
 		"copper":         "/ITEMS/mcl_copper/textures/",
 		"core":           "/ITEMS/mcl_core/textures/",
+		"deepslate":      "/ITEMS/mcl_deepslate/textures/",
 		"furnaces":       "/ITEMS/mcl_furnaces/textures/",
 		"mud":            "/ITEMS/mcl_mud/textures/",
 		"mushrooms":      "/ITEMS/mcl_mushrooms/textures/",
@@ -433,6 +434,33 @@ release = 01`, inName, outName)
 		// mcl_crafting_table
 		// mcl_crimson
 		// mcl_deepslate
+		{"block", "deepslate.png", "deepslate", "mcl_deepslate.png"},
+		{"block", "deepslate_bricks.png", "deepslate", "mcl_deepslate_bricks.png"},
+		{"block", "cracked_deepslate_bricks.png", "deepslate", "mcl_deepslate_bricks_cracked.png"},
+		{"block", "chiseled_deepslate.png", "deepslate", "mcl_deepslate_chiseled.png"},
+		{"block", "deepslate_coal_ore.png", "deepslate", "mcl_deepslate_coal_ore.png"},
+		{"block", "cobbled_deepslate.png", "deepslate", "mcl_deepslate_cobbled.png"},
+		{"block", "deepslate_copper_ore.png", "deepslate", "mcl_deepslate_copper_ore.png"},
+		{"block", "deepslate_diamond_ore.png", "deepslate", "mcl_deepslate_diamond_ore.png"},
+		{"block", "deepslate_emerald_ore.png", "deepslate", "mcl_deepslate_emerald_ore.png"},
+		{"block", "deepslate_gold_ore.png", "deepslate", "mcl_deepslate_gold_ore.png"},
+		{"block", "deepslate_iron_ore.png", "deepslate", "mcl_deepslate_iron_ore.png"},
+		{"block", "deepslate_lapis_ore.png", "deepslate", "mcl_deepslate_lapis_ore.png"},
+		{"block", "polished_deepslate.png", "deepslate", "mcl_deepslate_polished.png"},
+		{"block", "deepslate_redstone_ore.png", "deepslate", "mcl_deepslate_redstone_ore.png"},
+		{"block", "reinforced_deepslate_side.png", "deepslate", "mcl_deepslate_reinforced.png"},
+		{"block", "reinforced_deepslate_bottom.png", "deepslate", "mcl_deepslate_reinforced_bottom.png"},
+		{"block", "reinforced_deepslate_top.png", "deepslate", "mcl_deepslate_reinforced_top.png"},
+		{"block", "deepslate_tiles.png", "deepslate", "mcl_deepslate_tiles.png"},
+		{"block", "cracked_deepslate_tiles.png", "deepslate", "mcl_deepslate_tiles_cracked.png"},
+		{"block", "deepslate_top.png", "deepslate", "mcl_deepslate_top.png"},
+		{"block", "tuff.png", "deepslate", "mcl_deepslate_tuff.png"},
+		{"block", "tuff_bricks.png", "deepslate", "mcl_deepslate_tuff_bricks.png"},
+		{"block", "chiseled_tuff.png", "deepslate", "mcl_deepslate_tuff_chiseled.png"},
+		{"block", "chiseled_tuff_bricks.png", "deepslate", "mcl_deepslate_tuff_chiseled_bricks.png"},
+		{"block", "chiseled_tuff_bricks_top.png", "deepslate", "mcl_deepslate_tuff_chiseled_bricks_top.png"},
+		{"block", "chiseled_tuff_top.png", "deepslate", "mcl_deepslate_tuff_chiseled_top.png"},
+		{"block", "polished_tuff.png", "deepslate", "mcl_deepslate_tuff_polished.png"},
 		// mcl_doors
 		// mcl_dyes
 		// mcl_enchanting
