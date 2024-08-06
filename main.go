@@ -80,11 +80,13 @@ release = 01`, inName, outName)
 		"raw_ores":       "/ITEMS/mcl_raw_ores/textures/",
 		"smithing_table": "/ITEMS/mcl_smithing_table/textures/",
 		"smoker":         "/ITEMS/mcl_smoker/textures/",
+		"stonecutter":    "/ITEMS/mcl_stonecutter/textures/",
 		"sus_stew":       "/ITEMS/mcl_sus_stew/textures/",
 		"tnt":            "/ITEMS/mcl_tnt/textures/",
 		"tools":          "/ITEMS/mcl_tools/textures/",
 		"torches":        "/ITEMS/mcl_torches/textures/",
 		"wool":           "/ITEMS/mcl_wool/textures/",
+		//"": "/ITEMS//textures/",
 	}
 	for _, v := range cloniaPaths {
 		if err := os.MkdirAll(outName+v, 0755); err != nil {
@@ -541,6 +543,10 @@ release = 01`, inName, outName)
 		// mcl_spyglass
 		// mcl_stairs
 		// mcl_stonecutter
+		{"block", "stonecutter_bottom.png", "stonecutter", "mcl_stonecutter_bottom.png"},
+		//{"block", "stonecutter_saw.png", "stonecutter", "mcl_stonecutter_saw.png"},  //special attention
+		{"block", "stonecutter_side.png", "stonecutter", "mcl_stonecutter_side.png"},
+		{"block", "stonecutter_top.png", "stonecutter", "mcl_stonecutter_top.png"},
 		// mcl_sus_nodes
 		// mcl_sus_stew
 		{"item", "suspicious_stew.png", "sus_stew", "sus_stew.png"},
