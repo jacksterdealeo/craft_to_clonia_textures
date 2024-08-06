@@ -82,6 +82,7 @@ release = 01`, inName, outName)
 		"smoker":         "/ITEMS/mcl_smoker/textures/",
 		"sus_stew":       "/ITEMS/mcl_sus_stew/textures/",
 		"tnt":            "/ITEMS/mcl_tnt/textures/",
+		"tools":          "/ITEMS/mcl_tools/textures/",
 		"wool":           "/ITEMS/mcl_wool/textures/",
 	}
 	for _, v := range cloniaPaths {
@@ -548,6 +549,35 @@ release = 01`, inName, outName)
 		{"block", "tnt_side.png", "tnt", "default_tnt_side.png"},
 		{"block", "tnt_top.png", "tnt", "default_tnt_top.png"},
 		// mcl_tools
+		{"item", "diamond_axe.png", "tools", "default_tool_diamondaxe.png"},
+		{"item", "diamond_pickaxe.png", "tools", "default_tool_diamondpick.png"},
+		{"item", "diamond_shovel.png", "tools", "default_tool_diamondshovel.png"},
+		{"item", "diamond_sword.png", "tools", "default_tool_diamondsword.png"},
+		{"item", "golden_axe.png", "tools", "default_tool_goldaxe.png"},
+		{"item", "golden_pickaxe.png", "tools", "default_tool_goldpick.png"},
+		{"item", "golden_shovel.png", "tools", "default_tool_goldshovel.png"},
+		{"item", "golden_sword.png", "tools", "default_tool_goldsword.png"},
+		{"item", "netherite_axe.png", "tools", "default_tool_netheriteaxe.png"},
+		{"item", "netherite_pickaxe.png", "tools", "default_tool_netheritepick.png"},
+		{"item", "netherite_shovel.png", "tools", "default_tool_netheriteshovel.png"},
+		{"item", "netherite_sword.png", "tools", "default_tool_netheritesword.png"},
+		{"item", "shears.png", "tools", "default_tool_shears.png"},
+		{"item", "iron_axe.png", "tools", "default_tool_steelaxe.png"},
+		{"item", "iron_pickaxe.png", "tools", "default_tool_steelpick.png"},
+		{"item", "iron_shovel.png", "tools", "default_tool_steelshovel.png"},
+		{"item", "iron_sword.png", "tools", "default_tool_steelsword.png"},
+		{"item", "stone_axe.png", "tools", "default_tool_stoneaxe.png"},
+		{"item", "stone_pickaxe.png", "tools", "default_tool_stonepick.png"},
+		{"item", "stone_shovel.png", "tools", "default_tool_stoneshovel.png"},
+		{"item", "stone_sword.png", "tools", "default_tool_stonesword.png"},
+		{"item", "wooden_axe.png", "tools", "default_tool_woodaxe.png"},
+		{"item", "wooden_pickaxe.png", "tools", "default_tool_woodpick.png"},
+		{"item", "wooden_shovel.png", "tools", "default_tool_woodshovel.png"},
+		{"item", "wooden_sword.png", "tools", "default_tool_woodsword.png"},
+		//{"block", ".png", "tools", "mcl_tools_heavy_core_bottom.png"},  //special attention
+		//{"block", ".png", "tools", "mcl_tools_heavy_core_side.png"},  //special attention
+		//{"block", ".png", "tools", "mcl_tools_heavy_core_top.png"},  //special attention
+		{"item", "mace.png", "tools", "mcl_tools_mace.png"},
 		// mcl_torches
 		// mcl_totems
 		// mcl_trees
