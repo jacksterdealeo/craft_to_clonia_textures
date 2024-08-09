@@ -79,6 +79,7 @@ release = 01`, inName, outName)
 	anvil_fix(inName+craftPaths["block"], outName+cloniaPaths["anvils"])
 	water_fix(inName+craftPaths["block"], outName+cloniaPaths["core"])
 	lava_fix(inName+craftPaths["block"], outName+cloniaPaths["core"])
+	flip_fixes(inName, outName)
 }
 
 func copyTexture(src string, dest string) {

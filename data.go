@@ -22,6 +22,7 @@ func CloniaPaths() map[string]string {
 		"barrels":        "/ITEMS/mcl_barrels/textures/",
 		"beds":           "/ITEMS/mcl_beds/textures/",
 		"blast_furnace":  "/ITEMS/mcl_blast_furnace/textures/",
+		"cherry_blossom": "/ITEMS/mcl_cherry_blossom/textures/",
 		"copper":         "/ITEMS/mcl_copper/textures/",
 		"core":           "/ITEMS/mcl_core/textures/",
 		"crafting_table": "/ITEMS/mcl_crafting_table/textures/",
@@ -77,9 +78,9 @@ func EquivalentFiles() [][4]string {
 		{"item", "bamboo.png", "bamboo", "mcl_bamboo_bamboo_shoot.png"},
 		//{"block", ".png", "bamboo", "mcl_bamboo_bamboo_sign.png"},    //special attention
 		{"item", "bamboo_sign.png", "bamboo", "mcl_bamboo_bamboo_sign_wield.png"},
-		{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom.png"}, //reverse this texture
+		//{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom.png"},
 		//{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom_alt.png"},    //test
-		{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top.png"}, //reverse this texture
+		//{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top.png"},
 		//{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top_alt.png"},    //test
 		{"item", "bamboo_door.png", "bamboo", "mcl_bamboo_door_wield.png"},
 		//{"block", ".png", "bamboo", "mcl_bamboo_endcap.png"}, //what is this?
@@ -158,6 +159,28 @@ func EquivalentFiles() [][4]string {
 		//// mcl_cartography_table
 		//// mcl_cauldrons
 		//// mcl_cherry_blossom
+		//{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom.png"}, //flipped
+		{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom_bottompart.png"},
+		{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom_side.png"},
+		{"item", "cherry_door.png", "cherry_blossom", "mcl_cherry_blossom_door_inv.png"},
+		//{"block", "cherry_door_top.png", "cherry_blossom", "mcl_cherry_blossom_door_top.png"}, //flipped
+		{"block", "cherry_door_top.png", "cherry_blossom", "mcl_cherry_blossom_door_top_side.png"},
+		{"block", "cherry_door_top.png", "cherry_blossom", "mcl_cherry_blossom_door_top_toppart.png"},
+		{"block", "cherry_leaves.png", "cherry_blossom", "mcl_cherry_blossom_leaves.png"},
+		{"block", "cherry_log.png", "cherry_blossom", "mcl_cherry_blossom_log.png"},
+		{"block", "stripped_cherry_log.png", "cherry_blossom", "mcl_cherry_blossom_log_stripped.png"},
+		{"block", "cherry_log_top.png", "cherry_blossom", "mcl_cherry_blossom_log_top.png"},
+		{"block", "stripped_cherry_log_top.png", "cherry_blossom", "mcl_cherry_blossom_log_top_stripped.png"},
+		//{"block", ".png", "cherry_blossom", "mcl_cherry_blossom_particle.png"},
+		//{"block", ".png", "cherry_blossom", "mcl_cherry_blossom_particle_1.png"},
+		//{"block", ".png", "cherry_blossom", "mcl_cherry_blossom_particle_2.png"},
+		//{"block", ".png", "cherry_blossom", "mcl_cherry_blossom_particle_3.png"},
+		{"block", "pink_petals.png", "cherry_blossom", "mcl_cherry_blossom_pink_petals.png"},
+		{"block", "pink_petals.png", "cherry_blossom", "mcl_cherry_blossom_pink_petals_inv.png"},
+		{"block", "cherry_planks.png", "cherry_blossom", "mcl_cherry_blossom_planks.png"},
+		{"block", "cherry_sapling.png", "cherry_blossom", "mcl_cherry_blossom_sapling.png"},
+		{"block", "cherry_trapdoor.png", "cherry_blossom", "mcl_cherry_blossom_trapdoor.png"},
+		{"block", "cherry_trapdoor.png", "cherry_blossom", "mcl_cherry_blossom_trapdoor_side.png"},
 		//// mcl_chests
 		//// mcl_clock
 		//// mcl_cocoas
@@ -294,6 +317,7 @@ func EquivalentFiles() [][4]string {
 		{"block", "iron_block.png", "core", "default_steel_block.png"},
 		{"item", "iron_ingot.png", "core", "default_steel_ingot.png"},
 		{"item", "stick.png", "core", "default_stick.png"},
+		{"block", "stone.png", "core", "default_stone.png"},
 		{"block", "stone_bricks.png", "core", "default_stone_brick.png"},
 		{"block", "oak_log.png", "core", "default_tree.png"},
 		{"block", "oak_log_top.png", "core", "default_tree_top.png"},
@@ -471,26 +495,26 @@ func EquivalentFiles() [][4]string {
 		{"block", "crimson_fungus.png", "crimson", "farming_crimson_fungus.png"},
 		{"block", "warped_fungus.png", "crimson", "farming_warped_fungus.png"},
 		{"item", "crimson_door.png", "crimson", "mcl_crimson_crimson_door.png"},
-		{"block", "crimson_door_bottom.png", "crimson", "mcl_crimson_crimson_door_bottom.png"},
-		{"block", "crimson_door_top.png", "crimson", "mcl_crimson_crimson_door_top.png"}, //flip
-		{"block", "crimson_planks.png", "crimson", "mcl_crimson_crimson_fence.png"},      //flip
+		//{"block", "crimson_door_bottom.png", "crimson", "mcl_crimson_crimson_door_bottom.png"}, //flip
+		//{"block", "crimson_door_top.png", "crimson", "mcl_crimson_crimson_door_top.png"},       //flip
+		//{"block", "crimson_planks.png", "crimson", "mcl_crimson_crimson_fence.png"},
 		//{"block", ".png", "crimson", "mcl_crimson_crimson_fence_side.png"},
 		//{"block", ".png", "crimson", "mcl_crimson_crimson_fence_top.png"},
 		{"block", "crimson_trapdoor.png", "crimson", "mcl_crimson_crimson_trapdoor.png"},
-		//{"block", ".png", "crimson", "mcl_crimson_crimson_trapdoor_side.png"},
+		{"block", "crimson_trapdoor.png", "crimson", "mcl_crimson_crimson_trapdoor_side.png"},
 		{"item", "warped_door.png", "crimson", "mcl_crimson_warped_door.png"},
-		{"block", "warped_door_bottom.png", "crimson", "mcl_crimson_warped_door_bottom.png"}, //flip
-		{"block", "warped_door_top.png", "crimson", "mcl_crimson_warped_door_top.png"},       //flip
+		//{"block", "warped_door_bottom.png", "crimson", "mcl_crimson_warped_door_bottom.png"}, //flip
+		//{"block", "warped_door_top.png", "crimson", "mcl_crimson_warped_door_top.png"},       //flip
 		{"block", "warped_planks.png", "crimson", "mcl_crimson_warped_fence.png"},
 		//{"block", ".png", "crimson", "mcl_crimson_warped_fence_side.png"},
 		//{"block", ".png", "crimson", "mcl_crimson_warped_fence_top.png"},
 		{"block", "warped_trapdoor.png", "crimson", "mcl_crimson_warped_trapdoor.png"},
-		//{"block", ".png", "crimson", "mcl_crimson_warped_trapdoor_side.png"},
+		{"block", "warped_trapdoor.png", "crimson", "mcl_crimson_warped_trapdoor_side.png"},
 		{"block", "weeping_vines_plant.png", "crimson", "mcl_crimson_weeping_vines.png"},
-		//{"block", ".png", "crimson", "mcl_doors_door_crimson_side_lower.png"},
-		//{"block", ".png", "crimson", "mcl_doors_door_crimson_side_upper.png"},
-		//{"block", ".png", "crimson", "mcl_doors_door_warped_side_lower.png"},
-		//{"block", ".png", "crimson", "mcl_doors_door_warped_side_upper.png"},
+		{"block", "crimson_door_bottom.png", "crimson", "mcl_doors_door_crimson_side_lower.png"},
+		{"block", "crimson_door_top.png", "crimson", "mcl_doors_door_crimson_side_upper.png"},
+		{"block", "warped_door_bottom.png", "crimson", "mcl_doors_door_warped_side_lower.png"},
+		{"block", "warped_door_top.png", "crimson", "mcl_doors_door_warped_side_upper.png"},
 		{"block", "nether_sprouts.png", "crimson", "nether_sprouts.png"},
 		{"block", "nether_wart_block.png", "crimson", "nether_wart_block.png"},
 		{"block", "shroomlight.png", "crimson", "shroomlight.png"},
@@ -543,53 +567,52 @@ func EquivalentFiles() [][4]string {
 		{"item", "iron_door.png", "doors", "doors_item_steel.png"},
 		{"item", "oak_door.png", "doors", "doors_item_wood.png"},
 		{"block", "oak_trapdoor.png", "doors", "doors_trapdoor.png"},
-		//{"block", ".png", "doors", "doors_trapdoor_side.png"},
+		{"block", "oak_trapdoor.png", "doors", "doors_trapdoor_side.png"}, //
 		{"block", "iron_trapdoor.png", "doors", "doors_trapdoor_steel.png"},
-		//{"block", ".png", "doors", "doors_trapdoor_steel_side.png"},
+		{"block", "iron_trapdoor.png", "doors", "doors_trapdoor_steel_side.png"}, //
 		{"item", "acacia_door.png", "doors", "mcl_doors_door_acacia.png"},
-		{"block", "acacia_door_bottom.png", "doors", "mcl_doors_door_acacia_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_acacia_side_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_acacia_side_upper.png"},
-		{"block", "acacia_door_top.png", "doors", "mcl_doors_door_acacia_upper.png"},
+		//{"block", "acacia_door_bottom.png", "doors", "mcl_doors_door_acacia_lower.png"},
+		{"block", "acacia_door_bottom.png", "doors", "mcl_doors_door_acacia_side_lower.png"}, //
+		{"block", "acacia_door_top.png", "doors", "mcl_doors_door_acacia_side_upper.png"},    //
+		//{"block", "acacia_door_top.png", "doors", "mcl_doors_door_acacia_upper.png"},
 		{"item", "birch_door.png", "doors", "mcl_doors_door_birch.png"},
-		{"block", "birch_door_bottom.png", "doors", "mcl_doors_door_birch_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_birch_side_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_birch_side_upper.png"},
-		{"block", "birch_door_top.png", "doors", "mcl_doors_door_birch_upper.png"},
+		//{"block", "birch_door_bottom.png", "doors", "mcl_doors_door_birch_lower.png"},
+		{"block", "birch_door_bottom.png", "doors", "mcl_doors_door_birch_side_lower.png"}, //
+		{"block", "birch_door_top.png", "doors", "mcl_doors_door_birch_side_upper.png"},    //
+		//{"block", "birch_door_top.png", "doors", "mcl_doors_door_birch_upper.png"},
 		{"item", "dark_oak_door.png", "doors", "mcl_doors_door_dark_oak.png"},
-		{"block", "dark_oak_door_bottom.png", "doors", "mcl_doors_door_dark_oak_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_dark_oak_side_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_dark_oak_side_upper.png"},
-		{"block", "dark_oak_door_top.png", "doors", "mcl_doors_door_dark_oak_upper.png"},
+		//{"block", "dark_oak_door_bottom.png", "doors", "mcl_doors_door_dark_oak_lower.png"},
+		{"block", "dark_oak_door_bottom.png", "doors", "mcl_doors_door_dark_oak_side_lower.png"}, //
+		{"block", "dark_oak_door_top.png", "doors", "mcl_doors_door_dark_oak_side_upper.png"},    //
+		//{"block", "dark_oak_door_top.png", "doors", "mcl_doors_door_dark_oak_upper.png"},
 		{"block", "iron_door_bottom.png", "doors", "mcl_doors_door_iron_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_iron_side_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_iron_side_upper.png"},
+		{"block", "iron_door_bottom.png", "doors", "mcl_doors_door_iron_side_lower.png"}, //
+		{"block", "iron_door_top.png", "doors", "mcl_doors_door_iron_side_upper.png"},    //
 		{"block", "iron_door_top.png", "doors", "mcl_doors_door_iron_upper.png"},
 		{"item", "jungle_door.png", "doors", "mcl_doors_door_jungle.png"},
-		{"block", "jungle_door_bottom.png", "doors", "mcl_doors_door_jungle_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_jungle_side_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_jungle_side_upper.png"},
-		{"block", "jungle_door_top.png", "doors", "mcl_doors_door_jungle_upper.png"},
+		//{"block", "jungle_door_bottom.png", "doors", "mcl_doors_door_jungle_lower.png"},
+		{"block", "jungle_door_bottom.png", "doors", "mcl_doors_door_jungle_side_lower.png"}, //
+		{"block", "jungle_door_top.png", "doors", "mcl_doors_door_jungle_side_upper.png"},    //
+		//{"block", "jungle_door_top.png", "doors", "mcl_doors_door_jungle_upper.png"},
 		{"item", "spruce_door.png", "doors", "mcl_doors_door_spruce.png"},
-		{"block", "spruce_door_bottom.png", "doors", "mcl_doors_door_spruce_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_spruce_side_lower.png"},
-		//{"block", ".png", "doors", "mcl_doors_door_spruce_side_upper.png"},
-		{"block", "spruce_door_top.png", "doors", "mcl_doors_door_spruce_upper.png"},
-		{"block", ".png", "doors", "mcl_doors_door_wood_lower.png"},
-		{"block", ".png", "doors", "mcl_doors_door_wood_side_lower.png"},
-		{"block", ".png", "doors", "mcl_doors_door_wood_side_upper.png"},
-		{"block", ".png", "doors", "mcl_doors_door_wood_upper.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_acacia.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_acacia_side.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_birch.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_birch_side.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_dark_oak.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_dark_oak_side.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_jungle.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_jungle_side.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_spruce.png"},
-		{"block", ".png", "doors", "mcl_doors_trapdoor_spruce_side.png"},
-		//TODO: DOORS!
+		//{"block", "spruce_door_bottom.png", "doors", "mcl_doors_door_spruce_lower.png"},
+		{"block", "spruce_door_bottom.png", "doors", "mcl_doors_door_spruce_side_lower.png"}, //
+		{"block", "spruce_door_top.png", "doors", "mcl_doors_door_spruce_side_upper.png"},    //
+		//{"block", "spruce_door_top.png", "doors", "mcl_doors_door_spruce_upper.png"},
+		//{"block", "oak_door_bottom.png", "doors", "mcl_doors_door_wood_lower.png"},
+		{"block", "oak_door_bottom.png", "doors", "mcl_doors_door_wood_side_lower.png"},
+		{"block", "oak_door_top.png", "doors", "mcl_doors_door_wood_side_upper.png"},
+		//{"block", "oak_door_top.png", "doors", "mcl_doors_door_wood_upper.png"},
+		{"block", "acacia_trapdoor.png", "doors", "mcl_doors_trapdoor_acacia.png"},
+		{"block", "acacia_trapdoor.png", "doors", "mcl_doors_trapdoor_acacia_side.png"},
+		{"block", "birch_trapdoor.png", "doors", "mcl_doors_trapdoor_birch.png"},
+		{"block", "birch_trapdoor.png", "doors", "mcl_doors_trapdoor_birch_side.png"},
+		{"block", "dark_oak_trapdoor.png", "doors", "mcl_doors_trapdoor_dark_oak.png"},
+		{"block", "dark_oak_trapdoor.png", "doors", "mcl_doors_trapdoor_dark_oak_side.png"},
+		{"block", "jungle_trapdoor.png", "doors", "mcl_doors_trapdoor_jungle.png"},
+		{"block", "jungle_trapdoor.png", "doors", "mcl_doors_trapdoor_jungle_side.png"},
+		{"block", "spruce_trapdoor.png", "doors", "mcl_doors_trapdoor_spruce.png"},
+		{"block", "spruce_trapdoor.png", "doors", "mcl_doors_trapdoor_spruce_side.png"},
 		//// mcl_dyes
 		//// mcl_enchanting
 		//// mcl_end
