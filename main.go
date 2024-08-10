@@ -12,13 +12,69 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
+)
+
+const ()
+
+var (
+	now     = time.Now().Format("01-02-2006 15:04:05")
+	version = "0.0.0"
 )
 
 func main() {
-	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v0.0.0\n")
-	inName := "Faithful 32x - 1.21"
-	outName := fmt.Sprintf("%s_mc_converted", strings.ReplaceAll(strings.ToLower(inName), " ", "_"))
+	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n", version)
 
+	if fs.ValidPath("output") {
+		if err := os.Mkdir("output", 0755); err != nil {
+			if errors.Is(err, fs.ErrPermission) {
+				log.Panicf("Permission was denied. %s was not made.\n", "output")
+			} else if errors.Is(err, fs.ErrExist) {
+				fmt.Printf("Folder %s already exists.\n", "output")
+			} else {
+				fmt.Printf("How.\n")
+				log.Panic(err)
+			}
+		} else {
+			fmt.Println("Made the output folder!")
+		}
+	}
+
+	if fs.ValidPath("input") {
+		if err := os.Mkdir("input", 0755); err != nil {
+			if errors.Is(err, fs.ErrPermission) {
+				log.Panicf("Permission was denied. %s was not made.\n", "input")
+			} else if errors.Is(err, fs.ErrExist) {
+				fmt.Printf("Folder %s already exists.\n", "input")
+			} else {
+				fmt.Printf("How.\n")
+				log.Panic(err)
+			}
+		} else {
+			fmt.Println("Made the input folder!")
+		}
+	}
+
+	dir, err := os.Open("./input/")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer dir.Close()
+	files, err := dir.Readdir(-1)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	for _, file := range files {
+		fmt.Println(file.Name())
+		outName := fmt.Sprintf("%s_mc_converted", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
+		ConvertPack("input/"+file.Name(), "output/"+outName)
+	}
+
+}
+
+func ConvertPack(inName string, outName string) {
 	if fs.ValidPath(outName) {
 		if err := os.Mkdir(outName, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {
@@ -36,9 +92,9 @@ func main() {
 
 	packConfigFile := fmt.Sprintf(`title = %s
 name = %s
-description = A Minecraft texture pack converted to Mineclonia
+description = A Minecraft texture pack converted to Mineclonia on %s.
 author = Unknown
-release = 01`, inName, outName)
+release = 01`, inName, outName, now)
 
 	fmt.Printf("Pack info:\n%s\n", packConfigFile)
 	err := os.WriteFile(outName+"/texture_pack.conf", []byte(packConfigFile), 0644)
@@ -63,7 +119,7 @@ release = 01`, inName, outName)
 
 	craftPaths := CraftPaths()
 	cloniaPaths := CloniaPaths()
-	equivalents := EquivalentFiles()
+	equivalents := basicITEMS()
 
 	for _, v := range cloniaPaths {
 		if err := os.MkdirAll(outName+v, 0755); err != nil {

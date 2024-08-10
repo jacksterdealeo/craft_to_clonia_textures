@@ -45,7 +45,7 @@ func CloniaPaths() map[string]string {
 	}
 	return cloniaPaths
 }
-func EquivalentFiles() [][4]string {
+func basicITEMS() [][4]string {
 	equivalents := [][4]string{
 		//// mcl_amethyst
 		{"block", "amethyst_block.png", "amethyst", "mcl_amethyst_amethyst_block.png"},
