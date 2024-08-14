@@ -132,7 +132,7 @@ description = A Minecraft texture pack converted to Mineclonia on %s.`,
 
 	copyTextureFails := []string{}
 	for _, e := range equivalents {
-		if !copyTexture(inPath+craftPaths[e[0]]+e[1]+".png", outPath+cloniaPaths[e[2]]+e[3]+".png") {
+		if !copyTexture(inPath+craftPaths[e[0]]+e[1], outPath+cloniaPaths[e[2]]+e[3]) {
 			copyTextureFails = append(copyTextureFails, e[0]+e[1])
 		}
 	}
