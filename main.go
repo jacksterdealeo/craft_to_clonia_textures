@@ -148,6 +148,14 @@ description = A Minecraft texture pack converted to Mineclonia on %s.`,
 }
 
 func copyTexture(src string, dest string) bool {
+	/*
+		frames, err := McmetaReader(src)
+		_ = frames
+		if err != nil || len(frames) == 0 {
+		} else {
+			fmt.Println(src, frames)
+		}
+	*/
 	source, err := os.Open(src)
 	if err != nil {
 		//fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")
