@@ -9,7 +9,7 @@ type Animation struct {
 	Frames []int `json:"frames"`
 }
 
-type JSONData struct {
+type MCMETABlockData struct {
 	Animation Animation `json:"animation"`
 }
 
@@ -19,7 +19,7 @@ func McmetaReader(filePath string) (Frames []int, Error error) {
 		return []int{}, err
 	}
 
-	jsonData := JSONData{}
+	jsonData := MCMETABlockData{}
 
 	json.Unmarshal([]byte(file), &jsonData)
 	return (jsonData.Animation.Frames), nil
