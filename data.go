@@ -23,6 +23,7 @@ func CloniaPaths() map[string]string {
 		"bamboo":          "/ITEMS/mcl_bamboo/textures/",
 		"barrels":         "/ITEMS/mcl_barrels/textures/",
 		"beds":            "/ITEMS/mcl_beds/textures/",
+		"blackstone":      "/ITEMS/mcl_blackstone/textures/",
 		"blast_furnace":   "/ITEMS/mcl_blast_furnace/textures/",
 		"cherry_blossom":  "/ITEMS/mcl_cherry_blossom/textures/",
 		"copper":          "/ITEMS/mcl_copper/textures/",
@@ -97,7 +98,7 @@ func basicITEMS() [][4]string {
 		//{"block", ".png", "bamboo", "mcl_bamboo_endcap.png"}, //what is this?
 		{"block", "bamboo_fence_particle.png", "bamboo", "mcl_bamboo_fence_bamboo.png"},
 		{"block", "bamboo_fence_gate_particle.png", "bamboo", "mcl_bamboo_fence_gate_bamboo.png"},
-		////scaffolding is broken in vanilla Mineclonia right now.
+		//    --scaffolding is broken in vanilla Mineclonia right now.
 		//{"block", "bamboo_stage0.png", "bamboo", "mcl_bamboo_flower_pot.png"},    //broken?
 		{"block", "scaffolding_bottom.png", "bamboo", "mcl_bamboo_scaffolding_bottom.png"}, //broken?
 		{"block", "scaffolding_side.png", "bamboo", "mcl_bamboo_scaffolding_side.png"},     //broken?
@@ -155,6 +156,25 @@ func basicITEMS() [][4]string {
 		//// mcl_beehives
 		//// mcl_bells
 		//// mcl_blackstone
+		{"block", ".png", "blackstone", "mcl_backstone_quartz_bricks.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_basalt_side.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_basalt_side_polished.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_basalt_smooth.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_basalt_top.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_basalt_top_polished.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_chiseled_polished.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_gilded.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_gilded_side.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_polished.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_polished_bricks.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_polished_bricks_cracked.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_side.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_soul_soil.png"},
+		{"block", ".png", "blackstone", "mcl_blackstone_top.png"},
+		{"block", ".png", "blackstone", "soul_fire_basic_flame.png"},
+		{"block", ".png", "blackstone", "soul_fire_basic_flame_animated.png"},
+		{"block", ".png", "blackstone", "soul_torch_on_floor.png"},
+		{"block", ".png", "blackstone", "soul_torch_on_floor_animated.png"},
 		//// mcl_blast_furnace
 		{"block", "blast_furnace_front.png", "blast_furnace", "blast_furnace_front.png"},
 		{"block", "blast_furnace_front_on.png", "blast_furnace", "blast_furnace_front_on.png"},
