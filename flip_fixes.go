@@ -36,6 +36,9 @@ func flip_fixes(inName string, outName string) {
 		{"block", "spruce_door_top.png", "doors", "mcl_doors_door_spruce_upper.png"},
 		{"block", "oak_door_bottom.png", "doors", "mcl_doors_door_wood_lower.png"},
 		{"block", "oak_door_top.png", "doors", "mcl_doors_door_wood_upper.png"},
+		////mcl_mangrove
+		{"block", "mangrove_door_bottom.png", "mangrove", "mcl_mangrove_door_bottom.png"},
+		{"block", "mangrove_door_top.png", "mangrove", "mcl_mangrove_door_top.png"},
 	}
 
 	for _, e := range flips {

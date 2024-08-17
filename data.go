@@ -799,9 +799,9 @@ func basicITEMS() [][4]string {
 		//// mcl_loom
 		//// mcl_lush_caves
 		//// mcl_mangrove
-		{"block", "mangrove_door_bottom.png", "mangrove", "mcl_mangrove_door_bottom.png"},
+		//{"block", "mangrove_door_bottom.png", "mangrove", "mcl_mangrove_door_bottom.png"}, //flipped
 		{"item", "mangrove_door.png", "mangrove", "mcl_mangrove_doors.png"},
-		{"block", "mangrove_door_top.png", "mangrove", "mcl_mangrove_door_top.png"},
+		//{"block", "mangrove_door_top.png", "mangrove", "mcl_mangrove_door_top.png"}, //flipped
 		{"block", "mangrove_planks.png", "mangrove", "mcl_mangrove_fence.png"},
 		{"block", "mangrove_planks.png", "mangrove", "mcl_mangrove_fence_gate.png"},
 		{"block", "mangrove_leaves.png", "mangrove", "mcl_mangrove_leaves.png"},
