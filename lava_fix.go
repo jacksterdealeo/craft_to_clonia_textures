@@ -29,4 +29,5 @@ func lava_fix(inPath string, outPath string) {
 			fmt.Println("default_lava_flowing_animated.png", "save failed!")
 		}
 	}
+	copyTextureAnimated(inPath+"lava_still.png", outPath+"default_lava_source_animated.png", -1)
 }

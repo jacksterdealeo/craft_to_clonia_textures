@@ -9,7 +9,6 @@ import (
 )
 
 func water_fix(inPath string, outPath string) {
-
 	/*
 		craft water
 		  still   :  16 x 512
@@ -111,5 +110,4 @@ func water_fix(inPath string, outPath string) {
 	if err = imaging.Save(riverWater, outPath+"default_river_water_flowing_animated.png"); err != nil {
 		fmt.Println("default_river_water_flowing_animated.png save failed!")
 	}
-
 }

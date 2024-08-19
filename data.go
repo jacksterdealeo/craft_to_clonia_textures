@@ -336,8 +336,8 @@ func basicITEMS() [][4]string {
 		{"block", "jungle_log_top.png", "core", "default_jungletree_top.png"},
 		{"block", "jungle_planks.png", "core", "default_junglewood.png"},
 		{"block", "ladder.png", "core", "default_ladder.png"},
-		{"block", "lava_flow.png", "core", "default_lava_flowing_animated.png"}, //special attention
-		{"block", "lava_still.png", "core", "default_lava_source_animated.png"}, //special attention
+		//{"block", "lava_flow.png", "core", "default_lava_flowing_animated.png"}, //special attention
+		//{"block", "lava_still.png", "core", "default_lava_source_animated.png"}, //special attention
 		{"block", "oak_leaves.png", "core", "default_leaves.png"},
 		{"block", "mossy_cobblestone.png", "core", "default_mossycobble.png"},
 		{"block", "obsidian.png", "core", "default_obsidian.png"},

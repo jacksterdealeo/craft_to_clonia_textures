@@ -57,7 +57,7 @@ func main() {
 
 	dir, err := os.Open("./input/")
 	if err != nil {
-		fmt.Println("Error:", err)
+		log.Panic("Error:", err)
 		return
 	}
 	defer dir.Close()
@@ -132,7 +132,8 @@ description = A Minecraft texture pack converted to Mineclonia on %s.`,
 
 	copyTextureFails := []string{}
 	for _, e := range equivalents {
-		if !copyTexture(inPath+craftPaths[e[0]]+e[1], outPath+cloniaPaths[e[2]]+e[3]) {
+		err := copyTexture(inPath+craftPaths[e[0]]+e[1], outPath+cloniaPaths[e[2]]+e[3])
+		if err != nil {
 			copyTextureFails = append(copyTextureFails, e[0]+e[1])
 		}
 	}
@@ -147,30 +148,78 @@ description = A Minecraft texture pack converted to Mineclonia on %s.`,
 	flip_fixes(inPath, outPath)
 }
 
-func copyTexture(src string, dest string) bool {
-	/*
-		frames, err := McmetaReader(src)
-		_ = frames
-		if err != nil || len(frames) == 0 {
-		} else {
-			fmt.Println(src, frames)
-		}
-	*/
+func copyTexture(src string, dest string) error {
+	img, err := imaging.Open(src)
+	if err != nil {
+		return err
+	}
+	imgX := img.Bounds().Dx()
+	//imgY := img.Bounds().Dy()
+
+	outImg := imaging.New(imgX, imgX, color.NRGBA{0, 0, 0, 0})
+	outImg = imaging.Overlay(outImg, img, image.Point{0, 0}, 1.0)
+
+	if err = imaging.Save(outImg, dest); err != nil {
+		fmt.Println(src, "save failed!")
+	}
+	return nil
+}
+
+// Copies over a texture file with animation frames intact.
+// Set framesAllowed to less than 1 to copy the texture with all the frames.
+// UNFINISHED!!!
+func copyTextureAnimated(src string, dest string, framesAllowed int) error {
+	img, err := imaging.Open(src)
+	if err != nil {
+		return err
+	}
+	imgX := img.Bounds().Dx()
+	//imgY := img.Bounds().Dy()
+
+	frames, err := McmetaReader(src)
+	_ = frames
+
+	if err != nil {
+		return err
+	}
+	//imgNumberOfFrames := imgY / imgX
+	outImgNumberOfFrames := len(frames)
+	outImg := imaging.New(imgX, imgX*outImgNumberOfFrames, color.NRGBA{0, 0, 0, 0})
+	for i, e := range frames {
+		frame := imaging.Crop(img, image.Rectangle{image.Point{0, e * imgX}, image.Point{imgX, (e * imgX) + imgX}})
+		outImg = imaging.Overlay(outImg, frame, image.Point{0, i * imgX}, 1.0)
+	}
+
+	if err = imaging.Save(outImg, dest); err != nil {
+		fmt.Println(src, "save failed!")
+	}
+
+	if framesAllowed > 0 {
+
+	} else {
+
+	}
+
+	return nil
+}
+
+// Don't use pls.
+func copyTextureBasic(src string, dest string) error {
 	source, err := os.Open(src)
 	if err != nil {
 		//fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")
-		return false
+		return err
 	}
 	defer source.Close()
 	destination, err := os.Create(dest)
 	if err != nil {
 		//fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")
-		return false
+		return err
 	}
 	defer destination.Close()
 	_, err = io.Copy(destination, source)
 	if err != nil {
 		panic(err)
 	}
-	return true
+	return nil
 }
