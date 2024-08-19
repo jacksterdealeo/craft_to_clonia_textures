@@ -170,6 +170,7 @@ func basicITEMS() [][4]string {
 		{"block", "cracked_polished_blackstone_bricks.png", "blackstone", "mcl_blackstone_polished_bricks_cracked.png"},
 		{"block", "blackstone.png", "blackstone", "mcl_blackstone_side.png"},
 		{"block", "soul_soil.png", "blackstone", "mcl_blackstone_soul_soil.png"},
+		{"block", "blackstone.png", "blackstone", "mcl_blackstone_top.png"}, //Special Case?
 		{"block", "blackstone_top.png", "blackstone", "mcl_blackstone_top.png"},
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame.png"},
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"}, //animated
