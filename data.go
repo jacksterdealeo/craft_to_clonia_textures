@@ -26,6 +26,7 @@ func CloniaPaths() map[string]string {
 		"beehives":        "/ITEMS/mcl_beehives/textures/",
 		"blackstone":      "/ITEMS/mcl_blackstone/textures/",
 		"blast_furnace":   "/ITEMS/mcl_blast_furnace/textures/",
+		"bone_meal":       "/ITEMS/mcl_bone_meal/textures/",
 		"cherry_blossom":  "/ITEMS/mcl_cherry_blossom/textures/",
 		"copper":          "/ITEMS/mcl_copper/textures/",
 		"core":            "/ITEMS/mcl_core/textures/",
@@ -192,6 +193,8 @@ func basicITEMS() [][4]string {
 		{"block", "blast_furnace_side.png", "blast_furnace", "blast_furnace_side.png"},
 		{"block", "blast_furnace_top.png", "blast_furnace", "blast_furnace_top.png"},
 		//// mcl_bone_meal
+		{"item", "bone_meal.png", "bone_meal", "mcl_bone_meal_bone_meal.png"},
+		{"particle", "glint.png", "bone_meal", "mcl_particles_bonemeal.png"},
 		//// mcl_books
 		//// mcl_bows
 		//// mcl_brewing
