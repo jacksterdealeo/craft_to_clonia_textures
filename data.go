@@ -30,6 +30,9 @@ func CloniaPaths() map[string]string {
 		"bone_meal":       "/ITEMS/mcl_bone_meal/textures/",
 		"books":           "/ITEMS/mcl_books/textures/",
 		"bows":            "/ITEMS/mcl_bows/textures/",
+		"brewing":         "/ITEMS/mcl_brewing/textures/",
+		"buckets":         "/ITEMS/mcl_buckets/textures/",
+		"cake":            "/ITEMS/mcl_cake/textures/",
 		"cherry_blossom":  "/ITEMS/mcl_cherry_blossom/textures/",
 		"copper":          "/ITEMS/mcl_copper/textures/",
 		"core":            "/ITEMS/mcl_core/textures/",
@@ -230,9 +233,33 @@ func basicITEMS() [][4]string {
 		//{"item", ".png", "bows", "mcl_bows_firework_yellow.png"}, // no match?
 		//{"item", ".png", "bows", "mcl_bows_rocket.png"},          // no match?
 		//{"item", ".png", "bows", "mcl_bows_rocket_particle.png"}, // no match?
-		// -- mcl_brewing
+		// -- mcl_brewing    // NOPE
+		/*
+			{"block", "brewing_stand_base.png", "brewing", "mcl_brewing_base.png"},
+			{"block", ".png", "brewing", "mcl_brewing_bottle_bg.png"},
+			{"block", ".png", "brewing", "mcl_brewing_bubbles.png"},
+			{"block", ".png", "brewing", "mcl_brewing_bubbles_active.png"},
+			{"block", ".png", "brewing", "mcl_brewing_bubble_sprite.png"},
+			{"block", ".png", "brewing", "mcl_brewing_burner.png"},
+			{"block", ".png", "brewing", "mcl_brewing_burner_active.png"},
+			{"block", ".png", "brewing", "mcl_brewing_fuel_bg.png"},
+			{"block", ".png", "brewing", "mcl_brewing_inventory.png"},
+			{"block", ".png", "brewing", "mcl_brewing_potion_bg.png"},
+			{"block", "brewing_stand.png", "brewing", "mcl_brewing_side.png"},
+			{"block", ".png", "brewing", "mcl_brewing_top.png"},
+		*/
 		// -- mcl_buckets
+		{"item", "axolotl_bucket.png", "buckets", "axolotl_bucket.png"},
+		{"item", "bucket.png", "buckets", "bucket.png"},
+		{"item", "lava_bucket.png", "buckets", "bucket_lava.png"},
+		//{"item", ".png", "buckets", "bucket_river_water.png"}, //no match
+		{"item", "water_bucket.png", "buckets", "bucket_water.png"},
 		// -- mcl_cake
+		{"item", "cake.png", "cake", "cake.png"},
+		{"block", "cake_bottom.png", "cake", "cake_bottom.png"},
+		{"block", "cake_inner.png", "cake", "cake_inner.png"},
+		{"block", "cake_side.png", "cake", "cake_side.png"},
+		{"block", "cake_top.png", "cake", "cake_top.png"},
 		// -- mcl_campfires
 		// -- mcl_cartography_table
 		// -- mcl_cauldrons
