@@ -4,13 +4,14 @@ import ()
 
 func CraftPaths() map[string]string {
 	craftPaths := map[string]string{
-		"armor":    "/assets/minecraft/textures/models/armor/",
-		"bed":      "/assets/minecraft/textures/entity/bed/",
-		"block":    "/assets/minecraft/textures/block/",
-		"entity":   "/assets/minecraft/textures/entity/",
-		"item":     "/assets/minecraft/textures/item/",
-		"misc":     "/assets/minecraft/textures/misc/",
-		"particle": "/assets/minecraft/textures/particle/",
+		"armor":       "/assets/minecraft/textures/models/armor/",
+		"bed":         "/assets/minecraft/textures/entity/bed/",
+		"block":       "/assets/minecraft/textures/block/",
+		"entity":      "/assets/minecraft/textures/entity/",
+		"item":        "/assets/minecraft/textures/item/",
+		"misc":        "/assets/minecraft/textures/misc/",
+		"particle":    "/assets/minecraft/textures/particle/",
+		"projectiles": "/assets/minecraft/textures/entity/projectiles/",
 	}
 	return craftPaths
 }
@@ -28,6 +29,7 @@ func CloniaPaths() map[string]string {
 		"blast_furnace":   "/ITEMS/mcl_blast_furnace/textures/",
 		"bone_meal":       "/ITEMS/mcl_bone_meal/textures/",
 		"books":           "/ITEMS/mcl_books/textures/",
+		"bows":            "/ITEMS/mcl_bows/textures/",
 		"cherry_blossom":  "/ITEMS/mcl_cherry_blossom/textures/",
 		"copper":          "/ITEMS/mcl_copper/textures/",
 		"core":            "/ITEMS/mcl_core/textures/",
@@ -197,7 +199,7 @@ func basicITEMS() [][4]string {
 		{"item", "bone_meal.png", "bone_meal", "mcl_bone_meal_bone_meal.png"},
 		{"particle", "glint.png", "bone_meal", "mcl_particles_bonemeal.png"},
 		// -- mcl_books
-		{"item", ".png", "books", "default_book.png"},
+		{"item", "book.png", "books", "default_book.png"},
 		{"block", "bookshelf.png", "books", "default_bookshelf.png"},
 		//{"item", ".png", "books", "mcl_book_book_empty_slot.png"}, //no match
 		//{"gui", "book.png", "books", "mcl_books_book_bg.png"}, // special attention & it's not a square!
@@ -207,6 +209,27 @@ func basicITEMS() [][4]string {
 		//{"item", ".png", "books", "mcl_books_button9.png"},         // special attention
 		//{"item", ".png", "books", "mcl_books_button9_pressed.png"}, // special attention
 		// -- mcl_bows
+		{"projectiles", "arrow.png", "bows", "mcl_bows_arrow.png"},
+		//{"item", ".png", "bows", "mcl_bows_arrow_back.png"},
+		//{"item", ".png", "bows", "mcl_bows_arrow_front.png"},
+		{"item", "arrow.png", "bows", "mcl_bows_arrow_inv.png"},
+		//{"item", ".png", "bows", "mcl_bows_arrow_overlay.png"},
+		{"item", "bow.png", "bows", "mcl_bows_bow.png"},
+		{"item", "bow_pulling_0.png", "bows", "mcl_bows_bow_0.png"},
+		{"item", "bow_pulling_1.png", "bows", "mcl_bows_bow_1.png"},
+		{"item", "bow_pulling_2.png", "bows", "mcl_bows_bow_2.png"},
+		{"item", "crossbow_standby.png", "bows", "mcl_bows_crossbow.png"},
+		{"item", "crossbow_pulling_0.png", "bows", "mcl_bows_crossbow_0.png"},
+		{"item", "crossbow_pulling_1.png", "bows", "mcl_bows_crossbow_1.png"},
+		{"item", "crossbow_pulling_2.png", "bows", "mcl_bows_crossbow_2.png"},
+		{"item", "crossbow_arrow.png", "bows", "mcl_bows_crossbow_3.png"},
+		//{"item", ".png", "bows", "mcl_bows_firework_blue.png"},   // no match?
+		//{"item", ".png", "bows", "mcl_bows_firework_green.png"},  // no match?
+		//{"item", ".png", "bows", "mcl_bows_firework_red.png"},    // no match?
+		//{"item", ".png", "bows", "mcl_bows_firework_white.png"},  // no match?
+		//{"item", ".png", "bows", "mcl_bows_firework_yellow.png"}, // no match?
+		//{"item", ".png", "bows", "mcl_bows_rocket.png"},          // no match?
+		//{"item", ".png", "bows", "mcl_bows_rocket_particle.png"}, // no match?
 		// -- mcl_brewing
 		// -- mcl_buckets
 		// -- mcl_cake
