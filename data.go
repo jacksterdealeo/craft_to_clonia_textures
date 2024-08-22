@@ -23,6 +23,7 @@ func CloniaPaths() map[string]string {
 		"bamboo":          "/ITEMS/mcl_bamboo/textures/",
 		"barrels":         "/ITEMS/mcl_barrels/textures/",
 		"beds":            "/ITEMS/mcl_beds/textures/",
+		"beehives":        "/ITEMS/mcl_beehives/textures/",
 		"blackstone":      "/ITEMS/mcl_blackstone/textures/",
 		"blast_furnace":   "/ITEMS/mcl_blast_furnace/textures/",
 		"cherry_blossom":  "/ITEMS/mcl_cherry_blossom/textures/",
@@ -154,6 +155,15 @@ func basicITEMS() [][4]string {
 		{"block", "respawn_anchor_top_off.png", "beds", "respawn_anchor_top_off.png"},
 		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},
 		//// mcl_beehives
+		{"block", "beehive_end.png", "beehives", "mcl_beehives_beehive_end.png"},
+		{"block", "beehive_front.png", "beehives", "mcl_beehives_beehive_front.png"},
+		{"block", "beehive_front_honey.png", "beehives", "mcl_beehives_beehive_front_honey.png"},
+		{"block", "beehive_side.png", "beehives", "mcl_beehives_beehive_side.png"},
+		{"block", "bee_nest_bottom.png", "beehives", "mcl_beehives_bee_nest_bottom.png"},
+		{"block", "bee_nest_front.png", "beehives", "mcl_beehives_bee_nest_front.png"},
+		{"block", "bee_nest_front_honey.png", "beehives", "mcl_beehives_bee_nest_front_honey.png"},
+		{"block", "bee_nest_side.png", "beehives", "mcl_beehives_bee_nest_side.png"},
+		{"block", "bee_nest_top.png", "beehives", "mcl_beehives_bee_nest_top.png"},
 		//// mcl_bells
 		//// mcl_blackstone
 		{"block", "quartz_bricks.png", "blackstone", "mcl_backstone_quartz_bricks.png"},
