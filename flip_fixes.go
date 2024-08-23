@@ -6,7 +6,7 @@ import (
 	//_ "image/png"
 )
 
-func flip_fixes(inName string, outName string) {
+func flip_fixes(inName string, outName string) error {
 
 	craftPaths := CraftPaths()
 	cloniaPaths := CloniaPaths()
@@ -45,14 +45,15 @@ func flip_fixes(inName string, outName string) {
 		img, err := imaging.Open(inName + craftPaths[e[0]] + e[1])
 		if err != nil {
 			fmt.Println(e[1], "couldn't open!")
-			return
-		}
-		img = imaging.FlipH(img)
-		//anvilX := abase.Bounds().Dx()
-		//anvilY := abase.Bounds().Dy()
+		} else {
+			img = imaging.FlipH(img)
+			//anvilX := abase.Bounds().Dx()
+			//anvilY := abase.Bounds().Dy()
 
-		if err = imaging.Save(img, outName+cloniaPaths[e[2]]+e[3]); err != nil {
-			fmt.Println(e[3], "failed to save!")
+			if err = imaging.Save(img, outName+cloniaPaths[e[2]]+e[3]); err != nil {
+				fmt.Println(e[3], "failed to save!")
+			}
 		}
 	}
+	return nil
 }

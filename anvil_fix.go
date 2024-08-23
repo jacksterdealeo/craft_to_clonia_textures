@@ -8,26 +8,26 @@ import (
 	_ "image/png"
 )
 
-func anvil_fix(inPath string, outPath string) {
+func anvil_fix(inPath string, outPath string) error {
 	abase, err := imaging.Open(inPath + "anvil.png")
 	if err != nil {
 		fmt.Println("AnvilBase error ~", "block, anvil.png")
-		return
+		return err
 	}
 	a0, err := imaging.Open(inPath + "anvil_top.png")
 	if err != nil {
 		fmt.Println("Anvil0 error ~")
-		return
+		return err
 	}
 	a1, err := imaging.Open(inPath + "chipped_anvil_top.png")
 	if err != nil {
 		fmt.Println("Anvil1 error ~")
-		return
+		return err
 	}
 	a2, err := imaging.Open(inPath + "damaged_anvil_top.png")
 	if err != nil {
 		fmt.Println("Anvil2 error ~")
-		return
+		return err
 	}
 	anvilX := abase.Bounds().Dx()
 	anvilY := abase.Bounds().Dy()
@@ -38,13 +38,17 @@ func anvil_fix(inPath string, outPath string) {
 
 	if err = imaging.Save(dst, outPath+"mcl_anvils_anvil_top_damaged_0.png"); err != nil {
 		fmt.Println("Anvil undamaged failed!")
+		return err
 	}
 	dst = imaging.OverlayCenter(dst, a1, 1.0)
 	if err = imaging.Save(dst, outPath+"mcl_anvils_anvil_top_damaged_1.png"); err != nil {
 		fmt.Println("Anvil damaged1 failed!")
+		return err
 	}
 	dst = imaging.OverlayCenter(dst, a2, 1.0)
 	if err = imaging.Save(dst, outPath+"mcl_anvils_anvil_top_damaged_2.png"); err != nil {
 		fmt.Println("Anvil damaged2 failed!")
+		return err
 	}
+	return nil
 }

@@ -8,7 +8,7 @@ import (
 	_ "image/png"
 )
 
-func lava_fix(inPath string, outPath string) {
+func lava_fix(inPath string, outPath string) error {
 	/*
 		craft lava
 		  still   :  16 x 512
@@ -20,6 +20,7 @@ func lava_fix(inPath string, outPath string) {
 	lavaFlowing, err := imaging.Open(inPath + "lava_flow.png")
 	if err != nil {
 		fmt.Println("Error ~", inPath+"lava_flow.png")
+		return err
 	} else {
 		lavaStillX := lavaFlowing.Bounds().Dx()
 		lavaStillY := lavaFlowing.Bounds().Dy()
@@ -27,7 +28,9 @@ func lava_fix(inPath string, outPath string) {
 		dst = imaging.Overlay(dst, lavaFlowing, image.Point{0, 0}, 1.0)
 		if err = imaging.Save(dst, outPath+"default_lava_flowing_animated.png"); err != nil {
 			fmt.Println("default_lava_flowing_animated.png", "save failed!")
+			return err
 		}
 	}
 	copyTextureAnimated(inPath+"lava_still.png", outPath+"default_lava_source_animated.png", -1)
+	return nil
 }

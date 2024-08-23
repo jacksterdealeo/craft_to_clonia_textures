@@ -6,7 +6,6 @@ import (
 	imaging "github.com/disintegration/imaging"
 	"image"
 	"image/color"
-	_ "image/png"
 	"io"
 	"io/fs"
 	"log"
