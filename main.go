@@ -161,45 +161,39 @@ func copyTexture(src string, dest string) error {
 
 	if err = imaging.Save(outImg, dest); err != nil {
 		fmt.Println(src, "save failed!")
+		return err
 	}
 	return nil
 }
 
 // Copies over a texture file with animation frames intact.
 // Set framesAllowed to less than 1 to copy the texture with all the frames.
-// UNFINISHED!!!
+// UNTESTED!
 func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	img, err := imaging.Open(src)
 	if err != nil {
 		return err
 	}
 	imgX := img.Bounds().Dx()
-	//imgY := img.Bounds().Dy()
-
 	frames, err := McmetaReader(src)
-	_ = frames
-
 	if err != nil {
 		return err
 	}
-	//imgNumberOfFrames := imgY / imgX
-	outImgNumberOfFrames := len(frames)
+	var outImgNumberOfFrames int
+	if framesAllowed <= 0 || framesAllowed > len(frames) {
+		outImgNumberOfFrames = len(frames)
+	} else {
+		outImgNumberOfFrames = framesAllowed
+	}
 	outImg := imaging.New(imgX, imgX*outImgNumberOfFrames, color.NRGBA{0, 0, 0, 0})
 	for i, e := range frames {
 		frame := imaging.Crop(img, image.Rectangle{image.Point{0, e * imgX}, image.Point{imgX, (e * imgX) + imgX}})
 		outImg = imaging.Overlay(outImg, frame, image.Point{0, i * imgX}, 1.0)
 	}
-
 	if err = imaging.Save(outImg, dest); err != nil {
 		fmt.Println(src, "save failed!")
+		return err
 	}
-
-	if framesAllowed > 0 {
-
-	} else {
-
-	}
-
 	return nil
 }
 
