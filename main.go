@@ -1,6 +1,7 @@
 package main
 
 import (
+	"archive/zip"
 	"errors"
 	"fmt"
 	imaging "github.com/disintegration/imaging"
@@ -10,6 +11,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -18,7 +20,7 @@ const ()
 
 var (
 	now     = time.Now().Format("01-02-2006 15:04:05")
-	version = "0.0.0"
+	version = "0.1.0"
 )
 
 func main() {
@@ -67,11 +69,39 @@ func main() {
 	}
 
 	fmt.Println()
+
 	for _, file := range files {
-		fmt.Println(file.Name())
-		outPath := fmt.Sprintf("%s_mc_converted", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
-		ConvertPack(file.Name(), outPath)
-		fmt.Println()
+		if !file.IsDir() &&
+			filepath.Ext(file.Name()) == ".zip" {
+			if _, err := os.Stat("input/" + FileNameWithoutExt(file.Name())); errors.Is(err, os.ErrNotExist) {
+				// path/to/whatever does not exist
+				fmt.Println("Unzipping:", file.Name())
+				Unzip("input/"+file.Name(), "input/"+FileNameWithoutExt(file.Name()))
+			} else {
+				fmt.Println(file.Name(), "was already decompressed! :D")
+			}
+		}
+	}
+
+	dir, err = os.Open("./input/")
+	if err != nil {
+		log.Panic("Error:", err)
+		return
+	}
+	defer dir.Close()
+	files, err = dir.Readdir(-1)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			fmt.Println(file.Name())
+			outPath := fmt.Sprintf("%s_mc_converted", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
+			ConvertPack(file.Name(), outPath)
+			fmt.Println()
+		}
 	}
 }
 
@@ -133,7 +163,7 @@ description = A Minecraft texture pack converted to Mineclonia on %s.`,
 	for _, e := range equivalents {
 		err := copyTexture(inPath+craftPaths[e[0]]+e[1], outPath+cloniaPaths[e[2]]+e[3])
 		if err != nil {
-			copyTextureFails = append(copyTextureFails, e[0]+e[1])
+			copyTextureFails = append(copyTextureFails, e[0]+"::"+e[1])
 		}
 	}
 	if len(copyTextureFails) != 0 {
@@ -214,5 +244,73 @@ func copyTextureBasic(src string, dest string) error {
 	if err != nil {
 		panic(err)
 	}
+	return nil
+}
+
+func FileNameWithoutExt(fileName string) string {
+	return strings.TrimSuffix(fileName, filepath.Ext(fileName))
+}
+
+func Unzip(src, dest string) error {
+	r, err := zip.OpenReader(src)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err := r.Close(); err != nil {
+			panic(err)
+		}
+	}()
+
+	os.MkdirAll(dest, 0755)
+
+	// Closure to address file descriptors issue with all the deferred .Close() methods
+	extractAndWriteFile := func(f *zip.File) error {
+		rc, err := f.Open()
+		if err != nil {
+			return err
+		}
+		defer func() {
+			if err := rc.Close(); err != nil {
+				panic(err)
+			}
+		}()
+
+		path := filepath.Join(dest, f.Name)
+
+		// Check for ZipSlip (Directory traversal)
+		if !strings.HasPrefix(path, filepath.Clean(dest)+string(os.PathSeparator)) {
+			return fmt.Errorf("illegal file path: %s", path)
+		}
+
+		if f.FileInfo().IsDir() {
+			os.MkdirAll(path, f.Mode())
+		} else {
+			os.MkdirAll(filepath.Dir(path), f.Mode())
+			f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
+			if err != nil {
+				return err
+			}
+			defer func() {
+				if err := f.Close(); err != nil {
+					panic(err)
+				}
+			}()
+
+			_, err = io.Copy(f, rc)
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+
+	for _, f := range r.File {
+		err := extractAndWriteFile(f)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
