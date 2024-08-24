@@ -74,7 +74,9 @@ func main() {
 			filepath.Ext(file.Name()) == ".zip" {
 			if _, err := os.Stat("input/" + FileNameWithoutExt(file.Name())); errors.Is(err, os.ErrNotExist) {
 				fmt.Println("Unzipping:", file.Name())
-				Unzip("input/"+file.Name(), "input/"+FileNameWithoutExt(file.Name()))
+				if unzipSource("input/"+file.Name(), "input/"+FileNameWithoutExt(file.Name())); err != nil {
+					fmt.Println("Extraction Error:", err)
+				}
 			} else {
 				fmt.Println(file.Name(), "was already decompressed! :D")
 			}
