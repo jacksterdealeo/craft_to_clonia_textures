@@ -41,6 +41,9 @@ func CloniaPaths() map[string]string {
 		"deepslate":       "/ITEMS/mcl_deepslate/textures/",
 		"doors":           "/ITEMS/mcl_doors/textures/",
 		"farming":         "/ITEMS/mcl_farming/textures/",
+		"fences":          "/ITEMS/mcl_fences/textures/",
+		"fire":            "/ITEMS/mcl_fire/textures/",
+		"fireworks":       "/ITEMS/mcl_fireworks/textures/",
 		"fishing":         "/ITEMS/mcl_fishing/textures/",
 		"fletching_table": "/ITEMS/mcl_fletching_table/textures/",
 		"flowerpots":      "/ITEMS/mcl_flowerpots/textures/",
@@ -786,8 +789,30 @@ func basicITEMS() [][4]string {
 		{"block", "wheat_stage6.png", "farming", "mcl_farming_wheat_stage_6.png"},
 		{"block", "wheat_stage7.png", "farming", "mcl_farming_wheat_stage_7.png"},
 		// -- mcl_fences
+		{"block", "acacia_planks.png", "fences", "mcl_fences_fence_acacia.png"},
+		{"block", "dark_oak_planks.png", "fences", "mcl_fences_fence_big_oak.png"},
+		{"block", "birch_planks.png", "fences", "mcl_fences_fence_birch.png"},
+		{"block", "acacia_planks.png", "fences", "mcl_fences_fence_gate_acacia.png"},
+		{"block", "dark_oak_planks.png", "fences", "mcl_fences_fence_gate_big_oak.png"},
+		{"block", "birch_planks.png", "fences", "mcl_fences_fence_gate_birch.png"},
+		{"block", "jungle_planks.png", "fences", "mcl_fences_fence_gate_jungle.png"},
+		//{"block", ".png", "fences", "mcl_fences_fence_gate_mask.png"}, //idk what this is
+		{"block", "oak_planks.png", "fences", "mcl_fences_fence_gate_oak.png"},
+		{"block", "spruce_planks.png", "fences", "mcl_fences_fence_gate_spruce.png"},
+		{"block", "jungle_planks.png", "fences", "mcl_fences_fence_jungle.png"},
+		//{"block", ".png", "fences", "mcl_fences_fence_mask.png"}, //idk what this is
+		{"block", "nether_bricks.png", "fences", "mcl_fences_fence_nether_brick.png"},
+		{"block", "oak_planks.png", "fences", "mcl_fences_fence_oak.png"},
+		{"block", "spruce_planks.png", "fences", "mcl_fences_fence_spruce.png"},
 		// -- mcl_fire
+		{"block", "fire_0.png", "fire", "fire_basic_flame.png"},
+		{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png"},
+		{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png"}, // special attention
+		{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png"},    // special attention
+		{"item", "fire_charge.png", "fire", "mcl_fire_fire_charge.png"},
+		{"item", "flint_and_steel.png", "fire", "mcl_fire_flint_and_steel.png"},
 		// -- mcl_fireworks
+		{"item", "firework_rocket.png", "fireworks", "mcl_fireworks_rocket.png"},
 		// -- mcl_fishing
 		{"item", "cod_bucket.png", "fishing", "cod_bucket.png"},
 		{"entity", "fishing_hook.png", "fishing", "mcl_fishing_bobber.png"},
