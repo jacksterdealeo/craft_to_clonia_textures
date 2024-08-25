@@ -18,6 +18,9 @@ func CraftPaths() map[string]string {
 
 func CloniaPaths() map[string]string {
 	cloniaPaths := map[string]string{
+		// -- HUD
+		"hud_base": "/HUD/mcl_base_textures/textures/",
+		// -- ITEMS
 		"amethyst":        "/ITEMS/mcl_amethyst/textures/",
 		"anvils":          "/ITEMS/mcl_anvils/textures/",
 		"armor_stand":     "/ITEMS/mcl_armor_stand/textures/",

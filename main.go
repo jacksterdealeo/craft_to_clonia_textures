@@ -198,7 +198,6 @@ func copyTexture(src string, dest string) error {
 
 // Copies over a texture file with animation frames intact.
 // Set framesAllowed to less than 1 to copy the texture with all the frames.
-// UNTESTED!
 func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	img, err := imaging.Open(src)
 	if err != nil {

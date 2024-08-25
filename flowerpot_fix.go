@@ -6,6 +6,8 @@ import (
 	"image/color"
 )
 
+// Restitches the extremely cursed MC version.
+// TODO: mcl_flowerpots_cactus.png
 func flowerpot_fix(inPath string, outPath string) error {
 	pot, err := imaging.Open(inPath + "flower_pot.png")
 	if err != nil {
