@@ -44,6 +44,7 @@ func CloniaPaths() map[string]string {
 		"crimson":         "/ITEMS/mcl_crimson/textures/",
 		"deepslate":       "/ITEMS/mcl_deepslate/textures/",
 		"doors":           "/ITEMS/mcl_doors/textures/",
+		"dyes":            "/ITEMS/mcl_dyes/textures/",
 		"farming":         "/ITEMS/mcl_farming/textures/",
 		"fences":          "/ITEMS/mcl_fences/textures/",
 		"fire":            "/ITEMS/mcl_fire/textures/",
@@ -55,6 +56,7 @@ func CloniaPaths() map[string]string {
 		"furnaces":        "/ITEMS/mcl_furnaces/textures/",
 		"honey":           "/ITEMS/mcl_honey/textures/",
 		"hopper":          "/ITEMS/mcl_hoppers/textures/",
+		"lush_caves":      "/ITEMS/mcl_lush_caves/textures/",
 		"mangrove":        "/ITEMS/mcl_mangrove/textures/",
 		"mud":             "/ITEMS/mcl_mud/textures/",
 		"mushrooms":       "/ITEMS/mcl_mushrooms/textures/",
@@ -793,6 +795,9 @@ func basicITEMS() [][4]string {
 		{"block", "spruce_trapdoor.png", "doors", "mcl_doors_trapdoor_spruce.png"},
 		{"block", "spruce_trapdoor.png", "doors", "mcl_doors_trapdoor_spruce_side.png"},
 		// -- mcl_dyes
+		{"item", "bone_meal.png", "dyes", "mcl_bone_meal_bone_meal.png"},
+		{"item", "white_dye.png", "dyes", "mcl_dye_mask.png"},
+		{"item", "white_dye.png", "dyes", "mcl_dye_white.png"},
 		// -- mcl_enchanting
 		// -- mcl_end
 		// -- mcl_farming
@@ -968,6 +973,44 @@ func basicITEMS() [][4]string {
 		// -- mcl_lightning_rods
 		// -- mcl_loom
 		// -- mcl_lush_caves
+		{"block", "azalea_top.png", "lush_caves", "mcl_lush_caves_azalea_bottom.png"},
+		{"block", "flowering_azalea_top.png", "lush_caves", "mcl_lush_caves_azalea_flowering_bottom.png"},
+		/*
+			{"block", ".png", "lush_caves", "mcl_lush_caves_azalea_flowering_side.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_azalea_flowering_top.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_azalea_leaves.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_azalea_leaves_flowering.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_azalea_side.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_azalea_top.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_big_dripleaf_side.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_big_dripleaf_stem.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_big_dripleaf_tip.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_big_dripleaf_top.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines_lit.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines_lit_e.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines_lit_e_s.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines_plant.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines_plant_lit.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines_plant_lit_e.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_cave_vines_plant_lit_e_s.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_glow_berries.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_glow_berries_e.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_glow_berries_e_s.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_hanging_roots.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_moss.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_moss_block.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_moss_carpet.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_moss_carpet_side.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_rooted_dirt.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_small_dripleaf_side.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_small_dripleaf_stem_bottom.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_small_dripleaf_stem_top.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_small_dripleaf_top.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_spore_blossom.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_spore_blossom_base.png"},
+			{"block", ".png", "lush_caves", "mcl_lush_caves_spore_blossom_particle.png"},
+		*/
 		// -- mcl_mangrove
 		//{"block", "mangrove_door_bottom.png", "mangrove", "mcl_mangrove_door_bottom.png"}, //flipped
 		{"item", "mangrove_door.png", "mangrove", "mcl_mangrove_doors.png"},
