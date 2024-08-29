@@ -21,60 +21,68 @@ func CloniaPaths() map[string]string {
 		// -- HUD
 		"hud_base": "/HUD/mcl_base_textures/textures/",
 		// -- ITEMS
-		"amethyst":        "/ITEMS/mcl_amethyst/textures/",
-		"anvils":          "/ITEMS/mcl_anvils/textures/",
-		"armor_stand":     "/ITEMS/mcl_armor_stand/textures/",
-		"bamboo":          "/ITEMS/mcl_bamboo/textures/",
-		"barrels":         "/ITEMS/mcl_barrels/textures/",
-		"beds":            "/ITEMS/mcl_beds/textures/",
-		"beehives":        "/ITEMS/mcl_beehives/textures/",
-		"blackstone":      "/ITEMS/mcl_blackstone/textures/",
-		"blast_furnace":   "/ITEMS/mcl_blast_furnace/textures/",
-		"bone_meal":       "/ITEMS/mcl_bone_meal/textures/",
-		"books":           "/ITEMS/mcl_books/textures/",
-		"bows":            "/ITEMS/mcl_bows/textures/",
-		"brewing":         "/ITEMS/mcl_brewing/textures/",
-		"buckets":         "/ITEMS/mcl_buckets/textures/",
-		"cake":            "/ITEMS/mcl_cake/textures/",
-		"cherry_blossom":  "/ITEMS/mcl_cherry_blossom/textures/",
-		"colorblocks":     "/ITEMS/mcl_colorblocks/textures/",
-		"copper":          "/ITEMS/mcl_copper/textures/",
-		"core":            "/ITEMS/mcl_core/textures/",
-		"crafting_table":  "/ITEMS/mcl_crafting_table/textures/",
-		"crimson":         "/ITEMS/mcl_crimson/textures/",
-		"deepslate":       "/ITEMS/mcl_deepslate/textures/",
-		"doors":           "/ITEMS/mcl_doors/textures/",
-		"dyes":            "/ITEMS/mcl_dyes/textures/",
-		"farming":         "/ITEMS/mcl_farming/textures/",
-		"fences":          "/ITEMS/mcl_fences/textures/",
-		"fire":            "/ITEMS/mcl_fire/textures/",
-		"fireworks":       "/ITEMS/mcl_fireworks/textures/",
-		"fishing":         "/ITEMS/mcl_fishing/textures/",
-		"fletching_table": "/ITEMS/mcl_fletching_table/textures/",
-		"flowerpots":      "/ITEMS/mcl_flowerpots/textures/",
-		"flowers":         "/ITEMS/mcl_flowers/textures/",
-		"furnaces":        "/ITEMS/mcl_furnaces/textures/",
-		"honey":           "/ITEMS/mcl_honey/textures/",
-		"hopper":          "/ITEMS/mcl_hoppers/textures/",
-		"jukebox":         "/ITEMS/mcl_jukebox/textures/",
-		"lightning_rods":  "/ITEMS/mcl_lightning_rods/textures/",
-		"loom":            "/ITEMS/mcl_loom/textures/",
-		"lush_caves":      "/ITEMS/mcl_lush_caves/textures/",
-		"mangrove":        "/ITEMS/mcl_mangrove/textures/",
-		"mud":             "/ITEMS/mcl_mud/textures/",
-		"mushrooms":       "/ITEMS/mcl_mushrooms/textures/",
-		"nether":          "/ITEMS/mcl_nether/textures/",
-		"raw_ores":        "/ITEMS/mcl_raw_ores/textures/",
-		"smithing_table":  "/ITEMS/mcl_smithing_table/textures/",
-		"smoker":          "/ITEMS/mcl_smoker/textures/",
-		"stonecutter":     "/ITEMS/mcl_stonecutter/textures/",
-		"sus_stew":        "/ITEMS/mcl_sus_stew/textures/",
-		"tnt":             "/ITEMS/mcl_tnt/textures/",
-		"tools":           "/ITEMS/mcl_tools/textures/",
-		"torches":         "/ITEMS/mcl_torches/textures/",
-		"walls":           "/ITEMS/mcl_walls/textures/",
-		"wool":            "/ITEMS/mcl_wool/textures/",
-		"xfences":         "/ITEMS/mclx_fences/textures/",
+		"amethyst":          "/ITEMS/mcl_amethyst/textures/",
+		"anvils":            "/ITEMS/mcl_anvils/textures/",
+		"armor_stand":       "/ITEMS/mcl_armor_stand/textures/",
+		"bamboo":            "/ITEMS/mcl_bamboo/textures/",
+		"barrels":           "/ITEMS/mcl_barrels/textures/",
+		"beds":              "/ITEMS/mcl_beds/textures/",
+		"beehives":          "/ITEMS/mcl_beehives/textures/",
+		"blackstone":        "/ITEMS/mcl_blackstone/textures/",
+		"blast_furnace":     "/ITEMS/mcl_blast_furnace/textures/",
+		"bone_meal":         "/ITEMS/mcl_bone_meal/textures/",
+		"books":             "/ITEMS/mcl_books/textures/",
+		"bows":              "/ITEMS/mcl_bows/textures/",
+		"brewing":           "/ITEMS/mcl_brewing/textures/",
+		"buckets":           "/ITEMS/mcl_buckets/textures/",
+		"cake":              "/ITEMS/mcl_cake/textures/",
+		"cartography_table": "/ITEMS/mcl_cartography_table/textures/",
+		"cauldrons":         "/ITEMS/cauldrons/textures/",
+		"cherry_blossom":    "/ITEMS/mcl_cherry_blossom/textures/",
+		"colorblocks":       "/ITEMS/mcl_colorblocks/textures/",
+		"copper":            "/ITEMS/mcl_copper/textures/",
+		"core":              "/ITEMS/mcl_core/textures/",
+		"crafting_table":    "/ITEMS/mcl_crafting_table/textures/",
+		"crimson":           "/ITEMS/mcl_crimson/textures/",
+		"deepslate":         "/ITEMS/mcl_deepslate/textures/",
+		"doors":             "/ITEMS/mcl_doors/textures/",
+		"dyes":              "/ITEMS/mcl_dyes/textures/",
+		"farming":           "/ITEMS/mcl_farming/textures/",
+		"fences":            "/ITEMS/mcl_fences/textures/",
+		"fire":              "/ITEMS/mcl_fire/textures/",
+		"fireworks":         "/ITEMS/mcl_fireworks/textures/",
+		"fishing":           "/ITEMS/mcl_fishing/textures/",
+		"fletching_table":   "/ITEMS/mcl_fletching_table/textures/",
+		"flowerpots":        "/ITEMS/mcl_flowerpots/textures/",
+		"flowers":           "/ITEMS/mcl_flowers/textures/",
+		"furnaces":          "/ITEMS/mcl_furnaces/textures/",
+		"honey":             "/ITEMS/mcl_honey/textures/",
+		"hopper":            "/ITEMS/mcl_hoppers/textures/",
+		"jukebox":           "/ITEMS/mcl_jukebox/textures/",
+		"lightning_rods":    "/ITEMS/mcl_lightning_rods/textures/",
+		"loom":              "/ITEMS/mcl_loom/textures/",
+		"lush_caves":        "/ITEMS/mcl_lush_caves/textures/",
+		"mangrove":          "/ITEMS/mcl_mangrove/textures/",
+		"mud":               "/ITEMS/mcl_mud/textures/",
+		"mushrooms":         "/ITEMS/mcl_mushrooms/textures/",
+		"nether":            "/ITEMS/mcl_nether/textures/",
+		"raw_ores":          "/ITEMS/mcl_raw_ores/textures/",
+		"sponges":           "/ITEMS/mcl_sponges/textures/",
+		"spyglass":          "/ITEMS/mcl_spyglass/textures/",
+		"smithing_table":    "/ITEMS/mcl_smithing_table/textures/",
+		"smoker":            "/ITEMS/mcl_smoker/textures/",
+		"stairs":            "/ITEMS/mcl_stairs/textures/",
+		"stonecutter":       "/ITEMS/mcl_stonecutter/textures/",
+		"sus_nodes":         "/ITEMS/mcl_sus_nodes/textures/",
+		"sus_stew":          "/ITEMS/mcl_sus_stew/textures/",
+		"throwing":          "/ITEMS/mcl_throwing/textures/",
+		"tnt":               "/ITEMS/mcl_tnt/textures/",
+		"tools":             "/ITEMS/mcl_tools/textures/",
+		"torches":           "/ITEMS/mcl_torches/textures/",
+		"totems":            "/ITEMS/mcl_torches/textures/",
+		"walls":             "/ITEMS/mcl_walls/textures/",
+		"wool":              "/ITEMS/mcl_wool/textures/",
+		"xfences":           "/ITEMS/mclx_fences/textures/",
 		//"": "/ITEMS//textures/",
 	}
 	return cloniaPaths
@@ -276,7 +284,16 @@ func basicITEMS() [][4]string {
 		{"block", "cake_top.png", "cake", "cake_top.png"},
 		// -- mcl_campfires
 		// -- mcl_cartography_table
+		{"block", "cartography_table_side1.png", "cartography_table", "cartography_table_side1.png"},
+		{"block", "cartography_table_side2.png", "cartography_table", "cartography_table_side2.png"},
+		{"block", "cartography_table_side3.png", "cartography_table", "cartography_table_side3.png"},
+		{"block", "cartography_table_top.png", "cartography_table", "cartography_table_top.png"},
 		// -- mcl_cauldrons
+		{"item", "cauldron.png", "cauldrons", "mcl_cauldrons_cauldron.png"},
+		{"block", "cauldron_bottom.png", "cauldrons", "mcl_cauldrons_cauldron_bottom.png"},
+		{"block", "cauldron_inner.png", "cauldrons", "mcl_cauldrons_cauldron_inner.png"},
+		{"block", "cauldron_side.png", "cauldrons", "mcl_cauldrons_cauldron_side.png"},
+		{"block", "cauldron_top.png", "cauldrons", "mcl_cauldrons_cauldron_top.png"},
 		// -- mcl_cherry_blossom
 		//{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom.png"}, //flipped
 		{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom_bottompart.png"},
@@ -1118,6 +1135,7 @@ func basicITEMS() [][4]string {
 		// -- mcl_sculk
 		// -- mcl_shields
 		// -- mcl_signs
+
 		// -- mcl_smithing_table
 		{"block", "smithing_table_bottom.png", "smithing_table", "mcl_smithing_table_bottom.png"},
 		{"block", "smithing_table_front.png", "smithing_table", "mcl_smithing_table_front.png"},
@@ -1131,17 +1149,38 @@ func basicITEMS() [][4]string {
 		{"block", "smoker_side.png", "smoker", "smoker_side.png"},
 		{"block", "smoker_top.png", "smoker", "smoker_top.png"},
 		// -- mcl_sponges
+		{"particle", "generic_0.png", "sponges", "mcl_particles_sponge1.png"},
+		{"particle", "generic_1.png", "sponges", "mcl_particles_sponge2.png"},
+		{"particle", "generic_2.png", "sponges", "mcl_particles_sponge3.png"},
+		{"particle", "generic_3.png", "sponges", "mcl_particles_sponge4.png"},
+		{"particle", "generic_4.png", "sponges", "mcl_particles_sponge5.png"},
+		{"block", "sponge.png", "sponges", "mcl_sponges_sponge.png"},
+		{"block", "wet_sponge.png", "sponges", "mcl_sponges_sponge_wet.png"},
+		//{"block", "wet_sponge.png", "sponges", "mcl_sponges_sponge_wet_river_water.png"}, // no match
 		// -- mcl_spyglass
+		{"item", "spyglass.png", "spyglass", "mcl_spyglass.png"},
+		//{"misc", ".png", "spyglass", "mcl_spyglass_scope.png"}, // special attention: needs black borders?
 		// -- mcl_stairs
+		{"block", "smooth_stone_slab_side.png", "stairs", "mcl_stairs_stone_slab_side.png"},
+		{"block", "smooth_stone.png", "stairs", "mcl_stairs_stone_slab_top.png"},
+		//{"", ".png", "stairs", "mcl_stairs_turntexture.png"}, // no match?
 		// -- mcl_stonecutter
 		{"block", "stonecutter_bottom.png", "stonecutter", "mcl_stonecutter_bottom.png"},
 		//{"block", "stonecutter_saw.png", "stonecutter", "mcl_stonecutter_saw.png"},  // special attention
 		{"block", "stonecutter_side.png", "stonecutter", "mcl_stonecutter_side.png"},
 		{"block", "stonecutter_top.png", "stonecutter", "mcl_stonecutter_top.png"},
 		// -- mcl_sus_nodes
+		{"item", "brush.png", "sus_nodes", "mcl_sus_nodes_brush.png"},
+		//{"", ".png", "sus_nodes", "mcl_sus_nodes_suspicious_overlay.png"},   // no match
+		//{"", ".png", "sus_nodes", "mcl_sus_nodes_suspicious_overlay_1.png"}, //no match
+		//{"", ".png", "sus_nodes", "mcl_sus_nodes_suspicious_overlay_2.png"}, //no match
+		//{"", ".png", "sus_nodes", "mcl_sus_nodes_suspicious_overlay_3.png"}, //no match
 		// -- mcl_sus_stew
 		{"item", "suspicious_stew.png", "sus_stew", "sus_stew.png"},
 		// -- mcl_throwing
+		{"item", "egg.png", "throwing", "mcl_throwing_egg.png"},
+		{"item", "ender_pearl.png", "throwing", "mcl_throwing_ender_pearl.png"},
+		{"item", "snowball.png", "throwing", "mcl_throwing_snowball.png"},
 		// -- mcl_tnt
 		{"block", "tnt_bottom.png", "tnt", "default_tnt_bottom.png"},
 		{"block", "tnt_side.png", "tnt", "default_tnt_side.png"},
@@ -1180,7 +1219,13 @@ func basicITEMS() [][4]string {
 		{"block", "torch.png", "torches", "default_torch_on_floor.png"},
 		{"block", "torch.png", "torches", "default_torch_on_floor_animated.png"},
 		// -- mcl_totems
-		// -- mcl_trees
+		{"particle", "glitter_4.png", "totems", "mcl_particles_totem1.png"},
+		{"particle", "glitter_5.png", "totems", "mcl_particles_totem2.png"},
+		{"particle", "glitter_6.png", "totems", "mcl_particles_totem3.png"},
+		{"particle", "glitter_7.png", "totems", "mcl_particles_totem4.png"},
+		{"item", "totem_of_undying.png", "totems", "mcl_totems_totem.png"},
+		{"item", "totem_of_undying.png", "totems", "mcl_totems_totem_wieldview.png"},
+		// -- mcl_trees -- NO DATA
 		// -- mcl_walls
 		{"block", "mossy_cobblestone.png", "walls", "mcl_walls_cobble_mossy_wall_side.png"},
 		{"block", "mossy_cobblestone.png", "walls", "mcl_walls_cobble_mossy_wall_top.png"}, // special attention
