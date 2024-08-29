@@ -56,6 +56,9 @@ func CloniaPaths() map[string]string {
 		"furnaces":        "/ITEMS/mcl_furnaces/textures/",
 		"honey":           "/ITEMS/mcl_honey/textures/",
 		"hopper":          "/ITEMS/mcl_hoppers/textures/",
+		"jukebox":         "/ITEMS/mcl_jukebox/textures/",
+		"lightning_rods":  "/ITEMS/mcl_lightning_rods/textures/",
+		"loom":            "/ITEMS/mcl_loom/textures/",
 		"lush_caves":      "/ITEMS/mcl_lush_caves/textures/",
 		"mangrove":        "/ITEMS/mcl_mangrove/textures/",
 		"mud":             "/ITEMS/mcl_mud/textures/",
@@ -968,10 +971,33 @@ func basicITEMS() [][4]string {
 		{"item", "hopper.png", "hopper", "mcl_hoppers_item.png"},
 		// -- mcl_itemframes
 		// -- mcl_jukebox
+		// TODO Should the records really be copied over?
+		{"item", "music_disc_11.png", "jukebox", "mcl_jukebox_record_11.png"},
+		{"item", "music_disc_13.png", "jukebox", "mcl_jukebox_record_13.png"},
+		{"item", "music_disc_blocks.png", "jukebox", "mcl_jukebox_record_blocks.png"},
+		{"item", "music_disc_cat.png", "jukebox", "mcl_jukebox_record_cat.png"},
+		{"item", "music_disc_chirp.png", "jukebox", "mcl_jukebox_record_chirp.png"},
+		{"item", "music_disc_far.png", "jukebox", "mcl_jukebox_record_far.png"},
+		{"item", "music_disc_mall.png", "jukebox", "mcl_jukebox_record_mall.png"},
+		{"item", "music_disc_mellohi.png", "jukebox", "mcl_jukebox_record_mellohi.png"},
+		{"item", "music_disc_stal.png", "jukebox", "mcl_jukebox_record_stal.png"},
+		{"item", "music_disc_strad.png", "jukebox", "mcl_jukebox_record_strad.png"},
+		{"item", "music_disc_wait.png", "jukebox", "mcl_jukebox_record_wait.png"},
+		{"item", "music_disc_ward.png", "jukebox", "mcl_jukebox_record_ward.png"},
+		{"block", "jukebox_side.png", "jukebox", "mcl_jukebox_side.png"},
+		{"block", "jukebox_top.png", "jukebox", "mcl_jukebox_top.png"},
 		// -- mcl_lanterns
 		// -- mcl_lectern
 		// -- mcl_lightning_rods
+		{"block", "lightning_rod.png", "lightning_rods", "mcl_lightning_rods_rod.png"},
 		// -- mcl_loom
+		{"block", "loom_bottom.png", "loom", "loom_bottom.png"},
+		{"block", "loom_front.png", "loom", "loom_front.png"},
+		{"block", "loom_side.png", "loom", "loom_side.png"},
+		{"block", "loom_top.png", "loom", "loom_top.png"},
+		//{"block", ".png", "loom", "mcl_loom_itemslot_bg_banner.png"},
+		//{"block", ".png", "loom", "mcl_loom_itemslot_bg_dye.png"},
+		//{"block", ".png", "loom", "mcl_loom_itemslot_bg_pattern.png"},
 		// -- mcl_lush_caves
 		{"block", "azalea_top.png", "lush_caves", "mcl_lush_caves_azalea_bottom.png"},
 		{"block", "flowering_azalea_top.png", "lush_caves", "mcl_lush_caves_azalea_flowering_bottom.png"},
