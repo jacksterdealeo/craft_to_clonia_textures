@@ -816,8 +816,10 @@ func basicITEMS() [][4]string {
 		{"block", "spruce_trapdoor.png", "doors", "mcl_doors_trapdoor_spruce_side.png"},
 		// -- mcl_dyes
 		{"item", "bone_meal.png", "dyes", "mcl_bone_meal_bone_meal.png"},
+		/*
 		{"item", "white_dye.png", "dyes", "mcl_dye_mask.png"},
 		{"item", "white_dye.png", "dyes", "mcl_dye_white.png"},
+		*/
 		// -- mcl_enchanting
 		// -- mcl_end
 		// -- mcl_farming
