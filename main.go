@@ -172,6 +172,7 @@ description = A Minecraft texture pack converted to Mineclonia on %s.`,
 
 	//special casses
 	anvil_fix(inPath+craftPaths["block"], outPath+cloniaPaths["anvils"])
+	//chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"])
 	water_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"])
 	lava_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"])
 	flowerpot_fix(inPath+craftPaths["block"], outPath+cloniaPaths["flowerpots"])

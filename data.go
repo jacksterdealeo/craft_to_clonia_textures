@@ -39,6 +39,7 @@ func CloniaPaths() map[string]string {
 		"cartography_table": "/ITEMS/mcl_cartography_table/textures/",
 		"cauldrons":         "/ITEMS/cauldrons/textures/",
 		"cherry_blossom":    "/ITEMS/mcl_cherry_blossom/textures/",
+		"chests":            "/ITEMS/mcl_chests/textures/",
 		"colorblocks":       "/ITEMS/mcl_colorblocks/textures/",
 		"copper":            "/ITEMS/mcl_copper/textures/",
 		"core":              "/ITEMS/mcl_core/textures/",
@@ -318,6 +319,18 @@ func basicITEMS() [][4]string {
 		{"block", "cherry_trapdoor.png", "cherry_blossom", "mcl_cherry_blossom_trapdoor.png"},
 		{"block", "cherry_trapdoor.png", "cherry_blossom", "mcl_cherry_blossom_trapdoor_side.png"},
 		// -- mcl_chests
+		{"entity", "chest/ender.png", "chests", "mcl_chests_ender.png"},
+		//{"entity", "chest/ender.png", "chests", "mcl_chests_ender_present.png"}, // no match
+		//{"entity", ".png", "chests", "mcl_chests_noise.png"},              // no match
+		//{"entity", ".png", "chests", "mcl_chests_noise_double.png"},       // no match
+		{"entity", "chest/normal.png", "chests", "mcl_chests_normal.png"},
+		//{"entity", ".png", "chests", "mcl_chests_normal_double.png"},         // special attention
+		//{"entity", ".png", "chests", "mcl_chests_normal_double_present.png"}, // special attention
+		{"entity", "chest/christmas.png", "chests", "mcl_chests_normal_present.png"},
+		{"entity", "chest/trapped.png", "chests", "mcl_chests_trapped.png"},
+		//{"entity", ".png", "chests", "mcl_chests_trapped_double.png"},         // special attention
+		//{"entity", ".png", "chests", "mcl_chests_trapped_double_present.png"}, // no match
+		{"entity", "chest/trapped.png", "chests", "mcl_chests_trapped_present.png"}, //no match
 		// -- mcl_clock
 		// -- mcl_cocoas
 		// -- mcl_colorblocks
@@ -817,8 +830,8 @@ func basicITEMS() [][4]string {
 		// -- mcl_dyes
 		{"item", "bone_meal.png", "dyes", "mcl_bone_meal_bone_meal.png"},
 		/*
-		{"item", "white_dye.png", "dyes", "mcl_dye_mask.png"},
-		{"item", "white_dye.png", "dyes", "mcl_dye_white.png"},
+			{"item", "white_dye.png", "dyes", "mcl_dye_mask.png"},
+			{"item", "white_dye.png", "dyes", "mcl_dye_white.png"},
 		*/
 		// -- mcl_enchanting
 		// -- mcl_end
