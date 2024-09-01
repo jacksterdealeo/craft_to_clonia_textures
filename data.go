@@ -64,6 +64,8 @@ func CloniaPaths() map[string]string {
 		"loom":              "/ITEMS/mcl_loom/textures/",
 		"lush_caves":        "/ITEMS/mcl_lush_caves/textures/",
 		"mangrove":          "/ITEMS/mcl_mangrove/textures/",
+		"mobitems":          "/ITEMS/mcl_mobitems/textures/",
+		"mobspawners":       "/ITEMS/mcl_mobspawners/textures/",
 		"mud":               "/ITEMS/mcl_mud/textures/",
 		"mushrooms":         "/ITEMS/mcl_mushrooms/textures/",
 		"nether":            "/ITEMS/mcl_nether/textures/",
@@ -1090,7 +1092,56 @@ func basicITEMS() [][4]string {
 		{"block", "stripped_mangrove_log_top.png", "mangrove", "mcl_stripped_mangrove_log_top.png"},
 		// -- mcl_maps
 		// -- mcl_mobitems
+		{"item", "gunpowder.png", "mobitems", "default_gunpowder.png"},
+		{"item", "glow_ink_sac.png", "mobitems", "extra_mobs_glow_ink_sac.png"},
+		{"item", "cooked_beef.png", "mobitems", "mcl_mobitems_beef_cooked.png"},
+		{"item", "beef.png", "mobitems", "mcl_mobitems_beef_raw.png"},
+		{"item", "blaze_powder.png", "mobitems", "mcl_mobitems_blaze_powder.png"},
+		{"item", "blaze_rod.png", "mobitems", "mcl_mobitems_blaze_rod.png"},
+		{"item", "bone.png", "mobitems", "mcl_mobitems_bone.png"},
+		{"item", "breeze_rod.png", "mobitems", "mcl_mobitems_breeze_rod.png"},
+		{"item", "milk_bucket.png", "mobitems", "mcl_mobitems_bucket_milk.png"},
+		{"item", "carrot_on_a_stick.png", "mobitems", "mcl_mobitems_carrot_on_a_stick.png"},
+		{"item", "cooked_chicken.png", "mobitems", "mcl_mobitems_chicken_cooked.png"},
+		{"item", "chicken.png", "mobitems", "mcl_mobitems_chicken_raw.png"},
+		{"item", "diamond_horse_armor.png", "mobitems", "mcl_mobitems_diamond_horse_armor.png"},
+		{"item", "feather.png", "mobitems", "mcl_mobitems_feather.png"},
+		{"item", "ghast_tear.png", "mobitems", "mcl_mobitems_ghast_tear.png"},
+		{"item", "golden_horse_armor.png", "mobitems", "mcl_mobitems_gold_horse_armor.png"},
+		{"item", "heart_of_the_sea.png", "mobitems", "mcl_mobitems_heart_of_the_sea.png"},
+		//{"item", ".png", "mobitems", "mcl_mobitems_heart_of_the_sea_split.png"}, // no match
+		//{"item", ".png", "mobitems", "mcl_mobitems_horse_armor_diamond.png"},       // special attention
+		//{"item", ".png", "mobitems", "mcl_mobitems_horse_armor_gold.png"},          // special attention
+		//{"item", ".png", "mobitems", "mcl_mobitems_horse_armor_iron.png"},          // special attention
+		//{"item", ".png", "mobitems", "mcl_mobitems_horse_armor_leather.png"},       // special attention
+		//{"item", ".png", "mobitems", "mcl_mobitems_horse_armor_leather_desat.png"}, // special attention
+		{"item", "ink_sac.png", "mobitems", "mcl_mobitems_ink_sac.png"},
+		{"item", "iron_horse_armor.png", "mobitems", "mcl_mobitems_iron_horse_armor.png"},
+		{"item", "leather.png", "mobitems", "mcl_mobitems_leather.png"},
+		//{"item", ".png", "mobitems", "mcl_mobitems_leather_horse_armor.png"},       // special attention
+		//{"item", ".png", "mobitems", "mcl_mobitems_leather_horse_armor_desat.png"}, // special attention
+		{"item", "magma_cream.png", "mobitems", "mcl_mobitems_magma_cream.png"},
+		{"item", "cooked_mutton.png", "mobitems", "mcl_mobitems_mutton_cooked.png"},
+		{"item", "mutton.png", "mobitems", "mcl_mobitems_mutton_raw.png"},
+		{"item", "name_tag.png", "mobitems", "mcl_mobitems_nametag.png"},
+		{"item", "nautilus_shell.png", "mobitems", "mcl_mobitems_nautilus_shell.png"},
+		{"item", "nether_star.png", "mobitems", "mcl_mobitems_nether_star.png"},
+		{"item", "cooked_porkchop.png", "mobitems", "mcl_mobitems_porkchop_cooked.png"},
+		{"item", "porkchop.png", "mobitems", "mcl_mobitems_porkchop_raw.png"},
+		{"item", "cooked_rabbit.png", "mobitems", "mcl_mobitems_rabbit_cooked.png"},
+		{"item", "rabbit_foot.png", "mobitems", "mcl_mobitems_rabbit_foot.png"},
+		{"item", "rabbit_hide.png", "mobitems", "mcl_mobitems_rabbit_hide.png"},
+		{"item", "rabbit.png", "mobitems", "mcl_mobitems_rabbit_raw.png"},
+		{"item", "rabbit_stew.png", "mobitems", "mcl_mobitems_rabbit_stew.png"},
+		{"item", "rotten_flesh.png", "mobitems", "mcl_mobitems_rotten_flesh.png"},
+		{"item", "saddle.png", "mobitems", "mcl_mobitems_saddle.png"},
+		{"item", "shulker_shell.png", "mobitems", "mcl_mobitems_shulker_shell.png"},
+		{"item", "slime_ball.png", "mobitems", "mcl_mobitems_slimeball.png"},
+		{"item", "spider_eye.png", "mobitems", "mcl_mobitems_spider_eye.png"},
+		{"item", "string.png", "mobitems", "mcl_mobitems_string.png"},
+		{"item", "warped_fungus_on_a_stick.png", "mobitems", "mcl_mobitems_warped_fungus_on_a_stick.png"},
 		// -- mcl_mobspawners
+		{"block", "spawner.png", "mobspawners", "mob_spawner.png"},
 		// -- mcl_monster_eggs
 		// -- mcl_mud
 		{"block", "mud.png", "mud", "mcl_mud.png"},
