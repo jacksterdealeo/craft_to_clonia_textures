@@ -324,18 +324,20 @@ func basicITEMS() [][4]string {
 		{"block", "cherry_trapdoor.png", "cherry_blossom", "mcl_cherry_blossom_trapdoor.png"},
 		{"block", "cherry_trapdoor.png", "cherry_blossom", "mcl_cherry_blossom_trapdoor_side.png"},
 		// -- mcl_chests
-		{"entity", "chest/ender.png", "chests", "mcl_chests_ender.png"},
-		//{"entity", "chest/ender.png", "chests", "mcl_chests_ender_present.png"}, // no match
-		//{"entity", ".png", "chests", "mcl_chests_noise.png"},              // no match
-		//{"entity", ".png", "chests", "mcl_chests_noise_double.png"},       // no match
-		{"entity", "chest/normal.png", "chests", "mcl_chests_normal.png"},
-		//{"entity", ".png", "chests", "mcl_chests_normal_double.png"},         // special attention
-		//{"entity", ".png", "chests", "mcl_chests_normal_double_present.png"}, // special attention
-		{"entity", "chest/christmas.png", "chests", "mcl_chests_normal_present.png"},
-		{"entity", "chest/trapped.png", "chests", "mcl_chests_trapped.png"},
-		//{"entity", ".png", "chests", "mcl_chests_trapped_double.png"},         // special attention
-		//{"entity", ".png", "chests", "mcl_chests_trapped_double_present.png"}, // no match
-		{"entity", "chest/trapped.png", "chests", "mcl_chests_trapped_present.png"}, //no match
+		/*
+			{"entity", "chest/ender.png", "chests", "mcl_chests_ender.png"},
+			//{"entity", "chest/ender.png", "chests", "mcl_chests_ender_present.png"}, // no match
+			//{"entity", ".png", "chests", "mcl_chests_noise.png"},              // no match
+			//{"entity", ".png", "chests", "mcl_chests_noise_double.png"},       // no match
+			{"entity", "chest/normal.png", "chests", "mcl_chests_normal.png"},
+			//{"entity", ".png", "chests", "mcl_chests_normal_double.png"},         // special attention
+			//{"entity", ".png", "chests", "mcl_chests_normal_double_present.png"}, // special attention
+			{"entity", "chest/christmas.png", "chests", "mcl_chests_normal_present.png"},
+			{"entity", "chest/trapped.png", "chests", "mcl_chests_trapped.png"},
+			//{"entity", ".png", "chests", "mcl_chests_trapped_double.png"},         // special attention
+			//{"entity", ".png", "chests", "mcl_chests_trapped_double_present.png"}, // no match
+			{"entity", "chest/trapped.png", "chests", "mcl_chests_trapped_present.png"}, //no match
+		*/
 		// -- mcl_clock
 		{"item", "clock_00.png", "clock", "mcl_clock_clock_00.png"},
 		{"item", "clock_01.png", "clock", "mcl_clock_clock_01.png"},
