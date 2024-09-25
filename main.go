@@ -176,7 +176,8 @@ description = A Minecraft texture pack converted to Mineclonia on %s.`,
 	water_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"])
 	lava_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"])
 	flowerpot_fix(inPath+craftPaths["block"], outPath+cloniaPaths["flowerpots"])
-	flip_fixes(inPath, outPath)
+	flip_fix(inPath, outPath)
+	animated_texture_fix(inPath, outPath)
 }
 
 func copyTexture(src string, dest string) error {

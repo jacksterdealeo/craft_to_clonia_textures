@@ -188,7 +188,7 @@ func basicITEMS() [][4]string {
 		{"block", "respawn_anchor_side3.png", "beds", "respawn_anchor_side3.png"},
 		{"block", "respawn_anchor_side4.png", "beds", "respawn_anchor_side4.png"},
 		{"block", "respawn_anchor_top_off.png", "beds", "respawn_anchor_top_off.png"},
-		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},
+		//{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"}, //animated
 		// -- mcl_beehives
 		{"block", "beehive_end.png", "beehives", "mcl_beehives_beehive_end.png"},
 		{"block", "beehive_front.png", "beehives", "mcl_beehives_beehive_front.png"},
@@ -218,7 +218,7 @@ func basicITEMS() [][4]string {
 		{"block", "blackstone.png", "blackstone", "mcl_blackstone_top.png"}, // special Case?
 		{"block", "blackstone_top.png", "blackstone", "mcl_blackstone_top.png"},
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame.png"},
-		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"}, //animated
+		//{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"}, //animated
 		{"block", "soul_torch.png", "blackstone", "soul_torch_on_floor.png"},
 		{"block", "soul_torch.png", "blackstone", "soul_torch_on_floor_animated.png"}, //animated
 		// -- mcl_blast_furnace
@@ -1064,9 +1064,9 @@ func basicITEMS() [][4]string {
 		{"block", "spruce_planks.png", "fences", "mcl_fences_fence_spruce.png"},
 		// -- mcl_fire
 		{"block", "fire_0.png", "fire", "fire_basic_flame.png"},
-		{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png"},
-		{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png"}, // special attention
-		{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png"},    // special attention
+		//{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png"},         // animated
+		//{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png"}, // animated
+		//{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png"},    // animated
 		{"item", "fire_charge.png", "fire", "mcl_fire_fire_charge.png"},
 		{"item", "flint_and_steel.png", "fire", "mcl_fire_flint_and_steel.png"},
 		// -- mcl_fireworks
@@ -1309,7 +1309,7 @@ func basicITEMS() [][4]string {
 		{"block", "glowstone.png", "nether", "mcl_nether_glowstone.png"},
 		{"item", "glowstone_dust.png", "nether", "mcl_nether_glowstone_dust.png"},
 		{"block", "nether_gold_ore.png", "nether", "mcl_nether_gold_ore.png"},
-		{"block", "magma.png", "nether", "mcl_nether_magma.png"}, //is animated
+		//{"block", "magma.png", "nether", "mcl_nether_magma.png"}, // animated
 		{"block", "nether_bricks.png", "nether", "mcl_nether_nether_brick.png"},
 		{"item", "nether_brick.png", "nether", "mcl_nether_netherbrick.png"},
 		{"block", "netherite_block.png", "nether", "mcl_nether_netheriteblock.png"},

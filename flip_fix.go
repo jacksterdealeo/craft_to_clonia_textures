@@ -6,7 +6,7 @@ import (
 	//_ "image/png"
 )
 
-func flip_fixes(inName string, outName string) error {
+func flip_fix(inName string, outName string) error {
 
 	craftPaths := CraftPaths()
 	cloniaPaths := CloniaPaths()
