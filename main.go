@@ -28,7 +28,7 @@ type readWriteError struct {
 }
 
 func (e *readWriteError) Error() string {
-	return fmt.Sprintf("%v - %s", e.files, e.message)
+	return fmt.Sprintf("%s has %d fails: %v", e.message, len(e.files), e.files)
 }
 
 func main() {
@@ -132,8 +132,6 @@ func ConvertPack(inName string, outName string) {
 		}
 	}
 
-	//// pack icon
-	//copyTexture(inPath+"/pack.png", outPath+"/screenshot.png")
 	if src, err := imaging.Open(inPath + "/pack.png"); err != nil {
 		fmt.Println("Pack icon error~")
 	} else {
@@ -161,20 +159,33 @@ func ConvertPack(inName string, outName string) {
 		}
 	}
 	if len(copyTextureFails) != 0 {
-		fmt.Println("\nThe following textures couldn't be copied:", copyTextureFails)
+		fmt.Printf("\nThe following textures couldn't be copied:%v\n\n", copyTextureFails)
 	}
 
-	//special casses
-	if err := anvil_fix(inPath+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
-		fmt.Println(err.Error())
-	}
-	chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"])
-	water_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"])
-	lava_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"])
-	flowerpot_fix(inPath+craftPaths["block"], outPath+cloniaPaths["flowerpots"])
-	flip_fix(inPath, outPath)
+	////special casses
 	if err := animated_texture_fix(inPath, outPath); err != nil {
-		fmt.Println(err.Error())
+		fmt.Println(err.Error() + "\n")
+	}
+	if err := anvil_fix(inPath+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
+		fmt.Println(err.Error() + "\n")
+	}
+	if err := double_chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
+		fmt.Println(err.Error() + "\n")
+	}
+	if err := flip_fix(inPath, outPath); err != nil {
+		fmt.Println(err.Error() + "\n")
+	}
+	if err := flowerpot_fix(inPath+craftPaths["block"], outPath+cloniaPaths["flowerpots"]); err != nil {
+		fmt.Println(err.Error() + "\n")
+	}
+	if err := lava_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
+		fmt.Println(err.Error() + "\n")
+	}
+	if err := single_chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
+		fmt.Println(err.Error() + "\n")
+	}
+	if err := water_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
+		fmt.Println(err.Error() + "\n")
 	}
 
 	packConfigFile := fmt.Sprintf(`title = %s

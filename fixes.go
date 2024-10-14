@@ -38,23 +38,19 @@ func animated_texture_fix(inName string, outName string) error {
 func anvil_fix(inPath string, outPath string) error {
 	abase, err := imaging.Open(inPath + "anvil.png")
 	if err != nil {
-		fmt.Println("AnvilBase error ~", "block, anvil.png")
-		return err
+		return &readWriteError{[]string{"block::anvil.png failed to open! Skipping the rest!"}, "anvil textures"}
 	}
 	a0, err := imaging.Open(inPath + "anvil_top.png")
 	if err != nil {
-		fmt.Println("Anvil0 error ~")
-		return err
+		return &readWriteError{[]string{"block::anvil_top.png failed to open! Skipping the rest!"}, "anvil textures"}
 	}
 	a1, err := imaging.Open(inPath + "chipped_anvil_top.png")
 	if err != nil {
-		fmt.Println("Anvil1 error ~")
-		return err
+		return &readWriteError{[]string{"block::chipped_anvil_top.png failed to open! Skipping the rest!"}, "anvil textures"}
 	}
 	a2, err := imaging.Open(inPath + "damaged_anvil_top.png")
 	if err != nil {
-		fmt.Println("Anvil2 error ~")
-		return err
+		return &readWriteError{[]string{"block::damaged_anvil_top.png failed to open!"}, "anvil textures"}
 	}
 	anvilX := abase.Bounds().Dx()
 	anvilY := abase.Bounds().Dy()
@@ -64,30 +60,21 @@ func anvil_fix(inPath string, outPath string) error {
 	dst = imaging.OverlayCenter(dst, a0, 1.0)
 
 	if err = imaging.Save(dst, outPath+"mcl_anvils_anvil_top_damaged_0.png"); err != nil {
-		fmt.Println("Anvil undamaged failed!")
-		return err
+		return &readWriteError{[]string{"mcl_anvils_anvil_top_damaged_0.png failed to save! Skipping the rest!"}, "anvil textures"}
 	}
 	dst = imaging.OverlayCenter(dst, a1, 1.0)
 	if err = imaging.Save(dst, outPath+"mcl_anvils_anvil_top_damaged_1.png"); err != nil {
-		fmt.Println("Anvil damaged1 failed!")
-		return err
+		return &readWriteError{[]string{"mcl_anvils_anvil_top_damaged_1.png failed to save! Skipping the rest!"}, "anvil textures"}
 	}
 	dst = imaging.OverlayCenter(dst, a2, 1.0)
 	if err = imaging.Save(dst, outPath+"mcl_anvils_anvil_top_damaged_2.png"); err != nil {
-		fmt.Println("Anvil damaged2 failed!")
-		return err
+		return &readWriteError{[]string{"mcl_anvils_anvil_top_damaged_2.png failed to save!"}, "anvil textures"}
 	}
-	return nil
-}
-
-func chests_fix(inPath string, outPath string) error {
-	double_chests_fix(inPath, outPath)
-	single_chests_fix(inPath, outPath)
 	return nil
 }
 
 func double_chests_fix(inPath string, outPath string) error {
-
+	fails := []string{}
 	flipHV := func(img image.Image) *image.NRGBA {
 		return imaging.FlipH(imaging.FlipV(img))
 	}
@@ -106,20 +93,17 @@ func double_chests_fix(inPath string, outPath string) error {
 	for _, e := range equals {
 		chestLeft, err := imaging.Open(inPath + e[0])
 		if err != nil {
-			fmt.Println("chest::" + inPath + e[0])
+			fails = append(fails, "chest"+"::"+e[0]+" failed to open!")
 			continue
-			//return err
 		}
 		chestRight, err := imaging.Open(inPath + e[1])
 		if err != nil {
-			fmt.Println("chest::" + inPath + e[1])
+			fails = append(fails, "chest"+"::"+e[1]+" failed to open!")
 			continue
-			//return err
 		}
 		chestX := chestLeft.Bounds().Dx()
 		scale := chestX / 64
 		dst := imaging.New(chestX*2, chestX, color.NRGBA{0, 0, 0, 0})
-		//NOT DONE
 		chestF1 := cropToScale(chestLeft, 14, 0, 29, 14, scale)
 		chestF1 = flipHV(chestF1)
 		chestF2 := cropToScale(chestLeft, 29, 0, 44, 14, scale)
@@ -220,14 +204,19 @@ func double_chests_fix(inPath string, outPath string) error {
 		dst = imaging.Overlay(dst, chestLockStrip5, image.Point{5 * scale, 1 * scale}, 1.0)
 		dst = imaging.Overlay(dst, chestLockStrip4, image.Point{0 * scale, 1 * scale}, 1.0)
 		if err = imaging.Save(dst, outPath+e[2]); err != nil {
+			fails = append(fails, "chest"+"::"+e[0]+" failed to save!")
 			continue
-			//return err
 		}
 	}
-	return nil
+	if len(fails) > 0 {
+		return &readWriteError{fails, "chest textures"}
+	} else {
+		return nil
+	}
 }
 
 func flip_fix(inName string, outName string) error {
+	fails := []string{}
 	flips := [][4]string{
 		////mcl_bamboo
 		{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom.png"},
@@ -261,18 +250,19 @@ func flip_fix(inName string, outName string) error {
 	for _, e := range flips {
 		img, err := imaging.Open(inName + craftPaths[e[0]] + e[1])
 		if err != nil {
-			fmt.Println(e[1], "couldn't open!")
+			fails = append(fails, e[0]+"::"+e[1]+" failed to open!")
 		} else {
 			img = imaging.FlipH(img)
-			//anvilX := abase.Bounds().Dx()
-			//anvilY := abase.Bounds().Dy()
-
 			if err = imaging.Save(img, outName+cloniaPaths[e[2]]+e[3]); err != nil {
-				fmt.Println(e[3], "failed to save!")
+				fails = append(fails, e[2]+"::"+e[3]+" failed to save!")
 			}
 		}
 	}
-	return nil
+	if len(fails) > 0 {
+		return &readWriteError{fails, "flip textures"}
+	} else {
+		return nil
+	}
 }
 
 // Restitches the extremely cursed MC version.
@@ -280,11 +270,11 @@ func flip_fix(inName string, outName string) error {
 func flowerpot_fix(inPath string, outPath string) error {
 	pot, err := imaging.Open(inPath + "flower_pot.png")
 	if err != nil {
-		return err
+		return &readWriteError{[]string{"block::flower_pot.png failed to open!"}, "flower pot textures"}
 	}
 	dirt, err := imaging.Open(inPath + "dirt.png")
 	if err != nil {
-		return err
+		return &readWriteError{[]string{"block::dirt.png failed to open!"}, "flower pot textures"}
 	}
 
 	potX := pot.Bounds().Dx()
@@ -320,11 +310,12 @@ func flowerpot_fix(inPath string, outPath string) error {
 	dst = imaging.Overlay(dst, dirt, image.Point{4 * scale, 26 * scale}, 1.0)
 
 	if err = imaging.Save(dst, outPath+"mcl_flowerpots_flowerpot.png"); err != nil {
-		return err
+		return &readWriteError{[]string{"mcl_flowerpots_flowerpot.png failed to save!"}, "flower pot textures"}
 	}
 	return nil
 }
 
+// TODO: Continue changing errors.
 func lava_fix(inPath string, outPath string) error {
 	/*
 		craft lava
