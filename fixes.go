@@ -8,10 +8,6 @@ import (
 )
 
 func animated_texture_fix(inName string, outName string) error {
-
-	craftPaths := CraftPaths()
-	cloniaPaths := CloniaPaths()
-
 	animated := [][4]string{
 		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"},
@@ -21,17 +17,22 @@ func animated_texture_fix(inName string, outName string) error {
 		{"block", "magma.png", "nether", "mcl_nether_magma.png"},
 	}
 
+	fails := []string{}
 	for _, e := range animated {
 		img, err := imaging.Open(inName + craftPaths[e[0]] + e[1])
 		if err != nil {
-			fmt.Println(e[1], "couldn't open!")
+			fails = append(fails, e[0]+"::"+e[1]+" failed to open!")
 		} else {
 			if err = imaging.Save(img, outName+cloniaPaths[e[2]]+e[3]); err != nil {
-				fmt.Println(e[3], "failed to save!")
+				fails = append(fails, e[3]+" failed to save!")
 			}
 		}
 	}
-	return nil
+	if len(fails) > 0 {
+		return &readWriteError{fails, "animated textures"}
+	} else {
+		return nil
+	}
 }
 
 func anvil_fix(inPath string, outPath string) error {
@@ -227,10 +228,6 @@ func double_chests_fix(inPath string, outPath string) error {
 }
 
 func flip_fix(inName string, outName string) error {
-
-	craftPaths := CraftPaths()
-	cloniaPaths := CloniaPaths()
-
 	flips := [][4]string{
 		////mcl_bamboo
 		{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom.png"},

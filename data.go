@@ -1,9 +1,7 @@
 package main
 
-import ()
-
-func CraftPaths() map[string]string {
-	craftPaths := map[string]string{
+var (
+	craftPaths = map[string]string{
 		"armor":       "/assets/minecraft/textures/models/armor/",
 		"bed":         "/assets/minecraft/textures/entity/bed/",
 		"block":       "/assets/minecraft/textures/block/",
@@ -13,11 +11,8 @@ func CraftPaths() map[string]string {
 		"particle":    "/assets/minecraft/textures/particle/",
 		"projectiles": "/assets/minecraft/textures/entity/projectiles/",
 	}
-	return craftPaths
-}
 
-func CloniaPaths() map[string]string {
-	cloniaPaths := map[string]string{
+	cloniaPaths = map[string]string{
 		// -- HUD
 		"hud_base": "/HUD/mcl_base_textures/textures/",
 		// -- ITEMS
@@ -37,7 +32,7 @@ func CloniaPaths() map[string]string {
 		"buckets":           "/ITEMS/mcl_buckets/textures/",
 		"cake":              "/ITEMS/mcl_cake/textures/",
 		"cartography_table": "/ITEMS/mcl_cartography_table/textures/",
-		"cauldrons":         "/ITEMS/cauldrons/textures/",
+		"cauldrons":         "/ITEMS/mcl_cauldrons/textures/",
 		"cherry_blossom":    "/ITEMS/mcl_cherry_blossom/textures/",
 		"chests":            "/ITEMS/mcl_chests/textures/",
 		"clock":             "/ITEMS/mcl_clock/textures/",
@@ -91,10 +86,7 @@ func CloniaPaths() map[string]string {
 		"xfences":           "/ITEMS/mclx_fences/textures/",
 		//"": "/ITEMS//textures/",
 	}
-	return cloniaPaths
-}
-func basicITEMS() [][4]string {
-	equivalents := [][4]string{
+	basicItems = [][4]string{
 		// -- mcl_amethyst
 		{"block", "amethyst_block.png", "amethyst", "mcl_amethyst_amethyst_block.png"},
 		{"block", "large_amethyst_bud.png", "amethyst", "mcl_amethyst_amethyst_bud_large.png"},
@@ -1469,11 +1461,8 @@ func basicITEMS() [][4]string {
 		// -- screwdriver
 		//{"block", ".png", "", ".png"},
 	}
-	return equivalents
-}
 
-func basicHUD() [][4]string {
-	equivalents := [][4]string{
+	basicHUD = [][4]string{
 		// -- mcl_base_textures
 		{"", "/assets/minecraft/textures/gui/sprites/hud/air.png",
 			"", "/HUD/mcl_base_textures/textures/bubble.png"},
@@ -1493,5 +1482,4 @@ func basicHUD() [][4]string {
 
 		//{"", ".png", "", ".png"},
 	}
-	return equivalents
-}
+)
