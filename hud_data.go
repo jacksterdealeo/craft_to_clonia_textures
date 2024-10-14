@@ -2,7 +2,7 @@ package main
 
 import ()
 
-func BASIChud() [][4]string {
+func BasicHud() [][4]string {
 	equivalents := [][4]string{
 		// -- mcl_base_textures
 		{"", "/assets/minecraft/textures/gui/sprites/hud/air.png",
