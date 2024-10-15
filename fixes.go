@@ -7,7 +7,7 @@ import (
 	"image/color"
 )
 
-func animated_texture_fix(inName string, outName string) error {
+func animated_texture_fix(inName string, outName string) *readWriteError {
 	animated := [][4]string{
 		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"},
@@ -35,7 +35,7 @@ func animated_texture_fix(inName string, outName string) error {
 	}
 }
 
-func anvil_fix(inPath string, outPath string) error {
+func anvil_fix(inPath string, outPath string) *readWriteError {
 	abase, err := imaging.Open(inPath + "anvil.png")
 	if err != nil {
 		return &readWriteError{[]string{"block::anvil.png failed to open! Skipping the rest!"}, "anvil textures"}
@@ -73,7 +73,7 @@ func anvil_fix(inPath string, outPath string) error {
 	return nil
 }
 
-func double_chests_fix(inPath string, outPath string) error {
+func double_chests_fix(inPath string, outPath string) *readWriteError {
 	fails := []string{}
 	flipHV := func(img image.Image) *image.NRGBA {
 		return imaging.FlipH(imaging.FlipV(img))
@@ -215,7 +215,7 @@ func double_chests_fix(inPath string, outPath string) error {
 	}
 }
 
-func flip_fix(inName string, outName string) error {
+func flip_fix(inName string, outName string) *readWriteError {
 	fails := []string{}
 	flips := [][4]string{
 		////mcl_bamboo
@@ -267,7 +267,7 @@ func flip_fix(inName string, outName string) error {
 
 // Restitches the extremely cursed MC version.
 // TODO mcl_flowerpots_cactus.png
-func flowerpot_fix(inPath string, outPath string) error {
+func flowerpot_fix(inPath string, outPath string) *readWriteError {
 	pot, err := imaging.Open(inPath + "flower_pot.png")
 	if err != nil {
 		return &readWriteError{[]string{"block::flower_pot.png failed to open!"}, "flower pot textures"}
@@ -315,7 +315,7 @@ func flowerpot_fix(inPath string, outPath string) error {
 	return nil
 }
 
-func lava_fix(inPath string, outPath string) error {
+func lava_fix(inPath string, outPath string) *readWriteError {
 	/*
 		craft lava
 		  still   :  16 x 512
@@ -342,7 +342,7 @@ func lava_fix(inPath string, outPath string) error {
 	return nil
 }
 
-func single_chests_fix(inPath string, outPath string) error {
+func single_chests_fix(inPath string, outPath string) *readWriteError {
 	fails := []string{}
 	equals := [][2]string{
 		{"christmas.png", "mcl_chests_normal_present.png"},
@@ -454,7 +454,7 @@ func single_chests_fix(inPath string, outPath string) error {
 	}
 }
 
-func water_fix(inPath string, outPath string) error {
+func water_fix(inPath string, outPath string) *readWriteError {
 	/*
 		craft water
 		  still   :  16 x 512

@@ -115,6 +115,9 @@ func main() {
 }
 
 func ConvertPack(inName string, outName string) {
+	var textureErrorsLog string
+	var successes = 0
+	var failures = 0
 	inPath := "input/" + inName
 	outPath := "output/" + outName
 	if fs.ValidPath(outPath) {
@@ -156,45 +159,61 @@ func ConvertPack(inName string, outName string) {
 		err := copyTexture(inPath+craftPaths[e[0]]+e[1], outPath+cloniaPaths[e[2]]+e[3])
 		if err != nil {
 			copyTextureFails = append(copyTextureFails, e[0]+"::"+e[1]+" failed to copy!")
+		} else {
+			successes += 1
 		}
 	}
 	if len(copyTextureFails) > 0 {
-		fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
+		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
+		textureErrorsLog += fmt.Sprintf("%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
+		failures += len(copyTextureFails)
 	}
 
 	////special casses
 	if err := animated_texture_fix(inPath, outPath); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 	if err := anvil_fix(inPath+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 	if err := double_chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 	if err := flip_fix(inPath, outPath); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 	if err := flowerpot_fix(inPath+craftPaths["block"], outPath+cloniaPaths["flowerpots"]); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 	if err := lava_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 	if err := single_chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 	if err := water_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
-		fmt.Println(err.Error() + "\n")
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
 
+	compatibilityRating := (successes * 100) / (successes + failures)
 	packConfigFile := fmt.Sprintf(`title = %s
 name = %s
-description = A Minecraft texture pack converted to Mineclonia on %s.`,
-		inName, outName, now)
+description = A Minecraft texture pack converted to Mineclonia on %s. %d successes, %d failures, %d%% compatible.`,
+		inName, outName, now, successes, failures, compatibilityRating)
 	fmt.Printf("Pack info:\n%s\n", packConfigFile)
-	err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644)
-	if err != nil {
+	if err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
+		log.Panic(err)
+	}
+
+	if err := os.WriteFile(outPath+"/craft_to_clonia_errors_log.txt", []byte(textureErrorsLog), 0644); err != nil {
 		log.Panic(err)
 	}
 }
