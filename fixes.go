@@ -209,7 +209,7 @@ func double_chests_fix(inPath string, outPath string) error {
 		}
 	}
 	if len(fails) > 0 {
-		return &readWriteError{fails, "chest textures"}
+		return &readWriteError{fails, "double chest textures"}
 	} else {
 		return nil
 	}
@@ -315,7 +315,6 @@ func flowerpot_fix(inPath string, outPath string) error {
 	return nil
 }
 
-// TODO: Continue changing errors.
 func lava_fix(inPath string, outPath string) error {
 	/*
 		craft lava
@@ -327,23 +326,24 @@ func lava_fix(inPath string, outPath string) error {
 	*/
 	lavaFlowing, err := imaging.Open(inPath + "lava_flow.png")
 	if err != nil {
-		fmt.Println("Error ~", inPath+"lava_flow.png")
-		return err
+		return &readWriteError{[]string{"lava_flow.png failed to open!"}, "lava textures"}
 	} else {
 		lavaStillX := lavaFlowing.Bounds().Dx()
 		lavaStillY := lavaFlowing.Bounds().Dy()
 		dst := imaging.New(lavaStillX/2, lavaStillY, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, lavaFlowing, image.Point{0, 0}, 1.0)
 		if err = imaging.Save(dst, outPath+"default_lava_flowing_animated.png"); err != nil {
-			fmt.Println("default_lava_flowing_animated.png", "save failed!")
-			return err
+			return &readWriteError{[]string{"default_lava_flowing_animated.png failed to save!"}, "lava textures"}
 		}
 	}
-	copyTextureAnimated(inPath+"lava_still.png", outPath+"default_lava_source_animated.png", -1)
+	if copyTextureAnimated(inPath+"lava_still.png", outPath+"default_lava_source_animated.png", -1); err != nil {
+		return &readWriteError{[]string{"default_lava_source_animated.png failed to copy!"}, "lava textures"}
+	}
 	return nil
 }
 
 func single_chests_fix(inPath string, outPath string) error {
+	fails := []string{}
 	equals := [][2]string{
 		{"christmas.png", "mcl_chests_normal_present.png"},
 		{"ender.png", "mcl_chests_ender.png"},
@@ -352,11 +352,10 @@ func single_chests_fix(inPath string, outPath string) error {
 		{"trapped.png", "mcl_chests_trapped.png"},
 	}
 	for _, e := range equals {
-
 		chestSingle, err := imaging.Open(inPath + e[0])
 		if err != nil {
+			fails = append(fails, e[0]+"::"+e[1]+" failed to open!")
 			continue
-			//return err
 		}
 
 		chestX := chestSingle.Bounds().Dx()
@@ -444,11 +443,15 @@ func single_chests_fix(inPath string, outPath string) error {
 		dst = imaging.Overlay(dst, chestLockLeft, image.Point{0 * scale, 1 * scale}, 1.0)
 
 		if err = imaging.Save(dst, outPath+e[1]); err != nil {
+			fails = append(fails, "chest::"+e[1]+" failed to save!")
 			continue
-			//return err
 		}
 	}
-	return nil
+	if len(fails) > 0 {
+		return &readWriteError{fails, "single chest textures"}
+	} else {
+		return nil
+	}
 }
 
 func water_fix(inPath string, outPath string) error {
@@ -462,7 +465,7 @@ func water_fix(inPath string, outPath string) error {
 	*/
 	wStill, err := imaging.Open(inPath + "water_still.png")
 	if err != nil {
-		fmt.Println("water_still.png error ~", inPath+"water.png")
+		return &readWriteError{[]string{"block::water_still.png failed to open!"}, "water textures"}
 	} else {
 		wStillX := wStill.Bounds().Dx()
 		wStillY := wStill.Bounds().Dy()
@@ -485,8 +488,7 @@ func water_fix(inPath string, outPath string) error {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(plainWater, outPath+"default_water_source_animated.png"); err != nil {
-			fmt.Println("default_water_source_animated.png save failed!")
-			return err
+			return &readWriteError{[]string{"default_water_source_animated.png failed to save!"}, "water textures"}
 		}
 
 		riverWater := imaging.AdjustFunc(dst,
@@ -506,14 +508,13 @@ func water_fix(inPath string, outPath string) error {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(riverWater, outPath+"default_river_water_source_animated.png"); err != nil {
-			fmt.Println("default_river_water_source_animated.png save failed!")
-			return err
+			return &readWriteError{[]string{"default_river_water_source_animated.png failed to save!"}, "water textures"}
 		}
 	}
 
 	wFlowing, err := imaging.Open(inPath + "water_flow.png")
 	if err != nil {
-		return err
+		return &readWriteError{[]string{"block::water_flow.png failed to open!"}, "water textures"}
 	} else {
 		wFlowingX := wFlowing.Bounds().Dx()
 		wFlowingY := wFlowing.Bounds().Dy()
@@ -536,8 +537,7 @@ func water_fix(inPath string, outPath string) error {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(plainWater, outPath+"default_water_flowing_animated.png"); err != nil {
-			fmt.Println("FlowingWater error~", inPath+"default_water_flowing_animated.png")
-			return err
+			return &readWriteError{[]string{"default_water_flowing_animated.png failed to save!"}, "water textures"}
 		}
 
 		riverWater := imaging.AdjustFunc(dst,
@@ -558,7 +558,7 @@ func water_fix(inPath string, outPath string) error {
 			})
 		if err = imaging.Save(riverWater, outPath+"default_river_water_flowing_animated.png"); err != nil {
 			fmt.Println("default_river_water_flowing_animated.png save failed!")
-			return err
+			return &readWriteError{[]string{"default_river_water_flowing_animated.png failed to save!"}, "water textures"}
 		}
 	}
 	return nil

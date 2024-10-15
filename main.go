@@ -155,11 +155,11 @@ func ConvertPack(inName string, outName string) {
 	for _, e := range basicItems {
 		err := copyTexture(inPath+craftPaths[e[0]]+e[1], outPath+cloniaPaths[e[2]]+e[3])
 		if err != nil {
-			copyTextureFails = append(copyTextureFails, e[0]+"::"+e[1])
+			copyTextureFails = append(copyTextureFails, e[0]+"::"+e[1]+" failed to copy!")
 		}
 	}
-	if len(copyTextureFails) != 0 {
-		fmt.Printf("\nThe following textures couldn't be copied:%v\n\n", copyTextureFails)
+	if len(copyTextureFails) > 0 {
+		fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
 	}
 
 	////special casses
@@ -192,13 +192,11 @@ func ConvertPack(inName string, outName string) {
 name = %s
 description = A Minecraft texture pack converted to Mineclonia on %s.`,
 		inName, outName, now)
-
 	fmt.Printf("Pack info:\n%s\n", packConfigFile)
 	err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644)
 	if err != nil {
 		log.Panic(err)
 	}
-
 }
 
 func copyTexture(src string, dest string) error {
@@ -207,9 +205,9 @@ func copyTexture(src string, dest string) error {
 		return err
 	}
 	imgX := img.Bounds().Dx()
-	//imgY := img.Bounds().Dy()
+	imgY := img.Bounds().Dy()
 
-	outImg := imaging.New(imgX, imgX, color.NRGBA{0, 0, 0, 0})
+	outImg := imaging.New(imgX, imgY, color.NRGBA{0, 0, 0, 0})
 	outImg = imaging.Overlay(outImg, img, image.Point{0, 0}, 1.0)
 
 	if err = imaging.Save(outImg, dest); err != nil {
