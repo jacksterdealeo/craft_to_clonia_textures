@@ -230,7 +230,7 @@ func copyTexture(src string, dest string) error {
 	outImg = imaging.Overlay(outImg, img, image.Point{0, 0}, 1.0)
 
 	if err = imaging.Save(outImg, dest); err != nil {
-		fmt.Println(src, "save failed!")
+		fmt.Println(src, "save failed!", err.Error())
 		return err
 	}
 	return nil
@@ -244,13 +244,27 @@ func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 		return err
 	}
 	imgX := img.Bounds().Dx()
+	imgY := img.Bounds().Dy()
+	maxNumOfFrames := imgY / imgX
+	if framesAllowed < maxNumOfFrames && framesAllowed >= 1 {
+		maxNumOfFrames = framesAllowed
+	}
 	frames, err := McmetaReader(src)
 	if err != nil {
 		return err
 	}
+	if len(frames) == 0 {
+		for i := 0; i < maxNumOfFrames; i++ {
+			frames = append(frames, i)
+		}
+	}
 	var outImgNumberOfFrames int
-	if framesAllowed <= 0 || framesAllowed > len(frames) {
-		outImgNumberOfFrames = len(frames)
+	if framesAllowed < 1 || framesAllowed > len(frames) {
+		if len(frames) != 0 {
+			outImgNumberOfFrames = len(frames)
+		} else {
+			outImgNumberOfFrames = maxNumOfFrames
+		}
 	} else {
 		outImgNumberOfFrames = framesAllowed
 	}
@@ -260,7 +274,7 @@ func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 		outImg = imaging.Overlay(outImg, frame, image.Point{0, i * imgX}, 1.0)
 	}
 	if err = imaging.Save(outImg, dest); err != nil {
-		fmt.Println(src, "save failed!")
+		fmt.Println(src, "save failed!", err.Error())
 		return err
 	}
 	return nil

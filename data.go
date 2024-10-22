@@ -86,7 +86,7 @@ var (
 		"xfences":           "/ITEMS/mclx_fences/textures/",
 		//"": "/ITEMS//textures/",
 	}
-	basicItems = [][4]string{
+	basicItems = [...][4]string{
 		// -- mcl_amethyst
 		{"block", "amethyst_block.png", "amethyst", "mcl_amethyst_amethyst_block.png"},
 		{"block", "large_amethyst_bud.png", "amethyst", "mcl_amethyst_amethyst_bud_large.png"},
@@ -1462,7 +1462,7 @@ var (
 		//{"block", ".png", "", ".png"},
 	}
 
-	basicHUD = [][4]string{
+	basicHUD = [...][4]string{
 		// -- mcl_base_textures
 		{"", "/assets/minecraft/textures/gui/sprites/hud/air.png",
 			"", "/HUD/mcl_base_textures/textures/bubble.png"},
