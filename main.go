@@ -19,7 +19,7 @@ const ()
 
 var (
 	now     = time.Now().Format("01-02-2006 15:04:05")
-	version = "0.2.0"
+	version = "Pre-release"
 )
 
 type readWriteError struct {
