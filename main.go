@@ -28,7 +28,7 @@ type readWriteError struct {
 }
 
 func (e *readWriteError) Error() string {
-	return fmt.Sprintf("%s has %d fails: %v", e.message, len(e.files), e.files)
+	return fmt.Sprintf("%s has %d fails:\n%v", e.message, len(e.files), strings.Join(e.files[:], "\n"))
 }
 
 func main() {
