@@ -1553,7 +1553,7 @@ var (
 		{"block", "sculk_sensor_bottom.png", "sculk", "mcl_sculk_sensor_bottom.png"},
 		{"block", "sculk_sensor_side.png", "sculk", "mcl_sculk_sensor_side.png"},
 		{"block", "sculk_sensor_top.png", "sculk", "mcl_sculk_sensor_top.png"},
-		{"block", "sculk_shrieker_bottom", "sculk", "mcl_sculk_shrieker_bottom.png"},
+		{"block", "sculk_shrieker_bottom.png", "sculk", "mcl_sculk_shrieker_bottom.png"},
 		{"block", "sculk_shrieker_side.png", "sculk", "mcl_sculk_shrieker_side.png"},
 		{"block", "sculk_shrieker_top.png", "sculk", "mcl_sculk_shrieker_top.png"},
 		{"block", "sculk_vein.png", "sculk", "mcl_sculk_vein.png"},
