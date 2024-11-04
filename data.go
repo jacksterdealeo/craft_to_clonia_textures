@@ -81,6 +81,8 @@ var (
 		"portals":           "/ITEMS/mcl_portals/textures/",
 		"potions":           "/ITEMS/mcl_potions/textures/",
 		"raw_ores":          "/ITEMS/mcl_raw_ores/textures/",
+		"sculk":             "/ITEMS/mcl_sculk/textures/",
+		"shields":           "/ITEMS/mcl_shields/textures/",
 		"sponges":           "/ITEMS/mcl_sponges/textures/",
 		"spyglass":          "/ITEMS/mcl_spyglass/textures/",
 		"smithing_table":    "/ITEMS/mcl_smithing_table/textures/",
@@ -1544,9 +1546,23 @@ var (
 		{"item", "raw_iron.png", "raw_ores", "mcl_raw_ores_raw_iron.png"},
 		{"block", "raw_iron_block.png", "raw_ores", "mcl_raw_ores_raw_iron_block.png"},
 		// -- mcl_sculk
+		{"block", "sculk_catalyst_bottom.png", "sculk", "mcl_sculk_catalyst_bottom.png"},
+		{"block", "sculk_catalyst_side.png", "sculk", "mcl_sculk_catalyst_side.png"},
+		{"block", "sculk_catalyst_top.png", "sculk", "mcl_sculk_catalyst_top.png"},
+		{"block", "sculk_catalyst_top_bloom.png", "sculk", "mcl_sculk_sculk.png"},
+		{"block", "sculk_sensor_bottom.png", "sculk", "mcl_sculk_sensor_bottom.png"},
+		{"block", "sculk_sensor_side.png", "sculk", "mcl_sculk_sensor_side.png"},
+		{"block", "sculk_sensor_top.png", "sculk", "mcl_sculk_sensor_top.png"},
+		{"block", "sculk_shrieker_bottom", "sculk", "mcl_sculk_shrieker_bottom.png"},
+		{"block", "sculk_shrieker_side.png", "sculk", "mcl_sculk_shrieker_side.png"},
+		{"block", "sculk_shrieker_top.png", "sculk", "mcl_sculk_shrieker_top.png"},
+		{"block", "sculk_vein.png", "sculk", "mcl_sculk_vein.png"},
 		// -- mcl_shields
+		// THIS WILL REQUIRE FIXES.
+		//{"item", ".png", "shields", ".png"},
+		//{"item", ".png", "shields", "mcl_shield.png"},
+		{"entity", "shield_base_nopattern.png", "shields", "mcl_shield_base_nopattern.png"},
 		// -- mcl_signs
-
 		// -- mcl_smithing_table
 		{"block", "smithing_table_bottom.png", "smithing_table", "mcl_smithing_table_bottom.png"},
 		{"block", "smithing_table_front.png", "smithing_table", "mcl_smithing_table_front.png"},
@@ -1666,7 +1682,7 @@ var (
 		{"block", "red_nether_bricks.png", "xfences", "mcl_fences_fence_red_nether_brick.png"},
 		// -- mclx_stairs
 		// -- REDSTONE
-		// -- screwdriver
+		// -- screwdriver -- NO MATCH
 		//{"block", ".png", "", ".png"},
 	}
 
