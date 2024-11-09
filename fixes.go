@@ -359,7 +359,7 @@ func single_chests_fix(inPath string, outPath string) *readWriteError {
 	for _, e := range equals {
 		chestSingle, err := imaging.Open(inPath + e[0])
 		if err != nil {
-			fails = append(fails, e[0]+"::"+e[1]+" failed to open!")
+			fails = append(fails, "chests"+"::"+e[0]+" failed to open!")
 			continue
 		}
 
