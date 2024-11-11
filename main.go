@@ -118,12 +118,12 @@ func ConvertPack(inName string, outName string) {
 	var textureErrorsLog string
 	var successes = 0
 	var failures = 0
-	inPath := "input/" + inName
+	texturePackLocation := "input/" + inName
 	outPath := "output/" + outName
 	if fs.ValidPath(outPath) {
 		if err := os.Mkdir(outPath, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {
-				log.Panicf("Folder %s is an \"invalid argument\". Maybe rename %s?\n", outPath, inPath)
+				log.Panicf("Folder %s is an \"invalid argument\". Maybe rename %s?\n", outPath, texturePackLocation)
 			} else if errors.Is(err, fs.ErrPermission) {
 				log.Panicf("Permission was denied. %s was not made.\n", outPath)
 			} else if errors.Is(err, fs.ErrExist) {
@@ -135,7 +135,7 @@ func ConvertPack(inName string, outName string) {
 		}
 	}
 
-	if src, err := imaging.Open(inPath + "/pack.png"); err != nil {
+	if src, err := imaging.Open(texturePackLocation + "/pack.png"); err != nil {
 		fmt.Println("Pack icon error~")
 	} else {
 		background := imaging.Fill(src, 350, 233, imaging.Center, imaging.Lanczos)
@@ -156,9 +156,9 @@ func ConvertPack(inName string, outName string) {
 
 	copyTextureFails := []string{}
 	for _, e := range basicItems {
-		err := copyTexture(inPath+craftPaths[e[0]]+e[1], outPath+cloniaPaths[e[2]]+e[3])
+		err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture)
 		if err != nil {
-			copyTextureFails = append(copyTextureFails, e[0]+"::"+e[1]+" failed to copy!")
+			copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
 		} else {
 			successes += 1
 		}
@@ -170,35 +170,35 @@ func ConvertPack(inName string, outName string) {
 	}
 
 	////special casses
-	if err := animated_texture_fix(inPath, outPath); err != nil {
+	if err := animated_texture_fix(texturePackLocation, outPath); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := anvil_fix(inPath+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
+	if err := anvil_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := double_chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
+	if err := double_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := flip_fix(inPath, outPath); err != nil {
+	if err := flip_fix(texturePackLocation, outPath); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := flowerpot_fix(inPath+craftPaths["block"], outPath+cloniaPaths["flowerpots"]); err != nil {
+	if err := flowerpot_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["flowerpots"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := lava_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
+	if err := lava_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := single_chests_fix(inPath+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
+	if err := single_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := water_fix(inPath+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
+	if err := water_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
