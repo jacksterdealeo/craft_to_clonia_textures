@@ -21,15 +21,16 @@ func cropToScale(img image.Image, x1, y1, x2, y2, scale int) *image.NRGBA {
 		image.Point{x1 * scale, y1 * scale}, image.Point{x2 * scale, y2 * scale}})
 }
 
+/*
 func animated_texture_fix(inName string, outName string) *readWriteError {
 	fails := []string{}
 	animated := [...][4]string{
-		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},
-		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"},
-		{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png"},
-		{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png"},
-		{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png"},
-		{"block", "magma.png", "nether", "mcl_nether_magma.png"},
+		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},         //
+		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"}, //
+		{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png"},                 //
+		{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png"},         //
+		{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png"},            //
+		{"block", "magma.png", "nether", "mcl_nether_magma.png"},                         //
 	}
 
 	for _, e := range animated {
@@ -48,6 +49,7 @@ func animated_texture_fix(inName string, outName string) *readWriteError {
 		return nil
 	}
 }
+*/
 
 func anvil_fix(inPath string, outPath string) *readWriteError {
 	abase, err := imaging.Open(inPath + "anvil.png")

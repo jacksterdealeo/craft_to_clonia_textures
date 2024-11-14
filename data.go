@@ -210,7 +210,7 @@ var (
 		{"block", "respawn_anchor_side3.png", "beds", "respawn_anchor_side3.png", false},
 		{"block", "respawn_anchor_side4.png", "beds", "respawn_anchor_side4.png", false},
 		{"block", "respawn_anchor_top_off.png", "beds", "respawn_anchor_top_off.png", false},
-		//{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png", false}, //animated
+		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png", true},
 		// -- mcl_beehives
 		{"block", "beehive_end.png", "beehives", "mcl_beehives_beehive_end.png", false},
 		{"block", "beehive_front.png", "beehives", "mcl_beehives_beehive_front.png", false},
@@ -240,7 +240,7 @@ var (
 		{"block", "blackstone.png", "blackstone", "mcl_blackstone_top.png", false}, // special Case?
 		{"block", "blackstone_top.png", "blackstone", "mcl_blackstone_top.png", false},
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame.png", false},
-		//{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png", false}, //animated
+		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png", true},
 		{"block", "soul_torch.png", "blackstone", "soul_torch_on_floor.png", false},
 		{"block", "soul_torch.png", "blackstone", "soul_torch_on_floor_animated.png", false}, //animated
 		// -- mcl_blast_furnace
@@ -1148,9 +1148,9 @@ var (
 		{"block", "spruce_planks.png", "fences", "mcl_fences_fence_spruce.png", false},
 		// -- mcl_fire
 		{"block", "fire_0.png", "fire", "fire_basic_flame.png", false},
-		//{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png", false},         // animated
-		//{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png", false}, // animated
-		//{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png", false},    // animated
+		{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png", true},
+		{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png", true},
+		{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png", true},
 		{"item", "fire_charge.png", "fire", "mcl_fire_fire_charge.png", false},
 		{"item", "flint_and_steel.png", "fire", "mcl_fire_flint_and_steel.png", false},
 		// -- mcl_fireworks
@@ -1408,7 +1408,7 @@ var (
 		{"block", "glowstone.png", "nether", "mcl_nether_glowstone.png", false},
 		{"item", "glowstone_dust.png", "nether", "mcl_nether_glowstone_dust.png", false},
 		{"block", "nether_gold_ore.png", "nether", "mcl_nether_gold_ore.png", false},
-		//{"block", "magma.png", "nether", "mcl_nether_magma.png", false}, // animated
+		{"block", "magma.png", "nether", "mcl_nether_magma.png", true},
 		{"block", "nether_bricks.png", "nether", "mcl_nether_nether_brick.png", false},
 		{"item", "nether_brick.png", "nether", "mcl_nether_netherbrick.png", false},
 		{"block", "netherite_block.png", "nether", "mcl_nether_netheriteblock.png", false},
@@ -1563,7 +1563,7 @@ var (
 		{"block", "sculk_catalyst_bottom.png", "sculk", "mcl_sculk_catalyst_bottom.png", false},
 		{"block", "sculk_catalyst_side.png", "sculk", "mcl_sculk_catalyst_side.png", false},
 		{"block", "sculk_catalyst_top.png", "sculk", "mcl_sculk_catalyst_top.png", false},
-		{"block", "sculk_catalyst_top_bloom.png", "sculk", "mcl_sculk_sculk.png", false},
+		{"block", "sculk_catalyst_top_bloom.png", "sculk", "mcl_sculk_sculk.png", true},
 		{"block", "sculk_sensor_bottom.png", "sculk", "mcl_sculk_sensor_bottom.png", false},
 		{"block", "sculk_sensor_side.png", "sculk", "mcl_sculk_sensor_side.png", false},
 		{"block", "sculk_sensor_top.png", "sculk", "mcl_sculk_sensor_top.png", false},
@@ -1586,7 +1586,7 @@ var (
 		// -- mcl_smoker
 		{"block", "smoker_bottom.png", "smoker", "smoker_bottom.png", false},
 		{"block", "smoker_front.png", "smoker", "smoker_front.png", false},
-		{"block", "smoker_front_on.png", "smoker", "smoker_front_on.png", false},
+		{"block", "smoker_front_on.png", "smoker", "smoker_front_on.png", true},
 		{"block", "smoker_side.png", "smoker", "smoker_side.png", false},
 		{"block", "smoker_top.png", "smoker", "smoker_top.png", false},
 		// -- mcl_sponges

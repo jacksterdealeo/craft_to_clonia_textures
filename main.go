@@ -83,8 +83,8 @@ func main() {
 			filepath.Ext(file.Name()) == ".zip" {
 			if _, err := os.Stat("input/" + FileNameWithoutExt(file.Name())); errors.Is(err, os.ErrNotExist) {
 				fmt.Println("Unzipping:", file.Name())
-				if err2 := unzipSource("input/"+file.Name(), "input/"+FileNameWithoutExt(file.Name())); err != nil {
-					fmt.Println("Extraction Error:", err2)
+				if err2 := unzipSource("input/"+file.Name(), "input/"+FileNameWithoutExt(file.Name())); err2 != nil {
+					fmt.Println("Extraction Error:", err)
 				}
 			} else {
 				fmt.Println(file.Name(), "was already decompressed! :D")
@@ -156,13 +156,21 @@ func ConvertPack(inName string, outName string) {
 
 	copyTextureFails := []string{}
 	for _, e := range basicItems {
-		err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture)
-		if err != nil {
-			copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
+		if e.isAnimated {
+			if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, 0); err != nil {
+				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
+			} else {
+				successes += 1
+			}
 		} else {
-			successes += 1
+			if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, 1); err != nil {
+				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
+			} else {
+				successes += 1
+			}
 		}
 	}
+
 	if len(copyTextureFails) > 0 {
 		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
 		textureErrorsLog += fmt.Sprintf("%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
@@ -170,10 +178,12 @@ func ConvertPack(inName string, outName string) {
 	}
 
 	////special casses
-	if err := animated_texture_fix(texturePackLocation, outPath); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
+	/*
+		if err := animated_texture_fix(texturePackLocation, outPath); err != nil {
+			failures += len(err.files)
+			textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+		}
+	*/
 	if err := anvil_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
@@ -218,6 +228,7 @@ description = A Minecraft texture pack converted to Mineclonia on %s. %d success
 	}
 }
 
+// Copies over a texture file with no changes.
 func copyTexture(src string, dest string) error {
 	img, err := imaging.Open(src)
 	if err != nil {
@@ -246,14 +257,14 @@ func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	imgX := img.Bounds().Dx()
 	imgY := img.Bounds().Dy()
 	maxNumOfFrames := imgY / imgX
+	if maxNumOfFrames == 0 { // some 32x31 textures were causing problems.
+		maxNumOfFrames = 1
+	}
 	if framesAllowed < maxNumOfFrames && framesAllowed >= 1 {
 		maxNumOfFrames = framesAllowed
 	}
 	frames, err := McmetaReader(src)
-	if err != nil {
-		return err
-	}
-	if len(frames) == 0 {
+	if err != nil || len(frames) == 0 {
 		for i := 0; i < maxNumOfFrames; i++ {
 			frames = append(frames, i)
 		}
