@@ -1519,7 +1519,7 @@ var (
 		//{"particle", ".png", "portals", "mcl_portals_particle3.png", false},
 		//{"particle", ".png", "portals", "mcl_portals_particle4.png", false},
 		//{"particle", ".png", "portals", "mcl_portals_particle5.png", false},
-		{"block", "nether_portal.png", "portals", "mcl_portals_portal.png", false},
+		{"block", "nether_portal.png", "portals", "mcl_portals_portal.png", true},
 		// -- mcl_potions
 		//{"", ".png", "potions", "hbhunger_icon_regen_poison.png", false},
 		//{"", ".png", "potions", "hudbars_icon_regenerate.png", false},
