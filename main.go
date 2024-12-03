@@ -33,41 +33,58 @@ func (e *readWriteError) Error() string {
 
 func main() {
 	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n", version)
+	if config, err := loadJsonConfig(); err != nil {
+		Config = config
+	}
 
-	if fs.ValidPath("output") {
-		if err := os.Mkdir("output", 0755); err != nil {
-			if errors.Is(err, fs.ErrPermission) {
-				log.Panicf("Permission was denied. %s was not made.\n", "output")
-			} else if errors.Is(err, fs.ErrExist) {
-				fmt.Printf("Folder %s already exists.\n", "output")
+	if !Config.DefinedInput {
+		if fs.ValidPath("output") {
+			if err := os.Mkdir("output", 0755); err != nil {
+				if errors.Is(err, fs.ErrPermission) {
+					log.Panicf("Permission was denied. %s was not made.\n", "output")
+				} else if errors.Is(err, fs.ErrExist) {
+					fmt.Printf("Folder %s already exists.\n", "output")
+				} else {
+					fmt.Printf("How.\n")
+					log.Panic(err)
+				}
 			} else {
-				fmt.Printf("How.\n")
-				log.Panic(err)
+				fmt.Println("Made the output folder!")
 			}
-		} else {
-			fmt.Println("Made the output folder!")
 		}
 	}
 
-	if fs.ValidPath("input") {
-		if err := os.Mkdir("input", 0755); err != nil {
-			if errors.Is(err, fs.ErrPermission) {
-				log.Panicf("Permission was denied. %s was not made.\n", "input")
-			} else if errors.Is(err, fs.ErrExist) {
-				fmt.Printf("Folder %s already exists.\n", "input")
+	if !Config.DefinedOutput {
+		if fs.ValidPath("input") {
+			if err := os.Mkdir("input", 0755); err != nil {
+				if errors.Is(err, fs.ErrPermission) {
+					log.Panicf("Permission was denied. %s was not made.\n", "input")
+				} else if errors.Is(err, fs.ErrExist) {
+					fmt.Printf("Folder %s already exists.\n", "input")
+				} else {
+					fmt.Printf("How.\n")
+					log.Panic(err)
+				}
 			} else {
-				fmt.Printf("How.\n")
-				log.Panic(err)
+				fmt.Println("Made the input folder!")
 			}
-		} else {
-			fmt.Println("Made the input folder!")
 		}
 	}
 
-	dir, err := os.Open("./input/")
-	if err != nil {
-		log.Panic("Error:", err)
-		return
+	var dir *os.File
+	var err error
+	if Config.DefinedInput {
+		dir, err = os.Open("./input/")
+		if err != nil {
+			log.Panic("Error:", err)
+			return
+		}
+	} else {
+		dir, err = os.Open(Config.InputDir)
+		if err != nil {
+			log.Panic("Error:", err)
+			return
+		}
 	}
 	defer dir.Close()
 	files, err := dir.Readdir(-1)
