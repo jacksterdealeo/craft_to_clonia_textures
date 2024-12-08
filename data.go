@@ -94,6 +94,7 @@ var (
 		"panes":             "/ITEMS/mcl_panes/textures/",
 		"portals":           "/ITEMS/mcl_portals/textures/",
 		"potions":           "/ITEMS/mcl_potions/textures/",
+		"pottery_sherds":    "/ITEMS/mcl_pottery_sherds/textures/",
 		"raw_ores":          "/ITEMS/mcl_raw_ores/textures/",
 		"sculk":             "/ITEMS/mcl_sculk/textures/",
 		"shields":           "/ITEMS/mcl_shields/textures/",
@@ -1554,6 +1555,67 @@ var (
 		{"item", "splash_potion.png", "potions", "mcl_potions_splash_bottle.png", false},
 		{"item", "potion_overlay.png", "potions", "mcl_potions_splash_overlay.png", false},
 		// -- mcl_pottery_sherds
+
+		//{"item", ".png", "pottery_sherds", "mcl_pottery_sherds.png", false}, //no match ????
+		{"item", "angler_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_angler.png", false},
+		{"item", "archer_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_archer.png", false},
+		{"item", "arms_up_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_arms_up.png", false},
+		{"item", "blade_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_blade.png", false},
+
+		{"item", "brewer_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_brewer.png", false},
+		{"item", "burn_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_burn.png", false},
+		{"item", "danger_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_danger.png", false},
+		{"item", "explorer_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_explorer.png", false},
+		{"item", "flow_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_flow.png", false},
+
+		{"item", "friend_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_friend.png", false},
+		{"item", "guster_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_guster.png", false},
+		{"item", "heart_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_heart.png", false},
+		{"item", "heartbreak_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_heartbreak.png", false},
+		{"item", "howl_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_howl.png", false},
+
+		{"item", "miner_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_miner.png", false},
+		{"item", "mourner_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_mourner.png", false},
+		{"entity", "decorated_pot/angler_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_angler.png", false},
+		{"entity", "decorated_pot/archer_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_archer.png", false},
+		{"entity", "decorated_pot/arms_up_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_arms_up.png", false},
+
+		{"entity", "decorated_pot/blade_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_blade.png", false},
+		{"entity", "decorated_pot/brewer_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_brewer.png", false},
+		{"entity", "decorated_pot/burn_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_burn.png", false},
+		{"entity", "decorated_pot/danger_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_danger.png", false},
+		{"entity", "decorated_pot/explorer_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_explorer.png", false},
+
+		{"entity", "decorated_pot/flow_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_flow.png", false},
+		{"entity", "decorated_pot/friend_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_friend.png", false},
+		{"entity", "decorated_pot/guster_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_guster.png", false},
+		{"entity", "decorated_pot/heart_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_heart.png", false},
+		{"entity", "decorated_pot/heartbreak_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_heartbreak.png", false},
+
+		{"entity", "decorated_pot/howl_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_howl.png", false},
+		{"entity", "decorated_pot/miner_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_miner.png", false},
+		{"entity", "decorated_pot/mourner_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_mourner.png", false},
+		{"entity", "decorated_pot/plenty_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_plenty.png", false},
+		{"entity", "decorated_pot/prize_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_prize.png", false},
+
+		{"entity", "decorated_pot/scrape_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_scrape.png", false},
+		{"entity", "decorated_pot/sheaf_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_sheaf.png", false},
+		{"entity", "decorated_pot/shelter_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_shelter.png", false},
+		{"entity", "decorated_pot/skull_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_skull.png", false},
+		{"entity", "decorated_pot/snort_pottery_pattern.png", "pottery_sherds", "mcl_pottery_sherds_pattern_snort.png", false},
+
+		{"item", "plenty_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_plenty.png", false},
+		//// USE decorated_pot_base.png when making fixes.
+		//{"entity", "decorated_pot/.png", "pottery_sherds", "mcl_pottery_sherds_pot_bottom.png", false},
+		{"entity", "decorated_pot/decorated_pot_side.png", "pottery_sherds", "mcl_pottery_sherds_pot_side.png", false},
+		//{"entity", "decorated_pot/.png", "pottery_sherds", "mcl_pottery_sherds_pot_top.png", false},
+		{"item", "prize_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_prize.png", false},
+
+		{"item", "scrape_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_scrape.png", false},
+		{"item", "sheaf_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_sheaf.png", false},
+		{"item", "shelter_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_shelter.png", false},
+		{"item", "skull_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_skull.png", false},
+		{"item", "snort_pottery_sherd.png", "pottery_sherds", "mcl_pottery_sherds_snort.png", false},
 		// -- mcl_raw_ores
 		{"item", "raw_gold.png", "raw_ores", "mcl_raw_ores_raw_gold.png", false},
 		{"block", "raw_gold_block.png", "raw_ores", "mcl_raw_ores_raw_gold_block.png", false},
