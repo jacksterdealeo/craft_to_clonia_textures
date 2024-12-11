@@ -136,6 +136,7 @@ var (
 		//"mcl_anvils_anvil_top_damaged_1.png" handled elsewhere
 		//"mcl_anvils_anvil_top_damaged_2.png" handled elsewhere
 		// -- mcl_armor
+     /*
 		{"block", ".png", "armor", "bolt_armor_trim_smithing_template.png", false},
 		{"block", ".png", "armor", "bolt_boots.png", false},
 		{"block", ".png", "armor", "bolt_chestplate.png", false},
@@ -283,6 +284,7 @@ var (
 		{"block", ".png", "armor", ".png", false},
 		{"block", ".png", "armor", ".png", false},
 		{"block", ".png", "armor", ".png", false},
+     */
 		// -- mcl_armor_stand
 		{"item", "armor_stand.png", "armor_stand", "armor_stand.png", false},
 		// -- mcl_bamboo
