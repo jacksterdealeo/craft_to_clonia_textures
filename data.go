@@ -16,6 +16,9 @@ var (
 
 var (
 	craftPaths = map[string]string{
+		// -- HUD
+		"hud": "/assets/minecraft/textures/gui/sprites/hud/",
+		// -- ITEMS
 		"armor":       "/assets/minecraft/textures/models/armor/",
 		"bed":         "/assets/minecraft/textures/entity/bed/",
 		"block":       "/assets/minecraft/textures/block/",
@@ -31,7 +34,12 @@ var (
 
 	cloniaPaths = map[string]string{
 		// -- HUD
-		"hud_base": "/HUD/mcl_base_textures/textures/",
+		"craftguide":        "/HELP/mcl_craftguide/textures/",
+		"hbarmor":           "/HUD/mcl_hbarmor/textures/",
+		"hudbars":           "/HUD/hudbars/textures/",
+		"hud_base_textures": "/HUD/mcl_base_textures/textures/",
+		"hunger":            "/PLAYER/mcl_hunger/textures/",
+		"inventory":         "/HUD/mcl_inventory/textures/",
 		// -- ITEMS
 		"amethyst":          "/ITEMS/mcl_amethyst/textures/",
 		"anvils":            "/ITEMS/mcl_anvils/textures/",
@@ -1914,23 +1922,43 @@ var (
 	}
 
 	basicHUD = [...]simpleConversion{
+		// -- craftguide -- incomplete
+		{"item", "knowledge_book.png", "craftguide", "craftguide_book.png", false},
+		// -- hbarmor
+		//{"", ".png", "hbarmor", "hbarmor_bar.png", false},
+		{"hud", "armor_empty.png", "hbarmor", "hbarmor_bgicon.png", false},
+		{"hud", "armor_full.png", "hbarmor", "hbarmor_icon.png", false},
+		// -- hudbars -- incomplete
+		{"hud", "air.png", "hudbars", "hudbars_icon_breath.png", false},
+		{"hud", "heart/full.png", "hudbars", "hudbars_icon_health.png", false},
+		{"hud", "heart/container.png", "hudbars", "hudbars_bgicon_health.png", false},
 		// -- mcl_base_textures
-		{"", "/assets/minecraft/textures/gui/sprites/hud/air.png",
-			"hud_base", "bubble.png", false},
+		{"hud", "air.png", "hud_base_textures", "bubble.png", false},
 		//{"block", "destroy_stage_0.png", "", "crack_anylength.png", false},
 		//{"block", "destroy_stage_9.png", "", "crack_anylength.png", false},
 		{"", "/assets/minecraft/textures/gui/sprites/hud/crosshair.png",
-			"hud_base", "crosshair.png", false},
+			"hud_base_textures", "crosshair.png", false},
 		{"", "/assets/minecraft/textures/gui/sprites/hud/heart/full.png",
-			"hud_base", "heart.png", false},
+			"hud_base_textures", "heart.png", false},
 		//{"", ".png", "", "mcl_base_textures_background.png", false},
 		//{"", ".png", "", "mcl_base_textures_background9.png", false},
 		//{"", ".png", "", "mcl_base_textures_button9.png", false},
 		//{"", ".png", "", "mcl_base_textures_button9_pressed.png", false},
 		{"", "/assets/minecraft/textures/gui/sprites/hud/crosshair.png",
-			"hud_base", "object_crosshair.png", false},
+			"hud_base_textures", "object_crosshair.png", false},
 		//{"", ".png", "", "smoke_puff.png", false},
-
 		//{"", ".png", "", ".png", false},
+		// -- hunger -- incomplete
+		{"hud", "food_empty.png", "hunger", "hbhunger_bgicon.png", false},
+		{"hud", "food_full.png", "hunger", "hbhunger_icon.png", false},
+		{"hud", "food_full_hunger.png", "hunger", "mcl_hunger_icon_foodpoison.png", false},
+		// -- inventory -- incomplete
+		{"item", "empty_armor_slot_boots.png", "inventory", "mcl_inventory_empty_armor_slot_boots.png", false},
+		{"item", "empty_armor_slot_chestplate.png", "inventory", "mcl_inventory_empty_armor_slot_chestplate.png", false},
+		{"item", "empty_armor_slot_helmet.png", "inventory", "mcl_inventory_empty_armor_slot_helmet.png", false},
+		{"item", "empty_armor_slot_leggings.png", "inventory", "mcl_inventory_empty_armor_slot_leggings.png", false},
+		{"item", "empty_armor_slot_shield.png", "inventory", "mcl_inventory_empty_armor_slot_shield.png", false},
+		{"hud", "hotbar.png", "inventory", "mcl_inventory_hotbar.png", false},
+		{"hud", "hotbar_selection.png", "inventory", "mcl_inventory_hotbar_selected.png", false},
 	}
 )

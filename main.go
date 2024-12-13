@@ -190,13 +190,13 @@ func ConvertPack(inName string, outName string) {
 
 	for _, e := range basicHUD {
 		if e.isAnimated {
-			if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, 0); err != nil {
+			if err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture); err != nil {
 				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
 			} else {
 				successes += 1
 			}
 		} else {
-			if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, 1); err != nil {
+			if err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture); err != nil {
 				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
 			} else {
 				successes += 1
