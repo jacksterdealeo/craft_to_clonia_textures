@@ -255,15 +255,29 @@ func ConvertPack(inName string, outName string) {
 	if src, err := imaging.Open(texturePackLocation+craftPaths["item"]+"writable_book.png"); err != nil {
 		textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n"
 		failures++
-		fmt.Println(texturePackLocation+craftPaths["item"]+"writable_book.png")
-		fmt.Println("Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n")
-		fmt.Println(err)
 	} else {
 		achivementIcon := imaging.Grayscale(src)
 		if saveErr := imaging.Save(achivementIcon, outPath+cloniaPaths["achievements"]+"mcl_achievements_button.png"); saveErr != nil {
 			textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Save \"writable_book.png\".\n\n"
 			failures++
-			fmt.Println(saveErr)
+		}
+	}
+	if expProgress, err := imaging.Open(texturePackLocation+craftPaths["hud"]+"experience_bar_progress.png"); err != nil {
+		textureErrorsLog += "Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n"
+		failures++
+	} else {
+		if imaging.Save(imaging.Rotate90(expProgress), outPath+cloniaPaths["experience"]+"mcl_experience_bar.png"); err != nil {
+			textureErrorsLog += "Full Experience Bar failed. Couldn't Save \"mcl_experience_bar.png\".\n\n"
+			failures++
+		}
+	}
+	if expEmpty, err := imaging.Open(texturePackLocation+craftPaths["hud"]+"experience_bar_background.png"); err != nil {
+		textureErrorsLog += "Empty Experience Bar failed. Couldn't Open \"experience_bar_background.png\".\n\n"
+		failures++
+	} else {
+		if imaging.Save(imaging.Rotate90(expEmpty), outPath+cloniaPaths["experience"]+"mcl_experience_bar_background.png"); err != nil {
+			textureErrorsLog += "Empty Experience Bar failed. Couldn't Save \"mcl_experience_bar_background.png\".\n\n"
+			failures++
 		}
 	}
 
