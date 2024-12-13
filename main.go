@@ -33,6 +33,9 @@ func (e *readWriteError) Error() string {
 
 func main() {
 	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n", version)
+
+	fmt.Printf("\n~~~ DO NOT USE THE CONFIG FILE. IT IS BROKEN. ~~~\n\n")
+
 	if config, err := loadJsonConfig(); err != nil {
 		Config = config
 	}
@@ -248,6 +251,20 @@ func ConvertPack(inName string, outName string) {
 	if err := water_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+	}
+	if src, err := imaging.Open(texturePackLocation+craftPaths["item"]+"writable_book.png"); err != nil {
+		textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n"
+		failures++
+		fmt.Println(texturePackLocation+craftPaths["item"]+"writable_book.png")
+		fmt.Println("Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n")
+		fmt.Println(err)
+	} else {
+		achivementIcon := imaging.Grayscale(src)
+		if saveErr := imaging.Save(achivementIcon, outPath+cloniaPaths["achievements"]+"mcl_achievements_button.png"); saveErr != nil {
+			textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Save \"writable_book.png\".\n\n"
+			failures++
+			fmt.Println(saveErr)
+		}
 	}
 
 	compatibilityRating := (successes * 100) / (successes + failures)
