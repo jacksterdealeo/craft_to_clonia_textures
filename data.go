@@ -17,8 +17,8 @@ var (
 var (
 	craftPaths = map[string]string{
 		// -- HUD
-		"hud":          "/assets/minecraft/textures/gui/sprites/hud/",
-		"icon":         "/assets/minecraft/textures/gui/sprites/icon/",
+		"hud":  "/assets/minecraft/textures/gui/sprites/hud/",
+		"icon": "/assets/minecraft/textures/gui/sprites/icon/",
 		// -- ITEMS
 		"armor":       "/assets/minecraft/textures/models/armor/",
 		"bed":         "/assets/minecraft/textures/entity/bed/",
@@ -249,7 +249,7 @@ var (
 		//{"item", ".png", "armor", "mcl_armor_leggings_leather.png", false},
 		//{"item", ".png", "armor", "mcl_armor_leggings_netherite.png", false},
 		{"item", "rib_armor_trim_smithing_template.png", "armor", "rib_armor_trim_smithing_template.png", false},
-		
+
 		//{"item", ".png", "armor", "rib_boots.png", false},
 		//{"item", ".png", "armor", "rib_chestplate.png", false},
 		//{"item", ".png", "armor", "rib_helmet.png", false},
@@ -1637,13 +1637,13 @@ var (
 		{"block", "horn_coral_block.png", "ocean", "mcl_ocean_horn_coral_block.png", false},
 		{"block", "horn_coral_fan.png", "ocean", "mcl_ocean_horn_coral_fan.png", false},
 		{"item", "kelp.png", "ocean", "mcl_ocean_kelp_item.png", false},
-		{"block", "kelp_plant.png", "ocean", "mcl_ocean_kelp_plant.png", false},
+		{"block", "kelp_plant.png", "ocean", "mcl_ocean_kelp_plant.png", true},
 		{"block", "prismarine.png", "ocean", "mcl_ocean_prismarine_anim.png", false},
 		{"block", "prismarine_bricks.png", "ocean", "mcl_ocean_prismarine_bricks.png", false},
 		{"item", "prismarine_crystals.png", "ocean", "mcl_ocean_prismarine_crystals.png", false},
 		{"block", "dark_prismarine.png", "ocean", "mcl_ocean_prismarine_dark.png", false},
 		{"item", "prismarine_shard.png", "ocean", "mcl_ocean_prismarine_shard.png", false},
-		{"block", "seagrass.png", "ocean", "mcl_ocean_seagrass.png", false},
+		{"block", "seagrass.png", "ocean", "mcl_ocean_seagrass.png", true},
 		{"item", "seagrass.png", "ocean", "mcl_ocean_seagrass_item.png", false},
 		{"block", "sea_lantern.png", "ocean", "mcl_ocean_sea_lantern.png", false},
 		//{"block", ".png", "ocean", "mcl_ocean_sea_pickle_1_anim.png", false},
@@ -1980,6 +1980,5 @@ var (
 
 		// -- skins
 		{"item", "armor_stand.png", "skins", "mcl_skins_button.png", false},
-
 	}
 )

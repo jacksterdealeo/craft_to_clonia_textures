@@ -349,6 +349,37 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 	return nil
 }
 
+func lily_fix(inPath string, outPath string) *readWriteError {
+	grayLily, err := imaging.Open(inPath + "lily_pad.png")
+	if err != nil {
+		return &readWriteError{[]string{"block::flowers_waterlily.png failed to open!"}, "vine texture"}
+	}
+	_ = grayLily
+	dst := imaging.New(grayLily.Bounds().Dx(), grayLily.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+	dst = imaging.Overlay(dst, grayLily, image.Point{0, 0}, 1.0)
+	dst = imaging.AdjustFunc(dst,
+		func(c color.NRGBA) color.NRGBA {
+			r := int(c.R) - 255
+			g := int(c.G) - 20
+			b := int(c.B) - 255
+			if r < 0 {
+				r = 0
+			}
+			if g < 0 {
+				g = 0
+			}
+			if b < 0 {
+				b = 0
+			}
+			return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+
+		})
+	if err = imaging.Save(dst, outPath+"flowers_waterlily.png"); err != nil {
+		return &readWriteError{[]string{"flowers_waterlily.png failed to save!"}, "waterlily texture"}
+	}
+	return nil
+}
+
 func single_chests_fix(inPath string, outPath string) *readWriteError {
 	fails := []string{}
 	equals := [...][2]string{

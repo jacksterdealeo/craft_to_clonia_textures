@@ -248,10 +248,15 @@ func ConvertPack(inName string, outName string) {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
+	if err := lily_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+	}
 	if err := water_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
+	// Achivement Icon
 	if src, err := imaging.Open(texturePackLocation + craftPaths["item"] + "writable_book.png"); err != nil {
 		textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n"
 		failures++
@@ -262,6 +267,7 @@ func ConvertPack(inName string, outName string) {
 			failures++
 		}
 	}
+	// Experience Bar
 	if expProgress, err := imaging.Open(texturePackLocation + craftPaths["hud"] + "experience_bar_progress.png"); err != nil {
 		textureErrorsLog += "Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n"
 		failures++
