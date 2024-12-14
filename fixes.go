@@ -343,7 +343,7 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 			return &readWriteError{[]string{"default_lava_flowing_animated.png failed to save!"}, "lava textures"}
 		}
 	}
-	if copyTextureAnimated(inPath+"lava_still.png", outPath+"default_lava_source_animated.png", -1); err != nil {
+	if err := copyTextureAnimated(inPath+"lava_still.png", outPath+"default_lava_source_animated.png", -1); err != nil {
 		return &readWriteError{[]string{"default_lava_source_animated.png failed to copy!"}, "lava textures"}
 	}
 	return nil
