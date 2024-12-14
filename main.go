@@ -236,6 +236,10 @@ func ConvertPack(inName string, outName string) {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
+	if err := hud_fix(texturePackLocation, outPath); err != nil {
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+	}
 	if err := lava_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")

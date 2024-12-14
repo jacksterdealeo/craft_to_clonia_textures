@@ -272,6 +272,53 @@ func flip_fix(inName string, outName string) *readWriteError {
 	}
 }
 
+func hud_fix(inPath string, outPath string) *readWriteError {
+	fails := []string{}
+	func() {
+		heartLocation := inPath + craftPaths["hud"]
+		heart, err := imaging.Open(heartLocation + "heart/full.png")
+		if err != nil {
+			fails = append(fails, "hud::heart/full.png failed to open!")
+			return
+		}
+		heartContainer, err := imaging.Open(heartLocation + "heart/container.png")
+		if err != nil {
+			fails = append(fails, "hud::heart/container.png failed to open!")
+			return
+		}
+		dst := imaging.Overlay(heartContainer, heart, image.Pt(0, 0), 1.0)
+		saveErr := imaging.Save(dst, outPath+cloniaPaths["hudbars"]+"hudbars_icon_health.png")
+		if saveErr != nil {
+			fails = append(fails, "hud::hudbars_icon_health.png failed to save!")
+			return
+		}
+	}()
+	func() {
+		hungerLocation := inPath + craftPaths["hud"]
+		hunger, err := imaging.Open(hungerLocation + "food_full.png")
+		if err != nil {
+			fails = append(fails, "hud::food_full.png failed to open!")
+			return
+		}
+		hungerContainer, err := imaging.Open(hungerLocation + "food_empty.png")
+		if err != nil {
+			fails = append(fails, "hud::food_empty.png failed to open!")
+			return
+		}
+		dst := imaging.Overlay(hungerContainer, hunger, image.Pt(0, 0), 1.0)
+		saveErr := imaging.Save(dst, outPath+cloniaPaths["hunger"]+"hbhunger_icon.png")
+		if saveErr != nil {
+			fails = append(fails, "hud::hbhunger_icon.png failed to save!")
+			return
+		}
+	}()
+	if len(fails) > 0 {
+		return &readWriteError{fails, "hud textures"}
+	} else {
+		return nil
+	}
+}
+
 // Restitches the extremely cursed MC version.
 // TODO mcl_flowerpots_cactus.png
 func flowerpot_fix(inPath string, outPath string) *readWriteError {
