@@ -415,7 +415,7 @@ var (
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame.png", false},
 		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png", true},
 		{"block", "soul_torch.png", "blackstone", "soul_torch_on_floor.png", false},
-		{"block", "soul_torch.png", "blackstone", "soul_torch_on_floor_animated.png", false}, //animated
+		{"block", "soul_torch.png", "blackstone", "soul_torch_on_floor_animated.png", true}, //animated
 		// -- mcl_blast_furnace
 		{"block", "blast_furnace_front.png", "blast_furnace", "blast_furnace_front.png", false},
 		{"block", "blast_furnace_front_on.png", "blast_furnace", "blast_furnace_front_on.png", false},
@@ -1892,7 +1892,7 @@ var (
 		{"item", "mace.png", "tools", "mcl_tools_mace.png", false},
 		// -- mcl_torches
 		{"block", "torch.png", "torches", "default_torch_on_floor.png", false},
-		{"block", "torch.png", "torches", "default_torch_on_floor_animated.png", false},
+		{"block", "torch.png", "torches", "default_torch_on_floor_animated.png", true},
 		// -- mcl_totems
 		{"particle", "glitter_4.png", "totems", "mcl_particles_totem1.png", false},
 		{"particle", "glitter_5.png", "totems", "mcl_particles_totem2.png", false},
