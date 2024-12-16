@@ -31,6 +31,7 @@ var (
 		"mob_effect":  "/assets/minecraft/textures/mob_effect/",
 		"particle":    "/assets/minecraft/textures/particle/",
 		"projectiles": "/assets/minecraft/textures/entity/projectiles/",
+		"trims>items": "/assets/minecraft/textures/trims/items/",
 	}
 
 	cloniaPaths = map[string]string{
@@ -156,8 +157,8 @@ var (
 		//{"item", ".png", "armor", "bolt_chestplate.png", false},
 		//{"item", ".png", "armor", "bolt_helmet.png", false},
 		//{"item", ".png", "armor", "bolt_leggings.png", false},
-		//{"item", ".png", "armor", "boots_trim.png", false},
-		//{"item", ".png", "armor", "chestplate_trim.png", false},
+		{"trims>items", "boots_trim.png", "armor", "boots_trim.png", false},
+		{"trims>items", "chestplate_trim.png", "armor", "chestplate_trim.png", false},
 		{"item", "coast_armor_trim_smithing_template.png", "armor", "coast_armor_trim_smithing_template.png", false},
 
 		//{"item", ".png", "armor", "coast_boots.png", false},
@@ -181,8 +182,8 @@ var (
 		//{"item", ".png", "armor", "flow_chestplate.png", false},
 		//{"item", ".png", "armor", "flow_helmet.png", false},
 		//{"item", ".png", "armor", "flow_leggings.png", false},
-		//{"item", ".png", "armor", "helmet_trim.png", false},
-		//{"item", ".png", "armor", "leggings_trim.png", false},
+		{"trims>items", "helmet_trim.png", "armor", "helmet_trim.png", false},
+		{"trims>items", "leggings_trim.png", "armor", "leggings_trim.png", false},
 		//{"item", ".png", "armor", "mcl_armor_boots_chain.png", false},
 		//{"item", ".png", "armor", "mcl_armor_boots_diamond.png", false},
 		//{"item", ".png", "armor", "mcl_armor_boots_gold.png", false},
