@@ -17,8 +17,8 @@ type config struct {
 var Config *config = &config{
 	DefinedInput:  false,
 	DefinedOutput: false,
-	InputDir:      "input",
-	OutputDir:     "output",
+	InputDir:      "./input/",
+	OutputDir:     "./output/",
 }
 
 var (
@@ -27,15 +27,15 @@ var (
 
 func loadJsonConfig() (*config, error) {
 	if _, statErr := os.Stat(ConfigLocation); errors.Is(statErr, os.ErrNotExist) {
-		fmt.Println("Making the config.json file.")
+		fmt.Println("Making the config.json file. Directories are unlikely to match your own.")
 		if userHomeDir, err := os.UserHomeDir(); err != nil {
 			fmt.Println("You have no home directory?", err)
 			return Config, err
 		} else {
 			Config.InputDir =
-				userHomeDir + "/.minecraft/resourcepacks"
+				userHomeDir + "/.minecraft/resourcepacks/"
 			Config.OutputDir =
-				userHomeDir + "/.var/app/net.minetest.Minetest/.minetest/textures"
+				userHomeDir + "/.var/app/net.minetest.Minetest/.minetest/textures/"
 		}
 
 		configData, err := json.Marshal(Config)
@@ -55,7 +55,7 @@ func loadJsonConfig() (*config, error) {
 		fmt.Println(err)
 		return Config, err
 	}
-	fmt.Println("FILE DATA: ", string(configData))
+	fmt.Println("\nFILE DATA: ", string(configData))
 	err = json.Unmarshal([]byte(configData), &Config)
 	if err != nil {
 		fmt.Println("Couldn't Marshal config json :", err)
@@ -64,6 +64,11 @@ func loadJsonConfig() (*config, error) {
 	if err := os.WriteFile(ConfigLocation, []byte(configData), 0644); err != nil {
 		return nil, err
 	}
+
+	// Sometimes people forget to add a slash to the end of their directories.
+	// If they didn't forget, the extra slash is ignored anyway.
+	Config.InputDir += "/"
+	Config.OutputDir += "/"
 
 	fmt.Println("REAL DATA: ", *Config)
 	if !Config.DefinedInput {

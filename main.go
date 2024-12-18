@@ -35,8 +35,11 @@ func main() {
 	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n", version)
 
 	if config, err := loadJsonConfig(); err != nil {
+		fmt.Println(err)
+	} else {
 		Config = config
 	}
+
 	if !Config.DefinedInput {
 		Config.InputDir = "./input/"
 		if fs.ValidPath("output") {
