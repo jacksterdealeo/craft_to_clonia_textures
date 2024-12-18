@@ -47,14 +47,15 @@ func loadJsonConfig() (*config, error) {
 		if err := os.WriteFile(ConfigLocation, []byte(configData), 0644); err != nil {
 			return nil, err
 		}
+		return Config, nil
 	}
 
-	configData, err := os.ReadFile("config.json")
+	configData, err := os.ReadFile(ConfigLocation)
 	if err != nil {
 		fmt.Println(err)
+		return Config, err
 	}
-
-	fmt.Println("data: ", *Config)
+	fmt.Println("FILE DATA: ", string(configData))
 	err = json.Unmarshal([]byte(configData), &Config)
 	if err != nil {
 		fmt.Println("Couldn't Marshal config json :", err)
@@ -64,7 +65,7 @@ func loadJsonConfig() (*config, error) {
 		return nil, err
 	}
 
-	fmt.Println("data: ", *Config)
+	fmt.Println("REAL DATA: ", *Config)
 	if !Config.DefinedInput {
 		Config.InputDir = "input"
 	}

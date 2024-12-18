@@ -34,13 +34,11 @@ func (e *readWriteError) Error() string {
 func main() {
 	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n", version)
 
-	fmt.Printf("\n~~~ DO NOT USE THE CONFIG FILE. IT IS BROKEN. ~~~\n\n")
-
 	if config, err := loadJsonConfig(); err != nil {
 		Config = config
 	}
-
 	if !Config.DefinedInput {
+		Config.InputDir = "./input/"
 		if fs.ValidPath("output") {
 			if err := os.Mkdir("output", 0755); err != nil {
 				if errors.Is(err, fs.ErrPermission) {
@@ -58,6 +56,7 @@ func main() {
 	}
 
 	if !Config.DefinedOutput {
+		Config.OutputDir = "./output/"
 		if fs.ValidPath("input") {
 			if err := os.Mkdir("input", 0755); err != nil {
 				if errors.Is(err, fs.ErrPermission) {
@@ -76,7 +75,7 @@ func main() {
 
 	var dir *os.File
 	var err error
-	if Config.DefinedInput {
+	if !Config.DefinedInput {
 		dir, err = os.Open("./input/")
 		if err != nil {
 			log.Panic("Error:", err)
@@ -85,8 +84,12 @@ func main() {
 	} else {
 		dir, err = os.Open(Config.InputDir)
 		if err != nil {
-			log.Panic("Error:", err)
-			return
+			if errors.Is(err, fs.ErrNotExist) {
+				log.Println(Config.InputDir + "\n\nInput folder from config doesn't exist.")
+			} else {
+				log.Panic("Error:", err)
+				return
+			}
 		}
 	}
 	defer dir.Close()
@@ -112,7 +115,7 @@ func main() {
 		}
 	}
 
-	dir, err = os.Open("./input/")
+	dir, err = os.Open(Config.InputDir)
 	if err != nil {
 		log.Panic("Error:", err)
 		return
@@ -138,8 +141,8 @@ func ConvertPack(inName string, outName string) {
 	var textureErrorsLog string
 	var successes = 0
 	var failures = 0
-	texturePackLocation := "input/" + inName
-	outPath := "output/" + outName
+	texturePackLocation := Config.InputDir + inName
+	outPath := Config.OutputDir + outName
 	if fs.ValidPath(outPath) {
 		if err := os.Mkdir(outPath, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {
