@@ -172,6 +172,9 @@ func ConvertPack(inName string, outName string) {
 		dst = imaging.Paste(dst, background, image.Pt(0, 0))
 		dst = imaging.OverlayCenter(dst, foreground, 1.0)
 		err = imaging.Save(dst, outPath+"/screenshot.png")
+		if err != nil {
+			fmt.Println("Failed to export the pack screenshot/icon!\n", err)
+		}
 	}
 
 	for _, e := range cloniaPaths {
