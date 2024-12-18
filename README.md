@@ -9,8 +9,6 @@ and many things are just not added in yet.
 
 If a pack has custom models for blocks, that can cause problems with the transfer.
 
-The config.json file _DOES NOTHING YET_.
-
 ## Usage
 - Run the project once, and it'll create an input folder and an output folder.
 - Place texture packs from Minecraft into the input folder.
