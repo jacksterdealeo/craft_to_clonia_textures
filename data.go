@@ -16,6 +16,8 @@ var (
 
 var (
 	craftPaths = map[string]string{
+		// -- ENTITY
+		"boat": "/assets/minecraft/textures/entity/boat/",
 		// -- HUD
 		"hud":  "/assets/minecraft/textures/gui/sprites/hud/",
 		"icon": "/assets/minecraft/textures/gui/sprites/icon/",
@@ -35,6 +37,8 @@ var (
 	}
 
 	cloniaPaths = map[string]string{
+		// -- ENTITIES
+		"boats": "/ENTITIES/mcl_boats/textures/",
 		// -- HUD
 		"achievements":      "/HUD/mcl_achievements/textures/",
 		"craftguide":        "/HELP/mcl_craftguide/textures/",
@@ -135,6 +139,39 @@ var (
 	}
 
 	basicItems = [...]simpleConversion{
+		// -- mcl_boats
+		{"item", "acacia_boat.png", "boats", "mcl_boats_acacia_boat.png", false},
+		{"item", "acacia_chest_boat.png", "boats", "mcl_boats_acacia_chest_boat.png", false},
+		{"item", "bamboo_raft.png", "boats", "mcl_boats_bamboo_boat.png", false},
+		{"item", "bamboo_chest_raft.png", "boats", "mcl_boats_bamboo_chest_boat.png", false},
+		{"item", "birch_boat.png", "boats", "mcl_boats_birch_boat.png", false},
+		{"item", "birch_chest_boat.png", "boats", "mcl_boats_birch_chest_boat.png", false},
+		{"item", "cherry_boat.png", "boats", "mcl_boats_cherry_blossom_boat.png", false},
+		{"item", "cherry_chest_boat.png", "boats", "mcl_boats_cherry_blossom_chest_boat.png", false},
+		{"item", "dark_oak_boat.png", "boats", "mcl_boats_dark_oak_boat.png", false},
+		{"item", "dark_oak_chest_boat.png", "boats", "mcl_boats_dark_oak_chest_boat.png", false},
+		{"item", "jungle_boat.png", "boats", "mcl_boats_jungle_boat.png", false},
+		{"item", "jungle_chest_boat.png", "boats", "mcl_boats_jungle_chest_boat.png", false},
+		{"item", "mangrove_boat.png", "boats", "mcl_boats_mangrove_boat.png", false},
+		{"item", "mangrove_chest_boat.png", "boats", "mcl_boats_mangrove_chest_boat.png", false},
+		{"item", "oak_boat.png", "boats", "mcl_boats_oak_boat.png", false},
+		{"item", "oak_chest_boat.png", "boats", "mcl_boats_oak_chest_boat.png", false},
+		// {"item", ".png", "boats", "mcl_boats_obsidian_boat.png", false}, // no match.
+		{"item", "spruce_boat.png", "boats", "mcl_boats_spruce_boat.png", false},
+		{"item", "spruce_chest_boat.png", "boats", "mcl_boats_spruce_chest_boat.png", false},
+		// TODO : entity boats
+		/*
+			{"boat", "acacia.png", "boats", "mcl_boats_texture_acacia_boat.png", false},
+			{"boat", "bamboo.png", "boats", "mcl_boats_texture_bamboo_boat.png", false},
+			{"boat", "birch.png", "boats", "mcl_boats_texture_birch_boat.png", false},
+			{"boat", "cherry.png", "boats", "mcl_boats_texture_cherry_blossom_boat.png", false},
+			{"boat", "dark_oak.png", "boats", "mcl_boats_texture_dark_oak_boat.png", false},
+			{"boat", "jungle.png", "boats", "mcl_boats_texture_jungle_boat.png", false},
+			{"boat", "mangrove.png", "boats", "mcl_boats_texture_mangrove_boat.png", false},
+			{"boat", "oak.png", "boats", "mcl_boats_texture_oak_boat.png", false},
+			// {"boat", ".png", "boats", "mcl_boats_texture_obsidian_boat.png", false}, // no match.
+			{"boat", "spruce.png", "boats", "mcl_boats_texture_spruce_boat.png", false},
+		*/
 		// -- mcl_amethyst
 		{"block", "amethyst_block.png", "amethyst", "mcl_amethyst_amethyst_block.png", false},
 		{"block", "large_amethyst_bud.png", "amethyst", "mcl_amethyst_amethyst_bud_large.png", false},
