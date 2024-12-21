@@ -161,6 +161,12 @@ func ConvertPack(inName string, outName string) {
 		}
 	}
 
+	for _, e := range cloniaPaths {
+		if err := os.MkdirAll(outPath+e, 0755); err != nil {
+			log.Panic(err)
+		}
+	}
+
 	if src, err := imaging.Open(texturePackLocation + "/pack.png"); err != nil {
 		fmt.Println("Pack icon error~")
 	} else {
@@ -174,12 +180,6 @@ func ConvertPack(inName string, outName string) {
 		err = imaging.Save(dst, outPath+"/screenshot.png")
 		if err != nil {
 			fmt.Println("Failed to export the pack screenshot/icon!\n", err)
-		}
-	}
-
-	for _, e := range cloniaPaths {
-		if err := os.MkdirAll(outPath+e, 0755); err != nil {
-			log.Panic(err)
 		}
 	}
 
