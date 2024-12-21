@@ -292,6 +292,29 @@ func hud_fix(inPath string, outPath string) *readWriteError {
 			fails = append(fails, "hud::hudbars_icon_health.png failed to save!")
 			return
 		}
+
+		heartAbsorbing, err := imaging.Open(heartLocation + "heart/absorbing_full.png")
+		if err != nil {
+			fails = append(fails, "hud::heart/absorbing_full.png failed to open!")
+		} else {
+			dst = imaging.Overlay(heartContainer, heartAbsorbing, image.Pt(0, 0), 1.0)
+			saveErr = imaging.Save(dst, outPath+cloniaPaths["potions"]+"mcl_potions_icon_absorb.png")
+			if saveErr != nil {
+				fails = append(fails, "potions::mcl_potions_icon_absorb.png failed to save!")
+			}
+		}
+
+		heartWither, err := imaging.Open(heartLocation + "heart/withered_full.png")
+		if err != nil {
+			fails = append(fails, "hud::heart/withered_full.png failed to open!")
+		} else {
+			dst = imaging.Overlay(heartContainer, heartWither, image.Pt(0, 0), 1.0)
+			saveErr = imaging.Save(dst, outPath+cloniaPaths["potions"]+"mcl_potions_icon_wither.png")
+			if saveErr != nil {
+				fails = append(fails, "potions::mcl_potions_icon_wither.png failed to save!")
+			}
+		}
+
 	}()
 	func() {
 		hungerLocation := inPath + craftPaths["hud"]
