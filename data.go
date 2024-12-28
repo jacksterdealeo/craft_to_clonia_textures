@@ -1482,9 +1482,9 @@ var (
 		// -- mcl_lanterns
 		{"block", "chain.png", "lanterns", "mcl_lanterns_chain.png", false},
 		{"item", "chain.png", "lanterns", "mcl_lanterns_chain_inv.png", false},
-		{"block", "lantern.png", "lanterns", "mcl_lanterns_lantern.png", false},
+		{"block", "lantern.png", "lanterns", "mcl_lanterns_lantern.png", true},
 		{"item", "lantern.png", "lanterns", "mcl_lanterns_lantern_inv.png", false},
-		{"block", "soul_lantern.png", "lanterns", "mcl_lanterns_soul_lantern.png", false},
+		{"block", "soul_lantern.png", "lanterns", "mcl_lanterns_soul_lantern.png", true},
 		{"item", "soul_lantern.png", "lanterns", "mcl_lanterns_soul_lantern_inv.png", false},
 		// -- mcl_lectern
 		//{"block", ".png", "lanterns", "mcl_lectern_lectern.png", false},  //special attention
