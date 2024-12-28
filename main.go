@@ -261,6 +261,10 @@ func ConvertPack(inName string, outName string) {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
+	if err := stonecutter_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["stonecutter"]); err != nil {
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+	}
 	if err := vine_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")

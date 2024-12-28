@@ -140,6 +140,8 @@ var (
 	}
 
 	basicItems = [...]simpleConversion{
+		// -- mcl_armor_stand
+		{"item", "armor_stand.png", "mcl_armor_stand", "3d_armor_stand_item.png", false},
 		// -- mcl_boats
 		{"item", "acacia_boat.png", "boats", "mcl_boats_acacia_boat.png", false},
 		{"item", "acacia_chest_boat.png", "boats", "mcl_boats_acacia_chest_boat.png", false},
@@ -344,9 +346,6 @@ var (
 		//{"item", ".png", "armor", "wild_helmet.png", false},
 
 		//{"item", ".png", "armor", "wild_leggings.png", false},
-
-		// -- mcl_armor_stand
-		{"item", "armor_stand.png", "armor_stand", "armor_stand.png", false},
 		// -- mcl_bamboo
 		//{"block", ".png", "bamboo", "mcl_bamboo_bamboo.png", false},
 		{"block", "bamboo_block.png", "bamboo", "mcl_bamboo_bamboo_block.png", false},
