@@ -233,6 +233,10 @@ func ConvertPack(inName string, outName string) {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
+	if err := campfire_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["campfires"]); err != nil {
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+	}
 	if err := double_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
