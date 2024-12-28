@@ -274,7 +274,7 @@ func flip_fix(inName string, outName string) *readWriteError {
 
 func hud_fix(inPath string, outPath string) *readWriteError {
 	fails := []string{}
-	func() {
+	func() { // health HUD
 		heartLocation := inPath + craftPaths["hud"]
 		heart, err := imaging.Open(heartLocation + "heart/full.png")
 		if err != nil {
@@ -316,7 +316,7 @@ func hud_fix(inPath string, outPath string) *readWriteError {
 		}
 
 	}()
-	func() {
+	func() { // hunger HUD
 		hungerLocation := inPath + craftPaths["hud"]
 		hunger, err := imaging.Open(hungerLocation + "food_full.png")
 		if err != nil {
