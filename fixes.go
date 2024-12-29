@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
-	imaging "github.com/disintegration/imaging"
 	"image"
 	"image/color"
+	"strconv"
+
+	imaging "github.com/disintegration/imaging"
 )
 
 var (
@@ -149,6 +151,26 @@ func campfire_fix(inPath string, outPath string) *readWriteError {
 
 	if len(fails) > 0 {
 		return &readWriteError{fails, "campfire textures"}
+	}
+	return nil
+}
+
+func crack_fix(inPath string, outPath string) *readWriteError {
+	destroy0, err := imaging.Open(inPath + "destroy_stage_0.png")
+	if err != nil {
+		return &readWriteError{[]string{"block::destroy_stage_0 failed to open!"}, "crack textures"}
+	}
+	dst := imaging.New(destroy0.Bounds().Dx(), destroy0.Bounds().Dy()*10, color.NRGBA{0, 0, 0, 0})
+	dst = imaging.Paste(dst, destroy0, image.Pt(0, 0))
+	for i := 1; i <= 9; i++ {
+		destroyPartI, err := imaging.Open(inPath + "destroy_stage_" + strconv.Itoa(i) + ".png")
+		if err != nil {
+			return &readWriteError{[]string{"block::destroy_stage_" + strconv.Itoa(i) + " failed to open!"}, "crack textures"}
+		}
+		dst = imaging.Paste(dst, destroyPartI, image.Pt(0, i*destroy0.Bounds().Dy()))
+	}
+	if err := imaging.Save(dst, outPath+"crack_anylength.png"); err != nil {
+		return &readWriteError{[]string{"crack_anylength.png failed to save!"}, "crack textures"}
 	}
 	return nil
 }
