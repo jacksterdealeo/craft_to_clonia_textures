@@ -141,7 +141,7 @@ var (
 
 	basicItems = [...]simpleConversion{
 		// -- mcl_armor_stand
-		{"item", "armor_stand.png", "mcl_armor_stand", "3d_armor_stand_item.png", false},
+		{"item", "armor_stand.png", "armor_stand", "3d_armor_stand_item.png", false},
 		// -- mcl_boats
 		{"item", "acacia_boat.png", "boats", "mcl_boats_acacia_boat.png", false},
 		{"item", "acacia_chest_boat.png", "boats", "mcl_boats_acacia_chest_boat.png", false},
