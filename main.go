@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	imaging "github.com/disintegration/imaging"
 	"image"
 	"image/color"
 	"io"
@@ -13,6 +12,8 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	imaging "github.com/disintegration/imaging"
 )
 
 const ()
@@ -185,34 +186,18 @@ func ConvertPack(inName string, outName string) {
 
 	copyTextureFails := []string{}
 	for _, e := range basicItems {
-		if e.isAnimated {
-			if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, 0); err != nil {
-				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
-			} else {
-				successes += 1
-			}
+		if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, e.framesAllowed); err != nil {
+			copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
 		} else {
-			if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, 1); err != nil {
-				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
-			} else {
-				successes += 1
-			}
+			successes += 1
 		}
 	}
 
 	for _, e := range basicHUD {
-		if e.isAnimated {
-			if err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture); err != nil {
-				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
-			} else {
-				successes += 1
-			}
+		if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, e.framesAllowed); err != nil {
+			copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
 		} else {
-			if err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture); err != nil {
-				copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
-			} else {
-				successes += 1
-			}
+			successes += 1
 		}
 	}
 
@@ -229,6 +214,10 @@ func ConvertPack(inName string, outName string) {
 			textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 		}
 	*/
+	if err := do_fixes(texturePackLocation, outPath); err != nil {
+		failures += len(err.files)
+		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+	}
 	if err := anvil_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
 		failures += len(err.files)
 		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
@@ -311,6 +300,17 @@ func ConvertPack(inName string, outName string) {
 			failures++
 		}
 	}
+	func() {
+		sc := [...]simpleConversion{
+			{"hud", "hotbar.png", "inventory", "mcl_inventory_hotbar.png", -1},
+		}
+		for _, e := range sc {
+			err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture)
+			if err != nil {
+				textureErrorsLog += (e.outTexture + " failed to convert.\n")
+			}
+		}
+	}()
 
 	compatibilityRating := (successes * 100) / (successes + failures)
 	packConfigFile := fmt.Sprintf(`title = %s
@@ -390,8 +390,8 @@ func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	return nil
 }
 
-// Don't use pls.
-func copyTextureBasic(src string, dest string) error {
+// Not called anywhere.
+func basicCopy(src string, dest string) error {
 	source, err := os.Open(src)
 	if err != nil {
 		//fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")

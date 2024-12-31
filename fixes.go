@@ -53,6 +53,31 @@ func animated_texture_fix(inName string, outName string) *readWriteError {
 }
 */
 
+func do_fixes(inPath string, outPath string) *readWriteError {
+	fails := make([]string, 0, 61_000)
+
+	func() {
+		t := "hotbar_offhand_left.png"
+		if offHand, err := imaging.Open(inPath + craftPaths["hud"] + t); err != nil {
+			fails = append(fails, t+" failed to open!")
+		} else {
+			// 29 x 24
+			scale := offHand.Bounds().Dx() / 29
+			// 22 x 22
+			dst := imaging.New(22*scale, 22*scale, color.NRGBA{0, 0, 0, 0})
+			dst = imaging.Paste(dst, offHand, image.Pt(0, -1*scale))
+			if err2 := imaging.Save(dst, outPath+cloniaPaths["offhand"]+"mcl_offhand_slot.png"); err2 != nil {
+				fails = append(fails, t+" failed to save!")
+			}
+		}
+	}()
+
+	if len(fails) > 0 {
+		return &readWriteError{fails, "patched textures"}
+	}
+	return nil
+}
+
 func anvil_fix(inPath string, outPath string) *readWriteError {
 	abase, err := imaging.Open(inPath + "anvil.png")
 	if err != nil {
@@ -398,6 +423,17 @@ func hud_fix(inPath string, outPath string) *readWriteError {
 			saveErr = imaging.Save(dst, outPath+cloniaPaths["potions"]+"mcl_potions_icon_wither.png")
 			if saveErr != nil {
 				fails = append(fails, "potions::mcl_potions_icon_wither.png failed to save!")
+			}
+		}
+
+		heartFrozen, err := imaging.Open(heartLocation + "heart/frozen_full.png")
+		if err != nil {
+			fails = append(fails, "hud::heart/frozen_full.png failed to open!")
+		} else {
+			dst = imaging.Overlay(heartContainer, heartFrozen, image.Pt(0, 0), 1.0)
+			saveErr = imaging.Save(dst, outPath+cloniaPaths["powder_snow"]+"frozen_heart.png")
+			if saveErr != nil {
+				fails = append(fails, "powder_snow::frozen_heart.png failed to save!")
 			}
 		}
 
