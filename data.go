@@ -39,6 +39,7 @@ var (
 	cloniaPaths = map[string]string{
 		// -- ENTITIES
 		"boats":     "/ENTITIES/mcl_boats/",
+		"charges":   "/ENTITIES/mcl_charges/",
 		"minecarts": "/ENTITIES/mcl_minecarts/",
 		"mobs_mc":   "/ENTITIES/mobs_mc/",
 		// -- HUD
@@ -87,6 +88,7 @@ var (
 		"crafting_table":    "/ITEMS/mcl_crafting_table/",
 		"crimson":           "/ITEMS/mcl_crimson/",
 		"deepslate":         "/ITEMS/mcl_deepslate/",
+		"dripstone":         "/ITEMS/mcl_dripstone/",
 		"doors":             "/ITEMS/mcl_doors/",
 		"dyes":              "/ITEMS/mcl_dyes/",
 		"enchanting":        "/ITEMS/mcl_enchanting/",
@@ -562,6 +564,8 @@ var (
 		{"block", "cauldron_inner.png", "cauldrons", "mcl_cauldrons_cauldron_inner.png", 1},
 		{"block", "cauldron_side.png", "cauldrons", "mcl_cauldrons_cauldron_side.png", 1},
 		{"block", "cauldron_top.png", "cauldrons", "mcl_cauldrons_cauldron_top.png", 1},
+		// -- mcl_charges
+		{"item", "wind_charge.png", "charges", "mcl_charges_wind_charge.png", 1},
 		// -- mcl_cherry_blossom
 		//{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom.png", 1}, //flipped
 		{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom_bottompart.png", 1},
@@ -1191,6 +1195,13 @@ var (
 		{"block", "chiseled_tuff_bricks_top.png", "deepslate", "mcl_deepslate_tuff_chiseled_bricks_top.png", 1},
 		{"block", "chiseled_tuff_top.png", "deepslate", "mcl_deepslate_tuff_chiseled_top.png", 1},
 		{"block", "polished_tuff.png", "deepslate", "mcl_deepslate_tuff_polished.png", 1},
+		// -- mcl_dripstone
+		{"block", "dripstone_block.png", "dripstone", "dripstone_block.png", 1},
+		{"block", "pointed_dripstone_down_base.png", "dripstone", "pointed_dripstone_base.png", 1},
+		{"block", "pointed_dripstone_down_frustum.png", "dripstone", "pointed_dripstone_frustum.png", 1},
+		{"block", "pointed_dripstone_down_middle.png", "dripstone", "pointed_dripstone_middle.png", 1},
+		{"block", "pointed_dripstone_down_tip.png", "dripstone", "pointed_dripstone_tip.png", 1},
+		{"block", "pointed_dripstone_down_tip_merge.png", "dripstone", "pointed_dripstone_tip_merge.png", 1},
 		// -- mcl_doors
 		{"item", "iron_door.png", "doors", "doors_item_steel.png", 1},
 		{"item", "oak_door.png", "doors", "doors_item_wood.png", 1},
