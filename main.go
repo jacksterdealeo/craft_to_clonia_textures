@@ -108,9 +108,9 @@ func main() {
 	for _, file := range files {
 		if !file.IsDir() &&
 			filepath.Ext(file.Name()) == ".zip" {
-			if _, err := os.Stat("input/" + FileNameWithoutExt(file.Name())); errors.Is(err, os.ErrNotExist) {
+			if _, err := os.Stat(Config.InputDir + "/" + FileNameWithoutExt(file.Name())); errors.Is(err, os.ErrNotExist) {
 				fmt.Println("Unzipping:", file.Name())
-				if err2 := unzipSource("input/"+file.Name(), "input/"+FileNameWithoutExt(file.Name())); err2 != nil {
+				if err2 := unzipSource(Config.InputDir+"/"+file.Name(), Config.InputDir+"/"+FileNameWithoutExt(file.Name())); err2 != nil {
 					fmt.Println("Extraction Error:", err)
 				}
 			} else {
