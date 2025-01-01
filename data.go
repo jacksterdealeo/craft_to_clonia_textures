@@ -1107,7 +1107,7 @@ var (
 		//"mcl_crafting_table_inv_fill.png" //no match
 		// -- mcl_crimson
 		{"block", "crimson_stem_top.png", "crimson", "crimson_hyphae.png", 1},
-		//{"block", "crimson_stem.png", "crimson", "crimson_hyphae_side.png", 1},  // special attention
+		{"block", "crimson_stem.png", "crimson", "crimson_hyphae_side.png", 1},
 		{"block", "crimson_planks.png", "crimson", "crimson_hyphae_wood.png", 1},
 		{"block", "crimson_nylium.png", "crimson", "crimson_nylium.png", 1},
 		{"block", "crimson_nylium_side.png", "crimson", "crimson_nylium_side.png", 1},
@@ -1149,7 +1149,7 @@ var (
 		{"block", "twisting_vines.png", "crimson", "twisting_vines.png", 1},
 		{"block", "twisting_vines_plant.png", "crimson", "twisting_vines_plant.png", 1},
 		{"block", "warped_stem_top.png", "crimson", "warped_hyphae.png", 1},
-		//{"block", "warped_stem.png", "crimson", "warped_hyphae_side.png", 1},  // special attention
+		{"block", "warped_stem.png", "crimson", "warped_hyphae_side.png", 1}, // special attention
 		{"block", "warped_planks.png", "crimson", "warped_hyphae_wood.png", 1},
 		{"block", "warped_nylium.png", "crimson", "warped_nylium.png", 1},
 		{"block", "warped_nylium_side.png", "crimson", "warped_nylium_side.png", 1},
