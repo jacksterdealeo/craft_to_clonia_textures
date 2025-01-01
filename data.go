@@ -146,6 +146,7 @@ var (
 		"walls":             "/ITEMS/mcl_walls/",
 		"wool":              "/ITEMS/mcl_wool/",
 		"xfences":           "/ITEMS/mclx_fences/",
+		"xstairs":           "/ITEMS/mclx_stairs/",
 		//"": "/ITEMS//",
 		"REDSTONE": "/ITEMS/REDSTONE/",
 	}

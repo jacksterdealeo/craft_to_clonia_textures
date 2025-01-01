@@ -57,6 +57,38 @@ func do_fixes(inPath string, outPath string) *readWriteError {
 	fails := make([]string, 0, 61_000)
 
 	func() {
+		t := []simpleConversion{
+			{"block", "polished_andesite.png", "core", "mcl_stairs_andesite_smooth_slab.png", 1},
+			{"block", "polished_diorite.png", "core", "mcl_stairs_diorite_smooth_slab.png", 1},
+			{"block", "polished_granite.png", "core", "mcl_stairs_granite_smooth_slab.png", 1},
+			{"block", "gold_block.png", "xstairs", "mcl_stairs_gold_block_slab.png", 1},
+			{"block", "iron_block.png", "xstairs", "mcl_stairs_iron_block_slab.png", 1},
+			{"block", "lapis_block.png", "xstairs", "mcl_stairs_lapis_block_slab.png", 1},
+		}
+		for _, e := range t {
+			block, err := imaging.Open(inPath + craftPaths[e.inPath] + e.inTexture)
+			_ = block
+			if err != nil {
+				fails = append(fails, e.inTexture+"failed to open!")
+			} else {
+				scale := block.Bounds().Dx() / 16
+				dst := imaging.New(block.Bounds().Dx(), block.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+				dst = imaging.Paste(dst, block, image.Pt(0, -8*scale))
+				dst = imaging.Paste(dst, block, image.Pt(0, 8*scale))
+
+				top := imaging.Crop(block, image.Rect(0, 0, block.Bounds().Dx(), 1))
+				bottom := imaging.Crop(block, image.Rect(0, 15*scale, block.Bounds().Dx(), block.Bounds().Dy()))
+				dst = imaging.Paste(dst, top, image.Pt(0, 0))
+				dst = imaging.Paste(dst, bottom, image.Pt(0, 15*scale))
+
+				if err := imaging.Save(dst, outPath+cloniaPaths[e.outPath]+e.outTexture); err != nil {
+					fails = append(fails, e.outTexture+" failed to save!")
+				}
+			}
+		}
+	}()
+
+	func() { // offhand_slot
 		t := "hotbar_offhand_left.png"
 		if offHand, err := imaging.Open(inPath + craftPaths["hud"] + t); err != nil {
 			fails = append(fails, t+" failed to open!")
