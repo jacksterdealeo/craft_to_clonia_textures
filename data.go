@@ -62,6 +62,7 @@ var (
 		"barrels":           "/ITEMS/mcl_barrels/",
 		"beds":              "/ITEMS/mcl_beds/",
 		"beehives":          "/ITEMS/mcl_beehives/",
+		"bells":             "/ITEMS/mcl_bells/",
 		"blackstone":        "/ITEMS/mcl_blackstone/",
 		"blast_furnace":     "/ITEMS/mcl_blast_furnace/",
 		"bone_meal":         "/ITEMS/mcl_bone_meal/",
@@ -437,6 +438,10 @@ var (
 		{"block", "bee_nest_side.png", "beehives", "mcl_beehives_bee_nest_side.png", 1},
 		{"block", "bee_nest_top.png", "beehives", "mcl_beehives_bee_nest_top.png", 1},
 		// -- mcl_bells
+		{"item", "bell.png", "bells", "mcl_bells_bell.png", 1},
+		// {"item", ".png", "bells", "mcl_bells_bell_bottom.png", 1},
+		// {"item", ".png", "bells", "mcl_bells_bell_side.png", 1},
+		// {"item", ".png", "bells", "mcl_bells_bell_top.png", 1},
 		// -- mcl_blackstone
 		{"block", "quartz_bricks.png", "blackstone", "mcl_backstone_quartz_bricks.png", 1},
 		{"block", "basalt_side.png", "blackstone", "mcl_blackstone_basalt_side.png", 1},
