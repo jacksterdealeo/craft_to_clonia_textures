@@ -750,9 +750,9 @@ func vine_fix(inPath string, outPath string) *readWriteError {
 	dst = imaging.Overlay(dst, grayVine, image.Point{0, 0}, 1.0)
 	dst = imaging.AdjustFunc(dst,
 		func(c color.NRGBA) color.NRGBA {
-			r := int(c.R) - 255
-			g := int(c.G) - 20
-			b := int(c.B) - 255
+			r := int(c.G) - 60
+			g := int(c.G)
+			b := int(c.G) - 120
 			if r < 0 {
 				r = 0
 			}
