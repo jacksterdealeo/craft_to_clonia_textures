@@ -151,6 +151,10 @@ var (
 		"REDSTONE": "/ITEMS/REDSTONE/",
 	}
 
+	copyAsIs = [...]simpleConversion{
+		{"entity", "enchanting_table_book.png", "enchanting", "mcl_enchanting_book_entity.png", 1},
+	}
+
 	basicItems = [...]simpleConversion{
 		// -- mcl_armor_stand
 		{"item", "armor_stand.png", "armor_stand", "3d_armor_stand_item.png", 1},

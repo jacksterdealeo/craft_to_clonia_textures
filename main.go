@@ -201,6 +201,14 @@ func ConvertPack(inName string, outName string) {
 		}
 	}
 
+	for _, e := range copyAsIs {
+		if err := copyTexture(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture); err != nil {
+			copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
+		} else {
+			successes += 1
+		}
+	}
+
 	if len(copyTextureFails) > 0 {
 		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
 		textureErrorsLog += fmt.Sprintf("%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
