@@ -8,6 +8,14 @@ type simpleConversion struct {
 	framesAllowed int
 }
 
+func (e *simpleConversion) readPath() string {
+	return craftPaths[e.inPath] + "/" + e.inTexture
+}
+
+func (e *simpleConversion) savePath() string {
+	return cloniaPaths[e.outPath] + "/" + e.outTexture
+}
+
 var (
 	testBasicItems = [...]simpleConversion{
 		{"test1", "t2", "TEST3", "T4", -1},

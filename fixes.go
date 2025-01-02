@@ -53,10 +53,10 @@ func animated_texture_fix(inName string, outName string) *readWriteError {
 }
 */
 
-func do_fixes(inPath string, outPath string) *readWriteError {
+func do_fixes(inPack string, outPack string) *readWriteError {
 	fails := make([]string, 0, 61_000)
 
-	func() {
+	func() { // special slabs
 		t := []simpleConversion{
 			{"block", "polished_andesite.png", "core", "mcl_stairs_andesite_smooth_slab.png", 1},
 			{"block", "polished_diorite.png", "core", "mcl_stairs_diorite_smooth_slab.png", 1},
@@ -66,7 +66,7 @@ func do_fixes(inPath string, outPath string) *readWriteError {
 			{"block", "lapis_block.png", "xstairs", "mcl_stairs_lapis_block_slab.png", 1},
 		}
 		for _, e := range t {
-			block, err := imaging.Open(inPath + craftPaths[e.inPath] + e.inTexture)
+			block, err := imaging.Open(inPack + craftPaths[e.inPath] + e.inTexture)
 			_ = block
 			if err != nil {
 				fails = append(fails, e.inTexture+"failed to open!")
@@ -81,7 +81,46 @@ func do_fixes(inPath string, outPath string) *readWriteError {
 				dst = imaging.Paste(dst, top, image.Pt(0, 0))
 				dst = imaging.Paste(dst, bottom, image.Pt(0, 15*scale))
 
-				if err := imaging.Save(dst, outPath+cloniaPaths[e.outPath]+e.outTexture); err != nil {
+				if err := imaging.Save(dst, outPack+cloniaPaths[e.outPath]+e.outTexture); err != nil {
+					fails = append(fails, e.outTexture+" failed to save!")
+				}
+			}
+		}
+	}()
+
+	func() { // green plants
+		t := []simpleConversion{
+			{"block", "vine.png", "core", "mcl_core_vine.png", 1},
+			{"block", "lily_pad.png", "flowers", "flowers_waterlily.png", 1},
+			{"block", "large_fern_top.png", "flowers", "mcl_flowers_double_plant_fern_inv.png", 1},
+			{"block", "tall_grass_top.png", "flowers", "mcl_flowers_double_plant_grass_inv.png", 1},
+			{"block", "fern.png", "flowers", "mcl_flowers_fern_inv.png", 1},
+			{"block", "short_grass.png", "flowers", "mcl_flowers_tallgrass_inv.png", 1},
+		}
+		for _, e := range t {
+			grayImage, err := imaging.Open(inPack + e.readPath())
+			if err != nil {
+				fails = append(fails, e.inTexture+" failed to open!")
+			} else {
+				dst := imaging.New(grayImage.Bounds().Dx(), grayImage.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+				dst = imaging.Overlay(dst, grayImage, image.Point{0, 0}, 1.0)
+				dst = imaging.AdjustFunc(dst,
+					func(c color.NRGBA) color.NRGBA {
+						r := int(c.R) - 50
+						g := int(c.G) - 20
+						b := int(c.B) - 70
+						if r < 0 {
+							r = 0
+						}
+						if g < 0 {
+							g = 0
+						}
+						if b < 0 {
+							b = 0
+						}
+						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+					})
+				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
 					fails = append(fails, e.outTexture+" failed to save!")
 				}
 			}
@@ -90,7 +129,7 @@ func do_fixes(inPath string, outPath string) *readWriteError {
 
 	func() { // offhand_slot
 		t := "hotbar_offhand_left.png"
-		if offHand, err := imaging.Open(inPath + craftPaths["hud"] + t); err != nil {
+		if offHand, err := imaging.Open(inPack + craftPaths["hud"] + t); err != nil {
 			fails = append(fails, t+" failed to open!")
 		} else {
 			// 29 x 24
@@ -98,7 +137,7 @@ func do_fixes(inPath string, outPath string) *readWriteError {
 			// 22 x 22
 			dst := imaging.New(22*scale, 22*scale, color.NRGBA{0, 0, 0, 0})
 			dst = imaging.Paste(dst, offHand, image.Pt(0, -1*scale))
-			if err2 := imaging.Save(dst, outPath+cloniaPaths["offhand"]+"mcl_offhand_slot.png"); err2 != nil {
+			if err2 := imaging.Save(dst, outPack+cloniaPaths["offhand"]+"mcl_offhand_slot.png"); err2 != nil {
 				fails = append(fails, t+" failed to save!")
 			}
 		}
@@ -569,37 +608,6 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 	}
 	if err := copyTextureAnimated(inPath+"lava_still.png", outPath+"default_lava_source_animated.png", -1); err != nil {
 		return &readWriteError{[]string{"default_lava_source_animated.png failed to copy!"}, "lava textures"}
-	}
-	return nil
-}
-
-func lily_fix(inPath string, outPath string) *readWriteError {
-	grayLily, err := imaging.Open(inPath + "lily_pad.png")
-	if err != nil {
-		return &readWriteError{[]string{"block::flowers_waterlily.png failed to open!"}, "vine texture"}
-	}
-	_ = grayLily
-	dst := imaging.New(grayLily.Bounds().Dx(), grayLily.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-	dst = imaging.Overlay(dst, grayLily, image.Point{0, 0}, 1.0)
-	dst = imaging.AdjustFunc(dst,
-		func(c color.NRGBA) color.NRGBA {
-			r := int(c.R) - 255
-			g := int(c.G) - 20
-			b := int(c.B) - 255
-			if r < 0 {
-				r = 0
-			}
-			if g < 0 {
-				g = 0
-			}
-			if b < 0 {
-				b = 0
-			}
-			return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
-
-		})
-	if err = imaging.Save(dst, outPath+"flowers_waterlily.png"); err != nil {
-		return &readWriteError{[]string{"flowers_waterlily.png failed to save!"}, "waterlily texture"}
 	}
 	return nil
 }
