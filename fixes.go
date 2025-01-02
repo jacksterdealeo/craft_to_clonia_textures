@@ -748,38 +748,6 @@ func stonecutter_fix(inPath string, outPath string) *readWriteError {
 	return nil
 }
 
-func vine_fix(inPath string, outPath string) *readWriteError {
-	grayVine, err := imaging.Open(inPath + "vine.png")
-	if err != nil {
-		return &readWriteError{[]string{"block::vine.png failed to open!"}, "vine texture"}
-	}
-	_ = grayVine
-	dst := imaging.New(grayVine.Bounds().Dx(), grayVine.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-	dst = imaging.Overlay(dst, grayVine, image.Point{0, 0}, 1.0)
-	dst = imaging.AdjustFunc(dst,
-		func(c color.NRGBA) color.NRGBA {
-			r := int(c.G) - 60
-			g := int(c.G)
-			b := int(c.G) - 120
-			if r < 0 {
-				r = 0
-			}
-			if g < 0 {
-				g = 0
-			}
-			if b < 0 {
-				b = 0
-			}
-			return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
-
-		})
-	if err = imaging.Save(dst, outPath+"mcl_core_vine.png"); err != nil {
-		return &readWriteError{[]string{"mcl_core_vine.png failed to save!"}, "vine texture"}
-	}
-
-	return nil
-}
-
 func water_fix(inPath string, outPath string) *readWriteError {
 	/*
 		craft water
