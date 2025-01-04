@@ -54,7 +54,22 @@ func animated_texture_fix(inName string, outName string) *readWriteError {
 */
 
 func do_fixes(inPack string, outPack string) *readWriteError {
-	fails := make([]string, 0, 61_000)
+	fails := make([]string, 0, 64_000)
+
+	func() { // flips horizontally
+		t := simpleConversion{"block", "spore_blossom.png", "lush_caves", "mcl_lush_caves_spore_blossom.png", 1}
+		spore, err := imaging.Open(inPack + t.readPath())
+		if err != nil {
+			fails = append(fails, t.outTexture+"failed to save!")
+		} else {
+			dst := imaging.New(spore.Bounds().Dx(), spore.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+			dst = imaging.Paste(dst, imaging.FlipV(spore), image.Pt(0, 0))
+			if err := imaging.Save(dst, outPack+t.savePath()); err != nil {
+				fails = append(fails, t.outTexture+" failed to save!")
+			}
+
+		}
+	}()
 
 	func() { // special slabs
 		t := []simpleConversion{
