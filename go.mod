@@ -1,4 +1,4 @@
-module craft_to_clonia_packs
+module craft_to_clonia_textures
 
 go 1.22.5
 

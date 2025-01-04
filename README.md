@@ -3,6 +3,8 @@
 </div>
 
 ## Disclaimer
+Some Minecraft texture packs have a license that prohibits using their packs outside of Minecraft. CtCT does not care what packs you convert with it, so use responsibly.
+
 All mobs, some UI, and other things will not transfer over.
 Some things are not reasonably possible to transfer (like the brewing stand),
 and many things are just not added in yet.

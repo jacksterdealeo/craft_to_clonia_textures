@@ -19,8 +19,9 @@ import (
 const ()
 
 var (
-	now     = time.Now().Format("01-02-2006 15:04:05")
-	version = "Pre-release"
+	now      = time.Now().Format("01-02-2006 15:04:05")
+	nowShort = time.Now().Format("2Jan06")
+	version  = "Pre-release"
 )
 
 type readWriteError struct {
@@ -134,9 +135,9 @@ func main() {
 	for _, file := range files {
 		if file.IsDir() {
 			fmt.Println(file.Name())
-			outPath := fmt.Sprintf("%s_mc_converted", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
+			outPath := fmt.Sprintf("%s_from_mc", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
 			ConvertPack(file.Name(), outPath)
-			fmt.Println()
+			fmt.Print("Done!\n\n")
 		}
 	}
 }
@@ -315,8 +316,8 @@ func ConvertPack(inName string, outName string) {
 	compatibilityRating := (successes * 100) / (successes + failures)
 	packConfigFile := fmt.Sprintf(`title = %s
 name = %s
-description = A Minecraft texture pack converted to Mineclonia on %s. %d successes, %d failures, %d%% compatible.`,
-		inName, outName, now, successes, failures, compatibilityRating)
+description = A Minecraft texture pack converted to Mineclonia. %d successes, %d failures, %d%% compatible, converted %v.`,
+		inName, outName, successes, failures, compatibilityRating, nowShort)
 	fmt.Printf("Pack info:\n%s\n", packConfigFile)
 	if err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
 		log.Panic(err)
