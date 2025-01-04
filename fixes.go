@@ -160,8 +160,9 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 
 	if len(fails) > 0 {
 		return &readWriteError{fails, "patched textures"}
+	} else {
+		return nil
 	}
-	return nil
 }
 
 func anvil_fix(inPath string, outPath string) *readWriteError {
@@ -764,6 +765,7 @@ func stonecutter_fix(inPath string, outPath string) *readWriteError {
 }
 
 func water_fix(inPath string, outPath string) *readWriteError {
+	fails := []string{}
 	/*
 		craft water
 		  still   :  16 x 512
@@ -774,55 +776,56 @@ func water_fix(inPath string, outPath string) *readWriteError {
 	*/
 	wStill, err := imaging.Open(inPath + "water_still.png")
 	if err != nil {
-		return &readWriteError{[]string{"block::water_still.png failed to open!"}, "water textures"}
-	}
-	wStillX := wStill.Bounds().Dx()
-	wStillY := wStill.Bounds().Dy()
-	dst := imaging.New(wStillX, wStillY, color.NRGBA{0, 0, 0, 0})
-	dst = imaging.Overlay(dst, wStill, image.Point{0, 0}, 1.0)
-	plainWater := imaging.AdjustFunc(dst,
-		func(c color.NRGBA) color.NRGBA {
-			r := int(c.R) - 105
-			g := int(c.G) - 40
-			b := int(c.B) + 20
-			if r < 0 {
-				r = 0
-			}
-			if g < 0 {
-				g = 0
-			}
-			if b > 255 {
-				b = 255
-			}
-			return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
-		})
-	if err = imaging.Save(plainWater, outPath+"default_water_source_animated.png"); err != nil {
-		return &readWriteError{[]string{"default_water_source_animated.png failed to save!"}, "water textures"}
-	}
+		fails = append(fails, "block::water_still.png failed to open!")
+	} else {
+		wStillX := wStill.Bounds().Dx()
+		wStillY := wStill.Bounds().Dy()
+		dst := imaging.New(wStillX, wStillY, color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Overlay(dst, wStill, image.Point{0, 0}, 1.0)
+		plainWater := imaging.AdjustFunc(dst,
+			func(c color.NRGBA) color.NRGBA {
+				r := int(c.R) - 105
+				g := int(c.G) - 40
+				b := int(c.B) + 20
+				if r < 0 {
+					r = 0
+				}
+				if g < 0 {
+					g = 0
+				}
+				if b > 255 {
+					b = 255
+				}
+				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+			})
+		if err = imaging.Save(plainWater, outPath+"default_water_source_animated.png"); err != nil {
+			fails = append(fails, "default_water_source_animated.png failed to save!")
+		}
 
-	riverWater := imaging.AdjustFunc(dst,
-		func(c color.NRGBA) color.NRGBA {
-			r := int(c.R) - 105
-			g := int(c.G) - 0
-			b := int(c.B) + 45
-			if r < 0 {
-				r = 0
-			}
-			if g < 0 {
-				g = 0
-			}
-			if b > 255 {
-				b = 255
-			}
-			return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
-		})
-	if err = imaging.Save(riverWater, outPath+"default_river_water_source_animated.png"); err != nil {
-		return &readWriteError{[]string{"default_river_water_source_animated.png failed to save!"}, "water textures"}
+		riverWater := imaging.AdjustFunc(dst,
+			func(c color.NRGBA) color.NRGBA {
+				r := int(c.R) - 105
+				g := int(c.G) - 0
+				b := int(c.B) + 45
+				if r < 0 {
+					r = 0
+				}
+				if g < 0 {
+					g = 0
+				}
+				if b > 255 {
+					b = 255
+				}
+				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+			})
+		if err = imaging.Save(riverWater, outPath+"default_river_water_source_animated.png"); err != nil {
+			fails = append(fails, "default_river_water_source_animated.png failed to save!")
+		}
 	}
 
 	wFlowing, err := imaging.Open(inPath + "water_flow.png")
 	if err != nil {
-		return &readWriteError{[]string{"block::water_flow.png failed to open!"}, "water textures"}
+		fails = append(fails, "block::water_flow.png failed to open!")
 	} else {
 		wFlowingX := wFlowing.Bounds().Dx()
 		wFlowingY := wFlowing.Bounds().Dy()
@@ -845,7 +848,7 @@ func water_fix(inPath string, outPath string) *readWriteError {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(plainWater, outPath+"default_water_flowing_animated.png"); err != nil {
-			return &readWriteError{[]string{"default_water_flowing_animated.png failed to save!"}, "water textures"}
+			fails = append(fails, "default_water_flowing_animated.png failed to save!")
 		}
 
 		riverWater := imaging.AdjustFunc(dst,
@@ -866,8 +869,13 @@ func water_fix(inPath string, outPath string) *readWriteError {
 			})
 		if err = imaging.Save(riverWater, outPath+"default_river_water_flowing_animated.png"); err != nil {
 			fmt.Println("default_river_water_flowing_animated.png save failed!")
-			return &readWriteError{[]string{"default_river_water_flowing_animated.png failed to save!"}, "water textures"}
+			fails = append(fails, "default_river_water_flowing_animated.png failed to save!")
 		}
 	}
-	return nil
+	if len(fails) > 0 {
+		return &readWriteError{fails, "water textures"}
+	} else {
+		return nil
+	}
+
 }

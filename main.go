@@ -186,6 +186,7 @@ func ConvertPack(inName string, outName string) {
 	}
 
 	copyTextureFails := []string{}
+
 	for _, e := range basicItems {
 		if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+cloniaPaths[e.outPath]+e.outTexture, e.framesAllowed); err != nil {
 			copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
@@ -217,60 +218,25 @@ func ConvertPack(inName string, outName string) {
 	}
 
 	////special casses
-	/*
-		if err := animated_texture_fix(texturePackLocation, outPath); err != nil {
-			failures += len(err.files)
-			textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
+	logRWErr := func(e *readWriteError) {
+		if e != nil {
+			failures += len(e.files)
+			textureErrorsLog += fmt.Sprint(e.Error() + "\n\n")
 		}
-	*/
-	if err := do_fixes(texturePackLocation, outPath); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
 	}
-	if err := anvil_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["anvils"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := campfire_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["campfires"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := crack_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["hud_base_textures"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := double_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := flip_fix(texturePackLocation, outPath); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := flowerpot_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["flowerpots"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := hud_fix(texturePackLocation, outPath); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := lava_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := single_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := stonecutter_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["stonecutter"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
-	if err := water_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]); err != nil {
-		failures += len(err.files)
-		textureErrorsLog += fmt.Sprint(err.Error() + "\n\n")
-	}
+
+	double_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"])
+	water_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"])
+	do_fixes(texturePackLocation, outPath)
+	logRWErr(anvil_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["anvils"]))
+	logRWErr(campfire_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["campfires"]))
+	logRWErr(crack_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["hud_base_textures"]))
+	logRWErr(flip_fix(texturePackLocation, outPath))
+	logRWErr(flowerpot_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["flowerpots"]))
+	logRWErr(hud_fix(texturePackLocation, outPath))
+	logRWErr(lava_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]))
+	logRWErr(single_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]))
+	logRWErr(stonecutter_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["stonecutter"]))
 	// Achivement Icon
 	if src, err := imaging.Open(texturePackLocation + craftPaths["item"] + "writable_book.png"); err != nil {
 		textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n"
