@@ -143,7 +143,7 @@ func main() {
 }
 
 func ConvertPack(inName string, outName string) {
-	var textureErrorsLog string
+	var textureErrorsLog string = fmt.Sprintf("%v %v\n", inName, nowShort)
 	var successes = 0
 	var failures = 0
 	texturePackLocation := Config.InputDir + inName
