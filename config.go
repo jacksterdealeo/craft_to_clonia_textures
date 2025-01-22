@@ -8,17 +8,21 @@ import (
 )
 
 type config struct {
-	DefinedInput  bool
-	DefinedOutput bool
-	InputDir      string
-	OutputDir     string
+	DefinedInput        bool
+	DefinedOutput       bool
+	ExportMinetest_Game bool
+	ExportMineclonia    bool
+	InputDir            string
+	OutputDir           string
 }
 
 var Config *config = &config{
-	DefinedInput:  false,
-	DefinedOutput: false,
-	InputDir:      "./input/",
-	OutputDir:     "./output/",
+	DefinedInput:        false,
+	DefinedOutput:       false,
+	ExportMinetest_Game: false,
+	ExportMineclonia:    true,
+	InputDir:            "./input/",
+	OutputDir:           "./output/",
 }
 
 var (
@@ -38,7 +42,7 @@ func loadJsonConfig() (*config, error) {
 				userHomeDir + "/.var/app/net.minetest.Minetest/.minetest/textures/"
 		}
 
-		configData, err := json.Marshal(Config)
+		configData, err := json.MarshalIndent(Config, "", "")
 
 		if err != nil {
 			fmt.Println("Couldn't Marshal config json :", err)
@@ -55,7 +59,7 @@ func loadJsonConfig() (*config, error) {
 		fmt.Println(err)
 		return Config, err
 	}
-	fmt.Println("\nFILE DATA: ", string(configData))
+	fmt.Printf("CONFIG FILE: %v\n", string(configData))
 	err = json.Unmarshal([]byte(configData), &Config)
 	if err != nil {
 		fmt.Println("Couldn't Marshal config json :", err)
@@ -70,7 +74,6 @@ func loadJsonConfig() (*config, error) {
 	Config.InputDir += "/"
 	Config.OutputDir += "/"
 
-	fmt.Println("REAL DATA: ", *Config)
 	if !Config.DefinedInput {
 		Config.InputDir = "input"
 	}

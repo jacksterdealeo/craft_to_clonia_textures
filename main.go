@@ -16,7 +16,10 @@ import (
 	imaging "github.com/disintegration/imaging"
 )
 
-const ()
+const (
+	minetest_game = iota
+	mineclonia
+)
 
 var (
 	now      = time.Now().Format("01-02-2006 15:04:05")
@@ -34,7 +37,7 @@ func (e *readWriteError) Error() string {
 }
 
 func main() {
-	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n", version)
+	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n\n", version)
 
 	if config, err := loadJsonConfig(); err != nil {
 		fmt.Println(err)
@@ -104,8 +107,6 @@ func main() {
 		return
 	}
 
-	fmt.Println()
-
 	for _, file := range files {
 		if !file.IsDir() &&
 			filepath.Ext(file.Name()) == ".zip" {
@@ -135,14 +136,21 @@ func main() {
 	for _, file := range files {
 		if file.IsDir() {
 			fmt.Println(file.Name())
-			outPath := fmt.Sprintf("%s_from_mc", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
-			ConvertPack(file.Name(), outPath)
+			if Config.ExportMineclonia {
+				o := fmt.Sprintf("%s_mc_to_clonia", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
+				ConvertPackClonia(file.Name(), o)
+			}
+			if Config.ExportMinetest_Game {
+				o := fmt.Sprintf("%s_mc_to_mtg", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
+				ConvertPackMTG(file.Name(), o)
+			}
+
 			fmt.Print("Done!\n\n")
 		}
 	}
 }
 
-func ConvertPack(inName string, outName string) {
+func ConvertPackClonia(inName string, outName string) {
 	var textureErrorsLog string = fmt.Sprintf("%v %v\n", inName, nowShort)
 	var successes = 0
 	var failures = 0
@@ -284,7 +292,7 @@ func ConvertPack(inName string, outName string) {
 name = %s
 description = A Minecraft texture pack converted to Mineclonia. %d successes, %d failures, %d%% compatible, converted %v.`,
 		inName, outName, successes, failures, compatibilityRating, nowShort)
-	fmt.Printf("Pack info:\n%s\n", packConfigFile)
+	fmt.Printf("%s\n", packConfigFile)
 	if err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
 		log.Panic(err)
 	}
