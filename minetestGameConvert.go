@@ -75,7 +75,7 @@ func ConvertPackMTG(inName string, outName string) {
 	packConfigFile := fmt.Sprintf(`title = %s
 name = %s
 description = A Minecraft texture pack converted to Minetest Game. %d successes, %d failures, %d%% compatible, converted %v.`,
-		inName, outName, successes, failures, compatibilityRating, nowShort)
+		inName+" for MTG", outName, successes, failures, compatibilityRating, nowShort)
 	fmt.Printf("%s\n", packConfigFile)
 	if err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
 		log.Panic(err)
