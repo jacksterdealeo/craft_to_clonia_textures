@@ -8,10 +8,12 @@ type simpleConversion struct {
 	framesAllowed int
 }
 
+// Returns the texture inPath appended with texture name.
 func (e *simpleConversion) readPath() string {
 	return craftPaths[e.inPath] + "/" + e.inTexture
 }
 
+// Returns the texture outPath appended with texture name.
 func (e *simpleConversion) savePath() string {
 	return cloniaPaths[e.outPath] + "/" + e.outTexture
 }

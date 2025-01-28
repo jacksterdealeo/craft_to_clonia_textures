@@ -44,6 +44,15 @@ var (
 		"mtg": "/mtg/",
 	}
 
+	minetestGreenery = [...]simpleConversion{
+
+		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves.png", 1},
+		{"block", "birch_leaves.png", "mtg", "default_aspen_leaves.png", 1},
+		{"block", "grass_block_top.png", "mtg", "default_grass.png", 1},
+		{"block", "grass_block_side_overlay.png", "mtg", "default_grass_side.png", 1},
+		{"block", "jungle_leaves.png", "mtg", "default_jungleleaves.png", 1},
+	}
+
 	minetestGameItems = [...]simpleConversion{
 		// -- beds
 		//{"bed", "", "mtg", "beds_bed.png", 1},  // no match
@@ -83,7 +92,7 @@ var (
 		//{"", "", "mtg", "crack_anylength.png", 1},  // special case
 		{"block", "acacia_sapling.png", "mtg", "default_acacia_bush_sapling.png", 1},
 		//{"", "", "mtg", "default_acacia_bush_stem.png", 1},  // no match
-		//{"", "", "mtg", "default_acacia_leaves.png", 1},  // greenify
+		//{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves.png", 1},  // greenify
 		{"block", "acacia_sapling.png", "mtg", "default_acacia_sapling.png", 1},
 		{"block", "acacia_log.png", "mtg", "default_acacia_tree.png", 1},
 		{"block", "acacia_log_top.png", "mtg", "default_acacia_tree_top.png", 1},
