@@ -45,7 +45,6 @@ var (
 	}
 
 	minetestGreenery = [...]simpleConversion{
-
 		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves.png", 1},
 		{"block", "birch_leaves.png", "mtg", "default_aspen_leaves.png", 1},
 		{"block", "grass_block_top.png", "mtg", "default_grass.png", 1},
@@ -170,8 +169,33 @@ var (
 
 		//{"block", ".png", "mtg", ".png", 1},
 		//
-
+		{"block", "acacia_planks.png", "mtg", "default_fence_acacia_wood.png", 1},
+		{"block", "birch_planks.png", "mtg", "default_fence_aspen_wood.png", 1},
+		{"block", "jungle_planks.png", "mtg", "default_fence_junglewood.png", 1},
+		//{"block", ".png", "mtg", "default_fence_overlay.png", 1},  // no match
+		{"block", "spruce_planks.png", "mtg", "default_fence_pine_wood.png", 1},
+		{"block", "acacia_planks.png", "mtg", "default_fence_rail_acacia_wood.png", 1},
+		{"block", "birch_planks.png", "mtg", "default_fence_rail_aspen_wood.png", 1},
+		{"block", "jungle_planks.png", "mtg", "default_fence_rail_junglewood.png", 1},
+		//{"block", ".png", "mtg", "default_fence_rail_overlay.png", 1},  // no match
+		{"block", "spruce_planks.png", "mtg", "default_fence_rail_pine_wood.png", 1},
+		{"block", "oak_planks.png", "mtg", "default_fence_rail_wood.png", 1},
+		{"block", "oak_planks.png", "mtg", "default_fence_wood.png", 1},
+		//{"block", ".png", "mtg", "default_fern_1.png", 1},  // no match
+		//{"block", ".png", "mtg", "default_fern_2.png", 1},  // no match
+		//{"block", ".png", "mtg", "default_fern_3.png", 1},  // no match
 		{"item", "flint.png", "mtg", "default_flint.png", 1},
+		//{"block", ".png", "mtg", "default_footprint.png", 1},  // no match
+		{"block", "blast_furnace_top.png", "mtg", "default_furnace_bottom.png", 1},
+		{"block", ".png", "mtg", "default_furnace_fire_bg.png", 1},
+		{"block", ".png", "mtg", "default_furnace_fire_fg.png", 1},
+		{"block", "furnace_front.png", "mtg", "default_furnace_front.png", 1},
+		{"block", "furnace_front_on.png", "mtg", "default_furnace_front_active.png", 8},
+		// CHECK 1
+		{"block", "furnace_side.png", "mtg", "default_furnace_side.png", 1},
+		{"block", "furnace_top.png", "mtg", "default_furnace_top.png", 1},
+		{"block", ".png", "mtg", ".png", 1},
+
 		{"block", "glass.png", "mtg", "default_glass.png", 1},
 		//"default_glass_detail.png"	//no match?
 		{"block", "gold_block.png", "mtg", "default_gold_block.png", 1},
