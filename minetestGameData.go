@@ -171,13 +171,6 @@ var (
 		//{"block", "dirt_path_side.png", "mtg", "default_dry_grass_side.png", 1},  // special case
 		{"block", "dead_bush.png", "mtg", "default_dry_shrub.png", 1},
 		//{"block", "jungle_sapling.png", "mtg", "default_emergent_jungle_sapling.png", 1},  // no match
-
-		/*
-			After this point, entries are random.
-		*/
-
-		//{"block", ".png", "mtg", ".png", 1},
-		//
 		{"block", "acacia_planks.png", "mtg", "default_fence_acacia_wood.png", 1},
 		{"block", "birch_planks.png", "mtg", "default_fence_aspen_wood.png", 1},
 		{"block", "jungle_planks.png", "mtg", "default_fence_junglewood.png", 1},
@@ -339,8 +332,10 @@ var (
 		{"gui", ".png", "mtg", "wieldhand.png", 1},
 		*/
 		//{"block", ".png", "mtg", ".png", 1},  // no match
+		// -- doors
+		//{"block", ".png", "mtg", "doors_door_glass.png", 1},  // no match
+		//{"block", ".png", "mtg", "doors_door_obsidian_glass.png", 1},  // no match
 
-		// End Default //
 		//{"block", ".png", "mtg", ".png", 1},
 	}
 )
