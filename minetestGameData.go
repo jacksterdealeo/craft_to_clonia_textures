@@ -115,10 +115,10 @@ var (
 		//{"block", "", "mtg", "default_blueberry_bush_leaves.png", 1}, // no match
 		//{"block", "sweet_berry_bush_stage1.png", "mtg", "default_blueberry_bush_sapling.png", 1}, // no match?
 		//{"block", "", "mtg", "default_blueberry_overlay.png", 1},  // no match
-		{"item", "book.png", "books", "default_book.png", 1},
-		{"item", "written_book.png", "books", "default_book_written.png", 1},
-		{"block", "bookshelf.png", "books", "default_bookshelf.png", 1},
-		//{"item", ".png", "books", "mcl_book_book_empty_slot.png", 1}, //no match
+		{"item", "book.png", "mtg", "default_book.png", 1},
+		{"item", "written_book.png", "mtg", "default_book_written.png", 1},
+		{"block", "bookshelf.png", "mtg", "default_bookshelf.png", 1},
+		//{"item", ".png", "mtg", "mcl_book_book_empty_slot.png", 1}, //no match
 		{"block", "bricks.png", "mtg", "default_brick.png", 1},
 		//{"block", ".png", "mtg", "default_bronze_block.png", 1},  // no match
 		//{"item", ".png", "mtg", "default_bronze_ingot.png", 1},  // no match
@@ -335,6 +335,74 @@ var (
 		// -- doors
 		//{"block", ".png", "mtg", "doors_door_glass.png", 1},  // no match
 		//{"block", ".png", "mtg", "doors_door_obsidian_glass.png", 1},  // no match
+		//{"block", ".png", "mtg", "doors_door_steel.png", 1},  // special attention
+		//{"block", ".png", "mtg", "doors_door_wood.png", 1},  // special attention
+		//{"block", ".png", "mtg", "doors_hidden_segment.png", 1},  // special attention
+		//{"block", ".png", "mtg", "doors_item_glass.png", 1},  // no match
+		//{"block", ".png", "mtg", "doors_item_obsidian_glass.png", 1},  // no match
+		{"item", "doors_item_steel.png", "mtg", "doors_item_steel.png", 1},
+		{"item", "oak_door.png", "mtg", "doors_item_wood.png", 1},
+		//{"block", ".png", "mtg", "doors_trapdoor.png", 1},  // special attention
+		//{"block", ".png", "mtg", "doors_trapdoor_side.png", 1},  // special attention
+		//{"block", ".png", "mtg", "doors_trapdoor_steel.png", 1},  // special attention
+		//{"block", ".png", "mtg", "doors_trapdoor_steel_side.png", 1},  // special attention
+		// -- dye
+		{"item", "black_dye.png", "mtg", "dye_black.png", 1},
+		{"item", "blue_dye.png", "mtg", "dye_blue.png", 1},
+		{"item", "brown_dye.png", "mtg", "dye_brown.png", 1},
+		{"item", "cyan_dye.png", "mtg", "dye_cyan.png", 1},
+		{"item", "green_dye.png", "mtg", "dye_dark_green.png", 1},
+		{"item", "gray_dye.png", "mtg", "dye_dark_grey.png", 1},
+		{"item", "lime_dye.png", "mtg", "dye_green.png", 1},
+		{"item", "light_gray_dye.png", "mtg", "dye_grey.png", 1},
+		{"item", "magenta_dye.png", "mtg", "dye_magenta.png", 1},
+		{"item", "orange_dye.png", "mtg", "dye_orange.png", 1},
+		{"item", "pink_dye.png", "mtg", "dye_pink.png", 1},
+		{"item", "red_dye.png", "mtg", "dye_red.png", 1},
+		{"item", "purple_dye.png", "mtg", "dye_violet.png", 1},
+		{"item", "white_dye.png", "mtg", "dye_white.png", 1},
+		{"item", "yellow_dye.png", "mtg", "dye_yellow.png", 1},
+		// -- farming
+		{"item", ".png", "mtg", "farming_bread.png", 1},
+		//{"item", ".png", "mtg", "farming_cotton.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_1.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_2.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_3.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_4.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_5.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_6.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_7.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_8.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_seed.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_cotton_wild.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_desert_sand_soil.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_desert_sand_soil_wet.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_desert_sand_soil_wet_side.png", 1},  // no match
+		//{"item", ".png", "mtg", "farming_flour.png", 1},  // no match
+		{"block", ".png", "mtg", "farming_soil.png", 1},
+		{"block", ".png", "mtg", "farming_soil_wet.png", 1}, // special attention
+		//{"block", ".png", "mtg", "farming_soil_wet_side.png", 1},  // no match
+		{"item", ".png", "mtg", "farming_straw.png", 1},
+		{"item", ".png", "mtg", "farming_string.png", 1},
+		{"item", ".png", "mtg", "farming_tool_bronzehoe.png", 1},
+		{"item", "diamond_hoe.png", "mtg", "farming_tool_diamondhoe.png", 1},
+		{"item", ".png", "mtg", "farming_tool_mesehoe.png", 1},
+		{"item", ".png", "mtg", "farming_tool_steelhoe.png", 1},
+		{"item", ".png", "mtg", "farming_tool_stonehoe.png", 1},
+		{"item", ".png", "mtg", "farming_tool_woodhoe.png", 1},
+		{"item", ".png", "mtg", "farming_wheat.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_1.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_2.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_3.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_4.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_5.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_6.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_7.png", 1},
+		{"block", ".png", "mtg", "farming_wheat_8.png", 1},
+		{"item", ".png", "mtg", "farming_wheat_seed.png", 1},
+
+		{"item", ".png", "mtg", ".png", 1},
+		{"item", ".png", "mtg", ".png", 1},
 
 		//{"block", ".png", "mtg", ".png", 1},
 	}
