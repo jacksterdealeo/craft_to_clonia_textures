@@ -2,6 +2,7 @@ package main
 
 import ()
 
+/* Just throwing everything from the game into one folder.
 var (
 	unusedMTGPaths = map[string]string{
 		"beds":               "/beds/",
@@ -39,7 +40,10 @@ var (
 		"wool":               "/wool/",
 		"xpanes":             "/xpanes/",
 	}
+)
+*/
 
+var (
 	mtgPaths = map[string]string{
 		"mtg": "/mtg/",
 	}
@@ -363,7 +367,7 @@ var (
 		{"item", "white_dye.png", "mtg", "dye_white.png", 1},
 		{"item", "yellow_dye.png", "mtg", "dye_yellow.png", 1},
 		// -- farming
-		{"item", ".png", "mtg", "farming_bread.png", 1},
+		{"item", "bread.png", "mtg", "farming_bread.png", 1},
 		//{"item", ".png", "mtg", "farming_cotton.png", 1},  // no match
 		//{"item", ".png", "mtg", "farming_cotton_1.png", 1},  // no match
 		//{"item", ".png", "mtg", "farming_cotton_2.png", 1},  // no match
@@ -379,27 +383,31 @@ var (
 		//{"item", ".png", "mtg", "farming_desert_sand_soil_wet.png", 1},  // no match
 		//{"item", ".png", "mtg", "farming_desert_sand_soil_wet_side.png", 1},  // no match
 		//{"item", ".png", "mtg", "farming_flour.png", 1},  // no match
-		{"block", ".png", "mtg", "farming_soil.png", 1},
-		{"block", ".png", "mtg", "farming_soil_wet.png", 1}, // special attention
+		{"block", "farmland.png", "mtg", "farming_soil.png", 1},
+		{"block", "farmland_moist.png", "mtg", "farming_soil_wet.png", 1}, // special attention
 		//{"block", ".png", "mtg", "farming_soil_wet_side.png", 1},  // no match
-		{"item", ".png", "mtg", "farming_straw.png", 1},
-		{"item", ".png", "mtg", "farming_string.png", 1},
-		{"item", ".png", "mtg", "farming_tool_bronzehoe.png", 1},
+		{"block", "hay_block_top.png", "mtg", "farming_straw.png", 1},
+		{"item", "string.png", "mtg", "farming_string.png", 1},
+		//{"item", ".png", "mtg", "farming_tool_bronzehoe.png", 1},  // no match
 		{"item", "diamond_hoe.png", "mtg", "farming_tool_diamondhoe.png", 1},
-		{"item", ".png", "mtg", "farming_tool_mesehoe.png", 1},
-		{"item", ".png", "mtg", "farming_tool_steelhoe.png", 1},
-		{"item", ".png", "mtg", "farming_tool_stonehoe.png", 1},
-		{"item", ".png", "mtg", "farming_tool_woodhoe.png", 1},
-		{"item", ".png", "mtg", "farming_wheat.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_1.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_2.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_3.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_4.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_5.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_6.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_7.png", 1},
-		{"block", ".png", "mtg", "farming_wheat_8.png", 1},
-		{"item", ".png", "mtg", "farming_wheat_seed.png", 1},
+		{"item", "golden_hoe.png", "mtg", "farming_tool_mesehoe.png", 1},
+		{"item", "iron_hoe.png", "mtg", "farming_tool_steelhoe.png", 1},
+		{"item", "stone_hoe.png", "mtg", "farming_tool_stonehoe.png", 1},
+		{"item", "wooden_hoe.png", "mtg", "farming_tool_woodhoe.png", 1},
+		{"item", "wheat.png", "mtg", "farming_wheat.png", 1},
+		{"block", "wheat_stage0.png", "mtg", "farming_wheat_1.png", 1},
+		{"block", "wheat_stage1.png", "mtg", "farming_wheat_2.png", 1},
+		{"block", "wheat_stage2.png", "mtg", "farming_wheat_3.png", 1},
+		{"block", "wheat_stage3.png", "mtg", "farming_wheat_4.png", 1},
+		{"block", "wheat_stage4.png", "mtg", "farming_wheat_5.png", 1},
+		{"block", "wheat_stage5.png", "mtg", "farming_wheat_6.png", 1},
+		{"block", "wheat_stage6.png", "mtg", "farming_wheat_7.png", 1},
+		{"block", "wheat_stage7.png", "mtg", "farming_wheat_8.png", 1},
+		{"item", "wheat_seeds.png", "mtg", "farming_wheat_seed.png", 1},
+		// -- fire
+		{"block", "fire_0.png", "mtg", "fire_basic_flame.png", 1},
+		{"block", "fire_0.png", "mtg", "fire_basic_flame_animated.png", 8},
+		{"item", "flint_and_steel.png", "mtg", "fire_flint_steel.png", 1},
 
 		{"item", ".png", "mtg", ".png", 1},
 		{"item", ".png", "mtg", ".png", 1},
