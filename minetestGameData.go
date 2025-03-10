@@ -408,6 +408,39 @@ var (
 		{"block", "fire_0.png", "mtg", "fire_basic_flame.png", 1},
 		{"block", "fire_0.png", "mtg", "fire_basic_flame_animated.png", 8},
 		{"item", "flint_and_steel.png", "mtg", "fire_flint_steel.png", 1},
+		// -- fireflies
+		//{"item", ".png", "mtg", ".png", 1},
+		//{"item", ".png", "mtg", ".png", 1},
+		//{"item", ".png", "mtg", ".png", 1},
+		//{"item", ".png", "mtg", ".png", 1},
+		//{"item", ".png", "mtg", ".png", 1},
+		// -- flowers
+		//{"block", ".png", "mtg", "flowers_chrysanthemum_green.png", 1},  // special case
+		// Maybe "greenify" another flower?
+		{"block", "oxeye_daisy.png", "mtg", "flowers_dandelion_white.png", 1},
+		{"block", "dandelion.png", "mtg", "flowers_dandelion_yellow.png", 1},
+		{"block", "cornflower.png", "mtg", "flowers_geranium.png", 1},
+		{"block", "brown_mushroom.png", "mtg", "flowers_mushroom_brown.png", 1},
+		{"block", "red_mushroom.png", "mtg", "flowers_mushroom_red.png", 1},
+		{"block", "red_tulip.png", "mtg", "flowers_rose.png", 1},
+		{"block", "orange_tulip.png", "mtg", "flowers_tulip.png", 1},
+		{"block", "wither_rose.png", "mtg", "flowers_tulip_black.png", 1},
+		{"block", "allium.png", "mtg", "flowers_viola.png", 1},
+		//{"block", ".png", "mtg", "flowers_waterlily.png", 1},  // special case
+		//{"block", ".png", "mtg", "flowers_waterlily_bottom.png", 1},  // special case
+		// -- keys
+		//{"item", ".png", "mtg", ".png", 1},  // no match
+		//{"item", ".png", "mtg", ".png", 1},  // no match
+		// -- map
+		{"item", "filled_map.png", "mtg", "map_mapping_kit.png", 1},
+		// -- mtg_craftguide
+		{"item", ".png", "mtg", "craftguide_clear_icon.png", 1},
+		{"item", ".png", "mtg", "craftguide_furnace.png", 1},
+		{"item", ".png", "mtg", "craftguide_next_icon.png", 1},
+		{"item", ".png", "mtg", "craftguide_prev_icon.png", 1},
+		{"item", ".png", "mtg", "craftguide_search_icon.png", 1},
+		{"item", ".png", "mtg", "craftguide_shapeless.png", 1},
+		// -- player_api
 
 		{"item", ".png", "mtg", ".png", 1},
 		{"item", ".png", "mtg", ".png", 1},
