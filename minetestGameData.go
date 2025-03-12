@@ -441,10 +441,72 @@ var (
 		{"item", ".png", "mtg", "craftguide_search_icon.png", 1},
 		{"item", ".png", "mtg", "craftguide_shapeless.png", 1},
 		// -- player_api
-
-		{"item", ".png", "mtg", ".png", 1},
-		{"item", ".png", "mtg", ".png", 1},
-
-		//{"block", ".png", "mtg", ".png", 1},
+		//{"", ".png", "mtg", "player.png", 1},  // no match
+		//{"", ".png", "mtg", "player_back.png", 1},  // no match
+		// -- screwdriver
+		//{"item", ".png", "mtg", "screwdriver.png", 1},  // no match
+		// -- sfinv
+		//{"", ".png", "mtg", "sfinv_crafting_arrow.png", 1},  // no match
+		// -- stairs
+		/* no matches & special cases
+		{"item", ".png", "mtg", "stairs_glass_outer_stairside.png", 1},
+		{"item", ".png", "mtg", "stairs_glass_split.png", 1},
+		{"item", ".png", "mtg", "stairs_glass_stairside.png", 1},
+		{"item", ".png", "mtg", "stairs_obsidian_glass_outer_stairside.png", 1},  // no match
+		{"item", ".png", "mtg", "stairs_obsidian_glass_split.png", 1},  // no match
+		{"item", ".png", "mtg", "stairs_obsidian_glass_stairside.png", 1},  // no match
+		*/
+		// -- tnt
+		//{"item", ".png", "mtg", "tnt_blast.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_boom.png", 1},  // no match
+		{"block", "tnt_bottom.png", "mtg", "tnt_bottom.png", 1},
+		//{"item", ".png", "mtg", "tnt_gunpowder_burning_crossing_animated.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_burning_curved_animated.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_burning_straight_animated.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_burning_t_junction_animated.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_crossing.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_curved.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_inventory.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_straight.png", 1},  // no match
+		//{"item", ".png", "mtg", "tnt_gunpowder_t_junction.png", 1},  // no match
+		{"block", "tnt_side.png", "mtg", "tnt_side.png", 1},
+		{"particle", "big_smoke_5.png", "mtg", "tnt_smoke.png", 1},
+		//{"item", ".png", "mtg", "tnt_tnt_stick.png", 1},  // no match
+		{"block", "tnt_top.png", "mtg", "tnt_top.png", 1},
+		{"block", "tnt_top.png", "mtg", "tnt_top_burning.png", 1},          // special case
+		{"block", "tnt_top.png", "mtg", "tnt_top_burning_animated.png", 1}, // special case
+		// -- vessels
+		//{"item", ".png", "mtg", "vessels_drinking_glass.png", 1},  // no match
+		//{"item", ".png", "mtg", "vessels_drinking_glass_inv.png", 1},  // no match
+		{"item", "glass_bottle.png", "mtg", "vessels_glass_bottle.png", 1},
+		//{"item", ".png", "mtg", "vessels_glass_fragments.png", 1},  // no match
+		//{"block", ".png", "mtg", "vessels_shelf.png", 1},  // no match
+		//{"item", ".png", "mtg", "vessels_shelf_slot.png", 1},  // no match
+		//{"item", ".png", "mtg", "vessels_steel_bottle.png", 1},  // no match
+		// -- wool
+		{"block", "black_wool.png", "mtg", "wool_black.png", 1},
+		{"block", "blue_wool.png", "mtg", "wool_blue.png", 1},
+		{"block", "brown_wool.png", "mtg", "wool_brown.png", 1},
+		{"block", "cyan_wool.png", "mtg", "wool_cyan.png", 1},
+		{"block", "green_wool.png", "mtg", "wool_dark_green.png", 1},
+		{"block", "gray_wool.png", "mtg", "wool_dark_grey.png", 1},
+		{"block", "lime_wool.png", "mtg", "wool_green.png", 1},
+		{"block", "light_gray_wool.png", "mtg", "wool_grey.png", 1},
+		{"block", "magenta_wool.png", "mtg", "wool_magenta.png", 1},
+		{"block", "orange_wool.png", "mtg", "wool_orange.png", 1},
+		{"block", "pink_wool.png", "mtg", "wool_pink.png", 1},
+		{"block", "red_wool.png", "mtg", "wool_red.png", 1},
+		{"block", "purple_wool.png", "mtg", "wool_violet.png", 1},
+		{"block", "white_wool.png", "mtg", "wool_white.png", 1},
+		{"block", "yellow_wool.png", "mtg", "wool_yellow.png", 1},
+		// -- xpanes
+		//{"block", ".png", "mtg", "xpanes_bar.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_bar_top.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_door_steel_bar.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_edge.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_edge_obsidian.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_item_steel_bar.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_trapdoor_steel_bar.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_trapdoor_steel_bar_side.png", 1},  no match
 	}
 )
