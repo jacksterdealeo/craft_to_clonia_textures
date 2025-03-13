@@ -193,8 +193,8 @@ var (
 		{"item", "flint.png", "mtg", "default_flint.png", 1},
 		//{"block", ".png", "mtg", "default_footprint.png", 1},  // no match
 		{"block", "blast_furnace_top.png", "mtg", "default_furnace_bottom.png", 1},
-		{"block", ".png", "mtg", "default_furnace_fire_bg.png", 1},
-		{"block", ".png", "mtg", "default_furnace_fire_fg.png", 1},
+		//{"block", ".png", "mtg", "default_furnace_fire_bg.png", 1},  // special case // trim from furnace gui
+		//{"gui", "sprites/container/furnace/lit_progress.png", "mtg", "default_furnace_fire_fg.png", 1},  // special case
 		{"block", "furnace_front.png", "mtg", "default_furnace_front.png", 1},
 		{"block", "furnace_front_on.png", "mtg", "default_furnace_front_active.png", -1},
 		{"block", "furnace_side.png", "mtg", "default_furnace_side.png", 1},
@@ -317,8 +317,8 @@ var (
 		{"item", "wooden_sword.png", "mtg", "default_tool_woodsword.png", 1},
 		//{"block", ".png", "mtg", "default_torch_animated.png", -1},  // special attention
 		//{"block", ".png", "mtg", "default_torch_on_ceiling_animated.png", -1},  // special attention
-		{"block", ".png", "mtg", "default_torch_on_floor.png", 1},
-		{"block", ".png", "mtg", "default_torch_on_floor_animated.png", -1},
+		{"block", "torch.png", "mtg", "default_torch_on_floor.png", 1},
+		{"block", "torch.png", "mtg", "default_torch_on_floor_animated.png", -1},
 		{"block", "oak_log.png", "mtg", "default_tree.png", 1},
 		{"block", "oak_log_top.png", "mtg", "default_tree_top.png", 1},
 		//{"block", "water_still.png.png", "mtg", "default_water.png", 1},  // special attention
@@ -344,7 +344,7 @@ var (
 		//{"block", ".png", "mtg", "doors_hidden_segment.png", 1},  // special attention
 		//{"block", ".png", "mtg", "doors_item_glass.png", 1},  // no match
 		//{"block", ".png", "mtg", "doors_item_obsidian_glass.png", 1},  // no match
-		{"item", "doors_item_steel.png", "mtg", "doors_item_steel.png", 1},
+		{"item", "iron_door.png", "mtg", "doors_item_steel.png", 1},
 		{"item", "oak_door.png", "mtg", "doors_item_wood.png", 1},
 		//{"block", ".png", "mtg", "doors_trapdoor.png", 1},  // special attention
 		//{"block", ".png", "mtg", "doors_trapdoor_side.png", 1},  // special attention
