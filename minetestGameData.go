@@ -49,17 +49,17 @@ var (
 	}
 
 	minetestGreenery = [...]simpleConversion{
-		{"block", "acacia_leaves.png", "", "mtg/default_acacia_leaves.png", 1},
-		{"block", "acacia_leaves.png", "", "mtg/default_acacia_leaves_simple.png", 1},
-		{"block", "birch_leaves.png", "", "mtg/default_aspen_leaves.png", 1},
-		{"block", "grass_block_top.png", "", "mtg/default_grass.png", 1},
-		{"block", "grass_block_side_overlay.png", "", "mtg/default_grass_side.png", 1},
-		{"block", "jungle_leaves.png", "", "mtg/default_jungleleaves.png", 1},
-		{"block", "short_grass.png", "", "mtg/default_junglegrass.png", 1},
-		{"block", "jungle_leaves.png", "", "mtg/default_jungleleaves_simple.png", 1},
-		{"block", "oak_leaves.png", "", "mtg/default_leaves.png", 1},
-		{"block", "oak_leaves.png", "", "mtg/default_leaves_simple.png", 1},
-		{"block", "spruce_leaves.png", "", "mtg/default_pine_needles.png", 1},
+		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves.png", 1},
+		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves_simple.png", 1},
+		{"block", "birch_leaves.png", "mtg", "default_aspen_leaves.png", 1},
+		{"block", "grass_block_top.png", "mtg", "default_grass.png", 1},
+		{"block", "grass_block_side_overlay.png", "mtg", "default_grass_side.png", 1},
+		{"block", "jungle_leaves.png", "mtg", "default_jungleleaves.png", 1},
+		{"block", "short_grass.png", "mtg", "default_junglegrass.png", 1},
+		{"block", "jungle_leaves.png", "mtg", "default_jungleleaves_simple.png", 1},
+		{"block", "oak_leaves.png", "mtg", "default_leaves.png", 1},
+		{"block", "oak_leaves.png", "mtg", "default_leaves_simple.png", 1},
+		{"block", "spruce_leaves.png", "mtg", "default_pine_needles.png", 1},
 	}
 
 	minetestGameItems = [...]simpleConversion{

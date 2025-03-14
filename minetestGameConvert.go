@@ -65,7 +65,7 @@ func ConvertPackMTG(inName string, outName string) {
 		}
 	}
 	for _, e := range minetestGreenery {
-		if err := greenify(e, texturePackLocation, outPath); err != nil {
+		if err := mtg_greenify(e, texturePackLocation, outPath); err != nil {
 			copyTextureFails = append(copyTextureFails, err.Error())
 		} else {
 			successes += 1
