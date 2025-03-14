@@ -48,7 +48,7 @@ var (
 		"mtg": "/mtg/",
 	}
 
-	minetestGreenery = [...]simpleConversion{
+	minetestGreenery = [...]simpleConversion{ // note: the mtg_greenify function ignores animations at the moment.
 		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves.png", 1},
 		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves_simple.png", 1},
 		{"block", "birch_leaves.png", "mtg", "default_aspen_leaves.png", 1},

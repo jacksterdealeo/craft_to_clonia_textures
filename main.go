@@ -288,9 +288,9 @@ func ConvertPackClonia(inName string, outName string) {
 	}()
 
 	compatibilityRating := (successes * 100) / (successes + failures)
-	packConfigFile := fmt.Sprintf(`title = MC + %s
+	packConfigFile := fmt.Sprintf(`title = MC %s
 name = %s
-description = A Minecraft texture pack converted to Mineclonia. %d successes, %d failures, %d%% compatible, converted %v.`,
+description = Mineclonia texture pack converted from Minecraft. %d successes, %d failures, %d%% compatible, converted %v.`,
 		inName, outName, successes, failures, compatibilityRating, nowShort)
 	fmt.Printf("%s\n", packConfigFile)
 	if err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {

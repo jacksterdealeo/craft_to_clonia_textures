@@ -12,7 +12,7 @@ func mtg_greenify(greenery simpleConversion, inPath, outPath string) *readWriteE
 	if err != nil {
 		return &readWriteError{[]string{greenery.inTexture}, " failed to open!"}
 	}
-	dst := imaging.New(grayImage.Bounds().Dx(), grayImage.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+	dst := imaging.New(grayImage.Bounds().Dx(), grayImage.Bounds().Dx(), color.NRGBA{0, 0, 0, 0}) // disallow animated textures
 	dst = imaging.Overlay(dst, grayImage, image.Point{0, 0}, 1.0)
 	dst = imaging.AdjustFunc(dst,
 		func(c color.NRGBA) color.NRGBA {
