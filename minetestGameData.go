@@ -500,13 +500,13 @@ var (
 		{"block", "white_wool.png", "mtg", "wool_white.png", 1},
 		{"block", "yellow_wool.png", "mtg", "wool_yellow.png", 1},
 		// -- xpanes
-		//{"block", ".png", "mtg", "xpanes_bar.png", 1},  no match
-		//{"block", ".png", "mtg", "xpanes_bar_top.png", 1},  no match
-		//{"block", ".png", "mtg", "xpanes_door_steel_bar.png", 1},  no match
+		{"block", "iron_bars.png", "mtg", "xpanes_bar.png", 1},
+		//{"block", ".png", "mtg", "xpanes_bar_top.png", 1},  // no match
+		//{"block", ".png", "mtg", "xpanes_door_steel_bar.png", 1},  // no match
 		//{"block", ".png", "mtg", "xpanes_edge.png", 1},  no match
-		//{"block", ".png", "mtg", "xpanes_edge_obsidian.png", 1},  no match
-		//{"block", ".png", "mtg", "xpanes_item_steel_bar.png", 1},  no match
-		//{"block", ".png", "mtg", "xpanes_trapdoor_steel_bar.png", 1},  no match
-		//{"block", ".png", "mtg", "xpanes_trapdoor_steel_bar_side.png", 1},  no match
+		//{"block", ".png", "mtg", "xpanes_edge_obsidian.png", 1},  // no match
+		//{"block", ".png", "mtg", "xpanes_item_steel_bar.png", 1},  // no match
+		//{"block", ".png", "mtg", "xpanes_trapdoor_steel_bar.png", 1},  // no match
+		//{"block", ".png", "mtg", "xpanes_trapdoor_steel_bar_side.png", 1},  // no match
 	}
 )

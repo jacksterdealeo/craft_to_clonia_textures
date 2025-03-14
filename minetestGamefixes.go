@@ -16,9 +16,9 @@ func mtg_greenify(greenery simpleConversion, inPath, outPath string) *readWriteE
 	dst = imaging.Overlay(dst, grayImage, image.Point{0, 0}, 1.0)
 	dst = imaging.AdjustFunc(dst,
 		func(c color.NRGBA) color.NRGBA {
-			r := int(c.R) - 50
-			g := int(c.G) - 20
-			b := int(c.B) - 70
+			r := int(c.R) / 3
+			g := int(c.G) - ((int(c.G) * 2) / 7)
+			b := int(c.B) / 3
 			if r < 0 {
 				r = 0
 			}
