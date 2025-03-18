@@ -3,7 +3,7 @@
 </div>
 
 ## Disclaimers
-- The "Minetest Game" is not supported at this time. I am making that a priority now.
+- The "Minetest Game" is supported, but not the default target. You just need to enable it in the program's config file.
 - Some Minecraft texture packs have a license that prohibits using their packs outside of Minecraft. This software does not care what packs you convert with it, so use responsibly.
 - All mobs, some UI, and other things will not transfer over.
 Some things are not reasonably possible to transfer (like the brewing stand),
