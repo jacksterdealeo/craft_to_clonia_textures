@@ -56,6 +56,19 @@ func ConvertPackMTG(inName string, outName string) {
 	}
 
 	copyTextureFails := []string{}
+	catchReadWriteErrors := func(err *readWriteError) {
+		if err != nil {
+			copyTextureFails = append(copyTextureFails, err.Error())
+		} else {
+			successes += 1
+		}
+	}
+
+	for _, e := range minetestGreenery {
+		catchReadWriteErrors(mtg_greenify(e, texturePackLocation, outPath))
+	}
+	catchReadWriteErrors(mtg_obsidian_glass_fix(texturePackLocation, outPath))
+	catchReadWriteErrors(mtg_grass_fix(texturePackLocation, outPath))
 
 	for _, e := range minetestGameItems {
 		if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+mtgPaths[e.outPath]+e.outTexture, e.framesAllowed); err != nil {
@@ -63,18 +76,6 @@ func ConvertPackMTG(inName string, outName string) {
 		} else {
 			successes += 1
 		}
-	}
-	for _, e := range minetestGreenery {
-		if err := mtg_greenify(e, texturePackLocation, outPath); err != nil {
-			copyTextureFails = append(copyTextureFails, err.Error())
-		} else {
-			successes += 1
-		}
-	}
-	if err := mtg_obsidian_glass_fix(texturePackLocation, outPath); err != nil {
-		copyTextureFails = append(copyTextureFails, err.Error())
-	} else {
-		successes += 1
 	}
 
 	if len(copyTextureFails) > 0 {

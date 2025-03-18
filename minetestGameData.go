@@ -60,6 +60,15 @@ var (
 		{"block", "oak_leaves.png", "mtg", "default_leaves.png", 1},
 		{"block", "oak_leaves.png", "mtg", "default_leaves_simple.png", 1},
 		{"block", "spruce_leaves.png", "mtg", "default_pine_needles.png", 1},
+		//{"block", "short_grass.png", "mtg", "default_grass_5.png", 1},
+	}
+
+	minetestShortGrass = [...]simpleConversion{
+		{"block", "short_grass.png", "mtg", "default_grass_1.png", 1},
+		{"block", "short_grass.png", "mtg", "default_grass_2.png", 1},
+		{"block", "short_grass.png", "mtg", "default_grass_3.png", 1},
+		{"block", "short_grass.png", "mtg", "default_grass_4.png", 1},
+		//{"block", "short_grass.png", "mtg", "default_grass_5.png", 1},
 	}
 
 	minetestGameItems = [...]simpleConversion{
@@ -205,6 +214,11 @@ var (
 		{"item", "gold_ingot.png", "mtg", "default_gold_ingot.png", 1},
 		{"item", "raw_gold.png", "mtg", "default_gold_lump.png", 1},
 		//{"block", "grass_block_top.png", "mtg", "default_grass.png", 1},  // greenify
+		//{"block", "short_grass.png", "mtg", "default_grass_1.png", 1},  // greenify
+		//{"block", "short_grass.png", "mtg", "default_grass_2.png", 1},  // greenify
+		//{"block", "short_grass.png", "mtg", "default_grass_3.png", 1},  // greenify
+		//{"block", "short_grass.png", "mtg", "default_grass_4.png", 1},  // greenify
+		//{"block", "short_grass.png", "mtg", "default_grass_5.png", 1},  // greenify
 		//{"block", "grass_block_side_overlay.png", "mtg", "default_grass_side.png", 1},  // greenfiy
 		{"block", "gravel.png", "mtg", "default_gravel.png", 1},
 		{"block", "ice.png", "mtg", "default_ice.png", 1},
@@ -247,7 +261,7 @@ var (
 		{"block", "obsidian.png", "mtg", "default_obsidian.png", 1},
 		//{"block", "obsidian.png", "mtg", "default_obsidian_block.png", 1},  // special case +smooth
 		//{"block", "obsidian.png", "mtg", "default_obsidian_brick.png", 1},  // special case +brick
-		{"block", "tinted_glass.png", "mtg", "default_obsidian_glass.png", 1},
+		//{"block", "tinted_glass.png", "mtg", "default_obsidian_glass.png", 1}, // in fixes
 		//{"block", ".png", "mtg", "default_obsidian_glass_detail.png", 1},  // no match
 		//{"block", ".png", "mtg", "default_obsidian_shard.png", 1},  // no match
 		{"item", "paper.png", "mtg", "default_paper.png", 1},
