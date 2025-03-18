@@ -243,7 +243,7 @@ var (
 		//{"block", ".png", "mtg", "default_mineral_tin.png", 1},
 		//{"block", ".png", "mtg", "default_moss.png", 1},  // no match
 		//{"block", ".png", "mtg", "default_moss_side.png", 1},  // no match
-		{"block", "mossy_cobblestone.png", "mtg", "default_mossycobble.png", 1},
+		// {"block", "mossy_cobblestone.png", "mtg", "default_mossycobble.png", 1},  // in fixes
 		{"block", "obsidian.png", "mtg", "default_obsidian.png", 1},
 		//{"block", "obsidian.png", "mtg", "default_obsidian_block.png", 1},  // special case +smooth
 		//{"block", "obsidian.png", "mtg", "default_obsidian_brick.png", 1},  // special case +brick

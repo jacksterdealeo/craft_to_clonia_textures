@@ -35,3 +35,22 @@ func mtg_greenify(greenery simpleConversion, inPath, outPath string) *readWriteE
 	}
 	return nil
 }
+
+// Makes obsidian glass fully transparent, as MTG doesn't like partial transparency.
+func mtg_obsidian_glass_fix(inPath, outPath string) *readWriteError {
+	tintedGlass := simpleConversion{"block", "mossy_cobblestone.png", "mtg", "default_obsidian_glass.png", 1}
+	// using mossy_cobblestone until I know the crop works correctly.
+	inImage, err := imaging.Open(inPath + tintedGlass.readPath())
+	if err != nil {
+		return &readWriteError{[]string{tintedGlass.inTexture}, " failed to open!"}
+	}
+	scale := inImage.Bounds().Dx() / 16
+
+	obsidianGlass := imaging.New(inImage.Bounds().Dx(), inImage.Bounds().Dx(), color.NRGBA{0, 0, 0, 0}) // disallow animated textures
+	obsidianGlass = imaging.Overlay(obsidianGlass, inImage, image.Point{0, 0}, 1.0)
+	obsidianGlass = imaging.CropCenter(obsidianGlass, 14*scale, 14*scale)
+	if err = imaging.Save(obsidianGlass, outPath+mtgPaths[tintedGlass.outPath]+"/"+tintedGlass.outTexture); err != nil {
+		return &readWriteError{[]string{tintedGlass.inTexture}, " failed to save!"}
+	}
+	return nil
+}

@@ -71,6 +71,11 @@ func ConvertPackMTG(inName string, outName string) {
 			successes += 1
 		}
 	}
+	if err := mtg_obsidian_glass_fix(texturePackLocation, outPath); err != nil {
+		copyTextureFails = append(copyTextureFails, err.Error())
+	} else {
+		successes += 1
+	}
 
 	if len(copyTextureFails) > 0 {
 		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
