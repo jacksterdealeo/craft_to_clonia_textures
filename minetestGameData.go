@@ -237,8 +237,8 @@ var (
 		{"block", "ladder.png", "mtg", "default_ladder.png", 1},
 		//{"block", ".png", "mtg", "default_large_cactus_seedling.png", 1},  //no match
 		{"block", "lava_flow.png", "mtg", "default_lava.png", 1},
-		//{"block", "lava_flow.png", "mtg", "default_lava_flowing_animated.png", 1}, // special attention
-		//{"block", "lava_still.png", "mtg", "default_lava_source_animated.png", 1}, // special attention
+		//{"block", "lava_flow.png", "mtg", "default_lava_flowing_animated.png", -1}, // special attention
+		//{"block", "lava_still.png", "mtg", "default_lava_source_animated.png", -1}, // special attention
 		//{"block", "oak_leaves.png", "mtg", "default_leaves.png", 1},  // greenify
 		//{"block", "oak_leaves.png", "mtg", "default_leaves_simple.png", 1},  // greenify
 		//{"block", ".png", "mtg", "default_marram_grass_1.png", 1},  // no match
