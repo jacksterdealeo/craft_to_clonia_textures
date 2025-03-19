@@ -78,6 +78,7 @@ func ConvertPackMTG(inName string, outName string) {
 		}
 	}
 	catchReadWriteErrors(mtgLavaFix(texturePackLocation+craftPaths["block"], outPath))
+	catchReadWriteErrors(mtgWaterFix(texturePackLocation+craftPaths["block"], outPath))
 
 	if len(copyTextureFails) > 0 {
 		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})

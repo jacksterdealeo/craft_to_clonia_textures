@@ -204,7 +204,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, outPath+"default_water_source_animated.png"); err != nil {
+		if err = imaging.Save(plainWater, outPath+mtgPaths["mtg"]+"default_water_source_animated.png"); err != nil {
 			fails = append(fails, "default_water_source_animated.png failed to save!")
 		}
 
@@ -224,7 +224,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(riverWater, outPath+"default_river_water_source_animated.png"); err != nil {
+		if err = imaging.Save(riverWater, outPath+mtgPaths["mtg"]+"default_river_water_source_animated.png"); err != nil {
 			fails = append(fails, "default_river_water_source_animated.png failed to save!")
 		}
 	}
@@ -253,7 +253,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, outPath+"default_water_flowing_animated.png"); err != nil {
+		if err = imaging.Save(plainWater, outPath+mtgPaths["mtg"]+"default_water_flowing_animated.png"); err != nil {
 			fails = append(fails, "default_water_flowing_animated.png failed to save!")
 		}
 
