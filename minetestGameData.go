@@ -60,21 +60,15 @@ var (
 		{"block", "oak_leaves.png", "mtg", "default_leaves.png", 1},
 		{"block", "oak_leaves.png", "mtg", "default_leaves_simple.png", 1},
 		{"block", "spruce_leaves.png", "mtg", "default_pine_needles.png", 1},
-		//{"block", "short_grass.png", "mtg", "default_grass_5.png", 1},
-	}
-
-	minetestShortGrass = [...]simpleConversion{
-		{"block", "short_grass.png", "mtg", "default_grass_1.png", 1},
-		{"block", "short_grass.png", "mtg", "default_grass_2.png", 1},
-		{"block", "short_grass.png", "mtg", "default_grass_3.png", 1},
-		{"block", "short_grass.png", "mtg", "default_grass_4.png", 1},
-		//{"block", "short_grass.png", "mtg", "default_grass_5.png", 1},
+		//{"block", "short_grass.png", "mtg", "default_grass_5.png", 1},  // handled
 	}
 
 	minetestGameItems = [...]simpleConversion{
 		// -- beds
 		//{"bed", "", "mtg", "beds_bed.png", 1},  // no match
 		//{"bed", "", "mtg", "beds_bed_fancy.png", 1},  // no match
+
+		/* Beds require special attention fixes
 		{"bed", "", "mtg", "beds_bed_foot.png", 1},
 		{"bed", "", "mtg", "beds_bed_head.png", 1},
 		{"bed", "", "mtg", "beds_bed_side_bottom.png", 1},
@@ -88,6 +82,8 @@ var (
 		{"bed", "", "mtg", "beds_bed_top1.png", 1},
 		{"bed", "", "mtg", "beds_bed_top2.png", 1},
 		{"bed", "", "mtg", "beds_bed_under.png", 1},
+		*/
+
 		// -- binoculars
 		{"item", "spyglass.png", "mtg", "binoculars_binoculars.png", 1},
 		// -- boats
@@ -110,7 +106,7 @@ var (
 		//{"", ".png", "mtg", "creative_trash_icon.png", 1},  // special attention
 		// -- default
 		{"particle", "bubble.png", "mtg", "bubble.png", 1},
-		//{"", "", "mtg", "crack_anylength.png", 1},  // special case
+		//{"", "", "mtg", "crack_anylength.png", 1},  // special attention
 		{"block", "acacia_sapling.png", "mtg", "default_acacia_bush_sapling.png", 1},
 		//{"", "", "mtg", "default_acacia_bush_stem.png", 1},  // no match
 		//{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves.png", 1},  // greenify
