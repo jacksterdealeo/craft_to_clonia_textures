@@ -444,12 +444,14 @@ var (
 		// -- map
 		{"item", "filled_map.png", "mtg", "map_mapping_kit.png", 1},
 		// -- mtg_craftguide
+		/* GUI
 		{"item", ".png", "mtg", "craftguide_clear_icon.png", 1},
 		{"item", ".png", "mtg", "craftguide_furnace.png", 1},
 		{"item", ".png", "mtg", "craftguide_next_icon.png", 1},
 		{"item", ".png", "mtg", "craftguide_prev_icon.png", 1},
 		{"item", ".png", "mtg", "craftguide_search_icon.png", 1},
 		{"item", ".png", "mtg", "craftguide_shapeless.png", 1},
+		*/
 		// -- player_api
 		//{"", ".png", "mtg", "player.png", 1},  // no match
 		//{"", ".png", "mtg", "player_back.png", 1},  // no match
