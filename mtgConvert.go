@@ -12,7 +12,7 @@ import (
 	imaging "github.com/disintegration/imaging"
 )
 
-func ConvertPackMTG(inName string, outName string) {
+func convertPackMTG(inName string, outName string) {
 	var textureErrorsLog string = fmt.Sprintf("%v %v\n", inName, nowShort)
 	var successes = 0
 	var failures = 0
