@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"io"
 	"io/fs"
 	"log"
 	"os"
@@ -209,27 +208,6 @@ func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	if err = imaging.Save(outImg, dest); err != nil {
 		fmt.Println(src, "save failed!", err.Error())
 		return err
-	}
-	return nil
-}
-
-// Not called anywhere.
-func basicCopy(src string, dest string) error {
-	source, err := os.Open(src)
-	if err != nil {
-		//fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")
-		return err
-	}
-	defer source.Close()
-	destination, err := os.Create(dest)
-	if err != nil {
-		//fmt.Printf(err.Error() + " ~ Copy for texture skipped.\n")
-		return err
-	}
-	defer destination.Close()
-	_, err = io.Copy(destination, source)
-	if err != nil {
-		panic(err)
 	}
 	return nil
 }

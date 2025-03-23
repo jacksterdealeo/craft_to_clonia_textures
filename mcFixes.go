@@ -72,7 +72,7 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 	}()
 
 	func() { // special slabs
-		t := []simpleConversion{
+		t := [...]simpleConversion{
 			{"block", "polished_andesite.png", "core", "mcl_stairs_andesite_smooth_slab.png", 1},
 			{"block", "polished_diorite.png", "core", "mcl_stairs_diorite_smooth_slab.png", 1},
 			{"block", "polished_granite.png", "core", "mcl_stairs_granite_smooth_slab.png", 1},
@@ -104,7 +104,7 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 	}()
 
 	func() { // green plants
-		t := []simpleConversion{
+		t := [...]simpleConversion{
 			{"block", "vine.png", "core", "mcl_core_vine.png", 1},
 			{"block", "lily_pad.png", "flowers", "flowers_waterlily.png", 1},
 			{"block", "large_fern_top.png", "flowers", "mcl_flowers_double_plant_fern_inv.png", 1},
@@ -628,6 +628,63 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 	return nil
 }
 
+func mods_fixes(inPath, outPack string) *readWriteError {
+	mod := "emerald_stuff"
+	fails := []string{}
+	textures := [...]simpleConversion{
+		{"item", "diamond_boots.png", mod, "mcl_emerald_stuff_inv_boots_emerald.png", 1},
+		{"item", "diamond_chestplate.png", mod, "mcl_emerald_stuff_inv_chestplate_emerald.png", 1},
+		{"item", "diamond_helmet.png", mod, "mcl_emerald_stuff_inv_helmet_emerald.png", 1},
+		{"item", "diamond_leggings.png", mod, "mcl_emerald_stuff_inv_leggings_emerald.png", 1},
+
+		{"item", "diamond_axe.png", mod, "mcl_emerald_stuff_axe.png", 1},
+		{"item", "diamond_pickaxe.png", mod, "mcl_emerald_stuff_pick.png", 1},
+		{"item", "diamond_shovel.png", mod, "mcl_emerald_stuff_shovel.png", 1},
+		{"item", "diamond_sword.png", mod, "mcl_emerald_stuff_sword.png", 1},
+	}
+
+	for _, e := range textures {
+		diamondItem, err := imaging.Open(inPath + e.readPath())
+		if err != nil {
+			fails = append(fails, e.inTexture+" failed to open for mod \"emerald_stuff\"!")
+		} else {
+			dst := imaging.New(diamondItem.Bounds().Dx(), diamondItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+			dst = imaging.Overlay(dst, diamondItem, image.Point{0, 0}, 1.0)
+			dst = imaging.AdjustFunc(dst,
+				func(c color.NRGBA) color.NRGBA {
+					r := int(c.R)
+					g := int(c.G)
+					b := int(c.B)
+
+					if r*12 >= g*10 || r*12 > b*10 {
+						return c
+					}
+
+					b /= 2
+
+					if r < 0 {
+						r = 0
+					}
+					if g > 255 {
+						g = 255
+					}
+					if b < 0 {
+						b = 0
+					}
+					return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+				})
+			if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
+				fails = append(fails, e.outTexture+" failed to save!")
+			}
+		}
+	}
+	if len(fails) > 0 {
+		return &readWriteError{fails, "patched textures"}
+	} else {
+		return nil
+	}
+}
+
 func single_chests_fix(inPath string, outPath string) *readWriteError {
 	fails := []string{}
 	equals := [...][2]string{
@@ -755,7 +812,7 @@ func stonecutter_fix(inPath string, outPath string) *readWriteError {
 	}
 	dst := imaging.New(saw.Bounds().Dx(), saw.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 	dst = imaging.Overlay(dst, saw, image.Point{0, -9 * scale}, 1.0)
-	for i := 0; i < numOfFrames; i++ {
+	for i := range numOfFrames {
 		dst = imaging.Overlay(dst, side, image.Point{0, i * side.Bounds().Dx()}, 1.0)
 	}
 	if err := imaging.Save(dst, outPath+"mcl_stonecutter_saw.png"); err != nil {

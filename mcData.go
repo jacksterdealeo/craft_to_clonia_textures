@@ -159,6 +159,9 @@ var (
 		"xstairs":           "/ITEMS/mclx_stairs/",
 		//"": "/ITEMS//",
 		"REDSTONE": "/ITEMS/REDSTONE/",
+
+		// mods
+		"emerald_stuff": "/modded/mcl_emerald_stuff/",
 	}
 
 	copyAsIs = [...]simpleConversion{

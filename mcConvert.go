@@ -99,14 +99,19 @@ func convertPackClonia(inName string, outName string) {
 	water_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"])
 	do_fixes(texturePackLocation, outPath)
 	logRWErr(anvil_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["anvils"]))
+
 	logRWErr(campfire_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["campfires"]))
+	logRWErr(mods_fixes(texturePackLocation, outPath))
 	logRWErr(crack_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["hud_base_textures"]))
 	logRWErr(flip_fix(texturePackLocation, outPath))
+
 	logRWErr(flowerpot_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["flowerpots"]))
 	logRWErr(hud_fix(texturePackLocation, outPath))
 	logRWErr(lava_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["core"]))
 	logRWErr(single_chests_fix(texturePackLocation+craftPaths["entity"]+"chest/", outPath+cloniaPaths["chests"]))
+
 	logRWErr(stonecutter_fix(texturePackLocation+craftPaths["block"], outPath+cloniaPaths["stonecutter"]))
+
 	// Achivement Icon
 	if src, err := imaging.Open(texturePackLocation + craftPaths["item"] + "writable_book.png"); err != nil {
 		textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n"
