@@ -161,6 +161,7 @@ var (
 		"REDSTONE": "/ITEMS/REDSTONE/",
 
 		// mods
+		"copper_stuff":  "/modded/mcl_copper_stuff/",
 		"emerald_stuff": "/modded/mcl_emerald_stuff/",
 	}
 

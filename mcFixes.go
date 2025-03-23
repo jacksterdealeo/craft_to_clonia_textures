@@ -631,7 +631,7 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 func mods_fixes(inPath, outPack string) *readWriteError {
 	mod := "emerald_stuff"
 	fails := []string{}
-	textures := [...]simpleConversion{
+	emerald_stuff_textures := [...]simpleConversion{
 		{"item", "diamond_boots.png", mod, "mcl_emerald_stuff_inv_boots_emerald.png", 1},
 		{"item", "diamond_chestplate.png", mod, "mcl_emerald_stuff_inv_chestplate_emerald.png", 1},
 		{"item", "diamond_helmet.png", mod, "mcl_emerald_stuff_inv_helmet_emerald.png", 1},
@@ -643,10 +643,10 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		{"item", "diamond_sword.png", mod, "mcl_emerald_stuff_sword.png", 1},
 	}
 
-	for _, e := range textures {
+	for _, e := range emerald_stuff_textures {
 		diamondItem, err := imaging.Open(inPath + e.readPath())
 		if err != nil {
-			fails = append(fails, e.inTexture+" failed to open for mod \"emerald_stuff\"!")
+			fails = append(fails, e.inTexture+" failed to open for mod", mod)
 		} else {
 			dst := imaging.New(diamondItem.Bounds().Dx(), diamondItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 			dst = imaging.Overlay(dst, diamondItem, image.Point{0, 0}, 1.0)
@@ -662,22 +662,57 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 					b /= 2
 
-					if r < 0 {
-						r = 0
-					}
-					if g > 255 {
-						g = 255
-					}
-					if b < 0 {
-						b = 0
-					}
-					return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+					return color.NRGBA{c.R, c.G, uint8(b), c.A}
 				})
 			if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
 				fails = append(fails, e.outTexture+" failed to save!")
 			}
 		}
 	}
+
+	mod = "copper_stuff"
+	textures_from_iron := [...]simpleConversion{
+		{"item", "iron_boots.png", mod, "mcl_copper_stuff_inv_boots_copper.png", 1},
+		{"item", "iron_chestplate.png", mod, "mcl_copper_stuff_inv_chestplate_copper.png", 1},
+		{"item", "iron_helmet.png", mod, "mcl_copper_stuff_inv_helmet_copper.png", 1},
+		{"item", "iron_leggings.png", mod, "mcl_copper_stuff_inv_leggings_copper.png", 1},
+
+		{"item", "shears.png", mod, "mcl_copper_stuff_copper_shears.png", 1},
+		{"item", "iron_hoe.png", mod, "mcl_copper_stuff_copper_hoe.png", 1},
+		{"item", "iron_axe.png", mod, "mcl_copper_stuff_copper_axe.png", 1},
+		{"item", "iron_pickaxe.png", mod, "mcl_copper_stuff_copper_pickaxe.png", 1},
+		{"item", "iron_shovel.png", mod, "mcl_copper_stuff_copper_shovel.png", 1},
+		{"item", "iron_sword.png", mod, "mcl_copper_stuff_copper_sword.png", 1},
+	}
+
+	for _, e := range textures_from_iron {
+		diamondItem, err := imaging.Open(inPath + e.readPath())
+		if err != nil {
+			fails = append(fails, e.inTexture+" failed to open for mod", mod)
+		} else {
+			dst := imaging.New(diamondItem.Bounds().Dx(), diamondItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+			dst = imaging.Overlay(dst, diamondItem, image.Point{0, 0}, 1.0)
+			dst = imaging.AdjustFunc(dst,
+				func(c color.NRGBA) color.NRGBA {
+					r := int(c.R)
+					g := int(c.G)
+					b := int(c.B)
+
+					if r != g && r != b {
+						return c
+					}
+
+					g = (r * 55) / 100
+					b = (r * 46) / 100
+
+					return color.NRGBA{c.R, uint8(g), uint8(b), c.A}
+				})
+			if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
+				fails = append(fails, e.outTexture+" failed to save!")
+			}
+		}
+	}
+
 	if len(fails) > 0 {
 		return &readWriteError{fails, "patched textures"}
 	} else {
