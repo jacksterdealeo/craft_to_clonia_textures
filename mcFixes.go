@@ -641,7 +641,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 					g := int(c.G)
 					b := int(c.B)
 
-					if r*12 >= g*10 || r*12 > b*10 {
+					if r >= g || r >= b {
 						return c
 					}
 
