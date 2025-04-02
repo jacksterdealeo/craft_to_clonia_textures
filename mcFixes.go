@@ -643,7 +643,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 					g := int(c.G)
 					b := int(c.B)
 
-					if (r > g+3 || r < g-3) && (r > b+3 || r < b-3) {
+					if (r > g+28 || r < g-28) && (r > b+28 || r < b-28) {
 						return c
 					}
 
@@ -662,6 +662,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		mod = "rose_gold_stuff"
 		// They used diamond for the tools, netherite for the armor, and obviously, iron for the shears.
 
+		/* Netherite is hard to consistantly make look good in pink. :(
 		netherite_to_rose_gold := [...]simpleConversion{
 			{"item", "netherite_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
 			{"item", "netherite_chestplate.png", mod, "mcl_rose_gold_inv_chestplate_rose_gold.png", 1},
@@ -703,7 +704,9 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 				}
 			}
 		}
+		*/
 
+		/* Diamond stuff is not looking good :(
 		diamond_to_rose_gold := [...]simpleConversion{
 			{"item", "diamond_hoe.png", mod, "mcl_rose_gold_rose_gold_hoe.png", 1},
 			{"item", "diamond_axe.png", mod, "mcl_rose_gold_rose_gold_axe.png", 1},
@@ -750,6 +753,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 				}
 			}
 		}
+		*/
 
 		copper_to_rose_gold := [...]simpleConversion{
 			// {"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block.png", 1},
@@ -796,6 +800,18 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		iron_to_rose_gold := [...]simpleConversion{
 			{"item", "iron_nugget.png", mod, "mcl_rose_gold_rose_gold_nugget.png", 1},
 			{"item", "shears.png", mod, "mcl_rose_gold_rose_gold_shears.png", 1},
+
+			{"item", "iron_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
+			{"item", "iron_chestplate.png", mod, "mcl_rose_gold_inv_chestplate_rose_gold.png", 1},
+			{"item", "iron_helmet.png", mod, "mcl_rose_gold_inv_helmet_rose_gold.png", 1},
+			{"item", "iron_leggings.png", mod, "mcl_rose_gold_inv_leggings_rose_gold.png", 1},
+
+			{"item", "shears.png", mod, "mcl_copper_stuff_copper_shears.png", 1},
+			{"item", "iron_hoe.png", mod, "mcl_rose_gold_rose_gold_hoe.png", 1},
+			{"item", "iron_axe.png", mod, "mcl_rose_gold_rose_gold_axe.png", 1},
+			{"item", "iron_pickaxe.png", mod, "mcl_rose_gold_rose_gold_pick.png", 1},
+			{"item", "iron_shovel.png", mod, "mcl_rose_gold_rose_gold_shovel.png", 1},
+			{"item", "iron_sword.png", mod, "mcl_rose_gold_rose_gold_sword.png", 1},
 		}
 		for _, e := range iron_to_rose_gold {
 			ironItem, err := imaging.Open(inPath + e.readPath())
@@ -811,7 +827,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 						g := int(c.G)
 						b := int(c.B)
 
-						if (r > g+3 || r < g-3) && (r > b+3 || r < b-3) {
+						if (r > g+28 || r < g-28) && (r > b+28 || r < b-28) {
 							return c
 						}
 
