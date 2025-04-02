@@ -161,8 +161,9 @@ var (
 		"REDSTONE": "/ITEMS/REDSTONE/",
 
 		// mods
-		"copper_stuff":  "/modded/mcl_copper_stuff/",
-		"emerald_stuff": "/modded/mcl_emerald_stuff/",
+		"copper_stuff":    "/modded/mcl_copper_stuff/",
+		"emerald_stuff":   "/modded/mcl_emerald_stuff/",
+		"rose_gold_stuff": "/modded/mcl_rose_gold/",
 	}
 
 	copyAsIs = [...]simpleConversion{
