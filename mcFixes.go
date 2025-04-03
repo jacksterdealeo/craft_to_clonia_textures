@@ -643,7 +643,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 					g := int(c.G)
 					b := int(c.B)
 
-					if (r > g+28 || r < g-28) && (r > b+28 || r < b-28) {
+					if (r > g+20 || r < g-20) && (r > b+20 || r < b-20) {
 						return c
 					}
 
@@ -871,7 +871,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 						g := int(c.G)
 						b := int(c.B)
 
-						if (r > g+28 || r < g-28) && (r > b+28 || r < b-28) {
+						if (r > g+20 || r < g-20) && (r > b+20 || r < b-20) {
 							return c
 						}
 
