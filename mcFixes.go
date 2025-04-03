@@ -681,9 +681,9 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 						average := (int(c.R) + int(c.G) + int(c.B)) / 3
 
-						r := ((average * 100) / 26) + 20
-						g := ((average * 100) / 38) + 20
-						b := ((average * 100) / 40) + 20
+						r := ((average * 100) / 30) - 30
+						g := ((average * 100) / 38) - 30
+						b := ((average * 100) / 37) - 30
 
 						if r > 255 {
 							r = 255
@@ -693,6 +693,15 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 						}
 						if b > 255 {
 							b = 255
+						}
+						if r < 0 {
+							r = 0
+						}
+						if g < 0 {
+							g = 0
+						}
+						if b < 0 {
+							b = 0
 						}
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
@@ -806,9 +815,9 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 						average := (int(c.R) + int(c.G) + int(c.B)) / 3
 
-						r := ((average * 100) / 56)
-						g := ((average * 100) / 70)
-						b := ((average * 100) / 68)
+						r := ((average * 100) / 56) - 40
+						g := ((average * 100) / 70) - 40
+						b := ((average * 100) / 68) - 40
 
 						if r > 255 {
 							r = 255
@@ -842,6 +851,11 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 			{"item", "iron_pickaxe.png", mod, "mcl_rose_gold_rose_gold_pick.png", 1},
 			{"item", "iron_shovel.png", mod, "mcl_rose_gold_rose_gold_shovel.png", 1},
 			{"item", "iron_sword.png", mod, "mcl_rose_gold_rose_gold_sword.png", 1},
+
+			{"block", "chain.png", mod, "mcl_rose_gold_rose_gold_chain.png", 1},
+			{"item", "chain.png", mod, "mcl_rose_gold_rose_gold_chain_inv.png", 1},
+			{"block", "lantern.png", mod, "mcl_rose_gold_rose_gold_lantern.png", 1},
+			{"item", "lantern.png", mod, "mcl_rose_gold_rose_gold_lantern_inv.png", 1},
 		}
 		for _, e := range iron_to_rose_gold {
 			ironItem, err := imaging.Open(inPath + e.readPath())
@@ -861,9 +875,11 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 							return c
 						}
 
-						r = ((r * 100) / 92)
-						g = ((g * 100) / 123)
-						b = ((b * 100) / 124)
+						average := (int(c.R) + int(c.G) + int(c.B)) / 3
+
+						r = ((average * 100) / 92)
+						g = ((average * 100) / 123)
+						b = ((average * 100) / 124)
 
 						if r > 255 {
 							r = 255
