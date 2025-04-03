@@ -662,7 +662,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		mod = "rose_gold_stuff"
 		// They used diamond for the tools, netherite for the armor, and obviously, iron for the shears.
 
-		/* Netherite is hard to consistantly make look good in pink. :(
+		// Netherite is hard to consistantly make look good in pink. :(
 		netherite_to_rose_gold := [...]simpleConversion{
 			{"item", "netherite_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
 			{"item", "netherite_chestplate.png", mod, "mcl_rose_gold_inv_chestplate_rose_gold.png", 1},
@@ -679,13 +679,11 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 				dst = imaging.AdjustFunc(dst,
 					func(c color.NRGBA) color.NRGBA {
 
-						r := int(c.R)
-						g := int(c.G)
-						b := int(c.B)
+						average := (int(c.R) + int(c.G) + int(c.B)) / 3
 
-						r = ((r * 100) / 26) + 20
-						g = ((g * 100) / 38) + 20
-						b = ((b * 100) / 40) + 20
+						r := ((average * 100) / 26) + 20
+						g := ((average * 100) / 38) + 20
+						b := ((average * 100) / 40) + 20
 
 						if r > 255 {
 							r = 255
@@ -704,7 +702,6 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 				}
 			}
 		}
-		*/
 
 		/* Diamond stuff is not looking good :(
 		diamond_to_rose_gold := [...]simpleConversion{
@@ -755,16 +752,11 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		}
 		*/
 
-		copper_to_rose_gold := [...]simpleConversion{
-			// {"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block.png", 1},
-			// {"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block_exposed.png", 1},
-			{"block", "copper_block.png", mod, "mcl_rose_gold_rose_gold_block.png", 1},
+		copper_to_rose_gold_exposed := [...]simpleConversion{
+			{"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block_exposed.png", 1},
 			{"block", "oxidized_copper.png", mod, "mcl_rose_gold_rose_gold_block_exposed.png", 1},
-
-			{"item", "raw_copper.png", mod, "mcl_rose_gold_raw_rose_gold_ore.png", 1},
-			{"item", "copper_ingot.png", mod, "mcl_rose_gold_rose_gold_ingot.png", 1},
 		}
-		for _, e := range copper_to_rose_gold {
+		for _, e := range copper_to_rose_gold_exposed {
 			copperItem, err := imaging.Open(inPath + e.readPath())
 			if err != nil {
 				fails = append(fails, e.inTexture+" failed to open for mod", mod)
@@ -774,13 +766,11 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 				dst = imaging.AdjustFunc(dst,
 					func(c color.NRGBA) color.NRGBA {
 
-						r := int(c.R)
-						g := int(c.G)
-						b := int(c.B)
+						average := (int(c.R) + int(c.G) + int(c.B)) / 3
 
-						r = (r) + 30
-						g = ((g * 100) / 110) + 30
-						b = ((b * 100) / 72) + 30
+						r := (average) + 10
+						g := ((average * 100) / 110) + 10
+						b := ((average * 100) / 72) + 10
 
 						if r > 255 {
 							r = 255
@@ -797,16 +787,56 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 			}
 		}
 
+		copper_to_rose_gold := [...]simpleConversion{
+			{"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block.png", 1},
+			{"block", "copper_block.png", mod, "mcl_rose_gold_rose_gold_block.png", 1},
+
+			{"item", "raw_copper.png", mod, "mcl_rose_gold_raw_rose_gold_ore.png", 1},
+			{"item", "copper_ingot.png", mod, "mcl_rose_gold_rose_gold_ingot.png", 1},
+		}
+		for _, e := range copper_to_rose_gold {
+			copperItem, err := imaging.Open(inPath + e.readPath())
+			if err != nil {
+				fails = append(fails, e.inTexture+" failed to open for mod", mod)
+			} else {
+				dst := imaging.New(copperItem.Bounds().Dx(), copperItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+				dst = imaging.Overlay(dst, copperItem, image.Point{0, 0}, 1.0)
+				dst = imaging.AdjustFunc(dst,
+					func(c color.NRGBA) color.NRGBA {
+
+						average := (int(c.R) + int(c.G) + int(c.B)) / 3
+
+						r := ((average * 100) / 56)
+						g := ((average * 100) / 70)
+						b := ((average * 100) / 68)
+
+						if r > 255 {
+							r = 255
+						}
+						if g > 255 {
+							g = 255
+						}
+						if b > 255 {
+							b = 255
+						}
+
+						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+					})
+				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
+					fails = append(fails, e.outTexture+" failed to save!")
+				}
+			}
+		}
+
 		iron_to_rose_gold := [...]simpleConversion{
 			{"item", "iron_nugget.png", mod, "mcl_rose_gold_rose_gold_nugget.png", 1},
 			{"item", "shears.png", mod, "mcl_rose_gold_rose_gold_shears.png", 1},
-
+			/* ARMOR
 			{"item", "iron_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
 			{"item", "iron_chestplate.png", mod, "mcl_rose_gold_inv_chestplate_rose_gold.png", 1},
 			{"item", "iron_helmet.png", mod, "mcl_rose_gold_inv_helmet_rose_gold.png", 1},
 			{"item", "iron_leggings.png", mod, "mcl_rose_gold_inv_leggings_rose_gold.png", 1},
-
-			{"item", "shears.png", mod, "mcl_copper_stuff_copper_shears.png", 1},
+			*/
 			{"item", "iron_hoe.png", mod, "mcl_rose_gold_rose_gold_hoe.png", 1},
 			{"item", "iron_axe.png", mod, "mcl_rose_gold_rose_gold_axe.png", 1},
 			{"item", "iron_pickaxe.png", mod, "mcl_rose_gold_rose_gold_pick.png", 1},
