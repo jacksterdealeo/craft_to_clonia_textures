@@ -1,0 +1,25 @@
+package main
+
+import "fmt"
+
+type ErrConvertFail int
+
+const (
+	ErrMissingRead ErrConvertFail = iota
+	ErrInvalidRead
+	ErrInvalidSaveDir
+	ErrIDK
+)
+
+var (
+	convertFailName = map[ErrConvertFail]string{
+		ErrMissingRead:    "File was missing!",
+		ErrInvalidRead:    "File couldn't be read!",
+		ErrInvalidSaveDir: "Directory was invalid!",
+		ErrIDK:            "This shouldn't be possible.",
+	}
+)
+
+func (e ErrConvertFail) Error() string {
+	return fmt.Sprintln("", convertFailName[e])
+}
