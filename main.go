@@ -153,7 +153,7 @@ func main() {
 func copyTexture(src string, dest string) error {
 	img, err := imaging.Open(src)
 	if err != nil {
-		return err
+		return fmt.Errorf("Could not open!")
 	}
 	imgX := img.Bounds().Dx()
 	imgY := img.Bounds().Dy()
@@ -163,7 +163,7 @@ func copyTexture(src string, dest string) error {
 
 	if err = imaging.Save(outImg, dest); err != nil {
 		fmt.Println(src, "save failed!", err.Error())
-		return err
+		return fmt.Errorf("Could not save!")
 	}
 	return nil
 }
@@ -173,7 +173,7 @@ func copyTexture(src string, dest string) error {
 func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	img, err := imaging.Open(src)
 	if err != nil {
-		return err
+		return fmt.Errorf("Could not open!")
 	}
 	imgX := img.Bounds().Dx()
 	imgY := img.Bounds().Dy()
@@ -207,7 +207,7 @@ func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	}
 	if err = imaging.Save(outImg, dest); err != nil {
 		fmt.Println(src, "save failed!", err.Error())
-		return err
+		return fmt.Errorf("Could not save!")
 	}
 	return nil
 }
