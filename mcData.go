@@ -1,5 +1,6 @@
 package main
 
+// Used for most textures regardless of animation.
 type simpleConversion struct {
 	inPath        string
 	inTexture     string
@@ -44,7 +45,10 @@ var (
 		"mob_effect":  "/assets/minecraft/textures/mob_effect/",
 		"particle":    "/assets/minecraft/textures/particle/",
 		"projectiles": "/assets/minecraft/textures/entity/projectiles/",
-		"trims>items": "/assets/minecraft/textures/trims/items/",
+		// -- SPECIAL
+		"entity>equipment>humanoid":          "/assets/minecraft/textures/entity/equipment/humanoid/",
+		"entity>equipment>humanoid_leggings": "/assets/minecraft/textures/entity/equipment/humanoid_leggings/",
+		"trims>items":                        "/assets/minecraft/textures/trims/items/",
 	}
 
 	cloniaPaths = map[string]string{
@@ -1668,7 +1672,7 @@ var (
 		{"block", "stripped_mangrove_log.png", "mangrove", "mcl_stripped_mangrove_log_side.png", 1},
 		{"block", "stripped_mangrove_log_top.png", "mangrove", "mcl_stripped_mangrove_log_top.png", 1},
 		// -- mcl_maps
-		//TODO: FIX MAPS.
+		/*TODO: FIX MAPS.
 		{"map", "map_background.png", "maps", "mcl_maps_map_background.png", 1},
 		{"item", "map.png", "maps", "mcl_maps_map_empty.png", 1},
 		{"item", "filled_map.png", "maps", "mcl_maps_map_filled.png", 1},
@@ -1676,6 +1680,7 @@ var (
 		// TODO: Scale down the player marker, so it's not oversize in-game.
 		//{"map", "decorations/player.png", "maps", "mcl_maps_player_arrow.png", 1},
 		//{"map", "decorations/player_off_map.png", "maps", "mcl_maps_player_dot.png", 1},
+		*/
 		// -- mcl_minecarts
 		{"block", "rail.png", "minecarts", "default_rail.png", 1},
 		// {"item", ".png", "minecarts", "default_rail_crossing.png", 1},

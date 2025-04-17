@@ -1,4 +1,4 @@
-module craft_to_clonia_textures
+module codeberg.org/ostech/craft_to_clonia_textures
 
 go 1.22.5
 

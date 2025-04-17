@@ -12,6 +12,39 @@ import (
 var (
 	flipH = imaging.FlipH
 	flipV = imaging.FlipV
+
+	basicArmor = [...]armorConversion{
+		{
+			inTexture:     "chainmail.png",
+			outHelmet:     "",
+			outChestplate: "",
+			outLeggings:   "",
+			outBoots:      "mcl_armor_boots_chain"},
+		{
+			inTexture:     "diamond.png",
+			outHelmet:     "",
+			outChestplate: "",
+			outLeggings:   "",
+			outBoots:      ""},
+		{
+			inTexture:     "gold.png",
+			outHelmet:     "",
+			outChestplate: "",
+			outLeggings:   "",
+			outBoots:      ""},
+		{
+			inTexture:     "iron.png",
+			outHelmet:     "",
+			outChestplate: "",
+			outLeggings:   "",
+			outBoots:      ""},
+		{
+			inTexture:     "netherite.png",
+			outHelmet:     "",
+			outChestplate: "",
+			outLeggings:   "",
+			outBoots:      ""},
+	}
 )
 
 func flipHV(img image.Image) *image.NRGBA {
@@ -21,6 +54,22 @@ func flipHV(img image.Image) *image.NRGBA {
 func cropToScale(img image.Image, x1, y1, x2, y2, scale int) *image.NRGBA {
 	return imaging.Crop(img, image.Rectangle{
 		image.Point{x1 * scale, y1 * scale}, image.Point{x2 * scale, y2 * scale}})
+}
+
+// Used for converting the textures used on *most* worn armor.
+type armorConversion struct {
+	inTexture string
+
+	outHelmet     string
+	outChestplate string
+	outLeggings   string
+	outBoots      string
+}
+
+func armor_fixes(inPack string, outPath string) {
+	fails := make([]string, 0, 64_000)
+	_ = fails
+
 }
 
 /*
