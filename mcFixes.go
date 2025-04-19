@@ -83,9 +83,11 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		// fails = append(fails, "Not to worry! "+armorLocation+e.inTexture+" was found! :D")
 		_ = glob
 
+		filter_of_choice := imaging.Lanczos
+
 		// All armor is in it's original location, except helmets?
 		helmet := cropToScale(glob, 0, 0, 32, 16, scale)
-		helmet = imaging.Fit(helmet, helmet.Rect.Dx()/scale, helmet.Rect.Dy()/scale, imaging.NearestNeighbor)
+		helmet = imaging.Fit(helmet, helmet.Rect.Dx()/scale, helmet.Rect.Dy()/scale, filter_of_choice)
 		helmetOut := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
 		helmetOut = imaging.Paste(helmetOut, helmet, image.Pt(32, 0))
 		if err := imaging.Save(helmetOut, outPath+cloniaPaths["armor"]+e.outHelmet); err != nil {
@@ -93,7 +95,7 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		}
 
 		chestplate := cropToScale(glob, 16, 16, 56, 32, scale)
-		chestplate = imaging.Fit(chestplate, chestplate.Rect.Dx()/scale, chestplate.Rect.Dy()/scale, imaging.NearestNeighbor)
+		chestplate = imaging.Fit(chestplate, chestplate.Rect.Dx()/scale, chestplate.Rect.Dy()/scale, filter_of_choice)
 		chestplateOut := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
 		chestplateOut = imaging.Paste(chestplateOut, chestplate, image.Pt(16, 16))
 		if err := imaging.Save(chestplateOut, outPath+cloniaPaths["armor"]+e.outChestplate); err != nil {
@@ -101,7 +103,7 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		}
 
 		boots := cropToScale(glob, 0, 16, 16, 32, scale)
-		boots = imaging.Fit(boots, boots.Rect.Dx()/scale, boots.Rect.Dy()/scale, imaging.NearestNeighbor)
+		boots = imaging.Fit(boots, boots.Rect.Dx()/scale, boots.Rect.Dy()/scale, filter_of_choice)
 		bootsOut := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
 		bootsOut = imaging.Paste(bootsOut, boots, image.Pt(0, 16))
 		if err := imaging.Save(bootsOut, outPath+cloniaPaths["armor"]+e.outBoots); err != nil {
@@ -109,13 +111,17 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		}
 
 		leggings, err := imaging.Open(inPack + leggingsLocation + e.inTexture)
-		_ = leggings // TODO!!!
-
 		if err != nil {
 			fails = append(fails, leggingsLocation+e.inTexture+" could not open!")
 			continue
 		}
 		// fails = append(fails, "Not to worry! "+leggingsLocation+e.inTexture+" was found! :D")
+		leggings = imaging.Fit(leggings, leggings.Bounds().Dx()/scale, leggings.Bounds().Dy()/scale, filter_of_choice)
+		leggingsOut := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+		leggingsOut = imaging.Paste(leggingsOut, leggings, image.Pt(0, 0))
+		if err := imaging.Save(leggingsOut, outPath+cloniaPaths["armor"]+e.outLeggings); err != nil {
+			fails = append(fails, e.outLeggings+" failed to save!")
+		}
 	}
 
 	if len(fails) > 0 {
