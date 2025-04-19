@@ -12,39 +12,6 @@ import (
 var (
 	flipH = imaging.FlipH
 	flipV = imaging.FlipV
-
-	basicArmor = [...]armorConversion{
-		{
-			inTexture:     "chainmail.png",
-			outHelmet:     "",
-			outChestplate: "",
-			outLeggings:   "",
-			outBoots:      "mcl_armor_boots_chain"},
-		{
-			inTexture:     "diamond.png",
-			outHelmet:     "",
-			outChestplate: "",
-			outLeggings:   "",
-			outBoots:      ""},
-		{
-			inTexture:     "gold.png",
-			outHelmet:     "",
-			outChestplate: "",
-			outLeggings:   "",
-			outBoots:      ""},
-		{
-			inTexture:     "iron.png",
-			outHelmet:     "",
-			outChestplate: "",
-			outLeggings:   "",
-			outBoots:      ""},
-		{
-			inTexture:     "netherite.png",
-			outHelmet:     "",
-			outChestplate: "",
-			outLeggings:   "",
-			outBoots:      ""},
-	}
 )
 
 func flipHV(img image.Image) *image.NRGBA {
@@ -57,7 +24,7 @@ func cropToScale(img image.Image, x1, y1, x2, y2, scale int) *image.NRGBA {
 }
 
 // Used for converting the textures used on *most* worn armor.
-type armorConversion struct {
+type basicArmorConversion struct {
 	inTexture string
 
 	outHelmet     string
@@ -66,10 +33,96 @@ type armorConversion struct {
 	outBoots      string
 }
 
-func armor_fixes(inPack string, outPath string) {
+func armor_fixes(inPack string, outPath string) *readWriteError {
+	armorLocation := craftPaths["entity>equipment>humanoid"]
+	leggingsLocation := craftPaths["entity>equipment>humanoid_leggings"]
+	basicArmor := [...]basicArmorConversion{
+		{
+			inTexture:     "chainmail.png",
+			outHelmet:     "mcl_armor_helmet_chain.png",
+			outChestplate: "mcl_armor_chestplate_chain.png",
+			outLeggings:   "mcl_armor_leggings_chain.png",
+			outBoots:      "mcl_armor_boots_chain.png"},
+		{
+			inTexture:     "diamond.png",
+			outHelmet:     "mcl_armor_helmet_diamond.png",
+			outChestplate: "mcl_armor_chestplate_diamond.png",
+			outLeggings:   "mcl_armor_leggings_diamond.png",
+			outBoots:      "mcl_armor_boots_diamond.png"},
+		{
+			inTexture:     "gold.png",
+			outHelmet:     "mcl_armor_helmet_gold.png",
+			outChestplate: "mcl_armor_chestplate_gold.png",
+			outLeggings:   "mcl_armor_leggings_gold.png",
+			outBoots:      "mcl_armor_boots_gold.png"},
+		{
+			inTexture:     "iron.png",
+			outHelmet:     "mcl_armor_helmet_iron.png",
+			outChestplate: "mcl_armor_chestplate_iron.png",
+			outLeggings:   "mcl_armor_leggings_iron.png",
+			outBoots:      "mcl_armor_boots_iron.png"},
+		{
+			inTexture:     "netherite.png",
+			outHelmet:     "mcl_armor_helmet_netherite.png",
+			outChestplate: "mcl_armor_chestplate_netherite.png",
+			outLeggings:   "mcl_armor_leggings_netherite.png",
+			outBoots:      "mcl_armor_boots_netherite.png"},
+	}
+	_ = basicArmor
 	fails := make([]string, 0, 64_000)
 	_ = fails
 
+	for _, e := range basicArmor {
+		glob, err := imaging.Open(inPack + armorLocation + e.inTexture)
+		if err != nil {
+			fails = append(fails, armorLocation+e.inTexture+" could not open! skipping the pants!")
+			continue
+		}
+		// IMPORTANT: Output for armor must be scaled down to 64x32 before export!
+		scale := glob.Bounds().Dx() / 64
+		// fails = append(fails, "Not to worry! "+armorLocation+e.inTexture+" was found! :D")
+		_ = glob
+
+		// All armor is in it's original location, except helmets?
+		helmet := cropToScale(glob, 0, 0, 32, 16, scale)
+		helmet = imaging.Fit(helmet, helmet.Rect.Dx()/scale, helmet.Rect.Dy()/scale, imaging.NearestNeighbor)
+		helmetOut := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+		helmetOut = imaging.Paste(helmetOut, helmet, image.Pt(32, 0))
+		if err := imaging.Save(helmetOut, outPath+cloniaPaths["armor"]+e.outHelmet); err != nil {
+			fails = append(fails, e.outHelmet+" failed to save!")
+		}
+
+		chestplate := cropToScale(glob, 16, 16, 56, 32, scale)
+		chestplate = imaging.Fit(chestplate, chestplate.Rect.Dx()/scale, chestplate.Rect.Dy()/scale, imaging.NearestNeighbor)
+		chestplateOut := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+		chestplateOut = imaging.Paste(chestplateOut, chestplate, image.Pt(16, 16))
+		if err := imaging.Save(chestplateOut, outPath+cloniaPaths["armor"]+e.outChestplate); err != nil {
+			fails = append(fails, e.outChestplate+" failed to save!")
+		}
+
+		boots := cropToScale(glob, 0, 16, 16, 32, scale)
+		boots = imaging.Fit(boots, boots.Rect.Dx()/scale, boots.Rect.Dy()/scale, imaging.NearestNeighbor)
+		bootsOut := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+		bootsOut = imaging.Paste(bootsOut, boots, image.Pt(0, 16))
+		if err := imaging.Save(bootsOut, outPath+cloniaPaths["armor"]+e.outBoots); err != nil {
+			fails = append(fails, e.outBoots+" failed to save!")
+		}
+
+		leggings, err := imaging.Open(inPack + leggingsLocation + e.inTexture)
+		_ = leggings // TODO!!!
+
+		if err != nil {
+			fails = append(fails, leggingsLocation+e.inTexture+" could not open!")
+			continue
+		}
+		// fails = append(fails, "Not to worry! "+leggingsLocation+e.inTexture+" was found! :D")
+	}
+
+	if len(fails) > 0 {
+		return &readWriteError{fails, "armor model textures"}
+	} else {
+		return nil
+	}
 }
 
 /*
