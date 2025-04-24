@@ -149,10 +149,153 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 	saveArmorSet(netherite_conversion)
 
 	if !doModded {
-		goto end
+		if len(fails) > 0 {
+			return &readWriteError{fails, "armor model textures"}
+		} else {
+			return nil
+		}
 	}
 
-end:
+	if rose_gold_armor, err := getArmorSet(netherite_conversion); err != nil {
+		fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
+	} else {
+		armorToChange := []*image.NRGBA{
+			rose_gold_armor.helmet,
+			rose_gold_armor.chestplate,
+			rose_gold_armor.leggings,
+			rose_gold_armor.boots}
+		for _, e := range armorToChange {
+			dst := imaging.New(e.Bounds().Dx(), e.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+			dst = imaging.Overlay(dst, e, image.Pt(0, 0), 1.0)
+			dst = imaging.AdjustFunc(dst,
+				func(c color.NRGBA) color.NRGBA {
+
+					average := (int(c.R) + int(c.G) + int(c.B)) / 3
+
+					r := ((average * 100) / 30) - 30
+					g := ((average * 100) / 38) - 30
+					b := ((average * 100) / 37) - 30
+
+					if r > 255 {
+						r = 255
+					}
+					if g > 255 {
+						g = 255
+					}
+					if b > 255 {
+						b = 255
+					}
+					if r < 0 {
+						r = 0
+					}
+					if g < 0 {
+						g = 0
+					}
+					if b < 0 {
+						b = 0
+					}
+
+					return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
+				})
+			*e = *dst
+		}
+		if err := imaging.Save(rose_gold_armor.helmet, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_helmet_rose_gold.png"); err != nil {
+			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(rose_gold_armor.chestplate, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_chestplate_rose_gold.png"); err != nil {
+			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(rose_gold_armor.leggings, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_leggings_rose_gold.png"); err != nil {
+			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(rose_gold_armor.boots, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_boots_rose_gold.png"); err != nil {
+			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
+		}
+	}
+
+	if emerald_armor, err := getArmorSet(diamond_conversion); err != nil {
+		fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+	} else {
+		armorToChange := []*image.NRGBA{
+			emerald_armor.helmet,
+			emerald_armor.chestplate,
+			emerald_armor.leggings,
+			emerald_armor.boots}
+		for _, e := range armorToChange {
+			dst := imaging.New(e.Bounds().Dx(), e.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+			dst = imaging.Overlay(dst, e, image.Pt(0, 0), 1.0)
+			dst = imaging.AdjustFunc(dst,
+				func(c color.NRGBA) color.NRGBA {
+					r := int(c.R)
+					g := int(c.G)
+					b := int(c.B)
+
+					if r >= g || r >= b {
+						return c
+					}
+
+					b /= 2
+
+					return color.NRGBA{c.R, c.G, uint8(b), c.A}
+				})
+			*e = *dst
+		}
+		if err := imaging.Save(emerald_armor.helmet, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_helmet_emerald.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(emerald_armor.chestplate, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_chestplate_emerald.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(emerald_armor.leggings, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_leggings_emerald.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(emerald_armor.boots, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_boots_emerald.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+	}
+
+	if copper_armor, err := getArmorSet(iron_conversion); err != nil {
+		fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+	} else {
+		armorToChange := []*image.NRGBA{
+			copper_armor.helmet,
+			copper_armor.chestplate,
+			copper_armor.leggings,
+			copper_armor.boots}
+		for _, e := range armorToChange {
+			dst := imaging.New(e.Bounds().Dx(), e.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+			dst = imaging.Overlay(dst, e, image.Pt(0, 0), 1.0)
+			dst = imaging.AdjustFunc(dst,
+				func(c color.NRGBA) color.NRGBA {
+					r := int(c.R)
+					g := int(c.G)
+					b := int(c.B)
+
+					if (r > g+20 || r < g-20) && (r > b+20 || r < b-20) {
+						return c
+					}
+
+					g = (r * 55) / 100
+					b = (r * 46) / 100
+
+					return color.NRGBA{c.R, uint8(g), uint8(b), c.A}
+				})
+			*e = *dst
+		}
+		if err := imaging.Save(copper_armor.helmet, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_helmet_copper.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(copper_armor.chestplate, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_chestplate_copper.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(copper_armor.leggings, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_leggings_copper.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+		if err := imaging.Save(copper_armor.boots, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_boots_copper.png"); err != nil {
+			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		}
+	}
+
 	if len(fails) > 0 {
 		return &readWriteError{fails, "armor model textures"}
 	} else {
