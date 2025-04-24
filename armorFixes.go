@@ -255,7 +255,7 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 	}
 
 	if copper_armor, err := getArmorSet(iron_conversion); err != nil {
-		fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+		fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 	} else {
 		armorToChange := []*image.NRGBA{
 			copper_armor.helmet,
@@ -283,16 +283,16 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 			*e = *dst
 		}
 		if err := imaging.Save(copper_armor.helmet, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_helmet_copper.png"); err != nil {
-			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
 		if err := imaging.Save(copper_armor.chestplate, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_chestplate_copper.png"); err != nil {
-			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
 		if err := imaging.Save(copper_armor.leggings, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_leggings_copper.png"); err != nil {
-			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
 		if err := imaging.Save(copper_armor.boots, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_boots_copper.png"); err != nil {
-			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
+			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
 	}
 
