@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 
+	data "codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
@@ -35,7 +36,7 @@ func convertPackClonia(inName string, outName string) {
 		}
 	}
 
-	for _, e := range cloniaPaths {
+	for _, e := range data.CloniaPaths {
 		if err := os.MkdirAll(outputPackLocation+e, 0755); err != nil {
 			log.Panic(err)
 		}
@@ -58,16 +59,16 @@ func convertPackClonia(inName string, outName string) {
 	}
 
 	copyTextureFails := []string{}
-	logCopyTextureAnimatedErrs := func(setsOfTextures ...[]simpleConversion) {
+	logCopyTextureAnimatedErrs := func(setsOfTextures ...[]data.SimpleConversion) {
 		for _, set := range setsOfTextures {
 			for _, texture := range set {
 				err := copyTextureAnimated(
-					inputPackLocation+craftPaths[texture.inPath]+texture.inTexture,
-					outputPackLocation+cloniaPaths[texture.outPath]+texture.outTexture,
-					texture.framesAllowed,
+					inputPackLocation+data.CraftPaths[texture.InPath]+texture.InTexture,
+					outputPackLocation+data.CloniaPaths[texture.OutPath]+texture.OutTexture,
+					texture.FramesAllowed,
 				)
 				if err != nil {
-					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.inPath+"::"+texture.inTexture)
+					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 				} else {
 					successes += 1
 				}
@@ -75,8 +76,8 @@ func convertPackClonia(inName string, outName string) {
 		}
 	}
 	logCopyTextureAnimatedErrs(
-		basicItems[:],
-		basicHUD[:],
+		data.SimpleItems[:],
+		data.SimpleItems[:],
 	)
 
 	for _, texture := range copyAsIs {
