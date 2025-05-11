@@ -77,7 +77,7 @@ func convertPackClonia(inName string, outName string) {
 	}
 	logCopyTextureAnimatedErrs(
 		data.SimpleItems[:],
-		data.SimpleItems[:],
+		data.SimpleHUD[:],
 	)
 
 	for _, texture := range copyAsIs {
