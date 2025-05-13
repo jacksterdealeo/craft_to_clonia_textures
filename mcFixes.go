@@ -68,7 +68,6 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 			if err := imaging.Save(dst, outPack+t.SavePath()); err != nil {
 				fails = append(fails, t.OutTexture+" failed to save!")
 			}
-
 		}
 	}()
 
@@ -617,19 +616,7 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 func mods_fixes(inPath, outPack string) *readWriteError {
 	fails := []string{}
 	mod := "copper_stuff"
-	textures_for_copper := [...]data.SimpleConversion{
-		{"item", "iron_boots.png", mod, "mcl_copper_stuff_inv_boots_copper.png", 1},
-		{"item", "iron_chestplate.png", mod, "mcl_copper_stuff_inv_chestplate_copper.png", 1},
-		{"item", "iron_helmet.png", mod, "mcl_copper_stuff_inv_helmet_copper.png", 1},
-		{"item", "iron_leggings.png", mod, "mcl_copper_stuff_inv_leggings_copper.png", 1},
-
-		{"item", "shears.png", mod, "mcl_copper_stuff_copper_shears.png", 1},
-		{"item", "iron_hoe.png", mod, "mcl_copper_stuff_copper_hoe.png", 1},
-		{"item", "iron_axe.png", mod, "mcl_copper_stuff_copper_axe.png", 1},
-		{"item", "iron_pickaxe.png", mod, "mcl_copper_stuff_copper_pickaxe.png", 1},
-		{"item", "iron_shovel.png", mod, "mcl_copper_stuff_copper_shovel.png", 1},
-		{"item", "iron_sword.png", mod, "mcl_copper_stuff_copper_sword.png", 1},
-	}
+	textures_for_copper := data.CopperStuffMod
 
 	for _, e := range textures_for_copper {
 		ironItem, err := imaging.Open(inPath + e.ReadPath())
@@ -664,12 +651,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		// They used diamond for the tools, netherite for the armor, and obviously, iron for the shears.
 
 		// Netherite is hard to consistantly make look good in pink. :(
-		netherite_to_rose_gold := [...]data.SimpleConversion{
-			{"item", "netherite_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
-			{"item", "netherite_chestplate.png", mod, "mcl_rose_gold_inv_chestplate_rose_gold.png", 1},
-			{"item", "netherite_helmet.png", mod, "mcl_rose_gold_inv_helmet_rose_gold.png", 1},
-			{"item", "netherite_leggings.png", mod, "mcl_rose_gold_inv_leggings_rose_gold.png", 1},
-		}
+		netherite_to_rose_gold := data.RoseGoldStuffMod_NetheriteToRoseGold
 		for _, e := range netherite_to_rose_gold {
 			netheriteItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
@@ -762,10 +744,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		}
 		*/
 
-		copper_to_rose_gold_exposed := [...]data.SimpleConversion{
-			{"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block_exposed.png", 1},
-			{"block", "oxidized_copper.png", mod, "mcl_rose_gold_rose_gold_block_exposed.png", 1},
-		}
+		copper_to_rose_gold_exposed := data.RoseGoldStuffMod_CopperToRoseGoldExposed
 		for _, e := range copper_to_rose_gold_exposed {
 			copperItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
@@ -797,13 +776,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 			}
 		}
 
-		copper_to_rose_gold := [...]data.SimpleConversion{
-			{"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block.png", 1},
-			{"block", "copper_block.png", mod, "mcl_rose_gold_rose_gold_block.png", 1},
-
-			{"item", "raw_copper.png", mod, "mcl_rose_gold_raw_rose_gold_ore.png", 1},
-			{"item", "copper_ingot.png", mod, "mcl_rose_gold_rose_gold_ingot.png", 1},
-		}
+		copper_to_rose_gold := data.RoseGoldStuffMod_CopperToRoseGold
 		for _, e := range copper_to_rose_gold {
 			copperItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
@@ -838,23 +811,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 			}
 		}
 
-		iron_to_rose_gold := [...]data.SimpleConversion{
-			{"item", "shears.png", mod, "mcl_rose_gold_rose_gold_shears.png", 1},
-			/* ARMOR
-			{"item", "iron_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
-			{"item", "iron_chestplate.png", mod, "mcl_rose_gold_inv_chestplate_rose_gold.png", 1},
-			{"item", "iron_helmet.png", mod, "mcl_rose_gold_inv_helmet_rose_gold.png", 1},
-			{"item", "iron_leggings.png", mod, "mcl_rose_gold_inv_leggings_rose_gold.png", 1},
-			*/
-			{"item", "iron_hoe.png", mod, "mcl_rose_gold_rose_gold_hoe.png", 1},
-			{"item", "iron_axe.png", mod, "mcl_rose_gold_rose_gold_axe.png", 1},
-			{"item", "iron_pickaxe.png", mod, "mcl_rose_gold_rose_gold_pick.png", 1},
-			{"item", "iron_shovel.png", mod, "mcl_rose_gold_rose_gold_shovel.png", 1},
-			{"item", "iron_sword.png", mod, "mcl_rose_gold_rose_gold_sword.png", 1},
-
-			{"block", "lantern.png", mod, "mcl_rose_gold_rose_gold_lantern.png", 1},
-			{"item", "lantern.png", mod, "mcl_rose_gold_rose_gold_lantern_inv.png", 1},
-		}
+		iron_to_rose_gold := data.RoseGoldStuffMod_IronToRoseGold
 		for _, e := range iron_to_rose_gold {
 			ironItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
@@ -890,11 +847,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 				}
 			}
 		}
-		iron_to_rose_gold_no_filter := [...]data.SimpleConversion{
-			{"item", "iron_nugget.png", mod, "mcl_rose_gold_rose_gold_nugget.png", 1},
-			{"block", "chain.png", mod, "mcl_rose_gold_rose_gold_chain.png", 1},
-			{"item", "chain.png", mod, "mcl_rose_gold_rose_gold_chain_inv.png", 1},
-		}
+		iron_to_rose_gold_no_filter := data.RoseGoldStuffMod_IronToRoseGoldNoFilter
 		for _, e := range iron_to_rose_gold_no_filter {
 			ironItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
@@ -930,17 +883,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 	}() // end of "Rose Gold Stuff"
 
 	mod = "emerald_stuff"
-	emerald_stuff_textures := [...]data.SimpleConversion{
-		{"item", "diamond_boots.png", mod, "mcl_emerald_stuff_inv_boots_emerald.png", 1},
-		{"item", "diamond_chestplate.png", mod, "mcl_emerald_stuff_inv_chestplate_emerald.png", 1},
-		{"item", "diamond_helmet.png", mod, "mcl_emerald_stuff_inv_helmet_emerald.png", 1},
-		{"item", "diamond_leggings.png", mod, "mcl_emerald_stuff_inv_leggings_emerald.png", 1},
-
-		{"item", "diamond_axe.png", mod, "mcl_emerald_stuff_axe.png", 1},
-		{"item", "diamond_pickaxe.png", mod, "mcl_emerald_stuff_pick.png", 1},
-		{"item", "diamond_shovel.png", mod, "mcl_emerald_stuff_shovel.png", 1},
-		{"item", "diamond_sword.png", mod, "mcl_emerald_stuff_sword.png", 1},
-	}
+	emerald_stuff_textures := data.EmeraldStuffMod
 
 	for _, e := range emerald_stuff_textures {
 		diamondItem, err := imaging.Open(inPath + e.ReadPath())
