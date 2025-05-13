@@ -1,11 +1,12 @@
 package data
 
-// Used for most textures regardless of animation.
+// Used for textures that could have animation data.
 type SimpleConversion struct {
-	InPath        string
-	InTexture     string
-	OutPath       string
-	OutTexture    string
+	InPath     string
+	InTexture  string
+	OutPath    string
+	OutTexture string
+
 	FramesAllowed int
 }
 

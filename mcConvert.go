@@ -128,6 +128,8 @@ func convertPackClonia(inName string, outName string) {
 		single_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
 		stonecutter_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["stonecutter"]),
 		water_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
+
+		MobConvert(inputPackLocation, outputPackLocation),
 	)
 
 	// Achivement Icon
