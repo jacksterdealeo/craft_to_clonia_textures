@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
@@ -33,7 +34,7 @@ func convertPackMTG(inName string, outName string) {
 		}
 	}
 
-	for _, e := range mtgPaths {
+	for _, e := range data.MTPaths {
 		if err := os.MkdirAll(outPath+e, 0755); err != nil {
 			log.Panic(err)
 		}
@@ -64,15 +65,15 @@ func convertPackMTG(inName string, outName string) {
 		}
 	}
 
-	for _, e := range minetestGreenery {
+	for _, e := range data.MinetestGreenery {
 		catchReadWriteErrors(mtg_greenify(e, texturePackLocation, outPath))
 	}
 	catchReadWriteErrors(mtg_obsidian_glass_fix(texturePackLocation, outPath))
 	catchReadWriteErrors(mtg_grass_fix(texturePackLocation, outPath))
 
-	for _, e := range minetestGameItems {
-		if err := copyTextureAnimated(texturePackLocation+craftPaths[e.inPath]+e.inTexture, outPath+mtgPaths[e.outPath]+e.outTexture, e.framesAllowed); err != nil {
-			copyTextureFails = append(copyTextureFails, e.inPath+"::"+e.inTexture+" failed to copy!")
+	for _, e := range data.MinetestGameItems {
+		if err := copyTextureAnimated(texturePackLocation+craftPaths[e.InPath]+e.InTexture, outPath+data.MTPaths[e.OutPath]+e.OutTexture, e.FramesAllowed); err != nil {
+			copyTextureFails = append(copyTextureFails, e.InPath+"::"+e.InTexture+" failed to copy!")
 		} else {
 			successes += 1
 		}

@@ -1,6 +1,4 @@
-package main
-
-import ()
+package data
 
 /* Just throwing everything from the game into one folder.
 var (
@@ -44,11 +42,11 @@ var (
 */
 
 var (
-	mtgPaths = map[string]string{
+	MTPaths = map[string]string{
 		"mtg": "/mtg/",
 	}
 
-	minetestGreenery = [...]simpleConversion{ // note: the mtg_greenify function ignores animations at the moment.
+	MinetestGreenery = [...]SimpleConversion{ // note: the mtg_greenify function ignores animations at the moment.
 		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves.png", 1},
 		{"block", "acacia_leaves.png", "mtg", "default_acacia_leaves_simple.png", 1},
 		{"block", "birch_leaves.png", "mtg", "default_aspen_leaves.png", 1},
@@ -63,7 +61,7 @@ var (
 		//{"block", "short_grass.png", "mtg", "default_grass_5.png", 1},  // handled
 	}
 
-	minetestGameItems = [...]simpleConversion{
+	MinetestGameItems = [...]SimpleConversion{
 		// -- beds
 		//{"bed", "", "mtg", "beds_bed.png", 1},  // no match
 		//{"bed", "", "mtg", "beds_bed_fancy.png", 1},  // no match

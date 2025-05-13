@@ -6,6 +6,7 @@ import (
 	"image/color"
 	"strconv"
 
+	data "codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
@@ -57,22 +58,22 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 	fails := []string{}
 
 	func() { // flips horizontally
-		t := simpleConversion{"block", "spore_blossom.png", "lush_caves", "mcl_lush_caves_spore_blossom.png", 1}
-		spore, err := imaging.Open(inPack + t.readPath())
+		t := data.SimpleConversion{"block", "spore_blossom.png", "lush_caves", "mcl_lush_caves_spore_blossom.png", 1}
+		spore, err := imaging.Open(inPack + t.ReadPath())
 		if err != nil {
-			fails = append(fails, t.outTexture+"failed to save!")
+			fails = append(fails, t.OutTexture+"failed to save!")
 		} else {
 			dst := imaging.New(spore.Bounds().Dx(), spore.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 			dst = imaging.Paste(dst, imaging.FlipV(spore), image.Pt(0, 0))
-			if err := imaging.Save(dst, outPack+t.savePath()); err != nil {
-				fails = append(fails, t.outTexture+" failed to save!")
+			if err := imaging.Save(dst, outPack+t.SavePath()); err != nil {
+				fails = append(fails, t.OutTexture+" failed to save!")
 			}
 
 		}
 	}()
 
 	func() { // special slabs
-		t := [...]simpleConversion{
+		t := [...]data.SimpleConversion{
 			{"block", "polished_andesite.png", "core", "mcl_stairs_andesite_smooth_slab.png", 1},
 			{"block", "polished_diorite.png", "core", "mcl_stairs_diorite_smooth_slab.png", 1},
 			{"block", "polished_granite.png", "core", "mcl_stairs_granite_smooth_slab.png", 1},
@@ -81,10 +82,10 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 			{"block", "lapis_block.png", "xstairs", "mcl_stairs_lapis_block_slab.png", 1},
 		}
 		for _, e := range t {
-			block, err := imaging.Open(inPack + craftPaths[e.inPath] + e.inTexture)
+			block, err := imaging.Open(inPack + craftPaths[e.InPath] + e.InTexture)
 			_ = block
 			if err != nil {
-				fails = append(fails, e.inTexture+"failed to open!")
+				fails = append(fails, e.InTexture+"failed to open!")
 			} else {
 				scale := block.Bounds().Dx() / 16
 				dst := imaging.New(block.Bounds().Dx(), block.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
@@ -96,15 +97,15 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 				dst = imaging.Paste(dst, top, image.Pt(0, 0))
 				dst = imaging.Paste(dst, bottom, image.Pt(0, 15*scale))
 
-				if err := imaging.Save(dst, outPack+cloniaPaths[e.outPath]+e.outTexture); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
+				if err := imaging.Save(dst, outPack+cloniaPaths[e.OutPath]+e.OutTexture); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
 	}()
 
 	func() { // green plants
-		t := [...]simpleConversion{
+		t := [...]data.SimpleConversion{
 			{"block", "vine.png", "core", "mcl_core_vine.png", 1},
 			{"block", "lily_pad.png", "flowers", "flowers_waterlily.png", 1},
 			{"block", "large_fern_top.png", "flowers", "mcl_flowers_double_plant_fern_inv.png", 1},
@@ -113,15 +114,15 @@ func do_fixes(inPack string, outPack string) *readWriteError {
 			{"block", "short_grass.png", "flowers", "mcl_flowers_tallgrass_inv.png", 1},
 		}
 		for _, e := range t {
-			grayImage, err := imaging.Open(inPack + e.readPath())
+			grayImage, err := imaging.Open(inPack + e.ReadPath())
 			if err != nil {
-				fails = append(fails, e.inTexture+" failed to open!")
+				fails = append(fails, e.InTexture+" failed to open!")
 			} else {
 				dst := imaging.New(grayImage.Bounds().Dx(), grayImage.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 				dst = imaging.Overlay(dst, grayImage, image.Point{0, 0}, 1.0)
 				dst = mtg_green_it(dst)
-				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
+				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
@@ -616,7 +617,7 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 func mods_fixes(inPath, outPack string) *readWriteError {
 	fails := []string{}
 	mod := "copper_stuff"
-	textures_for_copper := [...]simpleConversion{
+	textures_for_copper := [...]data.SimpleConversion{
 		{"item", "iron_boots.png", mod, "mcl_copper_stuff_inv_boots_copper.png", 1},
 		{"item", "iron_chestplate.png", mod, "mcl_copper_stuff_inv_chestplate_copper.png", 1},
 		{"item", "iron_helmet.png", mod, "mcl_copper_stuff_inv_helmet_copper.png", 1},
@@ -631,9 +632,9 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 	}
 
 	for _, e := range textures_for_copper {
-		ironItem, err := imaging.Open(inPath + e.readPath())
+		ironItem, err := imaging.Open(inPath + e.ReadPath())
 		if err != nil {
-			fails = append(fails, e.inTexture+" failed to open for mod", mod)
+			fails = append(fails, e.InTexture+" failed to open for mod", mod)
 		} else {
 			dst := imaging.New(ironItem.Bounds().Dx(), ironItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 			dst = imaging.Overlay(dst, ironItem, image.Point{0, 0}, 1.0)
@@ -652,8 +653,8 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 					return color.NRGBA{c.R, uint8(g), uint8(b), c.A}
 				})
-			if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-				fails = append(fails, e.outTexture+" failed to save!")
+			if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				fails = append(fails, e.OutTexture+" failed to save!")
 			}
 		}
 	}
@@ -663,16 +664,16 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		// They used diamond for the tools, netherite for the armor, and obviously, iron for the shears.
 
 		// Netherite is hard to consistantly make look good in pink. :(
-		netherite_to_rose_gold := [...]simpleConversion{
+		netherite_to_rose_gold := [...]data.SimpleConversion{
 			{"item", "netherite_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
 			{"item", "netherite_chestplate.png", mod, "mcl_rose_gold_inv_chestplate_rose_gold.png", 1},
 			{"item", "netherite_helmet.png", mod, "mcl_rose_gold_inv_helmet_rose_gold.png", 1},
 			{"item", "netherite_leggings.png", mod, "mcl_rose_gold_inv_leggings_rose_gold.png", 1},
 		}
 		for _, e := range netherite_to_rose_gold {
-			netheriteItem, err := imaging.Open(inPath + e.readPath())
+			netheriteItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
-				fails = append(fails, e.inTexture+" failed to open for mod", mod)
+				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
 				dst := imaging.New(netheriteItem.Bounds().Dx(), netheriteItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 				dst = imaging.Overlay(dst, netheriteItem, image.Point{0, 0}, 1.0)
@@ -706,8 +707,8 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
+				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
@@ -761,14 +762,14 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		}
 		*/
 
-		copper_to_rose_gold_exposed := [...]simpleConversion{
+		copper_to_rose_gold_exposed := [...]data.SimpleConversion{
 			{"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block_exposed.png", 1},
 			{"block", "oxidized_copper.png", mod, "mcl_rose_gold_rose_gold_block_exposed.png", 1},
 		}
 		for _, e := range copper_to_rose_gold_exposed {
-			copperItem, err := imaging.Open(inPath + e.readPath())
+			copperItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
-				fails = append(fails, e.inTexture+" failed to open for mod", mod)
+				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
 				dst := imaging.New(copperItem.Bounds().Dx(), copperItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 				dst = imaging.Overlay(dst, copperItem, image.Point{0, 0}, 1.0)
@@ -790,13 +791,13 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
+				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
 
-		copper_to_rose_gold := [...]simpleConversion{
+		copper_to_rose_gold := [...]data.SimpleConversion{
 			{"block", "raw_copper_block.png", mod, "mcl_rose_gold_raw_rose_gold_ore_block.png", 1},
 			{"block", "copper_block.png", mod, "mcl_rose_gold_rose_gold_block.png", 1},
 
@@ -804,9 +805,9 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 			{"item", "copper_ingot.png", mod, "mcl_rose_gold_rose_gold_ingot.png", 1},
 		}
 		for _, e := range copper_to_rose_gold {
-			copperItem, err := imaging.Open(inPath + e.readPath())
+			copperItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
-				fails = append(fails, e.inTexture+" failed to open for mod", mod)
+				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
 				dst := imaging.New(copperItem.Bounds().Dx(), copperItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 				dst = imaging.Overlay(dst, copperItem, image.Point{0, 0}, 1.0)
@@ -831,13 +832,13 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
+				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
 
-		iron_to_rose_gold := [...]simpleConversion{
+		iron_to_rose_gold := [...]data.SimpleConversion{
 			{"item", "shears.png", mod, "mcl_rose_gold_rose_gold_shears.png", 1},
 			/* ARMOR
 			{"item", "iron_boots.png", mod, "mcl_rose_gold_inv_boots_rose_gold.png", 1},
@@ -855,9 +856,9 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 			{"item", "lantern.png", mod, "mcl_rose_gold_rose_gold_lantern_inv.png", 1},
 		}
 		for _, e := range iron_to_rose_gold {
-			ironItem, err := imaging.Open(inPath + e.readPath())
+			ironItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
-				fails = append(fails, e.inTexture+" failed to open for mod", mod)
+				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
 				dst := imaging.New(ironItem.Bounds().Dx(), ironItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 				dst = imaging.Overlay(dst, ironItem, image.Point{0, 0}, 1.0)
@@ -884,20 +885,20 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
+				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
-		iron_to_rose_gold_no_filter := [...]simpleConversion{
+		iron_to_rose_gold_no_filter := [...]data.SimpleConversion{
 			{"item", "iron_nugget.png", mod, "mcl_rose_gold_rose_gold_nugget.png", 1},
 			{"block", "chain.png", mod, "mcl_rose_gold_rose_gold_chain.png", 1},
 			{"item", "chain.png", mod, "mcl_rose_gold_rose_gold_chain_inv.png", 1},
 		}
 		for _, e := range iron_to_rose_gold_no_filter {
-			ironItem, err := imaging.Open(inPath + e.readPath())
+			ironItem, err := imaging.Open(inPath + e.ReadPath())
 			if err != nil {
-				fails = append(fails, e.inTexture+" failed to open for mod", mod)
+				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
 				dst := imaging.New(ironItem.Bounds().Dx(), ironItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 				dst = imaging.Overlay(dst, ironItem, image.Point{0, 0}, 1.0)
@@ -920,8 +921,8 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
+				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
@@ -929,7 +930,7 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 	}() // end of "Rose Gold Stuff"
 
 	mod = "emerald_stuff"
-	emerald_stuff_textures := [...]simpleConversion{
+	emerald_stuff_textures := [...]data.SimpleConversion{
 		{"item", "diamond_boots.png", mod, "mcl_emerald_stuff_inv_boots_emerald.png", 1},
 		{"item", "diamond_chestplate.png", mod, "mcl_emerald_stuff_inv_chestplate_emerald.png", 1},
 		{"item", "diamond_helmet.png", mod, "mcl_emerald_stuff_inv_helmet_emerald.png", 1},
@@ -942,9 +943,9 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 	}
 
 	for _, e := range emerald_stuff_textures {
-		diamondItem, err := imaging.Open(inPath + e.readPath())
+		diamondItem, err := imaging.Open(inPath + e.ReadPath())
 		if err != nil {
-			fails = append(fails, e.inTexture+" failed to open for mod", mod)
+			fails = append(fails, e.InTexture+" failed to open for mod", mod)
 		} else {
 			dst := imaging.New(diamondItem.Bounds().Dx(), diamondItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 			dst = imaging.Overlay(dst, diamondItem, image.Point{0, 0}, 1.0)
@@ -962,8 +963,8 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 
 					return color.NRGBA{c.R, c.G, uint8(b), c.A}
 				})
-			if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-				fails = append(fails, e.outTexture+" failed to save!")
+			if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				fails = append(fails, e.OutTexture+" failed to save!")
 			}
 		}
 	}

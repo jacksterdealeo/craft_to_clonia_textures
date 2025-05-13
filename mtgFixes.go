@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
@@ -28,16 +29,16 @@ func mtg_green_it(img image.Image) (result *image.NRGBA) {
 	return
 }
 
-func mtg_greenify(greenery simpleConversion, inPath, outPath string) *readWriteError { // green plants
-	grayImage, err := imaging.Open(inPath + greenery.readPath())
+func mtg_greenify(greenery data.SimpleConversion, inPath, outPath string) *readWriteError { // green plants
+	grayImage, err := imaging.Open(inPath + greenery.ReadPath())
 	if err != nil {
-		return &readWriteError{[]string{greenery.inTexture}, " failed to open!"}
+		return &readWriteError{[]string{greenery.InTexture}, " failed to open!"}
 	}
 	dst := imaging.New(grayImage.Bounds().Dx(), grayImage.Bounds().Dx(), color.NRGBA{0, 0, 0, 0}) // disallows animated textures
 	dst = imaging.Overlay(dst, grayImage, image.Point{0, 0}, 1.0)
 	dst = mtg_green_it(dst)
-	if err = imaging.Save(dst, outPath+mtgPaths[greenery.outPath]+"/"+greenery.outTexture); err != nil {
-		return &readWriteError{[]string{greenery.inTexture}, " failed to save!"}
+	if err = imaging.Save(dst, outPath+data.MTPaths[greenery.OutPath]+"/"+greenery.OutTexture); err != nil {
+		return &readWriteError{[]string{greenery.InTexture}, " failed to save!"}
 	}
 	return nil
 }
@@ -55,7 +56,7 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 	//dst5 = imaging.Overlay(shortGrass)
 
 	// dst4 := imaging.New(shortGrass.Bounds().Dx(), shortGrass.Bounds().Dx(), color.NRGBA{0, 0, 0, 0}) // disallows animated textures
-	if err = imaging.Save(dst5, outPath+mtgPaths["mtg"]+"/default_grass_5.png"); err != nil {
+	if err = imaging.Save(dst5, outPath+data.MTPaths["mtg"]+"/default_grass_5.png"); err != nil {
 		return &readWriteError{[]string{"default_grass_5.png"}, " failed to save!"}
 	}
 
@@ -66,7 +67,7 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 6*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst4, outPath+mtgPaths["mtg"]+"/default_grass_4.png"); err != nil {
+	if err = imaging.Save(dst4, outPath+data.MTPaths["mtg"]+"/default_grass_4.png"); err != nil {
 		return &readWriteError{[]string{"default_grass_4.png"}, " failed to save!"}
 	}
 
@@ -76,7 +77,7 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 3*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst3, outPath+mtgPaths["mtg"]+"/default_grass_3.png"); err != nil {
+	if err = imaging.Save(dst3, outPath+data.MTPaths["mtg"]+"/default_grass_3.png"); err != nil {
 		return &readWriteError{[]string{"default_grass_3.png"}, " failed to save!"}
 	}
 
@@ -86,7 +87,7 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 2*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst2, outPath+mtgPaths["mtg"]+"/default_grass_2.png"); err != nil {
+	if err = imaging.Save(dst2, outPath+data.MTPaths["mtg"]+"/default_grass_2.png"); err != nil {
 		return &readWriteError{[]string{"default_grass_2.png"}, " failed to save!"}
 	}
 
@@ -96,7 +97,7 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 2*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst1, outPath+mtgPaths["mtg"]+"/default_grass_1.png"); err != nil {
+	if err = imaging.Save(dst1, outPath+data.MTPaths["mtg"]+"/default_grass_1.png"); err != nil {
 		return &readWriteError{[]string{"default_grass_1.png"}, " failed to save!"}
 	}
 	return nil
@@ -123,22 +124,22 @@ func GlassCarveCenter(img image.Image) (*image.NRGBA, error) {
 
 // Makes obsidian glass fully transparent, as MTG doesn't like partial transparency.
 func mtg_obsidian_glass_fix(inPath, outPath string) *readWriteError {
-	tintedGlass := simpleConversion{"block", "obsidian.png", "mtg", "default_obsidian_glass.png", 1}
+	tintedGlass := data.SimpleConversion{"block", "obsidian.png", "mtg", "default_obsidian_glass.png", 1}
 	// using mossy_cobblestone until I know the crop works correctly.
-	inImage, err := imaging.Open(inPath + tintedGlass.readPath())
+	inImage, err := imaging.Open(inPath + tintedGlass.ReadPath())
 	if err != nil {
-		return &readWriteError{[]string{tintedGlass.inTexture}, " failed to open!"}
+		return &readWriteError{[]string{tintedGlass.InTexture}, " failed to open!"}
 	}
 
 	obsidianGlass := imaging.New(inImage.Bounds().Dx(), inImage.Bounds().Dx(), color.NRGBA{0, 0, 0, 0}) // disallows animated textures
 	obsidianGlass = imaging.Overlay(obsidianGlass, inImage, image.Point{0, 0}, 1.0)
 	obsidianGlass, err = GlassCarveCenter(obsidianGlass)
 	if err != nil {
-		return &readWriteError{[]string{tintedGlass.inTexture}, " faild to carve out the center!"}
+		return &readWriteError{[]string{tintedGlass.InTexture}, " faild to carve out the center!"}
 	}
 
-	if err = imaging.Save(obsidianGlass, outPath+mtgPaths[tintedGlass.outPath]+"/"+tintedGlass.outTexture); err != nil {
-		return &readWriteError{[]string{tintedGlass.inTexture}, " failed to save!"}
+	if err = imaging.Save(obsidianGlass, outPath+data.MTPaths[tintedGlass.OutPath]+"/"+tintedGlass.OutTexture); err != nil {
+		return &readWriteError{[]string{tintedGlass.InTexture}, " failed to save!"}
 	}
 	return nil
 }
@@ -160,11 +161,11 @@ func mtgLavaFix(inPath string, outPath string) *readWriteError {
 		lavaStillY := lavaFlowing.Bounds().Dy()
 		dst := imaging.New(lavaStillX/2, lavaStillY, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, lavaFlowing, image.Point{0, 0}, 1.0)
-		if err = imaging.Save(dst, outPath+mtgPaths["mtg"]+"default_lava_flowing_animated.png"); err != nil {
+		if err = imaging.Save(dst, outPath+data.MTPaths["mtg"]+"default_lava_flowing_animated.png"); err != nil {
 			return &readWriteError{[]string{"default_lava_flowing_animated.png failed to save!"}, "lava textures"}
 		}
 	}
-	if err := copyTextureAnimated(inPath+"lava_still.png", outPath+mtgPaths["mtg"]+"default_lava_source_animated.png", -1); err != nil {
+	if err := copyTextureAnimated(inPath+"lava_still.png", outPath+data.MTPaths["mtg"]+"default_lava_source_animated.png", -1); err != nil {
 		return &readWriteError{[]string{"default_lava_source_animated.png failed to copy!"}, "lava textures"}
 	}
 	return nil
@@ -204,7 +205,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, outPath+mtgPaths["mtg"]+"default_water_source_animated.png"); err != nil {
+		if err = imaging.Save(plainWater, outPath+data.MTPaths["mtg"]+"default_water_source_animated.png"); err != nil {
 			fails = append(fails, "default_water_source_animated.png failed to save!")
 		}
 
@@ -224,7 +225,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(riverWater, outPath+mtgPaths["mtg"]+"default_river_water_source_animated.png"); err != nil {
+		if err = imaging.Save(riverWater, outPath+data.MTPaths["mtg"]+"default_river_water_source_animated.png"); err != nil {
 			fails = append(fails, "default_river_water_source_animated.png failed to save!")
 		}
 	}
@@ -253,7 +254,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, outPath+mtgPaths["mtg"]+"default_water_flowing_animated.png"); err != nil {
+		if err = imaging.Save(plainWater, outPath+data.MTPaths["mtg"]+"default_water_flowing_animated.png"); err != nil {
 			fails = append(fails, "default_water_flowing_animated.png failed to save!")
 		}
 
@@ -273,7 +274,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(riverWater, outPath+mtgPaths["mtg"]+"default_river_water_flowing_animated.png"); err != nil {
+		if err = imaging.Save(riverWater, outPath+data.MTPaths["mtg"]+"default_river_water_flowing_animated.png"); err != nil {
 			fails = append(fails, "default_river_water_flowing_animated.png failed to save!")
 		}
 	}

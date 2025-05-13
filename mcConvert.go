@@ -13,6 +13,11 @@ import (
 	imaging "github.com/disintegration/imaging"
 )
 
+var (
+	craftPaths  = data.CraftPaths
+	cloniaPaths = data.CloniaPaths
+)
+
 func convertPackClonia(inName string, outName string) {
 	var (
 		textureErrorsLog   = fmt.Sprintf("%v %v\n\n", inName, nowShort)
@@ -75,17 +80,18 @@ func convertPackClonia(inName string, outName string) {
 			}
 		}
 	}
+
 	logCopyTextureAnimatedErrs(
 		data.SimpleItems[:],
 		data.SimpleHUD[:],
 	)
 
-	for _, texture := range copyAsIs {
+	for _, texture := range data.SimpleNoEdits {
 		if err := copyTexture(
-			inputPackLocation+craftPaths[texture.inPath]+texture.inTexture,
-			outputPackLocation+cloniaPaths[texture.outPath]+texture.outTexture,
+			inputPackLocation+craftPaths[texture.InPath]+texture.InTexture,
+			outputPackLocation+cloniaPaths[texture.OutPath]+texture.OutTexture,
 		); err != nil {
-			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.inPath+"::"+texture.inTexture)
+			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 		} else {
 			successes += 1
 		}
@@ -155,13 +161,13 @@ func convertPackClonia(inName string, outName string) {
 		}
 	}
 	func() {
-		sc := [...]simpleConversion{
+		sc := [...]data.SimpleConversion{
 			{"hud", "hotbar.png", "inventory", "mcl_inventory_hotbar.png", -1},
 		}
 		for _, e := range sc {
-			err := copyTexture(inputPackLocation+craftPaths[e.inPath]+e.inTexture, outputPackLocation+cloniaPaths[e.outPath]+e.outTexture)
+			err := copyTexture(inputPackLocation+craftPaths[e.InPath]+e.InTexture, outputPackLocation+cloniaPaths[e.OutPath]+e.OutTexture)
 			if err != nil {
-				textureErrorsLog += (e.outTexture + " failed to convert.\n")
+				textureErrorsLog += (e.OutTexture + " failed to convert.\n")
 			}
 		}
 	}()
