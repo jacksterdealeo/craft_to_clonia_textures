@@ -8,6 +8,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"strings"
 
 	data "codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
@@ -113,8 +114,12 @@ func convertPackClonia(inName string, outName string) {
 		}
 	}
 
+	var stitches_error_log strings.Builder
+	mcStitches(inputPackLocation, outputPackLocation, &stitches_error_log)
+	textureErrorsLog += stitches_error_log.String()
+
 	logRWErrs(
-		anvil_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["anvils"]),
+		//anvil_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["anvils"]),
 		armor_fixes(inputPackLocation, outputPackLocation),
 		campfire_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["campfires"]),
 		crack_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["hud_base_textures"]),

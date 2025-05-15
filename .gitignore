@@ -19,5 +19,6 @@
 
 !build.sh
 !/data
+!/stitches
 
 # !Makefile
