@@ -1593,6 +1593,8 @@ var SimpleItems = [...]SimpleConversion{
 	{"item", "string.png", "mobitems", "mcl_mobitems_string.png", 1},
 	{"item", "warped_fungus_on_a_stick.png", "mobitems", "mcl_mobitems_warped_fungus_on_a_stick.png", 1},
 	// -- mobs_mc
+	{"block", "brown_mushroom.png", "mobs_mc", "mobs_mc_mushroom_brown.png", 1},
+	{"block", "red_mushroom.png", "mobs_mc", "mobs_mc_mushroom_red.png", 1},
 	{"entity", "shulker/shulker_black.png", "mobs_mc", "mobs_mc_shulker_black.png", 1},
 	{"entity", "shulker/shulker_blue.png", "mobs_mc", "mobs_mc_shulker_blue.png", 1},
 	{"entity", "shulker/shulker_brown.png", "mobs_mc", "mobs_mc_shulker_brown.png", 1},

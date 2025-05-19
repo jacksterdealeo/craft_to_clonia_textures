@@ -10,8 +10,9 @@ import (
 func mcStitches(input_pack_path, output_pack_path string, err_log *strings.Builder) {
 	var StitchFuncsToExec = [...]func(string, string) error{
 		stitches.RWAnvil,
-		stitches.RWWater,
+		stitches.RWCow,
 		stitches.RWLava,
+		stitches.RWWater,
 	}
 
 	errors_chan := make(chan error, len(StitchFuncsToExec))
