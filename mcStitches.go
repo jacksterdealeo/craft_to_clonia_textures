@@ -12,6 +12,7 @@ func mcStitches(input_pack_path, output_pack_path string, err_log *strings.Build
 		stitches.RWAnvil,
 		stitches.RWCow,
 		stitches.RWLava,
+		stitches.RWPig,
 		stitches.RWWater,
 	}
 
