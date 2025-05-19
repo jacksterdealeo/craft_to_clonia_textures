@@ -20,5 +20,6 @@
 !build.sh
 !/data
 !/stitches
+!/mcmeta-handler
 
 # !Makefile
