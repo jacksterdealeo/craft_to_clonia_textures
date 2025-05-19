@@ -21,12 +21,15 @@ var (
 
 func convertPackClonia(inName string, outName string) {
 	var (
-		textureErrorsLog   = fmt.Sprintf("%v %v\n\n", inName, nowShort)
 		successes          = 0
 		failures           = 0
 		inputPackLocation  = Config.InputDir + inName
 		outputPackLocation = Config.OutputDir + outName
 	)
+
+	var textureErrorsLog = strings.Builder{}
+	textureErrorsLog.WriteString(fmt.Sprintf("%v %v\n\n", inName, nowShort))
+
 	if fs.ValidPath(outputPackLocation) {
 		if err := os.Mkdir(outputPackLocation, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {
@@ -100,7 +103,7 @@ func convertPackClonia(inName string, outName string) {
 
 	if len(copyTextureFails) > 0 {
 		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
-		textureErrorsLog += fmt.Sprintf("%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
+		textureErrorsLog.WriteString(fmt.Sprintf("%v\n\n", &readWriteError{copyTextureFails, "normal textures"}))
 		failures += len(copyTextureFails)
 	}
 
@@ -109,14 +112,14 @@ func convertPackClonia(inName string, outName string) {
 		for _, error := range e {
 			if error != nil {
 				failures += len(error.files)
-				textureErrorsLog += fmt.Sprint(error.Error() + "\n\n")
+				textureErrorsLog.WriteString(fmt.Sprint(error.Error() + "\n\n"))
 			}
 		}
 	}
 
 	var stitches_error_log strings.Builder
 	mcStitches(inputPackLocation, outputPackLocation, &stitches_error_log)
-	textureErrorsLog += stitches_error_log.String()
+	textureErrorsLog.WriteString(stitches_error_log.String())
 
 	logRWErrs(
 		//anvil_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["anvils"]),
@@ -139,31 +142,31 @@ func convertPackClonia(inName string, outName string) {
 
 	// Achivement Icon
 	if src, err := imaging.Open(inputPackLocation + craftPaths["item"] + "writable_book.png"); err != nil {
-		textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n"
+		textureErrorsLog.WriteString("Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n")
 		failures++
 	} else {
 		achivementIcon := imaging.Grayscale(src)
 		if saveErr := imaging.Save(achivementIcon, outputPackLocation+cloniaPaths["achievements"]+"mcl_achievements_button.png"); saveErr != nil {
-			textureErrorsLog += "Achivement Icon Construction Failed. Couldn't Save \"writable_book.png\".\n\n"
+			textureErrorsLog.WriteString("Achivement Icon Construction Failed. Couldn't Save \"writable_book.png\".\n\n")
 			failures++
 		}
 	}
 	// Experience Bar
 	if expProgress, err := imaging.Open(inputPackLocation + craftPaths["hud"] + "experience_bar_progress.png"); err != nil {
-		textureErrorsLog += "Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n"
+		textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n")
 		failures++
 	} else {
 		if err2 := imaging.Save(imaging.Rotate90(expProgress), outputPackLocation+cloniaPaths["experience"]+"mcl_experience_bar.png"); err2 != nil {
-			textureErrorsLog += "Full Experience Bar failed. Couldn't Save \"mcl_experience_bar.png\".\n\n"
+			textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Save \"mcl_experience_bar.png\".\n\n")
 			failures++
 		}
 	}
 	if expEmpty, err := imaging.Open(inputPackLocation + craftPaths["hud"] + "experience_bar_background.png"); err != nil {
-		textureErrorsLog += "Empty Experience Bar failed. Couldn't Open \"experience_bar_background.png\".\n\n"
+		textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Open \"experience_bar_background.png\".\n\n")
 		failures++
 	} else {
 		if err2 := imaging.Save(imaging.Rotate90(expEmpty), outputPackLocation+cloniaPaths["experience"]+"mcl_experience_bar_background.png"); err2 != nil {
-			textureErrorsLog += "Empty Experience Bar failed. Couldn't Save \"mcl_experience_bar_background.png\".\n\n"
+			textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Save \"mcl_experience_bar_background.png\".\n\n")
 			failures++
 		}
 	}
@@ -174,7 +177,7 @@ func convertPackClonia(inName string, outName string) {
 		for _, e := range sc {
 			err := copyTexture(inputPackLocation+craftPaths[e.InPath]+e.InTexture, outputPackLocation+cloniaPaths[e.OutPath]+e.OutTexture)
 			if err != nil {
-				textureErrorsLog += (e.OutTexture + " failed to convert.\n")
+				textureErrorsLog.WriteString(e.OutTexture + " failed to convert.\n")
 			}
 		}
 	}()
@@ -189,7 +192,7 @@ description = Mineclonia texture pack converted from Minecraft. %d successes, %d
 		log.Panic(err)
 	}
 
-	if err := os.WriteFile(outputPackLocation+"/craft_to_clonia_errors_log.txt", []byte(textureErrorsLog), 0644); err != nil {
+	if err := os.WriteFile(outputPackLocation+"/craft_to_clonia_errors_log.txt", []byte(textureErrorsLog.String()), 0644); err != nil {
 		log.Panic(err)
 	}
 }
