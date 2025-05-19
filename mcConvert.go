@@ -128,11 +128,11 @@ func convertPackClonia(inName string, outName string) {
 		flip_fix(inputPackLocation, outputPackLocation),
 		flowerpot_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["flowerpots"]),
 		hud_fix(inputPackLocation, outputPackLocation),
-		lava_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
+		//lava_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 		mods_fixes(inputPackLocation, outputPackLocation),
 		single_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
 		stonecutter_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["stonecutter"]),
-		water_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
+		//water_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 
 		MobConvert(inputPackLocation, outputPackLocation),
 	)
