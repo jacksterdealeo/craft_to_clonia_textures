@@ -68,3 +68,26 @@ var (
 		{"item", "chain.png", "rose_gold_stuff", "mcl_rose_gold_rose_gold_chain_inv.png", 1},
 	}
 )
+
+var (
+	Travelnet = [...]SimpleConversion{
+		{"block", ".png", "travelnet", "travelnet_bottom.png", 1},
+		{"block", ".png", "travelnet", "travelnet_elevator_door_glass.png", 1},
+		{"block", ".png", "travelnet", "travelnet_elevator_front.png", 1},
+		{"block", ".png", "travelnet", "travelnet_elevator_inside_ceiling.png", 1},
+		{"block", ".png", "travelnet", "travelnet_elevator_inside_controls.png", 1},
+		{"block", ".png", "travelnet", "travelnet_elevator_inside_floor.png", 1},
+		{"block", ".png", "travelnet", "travelnet_elevator_inv.png", 1},
+		{"block", ".png", "travelnet", "travelnet_elevator_sides_outside.png", 1},
+		{"block", ".png", "travelnet", "travelnet_flash.png", 1},
+		{"block", ".png", "travelnet", "travelnet_inv_base.png", 1},
+		{"block", ".png", "travelnet", "travelnet_inv_colorable.png", 1},
+		{"block", ".png", "travelnet", "travelnet_top.png", 1},
+		{"block", ".png", "travelnet", "travelnet_travelnet_back.png", 1},
+		{"block", ".png", "travelnet", "travelnet_travelnet_back_color.png", 1},
+		{"block", ".png", "travelnet", "travelnet_travelnet_front.png", 1},
+		{"block", ".png", "travelnet", "travelnet_travelnet_front_color.png", 1},
+		{"block", ".png", "travelnet", "travelnet_travelnet_side.png", 1},
+		{"block", ".png", "travelnet", "travelnet_travelnet_side_color.png", 1},
+	}
+)

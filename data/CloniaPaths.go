@@ -140,4 +140,5 @@ var CloniaPaths = map[string]string{
 	"copper_stuff":    "/modded/mcl_copper_stuff/",
 	"emerald_stuff":   "/modded/mcl_emerald_stuff/",
 	"rose_gold_stuff": "/modded/mcl_rose_gold/",
+	"travelnet":       "/modded/travelnet/",
 }

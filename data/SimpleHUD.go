@@ -1,8 +1,7 @@
 package data
 
 var SimpleHUD = [...]SimpleConversion{
-	{"icon", "info.png", "doc", "doc_button_icon_lores.png", 1},
-	// -- craftguide -- incomplete
+	// -- craftguide
 	{"item", "knowledge_book.png", "craftguide", "craftguide_book.png", 1},
 	// -- hbarmor
 	//{"", ".png", "hbarmor", "hbarmor_bar.png", 1},
@@ -38,7 +37,4 @@ var SimpleHUD = [...]SimpleConversion{
 	{"item", "empty_armor_slot_shield.png", "inventory", "mcl_inventory_empty_armor_slot_shield.png", 1},
 	// {"hud", "hotbar.png", "inventory", "mcl_inventory_hotbar.png", -1},
 	{"hud", "hotbar_selection.png", "inventory", "mcl_inventory_hotbar_selected.png", 1},
-
-	// -- skins
-	{"item", "armor_stand.png", "skins", "mcl_skins_button.png", 1},
 }

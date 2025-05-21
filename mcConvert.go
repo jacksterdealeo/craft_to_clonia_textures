@@ -140,17 +140,6 @@ func convertPackClonia(inName string, outName string) {
 		MobConvert(inputPackLocation, outputPackLocation),
 	)
 
-	// Achivement Icon
-	if src, err := imaging.Open(inputPackLocation + craftPaths["item"] + "writable_book.png"); err != nil {
-		textureErrorsLog.WriteString("Achivement Icon Construction Failed. Couldn't Find \"writable_book.png\".\n\n")
-		failures++
-	} else {
-		achivementIcon := imaging.Grayscale(src)
-		if saveErr := imaging.Save(achivementIcon, outputPackLocation+cloniaPaths["achievements"]+"mcl_achievements_button.png"); saveErr != nil {
-			textureErrorsLog.WriteString("Achivement Icon Construction Failed. Couldn't Save \"writable_book.png\".\n\n")
-			failures++
-		}
-	}
 	// Experience Bar
 	if expProgress, err := imaging.Open(inputPackLocation + craftPaths["hud"] + "experience_bar_progress.png"); err != nil {
 		textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n")

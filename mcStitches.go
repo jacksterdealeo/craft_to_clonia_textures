@@ -14,6 +14,8 @@ func mcStitches(input_pack_path, output_pack_path string, err_log *strings.Build
 		stitches.RWLava,
 		stitches.RWPig,
 		stitches.RWWater,
+
+		stitches.RWTravelnet,
 	}
 
 	errors_chan := make(chan error, len(StitchFuncsToExec))

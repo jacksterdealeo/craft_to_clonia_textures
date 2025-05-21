@@ -651,14 +651,12 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "white_glazed_terracotta.png", "colorblocks", "mcl_colorblocks_glazed_terracotta_white.png", 1},
 	{"block", "yellow_glazed_terracotta.png", "colorblocks", "mcl_colorblocks_glazed_terracotta_yellow.png", 1},
 	// -- mcl_compass
-	/* special attention?
-	{"block", ".png", "compass", "lodestone_bottom.png", 1},
-	{"block", ".png", "compass", "lodestone_side1.png", 1},
-	{"block", ".png", "compass", "lodestone_side2.png", 1},
-	{"block", ".png", "compass", "lodestone_side3.png", 1},
-	{"block", ".png", "compass", "lodestone_side4.png", 1},
-	{"block", ".png", "compass", "lodestone_top.png", 1},
-	*/
+	{"block", "lodestone_top.png", "compass", "lodestone_bottom.png", 1},
+	{"block", "lodestone_side.png", "compass", "lodestone_side1.png", 1},
+	{"block", "lodestone_side.png", "compass", "lodestone_side2.png", 1},
+	{"block", "lodestone_side.png", "compass", "lodestone_side3.png", 1},
+	{"block", "lodestone_side.png", "compass", "lodestone_side4.png", 1},
+	{"block", "lodestone_top.png", "compass", "lodestone_top.png", 1},
 	{"item", "compass_00.png", "compass", "mcl_compass_compass_00.png", 1},
 	{"item", "compass_01.png", "compass", "mcl_compass_compass_01.png", 1},
 	{"item", "compass_02.png", "compass", "mcl_compass_compass_02.png", 1},
@@ -1475,7 +1473,7 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "small_dripleaf_stem_bottom.png", "lush_caves", "mcl_lush_caves_small_dripleaf_stem_bottom.png", 1},
 	{"block", "small_dripleaf_stem_top.png", "lush_caves", "mcl_lush_caves_small_dripleaf_stem_top.png", 1},
 	{"block", "small_dripleaf_top.png", "lush_caves", "mcl_lush_caves_small_dripleaf_top.png", 1},
-	// {"block", "spore_blossom.png", "lush_caves", "mcl_lush_caves_spore_blossom.png", 1}, // TODO: Flip vertically.
+	{"block", "spore_blossom.png", "lush_caves", "mcl_lush_caves_spore_blossom.png", 1},
 	{"block", "spore_blossom_base.png", "lush_caves", "mcl_lush_caves_spore_blossom_base.png", 1},
 	// {"block", ".png", "lush_caves", "mcl_lush_caves_spore_blossom_particle.png", 1},
 	// -- mcl_mangrove
