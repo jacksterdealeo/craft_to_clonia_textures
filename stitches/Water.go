@@ -1,7 +1,6 @@
 package stitches
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 
@@ -13,7 +12,6 @@ import (
 func RWWater(input_pack_path, output_pack_path string) error {
 	inPath := input_pack_path + "/" + data.CraftPaths["block"] + "/"
 	outPath := output_pack_path + "/" + data.CloniaPaths["core"] + "/"
-	fails := []string{}
 	/*
 		craft water
 		  still   :  16 x 512
@@ -24,7 +22,7 @@ func RWWater(input_pack_path, output_pack_path string) error {
 	*/
 	wStill, err := imaging.Open(inPath + "water_still.png")
 	if err != nil {
-		fails = append(fails, "block::water_still.png failed to open!")
+		return openErrMsg("Water", "block", "water_still.png")
 	} else {
 		wStillX := wStill.Bounds().Dx()
 		wStillY := wStill.Bounds().Dy()
@@ -47,7 +45,7 @@ func RWWater(input_pack_path, output_pack_path string) error {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(plainWater, outPath+"default_water_source_animated.png"); err != nil {
-			fails = append(fails, "default_water_source_animated.png failed to save!")
+			return saveErrMsg("Water", "core", "default_water_source_animated.png")
 		}
 
 		riverWater := imaging.AdjustFunc(dst,
@@ -67,13 +65,13 @@ func RWWater(input_pack_path, output_pack_path string) error {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(riverWater, outPath+"default_river_water_source_animated.png"); err != nil {
-			fails = append(fails, "default_river_water_source_animated.png failed to save!")
+			return saveErrMsg("Water", "core", "default_river_water_source_animated.png")
 		}
 	}
 
 	wFlowing, err := imaging.Open(inPath + "water_flow.png")
 	if err != nil {
-		fails = append(fails, "block::water_flow.png failed to open!")
+		return openErrMsg("Water", "block", "water_flow.png")
 	} else {
 		wFlowingX := wFlowing.Bounds().Dx()
 		wFlowingY := wFlowing.Bounds().Dy()
@@ -96,7 +94,7 @@ func RWWater(input_pack_path, output_pack_path string) error {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(plainWater, outPath+"default_water_flowing_animated.png"); err != nil {
-			fails = append(fails, "default_water_flowing_animated.png failed to save!")
+			return saveErrMsg("Water", "core", "default_water_flowing_animated.png")
 		}
 
 		riverWater := imaging.AdjustFunc(dst,
@@ -116,12 +114,8 @@ func RWWater(input_pack_path, output_pack_path string) error {
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
 		if err = imaging.Save(riverWater, outPath+"default_river_water_flowing_animated.png"); err != nil {
-			fails = append(fails, "default_river_water_flowing_animated.png failed to save!")
+			return saveErrMsg("Water", "core", "default_river_water_flowing_animated.png")
 		}
 	}
-	if len(fails) > 0 {
-		return fmt.Errorf("Water Texture Fails:\n%v\n", fails)
-	} else {
-		return nil
-	}
+	return nil
 }

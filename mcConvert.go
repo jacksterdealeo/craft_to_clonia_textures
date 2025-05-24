@@ -120,7 +120,10 @@ func convertPackClonia(inName string, outName string) {
 	var stitches_error_log strings.Builder
 	mcStitches(inputPackLocation, outputPackLocation, &stitches_error_log)
 	textureErrorsLog.WriteString(stitches_error_log.String())
+	textureErrorsLog.WriteString("\n")
 
+	// I want to replace most or all the "fix" functions with "stitch" functions for better performace, and maintenance.
+	// Any that are commented out are replaced already. I am leaving them fully listed until they are all finished.
 	logRWErrs(
 		//anvil_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["anvils"]),
 		armor_fixes(inputPackLocation, outputPackLocation),
@@ -129,7 +132,7 @@ func convertPackClonia(inName string, outName string) {
 		do_fixes(inputPackLocation, outputPackLocation),
 		double_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
 		flip_fix(inputPackLocation, outputPackLocation),
-		flowerpot_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["flowerpots"]),
+		//flowerpot_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["flowerpots"]),
 		hud_fix(inputPackLocation, outputPackLocation),
 		//lava_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 		mods_fixes(inputPackLocation, outputPackLocation),

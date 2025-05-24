@@ -1,7 +1,6 @@
 package stitches
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 
@@ -11,15 +10,15 @@ import (
 
 func RWPig(input_pack_path, output_pack_path string) error {
 	in_path := input_pack_path + data.CraftPaths["entity"] + "pig/"
-	out_path := output_pack_path + "/" + data.CloniaPaths["mobs_mc"] + "/" //mobs_mc_pig.png
+	out_path := output_pack_path + "/" + data.CloniaPaths["mobs_mc"]
 
-	temperate_pig, err := imaging.Open(in_path + "/temperate_pig.png")
+	temperate_pig, err := imaging.Open(in_path + "temperate_pig.png")
 	if err != nil {
-		return fmt.Errorf("entity::temperate_pig.png failed to open. %v, %v", in_path, out_path)
+		return openErrMsg("Pig", "entity", "pig/temperate_pig.png")
 	}
 
 	if err = imaging.Save(CommonPig(temperate_pig), out_path+"mobs_mc_pig.png"); err != nil {
-		return fmt.Errorf("mobs_mc::mobs_mc_pig.png failed to save! Skipping the rest!")
+		return saveErrMsg("Pig", "mobs_mc", "mobs_mc_pig.png")
 	}
 
 	return nil

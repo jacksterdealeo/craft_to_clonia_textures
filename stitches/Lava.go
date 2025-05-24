@@ -1,7 +1,6 @@
 package stitches
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 
@@ -22,14 +21,14 @@ func RWLava(input_pack_path, output_pack_path string) error {
 	*/
 	lavaFlowing, err := imaging.Open(inPath + "lava_flow.png")
 	if err != nil {
-		return fmt.Errorf("lava_flow.png failed to open!")
+		return openErrMsg("Lava", "block", "lava_flow.png")
 	} else {
 		lavaStillX := lavaFlowing.Bounds().Dx()
 		lavaStillY := lavaFlowing.Bounds().Dy()
 		dst := imaging.New(lavaStillX/2, lavaStillY, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, lavaFlowing, image.Point{0, 0}, 1.0)
 		if err = imaging.Save(dst, outPath+"default_lava_flowing_animated.png"); err != nil {
-			return fmt.Errorf("default_lava_flowing_animated.png failed to save!")
+			return saveErrMsg("Lava", "core", "default_lava_flowing_animated.png")
 		}
 	}
 	return nil

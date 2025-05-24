@@ -8,15 +8,7 @@ import (
 )
 
 func mcStitches(input_pack_path, output_pack_path string, err_log *strings.Builder) {
-	var StitchFuncsToExec = [...]func(string, string) error{
-		stitches.RWAnvil,
-		stitches.RWCow,
-		stitches.RWLava,
-		stitches.RWPig,
-		stitches.RWWater,
-
-		stitches.RWTravelnet,
-	}
+	StitchFuncsToExec := stitches.EveryStitch
 
 	errors_chan := make(chan error, len(StitchFuncsToExec))
 	var wg sync.WaitGroup

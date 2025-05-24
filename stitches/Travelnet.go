@@ -1,7 +1,6 @@
 package stitches
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 
@@ -10,30 +9,30 @@ import (
 )
 
 func RWTravelnet(input_pack_path, output_pack_path string) error {
+	stitch := "Travelnet"
+	craft_path := "block"
+	clonia_path := "travelnet"
+
 	in_path := input_pack_path + data.CraftPaths["block"]
 	out_path := output_pack_path + "/" + data.CloniaPaths["travelnet"]
 	var block string
 
-	p_open_err := func(block string) error {
-		return fmt.Errorf("%v failed to open.", block)
-	}
-
 	block = "lodestone_side.png"
 	lodestone_side, err := imaging.Open(in_path + block)
 	if err != nil {
-		return p_open_err(block)
+		return openErrMsg(stitch, craft_path, block)
 	}
 
 	block = "lodestone_top.png"
 	lodestone_top, err := imaging.Open(in_path + block)
 	if err != nil {
-		return p_open_err(block)
+		return openErrMsg(stitch, craft_path, block)
 	}
 
 	block = "glass.png"
 	glass, err := imaging.Open(in_path + block)
 	if err != nil {
-		return p_open_err(block)
+		return openErrMsg(stitch, craft_path, block)
 	}
 	glass_scale := glass.Bounds().Dx() / 16
 	edgeless_glass_crop := imaging.CropCenter(glass, glass_scale*12, glass_scale*12)
@@ -46,90 +45,86 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 	block = "white_wool.png"
 	carpet, err := imaging.Open(in_path + block)
 	if err != nil {
-		return p_open_err(block)
+		return openErrMsg(stitch, craft_path, block)
 	}
 
 	block = "orange_wool.png"
 	elevator_carpet, err := imaging.Open(in_path + block)
 	if err != nil {
-		return p_open_err(block)
+		return openErrMsg(stitch, craft_path, block)
 	}
 
 	//
 
-	p_save_err := func(block string) error {
-		return fmt.Errorf("%v failed to save.", block)
-	}
-
 	block = "travelnet_travelnet_front_color.png"
 	if err := imaging.Save(TravelnetFrontColor(lodestone_side, lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_front.png"
 	if err := imaging.Save(TravelnetFront(), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_side.png"
 	if err := imaging.Save(TravelnetSide(edgeless_glass, edgeless_glass), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_side_color.png"
 	if err := imaging.Save(TravelnetSideColor(lodestone_side, lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_bottom.png"
 	if err := imaging.Save(TravelnetBottom(carpet), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_top.png"
 	if err := imaging.Save(TravelnetTop(lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_back.png"
 	if err := imaging.Save(TravelnetBack(), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_back_color.png"
 	if err := imaging.Save(TravelnetBackColor(lodestone_side, lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_door_glass.png"
 	if err := imaging.Save(TravelnetGlassDoor(glass), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	// Elevator Time
 	block = "travelnet_elevator_front.png"
 	if err := imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_floor.png"
 	if err := imaging.Save(TravelnetBottom(elevator_carpet), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_controls.png"
 	if err := imaging.Save(ElevatorFront(lodestone_side, lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_sides_outside.png"
 	if err := imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_ceiling.png"
 	if err := imaging.Save(TravelnetBottom(lodestone_top), out_path+block); err != nil {
-		return p_save_err(block)
+		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	return nil
