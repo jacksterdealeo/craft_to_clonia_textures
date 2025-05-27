@@ -20,6 +20,9 @@ var CraftPaths = map[string]string{
 	"particle":    "/assets/minecraft/textures/particle/",
 	"projectiles": "/assets/minecraft/textures/entity/projectiles/",
 	"signs":       "/assets/minecraft/textures/entity/signs/",
+
+	"humanoid":          "/assets/minecraft/textures/entity/equipment/humanoid/",
+	"humanoid_leggings": "/assets/minecraft/textures/entity/equipment/humanoid_leggings/",
 	// -- SPECIAL
 	"entity>equipment>humanoid":          "/assets/minecraft/textures/entity/equipment/humanoid/",
 	"llama_body":                         "/assets/minecraft/textures/entity/equipment/llama_body/",

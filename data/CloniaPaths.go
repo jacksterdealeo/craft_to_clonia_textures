@@ -47,6 +47,7 @@ var CloniaPaths = map[string]string{
 	"buckets":           "/ITEMS/mcl_buckets/",
 	"cake":              "/ITEMS/mcl_cake/",
 	"campfires":         "/ITEMS/mcl_campfires/",
+	"candles":           "/ITEMS/mcl_candles/",
 	"cartography_table": "/ITEMS/mcl_cartography_table/",
 
 	"cauldrons":      "/ITEMS/mcl_cauldrons/",

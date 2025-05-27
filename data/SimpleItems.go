@@ -463,6 +463,27 @@ var SimpleItems = [...]SimpleConversion{
 	// {"block", "soul_campfire_fire.png", "campfires", "mcl_campfires_soul_campfire_fire.png", -1},
 	{"item", "soul_campfire.png", "campfires", "mcl_campfires_soul_campfire_inv.png", 1},
 	// {"block", ".png", "campfires", "mcl_campfires_soul_campfire_log_lit.png", 1},
+	// -- mcl_candles
+	//{"block", "candle.png", "candles", "mcl_candles_candle.png", 1},  // special case
+	//{"", ".png", "candles", "mcl_candles_flames.png", -1},  // special case
+	{"item", "candle.png", "candles", "mcl_candles_item.png", 1},
+	{"item", "black_candle.png", "candles", "mcl_candles_item_black.png", 1},
+	{"item", "blue_candle.png", "candles", "mcl_candles_item_blue.png", 1},
+	{"item", "brown_candle.png", "candles", "mcl_candles_item_brown.png", 1},
+	{"item", "cyan_candle.png", "candles", "mcl_candles_item_cyan.png", 1},
+	{"item", "green_candle.png", "candles", "mcl_candles_item_green.png", 1},
+	{"item", "gray_candle.png", "candles", "mcl_candles_item_grey.png", 1},
+	{"item", "light_blue_candle.png", "candles", "mcl_candles_item_light_blue.png", 1},
+	{"item", "lime_candle.png", "candles", "mcl_candles_item_lime.png", 1},
+	{"item", "magenta_candle.png", "candles", "mcl_candles_item_magenta.png", 1},
+	{"item", "orange_candle.png", "candles", "mcl_candles_item_orange.png", 1},
+	{"item", "pink_candle.png", "candles", "mcl_candles_item_pink.png", 1},
+	{"item", "purple_candle.png", "candles", "mcl_candles_item_purple.png", 1},
+	{"item", "red_candle.png", "candles", "mcl_candles_item_red.png", 1},
+	{"item", "light_gray_candle.png", "candles", "mcl_candles_item_silver.png", 1},
+	{"item", "white_candle.png", "candles", "mcl_candles_item_white.png", 1},
+	{"item", "yellow_candle.png", "candles", "mcl_candles_item_yellow.png", 1},
+	//{"item", ".png", "candles", "mcl_candles_palette.png", 0},  // special case
 	// -- mcl_cartography_table
 	{"block", "cartography_table_side1.png", "cartography_table", "cartography_table_side1.png", 1},
 	{"block", "cartography_table_side2.png", "cartography_table", "cartography_table_side2.png", 1},
@@ -1370,6 +1391,8 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "pink_tulip.png", "flowers", "mcl_flowers_tulip_pink.png", 1},
 	{"block", "red_tulip.png", "flowers", "mcl_flowers_tulip_red.png", 1},
 	{"block", "white_tulip.png", "flowers", "mcl_flowers_tulip_white.png", 1},
+	{"block", "wildflowers.png", "flowers", "mcl_flowers_wildflower.png", 1},
+	//{"block", "wildflowers_stem.png", "flowers", "mcl_flowers_wildflower_stem.png", 1},  // special case
 	{"block", "wither_rose.png", "flowers", "mcl_flowers_wither_rose.png", 1},
 	// -- mcl_furnaces
 	{"block", "furnace_top.png", "furnaces", "default_furnace_bottom.png", 1}, //Minecraft does not have this texture.
@@ -1852,7 +1875,6 @@ var SimpleItems = [...]SimpleConversion{
 	// {"item", ".png", "powder_snow", "freezing_3.png", 1},
 	// {"", ".png", "powder_snow", "frozen_heart.png", 1},
 	{"block", "powder_snow.png", "powder_snow", "powder_snow.png", 1},
-
 	// -- mcl_raw_ores
 	{"item", "raw_gold.png", "raw_ores", "mcl_raw_ores_raw_gold.png", 1},
 	{"block", "raw_gold_block.png", "raw_ores", "mcl_raw_ores_raw_gold_block.png", 1},
@@ -1862,6 +1884,7 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "sculk_catalyst_bottom.png", "sculk", "mcl_sculk_catalyst_bottom.png", 1},
 	{"block", "sculk_catalyst_side.png", "sculk", "mcl_sculk_catalyst_side.png", 1},
 	{"block", "sculk_catalyst_top.png", "sculk", "mcl_sculk_catalyst_top.png", 1},
+	{"item", "echo_shard.png", "sculk", "mcl_sculk_echo_shard.png", 1},
 	{"block", "sculk_catalyst_top_bloom.png", "sculk", "mcl_sculk_sculk.png", -1},
 	{"block", "sculk_sensor_bottom.png", "sculk", "mcl_sculk_sensor_bottom.png", 1},
 	{"block", "sculk_sensor_side.png", "sculk", "mcl_sculk_sensor_side.png", 1},
