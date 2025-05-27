@@ -6,6 +6,7 @@ var EveryStitch = [...]func(string, string) error{
 	RWFlowerPot,
 	RWLava,
 	RWPig,
+	RWSigns,
 	RWWater,
 
 	RWTravelnet,

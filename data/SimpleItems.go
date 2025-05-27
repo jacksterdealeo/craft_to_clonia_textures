@@ -1393,7 +1393,9 @@ var SimpleItems = [...]SimpleConversion{
 	{"item", "hopper.png", "hopper", "mcl_hoppers_item.png", 1},
 	// -- mcl_itemframes
 	{"block", "glow_item_frame.png", "itemframes", "mcl_itemframes_glow_item_frame.png", 1},
+	{"block", "glow_item_frame.png", "itemframes", "mcl_itemframes_glow_item_frame_border.png", 1},
 	{"block", "item_frame.png", "itemframes", "mcl_itemframes_item_frame.png", 1},
+	{"block", "item_frame.png", "itemframes", "mcl_itemframes_itemframe_background.png", 1},
 	// -- mcl_jukebox
 	{"item", "music_disc_11.png", "jukebox", "mcl_jukebox_record_11.png", 1},
 	{"item", "music_disc_13.png", "jukebox", "mcl_jukebox_record_13.png", 1},

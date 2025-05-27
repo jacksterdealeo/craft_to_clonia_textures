@@ -111,6 +111,7 @@ var CloniaPaths = map[string]string{
 
 	"sculk":          "/ITEMS/mcl_sculk/",
 	"shields":        "/ITEMS/mcl_shields/",
+	"signs":          "/ITEMS/mcl_signs/",
 	"sponges":        "/ITEMS/mcl_sponges/",
 	"spyglass":       "/ITEMS/mcl_spyglass/",
 	"smithing_table": "/ITEMS/mcl_smithing_table/",
