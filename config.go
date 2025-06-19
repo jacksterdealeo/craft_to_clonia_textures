@@ -39,7 +39,7 @@ func loadJsonConfig() (*config, error) {
 			Config.InputDir =
 				userHomeDir + "/.minecraft/resourcepacks/"
 			Config.OutputDir =
-				userHomeDir + "/.var/app/net.minetest.Minetest/.minetest/textures/"
+				userHomeDir + "/.var/app/org.luanti.luanti/.minetest/textures/"
 		}
 
 		configData, err := json.MarshalIndent(Config, "", "")
