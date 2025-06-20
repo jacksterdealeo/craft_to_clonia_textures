@@ -3,8 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"image"
-	"image/color"
 	"io/fs"
 	"log"
 	"os"
@@ -48,22 +46,6 @@ func convertPackClonia(inName string, outName string) {
 	for _, e := range data.CloniaPaths {
 		if err := os.MkdirAll(outputPackLocation+e, 0755); err != nil {
 			log.Panic(err)
-		}
-	}
-
-	if src, err := imaging.Open(inputPackLocation + "/pack.png"); err != nil {
-		fmt.Println("Pack icon error~")
-	} else {
-		background := imaging.Fill(src, 350, 233, imaging.Center, imaging.Lanczos)
-		background = imaging.Blur(background, 10)
-		foreground := imaging.Resize(src, 233, 0, imaging.Lanczos)
-
-		dst := imaging.New(350, 233, color.NRGBA{0, 0, 0, 0})
-		dst = imaging.Paste(dst, background, image.Pt(0, 0))
-		dst = imaging.OverlayCenter(dst, foreground, 1.0)
-		err = imaging.Save(dst, outputPackLocation+"/screenshot.png")
-		if err != nil {
-			fmt.Println("Failed to export the pack screenshot/icon!\n", err)
 		}
 	}
 
