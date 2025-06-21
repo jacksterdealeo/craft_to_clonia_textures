@@ -3,27 +3,17 @@ package main
 import (
 	"errors"
 	"fmt"
-	"image"
-	"image/color"
 	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
-
-	imaging "github.com/disintegration/imaging"
-)
-
-const (
-	minetest_game = iota
-	mineclonia
 )
 
 var (
 	now      = time.Now().Format("01-02-2006 15:04:05")
 	nowShort = time.Now().Format("2Jan06")
-	version  = "Pre-release"
 )
 
 type readWriteError struct {
@@ -46,6 +36,25 @@ func main() {
 
 	if !Config.DefinedInput {
 		Config.InputDir = "./input/"
+		if fs.ValidPath("input") {
+			err := os.Mkdir("input", 0755)
+			if err != nil {
+				if errors.Is(err, fs.ErrPermission) {
+					log.Panicf("Permission was denied. %s was not made.\n", "input")
+				} else if errors.Is(err, fs.ErrExist) {
+					fmt.Printf("Folder %s already exists.\n", "input")
+				} else {
+					fmt.Printf("How.\n")
+					log.Panic(err)
+				}
+			} else {
+				fmt.Println("Made the input folder!")
+			}
+		}
+	}
+
+	if !Config.DefinedOutput {
+		Config.OutputDir = "./output/"
 		if fs.ValidPath("output") {
 			if err := os.Mkdir("output", 0755); err != nil {
 				if errors.Is(err, fs.ErrPermission) {
@@ -58,24 +67,6 @@ func main() {
 				}
 			} else {
 				fmt.Println("Made the output folder!")
-			}
-		}
-	}
-
-	if !Config.DefinedOutput {
-		Config.OutputDir = "./output/"
-		if fs.ValidPath("input") {
-			if err := os.Mkdir("input", 0755); err != nil {
-				if errors.Is(err, fs.ErrPermission) {
-					log.Panicf("Permission was denied. %s was not made.\n", "input")
-				} else if errors.Is(err, fs.ErrExist) {
-					fmt.Printf("Folder %s already exists.\n", "input")
-				} else {
-					fmt.Printf("How.\n")
-					log.Panic(err)
-				}
-			} else {
-				fmt.Println("Made the input folder!")
 			}
 		}
 	}
@@ -147,69 +138,6 @@ func main() {
 			fmt.Print("Done!\n\n")
 		}
 	}
-}
-
-// Copies over a texture file with no changes.
-func copyTexture(src string, dest string) error {
-	img, err := imaging.Open(src)
-	if err != nil {
-		return fmt.Errorf("Could not open!")
-	}
-	imgX := img.Bounds().Dx()
-	imgY := img.Bounds().Dy()
-
-	outImg := imaging.New(imgX, imgY, color.NRGBA{0, 0, 0, 0})
-	outImg = imaging.Overlay(outImg, img, image.Point{0, 0}, 1.0)
-
-	if err = imaging.Save(outImg, dest); err != nil {
-		fmt.Println(src, "save failed!", err.Error())
-		return fmt.Errorf("Could not save!")
-	}
-	return nil
-}
-
-// Copies over a texture file with animation frames intact.
-// Set framesAllowed to less than 1 to copy the texture with all the frames.
-func copyTextureAnimated(src string, dest string, framesAllowed int) error {
-	img, err := imaging.Open(src)
-	if err != nil {
-		return fmt.Errorf("Could not open!")
-	}
-	imgX := img.Bounds().Dx()
-	imgY := img.Bounds().Dy()
-	maxNumOfFrames := imgY / imgX
-	if maxNumOfFrames == 0 { // some 32x31 textures were causing problems.
-		maxNumOfFrames = 1
-	}
-	if framesAllowed < maxNumOfFrames && framesAllowed >= 1 {
-		maxNumOfFrames = framesAllowed
-	}
-	frames, err := McmetaReader(src)
-	if err != nil || len(frames) == 0 {
-		for i := range maxNumOfFrames {
-			frames = append(frames, i)
-		}
-	}
-	var outImgNumberOfFrames int
-	if framesAllowed < 1 || framesAllowed > len(frames) {
-		if len(frames) != 0 {
-			outImgNumberOfFrames = len(frames)
-		} else {
-			outImgNumberOfFrames = maxNumOfFrames
-		}
-	} else {
-		outImgNumberOfFrames = framesAllowed
-	}
-	outImg := imaging.New(imgX, imgX*outImgNumberOfFrames, color.NRGBA{0, 0, 0, 0})
-	for i, e := range frames {
-		frame := imaging.Crop(img, image.Rectangle{image.Point{0, e * imgX}, image.Point{imgX, (e * imgX) + imgX}})
-		outImg = imaging.Overlay(outImg, frame, image.Point{0, i * imgX}, 1.0)
-	}
-	if err = imaging.Save(outImg, dest); err != nil {
-		fmt.Println(src, "save failed!", err.Error())
-		return fmt.Errorf("Could not save!")
-	}
-	return nil
 }
 
 func FileNameWithoutExt(fileName string) string {
