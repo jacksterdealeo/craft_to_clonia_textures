@@ -26,7 +26,16 @@ func (e *readWriteError) Error() string {
 }
 
 func main() {
-	fmt.Printf("Minecraft to Mineclonia Texture Pack Converter v%s\n\n", version)
+	fmt.Printf("\x1b[0m"+
+		`⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⠀⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⠀⠀⠀
+⠀⣾⠋⠙⠇⢠⣤⣤⣤⠀⣤⣤⡄⢀⣀⣿⣉⠁⣤⣿⣤⡄⠀⠀⠀⠀⢠⣼⣧⣤⠀⣠⣤⣄⠀⠀⠀⠀⠀⣸⠏⠉⠷⠀⢸⡇⠀⠀⣠⣦⣤⠀⢠⣠⣤⡄⢀⣈⣏⠀⢀⣤⣤⣄⠀
+⠸⣯⠀⠀⠀⠀⣿⠁⠁⢀⣵⠾⣿⠈⠉⣿⠉⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠠⣟⡀⢹⡇⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⡇⠀⠀⣿⠀⢹⡇⢸⠉⢸⡇⠘⠉⣿⠀⠈⣥⠶⣿⠀
+⠀⢿⣦⣤⡦⣤⣿⣤⡄⠸⣧⣴⣿⠀⠀⣿⡀⠀⠀⢿⣤⡄⠀⠀⠀⠀⠀⠸⣧⣤⠀⢿⣥⣾⠃⠀⠀⠀⠀⠸⣧⣤⣶⠀⠸⣧⣤⠀⢿⣤⣼⠃⢸⠀⢸⡇⢠⣴⣿⣤⠘⣧⣤⣿⡄
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀
+Minecraft to Mineclonia Texture Pack Converter
+	Version: %s
+	Using Minecraft Pack Version: %s`, version, mc_version)
+	fmt.Print("\n\n")
 
 	if config, err := loadJsonConfig(); err != nil {
 		fmt.Println(err)
