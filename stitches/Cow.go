@@ -56,7 +56,7 @@ func CommonCow(inCow image.Image) image.Image {
 	dst = imaging.Paste(dst, inCow, image.Pt(0, 0))
 
 	cow_nose := imaging.Crop(inCow, image.Rect(2*scale, 34*scale, 8*scale, 37*scale))
-	dst = imaging.Paste(dst, cow_nose, image.Pt(7*scale, 11*scale))
+	dst = imaging.Overlay(dst, cow_nose, image.Pt(7*scale, 11*scale), 1.0)
 
 	return dst
 }
