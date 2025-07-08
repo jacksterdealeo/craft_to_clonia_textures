@@ -83,19 +83,19 @@ func RWLeatherArmor(input_pack_path, output_pack_path string) error {
 	}
 
 	if err := imaging.Save(normal.Leggings, out_path+out_leggings_name); err != nil {
-		return saveErrMsg(stitch, "armor", out_chestplate_desat_name)
+		return saveErrMsg(stitch, "armor", out_leggings_name)
 	}
 
 	if err := imaging.Save(desat.Leggings, out_path+out_leggings_desat_name); err != nil {
-		return saveErrMsg(stitch, "armor", out_chestplate_desat_name)
+		return saveErrMsg(stitch, "armor", out_leggings_desat_name)
 	}
 
 	if err := imaging.Save(normal.Boots, out_path+out_boots_name); err != nil {
-		return saveErrMsg(stitch, "armor", out_chestplate_desat_name)
+		return saveErrMsg(stitch, "armor", out_boots_name)
 	}
 
 	if err := imaging.Save(desat.Boots, out_path+out_boots_desat_name); err != nil {
-		return saveErrMsg(stitch, "armor", out_chestplate_desat_name)
+		return saveErrMsg(stitch, "armor", out_boots_desat_name)
 	}
 
 	// items
@@ -187,8 +187,7 @@ func RWLeatherArmor(input_pack_path, output_pack_path string) error {
 }
 
 func LeatherArmorItem(mc_texture, mc_overlay image.Image) (normal, desat image.Image) {
-	dst := imaging.New(mc_texture.Bounds().Dx(), mc_texture.Bounds().Dy(), color.Transparent)
-	dst = imaging.Paste(dst, mc_texture, image.Pt(0, 0))
+	dst := imaging.Clone(mc_texture)
 	dst = imaging.Overlay(dst, mc_overlay, image.Pt(0, 0), 1.0)
 
 	desat = dst
@@ -247,8 +246,6 @@ func LeatherArmorWorn(mc_set, mc_overlay data.MCArmorSet, filter imaging.Resampl
 
 	boots_out = imaging.Overlay(boots_out, boots_overlay_out, image.Pt(0, 0), 1.0)
 
-	//
-
 	leggings := mc_set.Leggings
 	leggings = makeScaled(leggings)
 	leggings_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
@@ -261,8 +258,6 @@ func LeatherArmorWorn(mc_set, mc_overlay data.MCArmorSet, filter imaging.Resampl
 	leggings_overlay_out = imaging.Paste(leggings_overlay_out, leggings_overlay, image.Pt(0, 0))
 
 	leggings_out = imaging.Overlay(leggings_out, leggings_overlay_out, image.Pt(0, 0), 1.0)
-
-	//
 
 	desat.Helmet = helmet_out
 	desat.Chestplate = chestplate_out

@@ -12,6 +12,7 @@ var CraftPaths = map[string]string{
 	"bed":         "/assets/minecraft/textures/entity/bed/",
 	"block":       "/assets/minecraft/textures/block/",
 	"entity":      "/assets/minecraft/textures/entity/",
+	"environment": "/assets/minecraft/textures/environment/",
 	"gui":         "/assets/minecraft/textures/gui/",
 	"item":        "/assets/minecraft/textures/item/",
 	"map":         "/assets/minecraft/textures/map/",

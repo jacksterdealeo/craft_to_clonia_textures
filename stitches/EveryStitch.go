@@ -8,6 +8,7 @@ var EveryStitch = [...]func(string, string) error{
 	RWLeatherArmor,
 	RWPackIcon,
 	RWPig,
+	RWPotionIndicator,
 	RWSigns,
 	RWWater,
 

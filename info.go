@@ -1,6 +1,6 @@
 package main
 
 var (
-	version    = "28jun25"
-	mc_version = "1.21.5"
+	version    = "8july25"
+	mc_version = "1.21.7"
 )

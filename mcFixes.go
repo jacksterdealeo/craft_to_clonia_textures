@@ -443,6 +443,11 @@ func flip_fix(inName string, outName string) *readWriteError {
 
 func hud_fix(inPath string, outPath string) *readWriteError {
 	fails := []string{}
+
+	make_pink := func(c color.NRGBA) color.NRGBA {
+		return color.NRGBA{120, 40, 90, c.A}
+	}
+
 	func() { // health HUD
 		heartLocation := inPath + craftPaths["hud"]
 		heart, err := imaging.Open(heartLocation + "heart/full.png")
@@ -455,10 +460,21 @@ func hud_fix(inPath string, outPath string) *readWriteError {
 			fails = append(fails, "hud::heart/container.png failed to open!")
 			return
 		}
-		dst := imaging.Overlay(heartContainer, heart, image.Pt(0, 0), 1.0)
+		heartContainerRegen := imaging.AdjustFunc(heartContainer, make_pink)
+		dst := imaging.Overlay(heartContainerRegen, heart, image.Pt(0, 0), 1.0)
+		if err := imaging.Save(dst, outPath+cloniaPaths["potions"]+"hudbars_icon_regenerate.png"); err != nil {
+			fails = append(fails, "potions::hudbars_icon_regenerate.png failed to save!")
+		}
+
+		dst = imaging.Overlay(heartContainer, heart, image.Pt(0, 0), 1.0)
 		saveErr := imaging.Save(dst, outPath+cloniaPaths["hudbars"]+"hudbars_icon_health.png")
 		if saveErr != nil {
 			fails = append(fails, "hud::hudbars_icon_health.png failed to save!")
+			return
+		}
+		saveErr = imaging.Save(dst, outPath+cloniaPaths["hud_base_textures"]+"heart.png")
+		if saveErr != nil {
+			fails = append(fails, "hud_base_textures::heart.png failed to save!")
 			return
 		}
 
@@ -484,6 +500,17 @@ func hud_fix(inPath string, outPath string) *readWriteError {
 			}
 		}
 
+		heartPoison, err := imaging.Open(heartLocation + "heart/poisoned_full.png")
+		if err != nil {
+			fails = append(fails, "hud::heart/poisoned_full.png failed to open!")
+		} else {
+			dst = imaging.Overlay(heartContainer, heartPoison, image.Pt(0, 0), 1.0)
+			saveErr = imaging.Save(dst, outPath+cloniaPaths["hunger"]+"hbhunger_icon_health_poison.png")
+			if saveErr != nil {
+				fails = append(fails, "hunger::hbhunger_icon_health_poison.png failed to save!")
+			}
+		}
+
 		heartFrozen, err := imaging.Open(heartLocation + "heart/frozen_full.png")
 		if err != nil {
 			fails = append(fails, "hud::heart/frozen_full.png failed to open!")
@@ -493,6 +520,16 @@ func hud_fix(inPath string, outPath string) *readWriteError {
 			if saveErr != nil {
 				fails = append(fails, "powder_snow::frozen_heart.png failed to save!")
 			}
+		}
+
+		dst = imaging.Overlay(heartContainerRegen, heartPoison, image.Pt(0, 0), 1.0)
+		if err := imaging.Save(dst, outPath+cloniaPaths["potions"]+"hbhunger_icon_regen_poison.png"); err != nil {
+			fails = append(fails, "potions::hbhunger_icon_regen_poison.png failed to save!")
+		}
+
+		dst = imaging.Overlay(heartContainerRegen, heartWither, image.Pt(0, 0), 1.0)
+		if err := imaging.Save(dst, outPath+cloniaPaths["potions"]+"mcl_potions_icon_regen_wither.png"); err != nil {
+			fails = append(fails, "potions::mcl_potions_icon_regen_wither.png failed to save!")
 		}
 
 	}()
@@ -508,9 +545,25 @@ func hud_fix(inPath string, outPath string) *readWriteError {
 			fails = append(fails, "hud::food_empty.png failed to open!")
 			return
 		}
+		hungerContainerPoison, err := imaging.Open(hungerLocation + "food_empty_hunger.png")
+		if err != nil {
+			fails = append(fails, "hud::food_empty.png failed to open!")
+			return
+		}
+		hungerFoodPoison, err := imaging.Open(hungerLocation + "food_full_hunger.png")
+		if err != nil {
+			fails = append(fails, "hud::food_empty.png failed to open!")
+			return
+		}
 		dst := imaging.Overlay(hungerContainer, hunger, image.Pt(0, 0), 1.0)
-		saveErr := imaging.Save(dst, outPath+cloniaPaths["hunger"]+"hbhunger_icon.png")
-		if saveErr != nil {
+		err = imaging.Save(dst, outPath+cloniaPaths["hunger"]+"hbhunger_icon.png")
+		if err != nil {
+			fails = append(fails, "hud::hbhunger_icon.png failed to save!")
+			return
+		}
+		dst = imaging.Overlay(hungerContainerPoison, hungerFoodPoison, image.Pt(0, 0), 1.0)
+		err = imaging.Save(dst, outPath+cloniaPaths["hunger"]+"mcl_hunger_icon_foodpoison.png")
+		if err != nil {
 			fails = append(fails, "hud::hbhunger_icon.png failed to save!")
 			return
 		}

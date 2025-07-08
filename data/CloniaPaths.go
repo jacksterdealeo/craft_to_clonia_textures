@@ -10,6 +10,7 @@ var CloniaPaths = map[string]string{
 	// -- HUD
 	"achievements": "/HUD/mcl_achievements/",
 	"craftguide":   "/HELP/mcl_craftguide/",
+	"criticals":    "/PLAYER/mcl_criticals/",
 	"doc":          "/HELP/doc/doc/",
 	"experience":   "/HUD/mcl_experience/",
 	"hbarmor":      "/HUD/mcl_hbarmor/",
@@ -95,6 +96,7 @@ var CloniaPaths = map[string]string{
 	"lush_caves":  "/ITEMS/mcl_lush_caves/",
 	"mangrove":    "/ITEMS/mcl_mangrove/",
 	"maps":        "/ITEMS/mcl_maps/",
+	"mobs":        "/ENTITIES/mcl_mobs/textures/",
 	"mobitems":    "/ITEMS/mcl_mobitems/",
 	"mobspawners": "/ITEMS/mcl_mobspawners/",
 
@@ -137,6 +139,14 @@ var CloniaPaths = map[string]string{
 
 	//"": "/ITEMS//",
 	"REDSTONE": "/ITEMS/REDSTONE/",
+
+	// -- ENVIRONMENT
+	"lightning":     "/ENVIRONMENT/mcl_lightning/textures/",
+	"moon":          "/ENVIRONMENT/mcl_moon/textures/",
+	"raids":         "/ENVIRONMENT/mcl_raids/textures/",
+	"void_damage":   "/ENVIRONMENT/mcl_void_damage/textures/",
+	"weather":       "/ENVIRONMENT/mcl_weather/textures/",
+	"zombie_sieges": "/ENVIRONMENT/mcl_zombie_sieges/textures/",
 
 	// mods
 	"copper_stuff":    "/modded/mcl_copper_stuff/",
