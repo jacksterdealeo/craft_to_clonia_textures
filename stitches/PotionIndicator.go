@@ -17,7 +17,7 @@ func RWPotionIndicator(input_pack_path, output_pack_path string) error {
 	effect_bg, err := imaging.Open(bg_in_path + bg_in_texture)
 	if err != nil {
 		effect_bg = imaging.New(24, 24, color.Transparent)
-		errors += fmt.Sprintln(openErrMsg(stitch, bg_in_path, bg_in_texture))
+		errors += fmt.Sprintln(openErrMsg(stitch, "hud", bg_in_texture))
 	}
 
 	for _, e := range data.SimpleMobEffect {

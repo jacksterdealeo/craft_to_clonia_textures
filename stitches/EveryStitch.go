@@ -2,6 +2,7 @@ package stitches
 
 var EveryStitch = [...]func(string, string) error{
 	RWAnvil,
+	RWCopperTools,
 	RWCow,
 	RWFlowerPot,
 	RWLava,

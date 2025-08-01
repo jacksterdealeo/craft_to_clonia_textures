@@ -655,38 +655,40 @@ func lava_fix(inPath string, outPath string) *readWriteError {
 func mods_fixes(inPath, outPack string) *readWriteError {
 	fails := []string{}
 	mod := "copper_stuff"
-	textures_for_copper := data.CopperStuffMod
+	/*
+		textures_for_copper := data.CopperStuffMod
 
-	for _, e := range textures_for_copper {
-		ironItem, err := imaging.Open(inPath + e.ReadPath())
-		if err != nil {
-			fails = append(fails, e.InTexture+" failed to open for mod", mod)
-		} else {
-			dst := imaging.New(ironItem.Bounds().Dx(), ironItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-			dst = imaging.Overlay(dst, ironItem, image.Point{0, 0}, 1.0)
-			dst = imaging.AdjustFunc(dst,
-				func(c color.NRGBA) color.NRGBA {
-					r := int(c.R)
-					g := int(c.G)
-					b := int(c.B)
+		for _, e := range textures_for_copper {
+			ironItem, err := imaging.Open(inPath + e.ReadPath())
+			if err != nil {
+				fails = append(fails, e.InTexture+" failed to open for mod", mod)
+			} else {
+				dst := imaging.New(ironItem.Bounds().Dx(), ironItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+				dst = imaging.Overlay(dst, ironItem, image.Point{0, 0}, 1.0)
+				dst = imaging.AdjustFunc(dst,
+					func(c color.NRGBA) color.NRGBA {
+						r := int(c.R)
+						g := int(c.G)
+						b := int(c.B)
 
-					if (r > g+20 || r < g-20) && (r > b+20 || r < b-20) {
-						return c
-					}
+						if (r > g+20 || r < g-20) && (r > b+20 || r < b-20) {
+							return c
+						}
 
-					g = (r * 55) / 100
-					b = (r * 46) / 100
+						g = (r * 55) / 100
+						b = (r * 46) / 100
 
-					return color.NRGBA{c.R, uint8(g), uint8(b), c.A}
-				})
-			if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
-				fails = append(fails, e.OutTexture+" failed to save!")
+						return color.NRGBA{c.R, uint8(g), uint8(b), c.A}
+					})
+				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+					fails = append(fails, e.OutTexture+" failed to save!")
+				}
 			}
 		}
-	}
+	*/
 
 	func() {
-		mod = "rose_gold_stuff"
+		mod := "rose_gold_stuff"
 		// They used diamond for the tools, netherite for the armor, and obviously, iron for the shears.
 
 		// Netherite is hard to consistantly make look good in pink. :(
