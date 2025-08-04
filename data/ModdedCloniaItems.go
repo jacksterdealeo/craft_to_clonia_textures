@@ -15,7 +15,7 @@ var (
 		{[2]SimpleTexture{{"item", "copper_shovel.png"}, {"item", "iron_shovel.png"}}, "copper_stuff", "mcl_copper_stuff_copper_shovel.png", 0},
 		{[2]SimpleTexture{{"item", "copper_sword.png"}, {"item", "iron_sword.png"}}, "copper_stuff", "mcl_copper_stuff_copper_sword.png", 0},
 
-		//{[2]SimpleTexture{{"item", "copper_shears.png"}, {"item", "shears.png"}}, "copper_stuff", "mcl_copper_stuff_copper_shears.png", 0},
+		{[2]SimpleTexture{{"item", "copper_shears_not_real_object_to_please_the_function_params.png"}, {"item", "shears.png"}}, "copper_stuff", "mcl_copper_stuff_copper_shears.png", 0},
 		{[2]SimpleTexture{{"item", "copper_nugget.png"}, {"item", "iron_nugget.png"}}, "copper_stuff", "mcl_copper_stuff_copper_nugget.png", 0},
 	}
 
