@@ -37,7 +37,7 @@ func RWPotionIndicator(input_pack_path, output_pack_path string) error {
 		}
 	}
 	if len(errors) != 0 {
-		return fmt.Errorf(errors)
+		return fmt.Errorf("%v", errors)
 	}
 	return nil
 }

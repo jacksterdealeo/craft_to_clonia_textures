@@ -2,6 +2,16 @@ package data
 
 import "image"
 
+type SimpleTexture struct {
+	Path    string
+	Texture string
+}
+
+// Returns the texture path appended with texture name.
+func (e *SimpleTexture) FullPath() string {
+	return CraftPaths[e.Path] + "/" + e.Texture
+}
+
 // Used for textures that could have animation data.
 type SimpleConversion struct {
 	InPath     string
@@ -19,6 +29,19 @@ func (e *SimpleConversion) ReadPath() string {
 
 // Returns the texture Mineclonia outPath appended with texture name.
 func (e *SimpleConversion) SavePath() string {
+	return CloniaPaths[e.OutPath] + "/" + e.OutTexture
+}
+
+type ConversionWithFallback struct {
+	In         [2]SimpleTexture
+	OutPath    string
+	OutTexture string
+
+	FramesAllowed int
+}
+
+// Returns the texture Mineclonia outPath appended with texture name.
+func (e *ConversionWithFallback) SavePath() string {
 	return CloniaPaths[e.OutPath] + "/" + e.OutTexture
 }
 

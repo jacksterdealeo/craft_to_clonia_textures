@@ -1,6 +1,7 @@
-<div align="center">
-    <h1 align="center">Craft to Clonia Textures</h1>
-</div>
+<h1 align="center">Craft to Clonia Textures</h1>
+
+## Thank You
+This project is over a year old, and it has been fun working on it. Thank you all for playing!
 
 ## Disclaimers
 - The "Minetest Game" is supported, but not the default target. You just need to enable it in the program's config file.
@@ -9,6 +10,7 @@
 Some things are not reasonably possible to transfer (like the brewing stand),
 and many things are just not added in yet.
 - If a pack has custom models for blocks, that can cause problems with the transfer.
+- The compatiblity rating is kinda a suggestion.
 
 ## Usage
 - Run the project once, and it'll create an input folder, an output folder, and a config file. The config file has options you may want to check before continuing.

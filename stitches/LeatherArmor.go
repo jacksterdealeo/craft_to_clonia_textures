@@ -231,7 +231,7 @@ func LeatherArmorWorn(mc_set, mc_overlay data.MCArmorSet, filter imaging.Resampl
 	chestplate_overlay_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
 	chestplate_overlay_out = imaging.Paste(chestplate_overlay_out, chestplate_overlay, image.Pt(16, 16))
 
-	chestplate_out = imaging.Overlay(chestplate_out, chestplate_overlay, image.Pt(0, 0), 1.0)
+	chestplate_out = imaging.Overlay(chestplate_out, chestplate_overlay_out, image.Pt(0, 0), 1.0)
 
 	boots := CropToScale(mc_set.MostParts, 0, 16, 16, 32, scale)
 	boots = makeScaled(boots)

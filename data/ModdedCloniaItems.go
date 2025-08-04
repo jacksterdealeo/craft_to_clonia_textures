@@ -2,18 +2,21 @@ package data
 
 var (
 	// Copper Stuff
-	CopperStuffMod = [...]SimpleConversion{
-		{"item", "iron_boots.png", "copper_stuff", "mcl_copper_stuff_inv_boots_copper.png", 1},
-		{"item", "iron_chestplate.png", "copper_stuff", "mcl_copper_stuff_inv_chestplate_copper.png", 1},
-		{"item", "iron_helmet.png", "copper_stuff", "mcl_copper_stuff_inv_helmet_copper.png", 1},
-		{"item", "iron_leggings.png", "copper_stuff", "mcl_copper_stuff_inv_leggings_copper.png", 1},
+	CopperStuffWithFallback = [...]ConversionWithFallback{
+		// copper_horse_armor.png
+		{[2]SimpleTexture{{"item", "copper_boots.png"}, {"item", "iron_boots.png"}}, "copper_stuff", "mcl_copper_stuff_inv_boots_copper.png", 0},
+		{[2]SimpleTexture{{"item", "copper_chestplate.png"}, {"item", "iron_chestplate.png"}}, "copper_stuff", "mcl_copper_stuff_inv_chestplate_copper.png", 0},
+		{[2]SimpleTexture{{"item", "copper_helmet.png"}, {"item", "iron_helmet.png"}}, "copper_stuff", "mcl_copper_stuff_inv_helmet_copper.png", 0},
+		{[2]SimpleTexture{{"item", "copper_leggings.png"}, {"item", "iron_leggings.png"}}, "copper_stuff", "mcl_copper_stuff_inv_leggings_copper.png", 0},
 
-		{"item", "shears.png", "copper_stuff", "mcl_copper_stuff_copper_shears.png", 1},
-		{"item", "iron_hoe.png", "copper_stuff", "mcl_copper_stuff_copper_hoe.png", 1},
-		{"item", "iron_axe.png", "copper_stuff", "mcl_copper_stuff_copper_axe.png", 1},
-		{"item", "iron_pickaxe.png", "copper_stuff", "mcl_copper_stuff_copper_pickaxe.png", 1},
-		{"item", "iron_shovel.png", "copper_stuff", "mcl_copper_stuff_copper_shovel.png", 1},
-		{"item", "iron_sword.png", "copper_stuff", "mcl_copper_stuff_copper_sword.png", 1},
+		{[2]SimpleTexture{{"item", "copper_hoe.png"}, {"item", "iron_hoe.png"}}, "copper_stuff", "mcl_copper_stuff_copper_hoe.png", 0},
+		{[2]SimpleTexture{{"item", "copper_axe.png"}, {"item", "iron_axe.png"}}, "copper_stuff", "mcl_copper_stuff_copper_axe.png", 0},
+		{[2]SimpleTexture{{"item", "copper_pickaxe.png"}, {"item", "iron_pickaxe.png"}}, "copper_stuff", "mcl_copper_stuff_copper_pickaxe.png", 0},
+		{[2]SimpleTexture{{"item", "copper_shovel.png"}, {"item", "iron_shovel.png"}}, "copper_stuff", "mcl_copper_stuff_copper_shovel.png", 0},
+		{[2]SimpleTexture{{"item", "copper_sword.png"}, {"item", "iron_sword.png"}}, "copper_stuff", "mcl_copper_stuff_copper_sword.png", 0},
+
+		//{[2]SimpleTexture{{"item", "copper_shears.png"}, {"item", "shears.png"}}, "copper_stuff", "mcl_copper_stuff_copper_shears.png", 0},
+		{[2]SimpleTexture{{"item", "copper_nugget.png"}, {"item", "iron_nugget.png"}}, "copper_stuff", "mcl_copper_stuff_copper_nugget.png", 0},
 	}
 
 	// Emerald Stuff
