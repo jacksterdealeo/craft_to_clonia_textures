@@ -4,6 +4,7 @@ var EveryStitch = [...]func(string, string) error{
 	RWAnvil,
 	RWCopperTools,
 	RWCow,
+	RWDoubleChests,
 	RWFlowerPot,
 	RWLava,
 	RWLeatherArmor,
@@ -11,6 +12,7 @@ var EveryStitch = [...]func(string, string) error{
 	RWPig,
 	RWPotionIndicator,
 	RWSigns,
+	RWSingleChests,
 	RWWater,
 
 	RWTravelnet,
