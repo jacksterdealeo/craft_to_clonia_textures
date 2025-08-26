@@ -13,4 +13,6 @@ echo "building Linux x32"
 GOOS=linux GOARCH=386 go build -trimpath -o bin/CTCloniaTextures-linux-386-$now .
 echo "building Linux x64"
 GOOS=linux GOARCH=amd64 go build -trimpath -o bin/CTCloniaTextures-linux-amd64-$now .
+echo "building Linux ARM"
+GOOS=linux GOARCH=arm64 go build -trimpath -o bin/CTCloniaTextures-linux-arm64-$now .
 echo "build tasks completed"
