@@ -1,6 +1,17 @@
 package data
 
 var (
+	// VoxeLibre specific objects:
+	VLDeepslate = [...]SimpleConversion{
+		{"item", "stone_hoe.png", "vl", "vl_deepslate_tools_deepslatehoe.png", 1},
+		{"item", "stone_axe.png", "vl", "vl_deepslate_tools_deepslateaxe.png", 1},
+		{"item", "stone_pickaxe.png", "vl", "vl_deepslate_tools_deepslatepick.png", 1},
+		{"item", "stone_shovel.png", "vl", "vl_deepslate_tools_deepslateshovel.png", 1},
+		{"item", "stone_sword.png", "vl", "vl_deepslate_tools_deepslatesword.png", 1},
+	}
+)
+
+var (
 	// Copper Stuff
 	CopperStuffWithFallback = [...]ConversionWithFallback{
 		// copper_horse_armor.png
