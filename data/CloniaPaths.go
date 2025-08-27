@@ -153,4 +153,8 @@ var CloniaPaths = map[string]string{
 	"emerald_stuff":   "/modded/mcl_emerald_stuff/",
 	"rose_gold_stuff": "/modded/mcl_rose_gold/",
 	"travelnet":       "/modded/travelnet/",
+
+	// VoxeLibre dumps almost their textures into one folder I guess.
+	"vl": "/vl/",
+	"compressed": "/vl/mcl_compressed_blocks/",
 }

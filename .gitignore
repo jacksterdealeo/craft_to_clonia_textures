@@ -23,6 +23,8 @@
 !/stitches
 !/mcmeta-handler
 
-!/data/vl-spears-and-hammers
+!/data/textures/
+!/data/textures/16/
+!/data/textures/16/*.png
 
 # !Makefile

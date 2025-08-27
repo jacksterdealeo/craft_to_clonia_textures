@@ -5,6 +5,7 @@ var EveryStitch = [...]func(string, string) error{
 	RWCopperTools,
 	RWCow,
 	RWDoubleChests,
+	RWEmbedded,
 	RWFlowerPot,
 	RWLava,
 	RWLeatherArmor,
