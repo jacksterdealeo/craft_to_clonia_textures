@@ -11,6 +11,7 @@
 !/.gitignore
 
 !*.go
+!*.png
 !go.sum
 !go.mod
 
@@ -21,5 +22,7 @@
 !/data
 !/stitches
 !/mcmeta-handler
+
+!/data/vl-spears-and-hammers
 
 # !Makefile
