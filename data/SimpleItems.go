@@ -1869,7 +1869,7 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "sculk_catalyst_side.png", "sculk", "mcl_sculk_catalyst_side.png", 1},
 	{"block", "sculk_catalyst_top.png", "sculk", "mcl_sculk_catalyst_top.png", 1},
 	{"item", "echo_shard.png", "sculk", "mcl_sculk_echo_shard.png", 1},
-	{"block", "sculk_catalyst_top_bloom.png", "sculk", "mcl_sculk_sculk.png", -1},
+	{"block", "sculk.png", "sculk", "mcl_sculk_sculk.png", -1},
 	{"block", "sculk_sensor_bottom.png", "sculk", "mcl_sculk_sensor_bottom.png", 1},
 	{"block", "sculk_sensor_side.png", "sculk", "mcl_sculk_sensor_side.png", 1},
 	{"block", "sculk_sensor_top.png", "sculk", "mcl_sculk_sensor_top.png", 1},

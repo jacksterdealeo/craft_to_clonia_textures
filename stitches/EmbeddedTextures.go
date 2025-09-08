@@ -10,7 +10,7 @@ import (
 func RWEmbedded(input_pack_path, output_pack_path string) error {
 	stitch := "RWEmbedded"
 	// craft_path := "whoKnows"
-	clonia_path := "vl"
+	clonia_path := "embedded"
 
 	out_path := output_pack_path + data.CloniaPaths[clonia_path]
 

@@ -157,4 +157,5 @@ var CloniaPaths = map[string]string{
 	// VoxeLibre dumps almost their textures into one folder I guess.
 	"vl": "/vl/",
 	"compressed": "/vl/mcl_compressed_blocks/",
+	"embedded": "/embedded/",
 }
