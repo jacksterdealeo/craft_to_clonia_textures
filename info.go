@@ -1,6 +1,6 @@
 package main
 
 var (
-	version    string // set with a build flag
+	version = "unspecified" // set with a build flag, normally
 	mc_version = "1.21.7"
 )
