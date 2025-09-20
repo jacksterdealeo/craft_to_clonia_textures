@@ -42,4 +42,14 @@ var VoxeLibreSpecific = [...]SimpleConversion{
 	{"item", "blaze_powder.png", "vl", "vl_mobitems_flaming_powder.png", 1},
 	{"item", "name_tag.png", "vl", "mobs_nametag.png", 1},
 	{"item", "glow_ink_sac.png", "vl", "mcl_mobitems_glow_ink_sac.png", 1},
+
+	{"item", "cherry_boat.png", "boats", "mcl_boats_cherry_boat.png", 1},
+	{"item", "cherry_chest_boat.png", "boats", "mcl_boats_cherry_chest_boat.png", 1},
+	{"item", "bone_meal.png", "bone_meal", "mcl_bone_meal.png", 1},
+	{"item", "firework_rocket.png", "fireworks", "vl_fireworks_rocket.png", 1},
+
+	{"block", "cartography_table_side1.png", "cartography_table", "mcl_cartography_table_side1.png", 1},
+	{"block", "cartography_table_side2.png", "cartography_table", "mcl_cartography_table_side2.png", 1},
+	{"block", "cartography_table_side3.png", "cartography_table", "mcl_cartography_table_side3.png", 1},
+	{"block", "cartography_table_top.png", "cartography_table", "mcl_cartography_table_top.png", 1},
 }
