@@ -1,8 +1,7 @@
 package stitches
 
-var EveryStitch = [...]func(string, string) error{
+var UniversalStitches = [...]func(string, string) error {
 	RWAnvil,
-	RWCopperTools,
 	RWCow,
 	RWDeepslateTools,
 	RWDoubleChests,
@@ -19,5 +18,12 @@ var EveryStitch = [...]func(string, string) error{
 	RWSingleChests,
 	RWWater,
 
+	// Assumed Mods
+	RWCopperTools,
 	RWTravelnet,
 }
+
+var CloniaStitches = [...]func(string, string) error {
+	RWCloniaFlipFixes,
+}
+

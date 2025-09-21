@@ -114,7 +114,7 @@ func convertPackClonia(inName string, outName string) {
 		crack_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["hud_base_textures"]),
 		do_fixes(inputPackLocation, outputPackLocation),
 		//double_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
-		flip_fix(inputPackLocation, outputPackLocation),
+		//flip_fix(inputPackLocation, outputPackLocation),
 		//flowerpot_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["flowerpots"]),
 		hud_fix(inputPackLocation, outputPackLocation),
 		//lava_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),

@@ -24,7 +24,6 @@ func saveErrMsg(stitch, dir, file string) error {
 }
 
 // Returns a formatted error for multiple files.
-// Untested!!! Please check empty pack!!!
 func multiErrMsg(stitch string, readDirsAndFiles [][2]string, writeDirsAndFiles [][2]string) error {
 	var msg []string
 	for _, e := range readDirsAndFiles {
@@ -36,7 +35,7 @@ func multiErrMsg(stitch string, readDirsAndFiles [][2]string, writeDirsAndFiles 
 	if len(msg) == 0 {
 		return nil
 	}
-	return fmt.Errorf(strings.Join(msg, "\n"))
+	return fmt.Errorf(strings.Join(msg, ""))
 }
 
 func flipHV(img image.Image) *image.NRGBA {

@@ -219,6 +219,7 @@ func crack_fix(inPath string, outPath string) *readWriteError {
 	return nil
 }
 
+/*
 func flip_fix(inName string, outName string) *readWriteError {
 	fails := []string{}
 	flips := [...][4]string{
@@ -268,6 +269,7 @@ func flip_fix(inName string, outName string) *readWriteError {
 		return nil
 	}
 }
+*/
 
 func hud_fix(inPath string, outPath string) *readWriteError {
 	fails := []string{}
