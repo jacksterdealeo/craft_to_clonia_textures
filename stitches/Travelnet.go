@@ -8,6 +8,22 @@ import (
 	imaging "github.com/disintegration/imaging"
 )
 
+type Travelnet_t struct {
+	Front_Color *image.NRGBA
+	Front *image.NRGBA
+	Side_Color *image.NRGBA
+	Side *image.NRGBA
+	Bottom *image.NRGBA
+	Top *image.NRGBA
+	Back_Color *image.NRGBA
+	Back *image.NRGBA
+
+	// 64x64 are the OG item textures
+	// We should use 128x128
+	Inv_Base *image.NRGBA
+	Inv_Color *image.NRGBA
+}
+
 func RWTravelnet(input_pack_path, output_pack_path string) error {
 	stitch := "Travelnet"
 	craft_path := "block"
@@ -54,83 +70,124 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 		return openErrMsg(stitch, craft_path, block)
 	}
 
-	//
+	Travelnet := Travelnet_t{}
+
+	Travelnet.Front_Color = TravelnetFrontColor(lodestone_side, lodestone_top)
+	Travelnet.Front = TravelnetFront()
+	Travelnet.Side_Color = TravelnetSideColor(lodestone_side, lodestone_top)
+	Travelnet.Side = TravelnetSide(edgeless_glass, edgeless_glass)
+
+	Travelnet.Bottom = TravelnetBottom(carpet)
+	Travelnet.Top = TravelnetTop(lodestone_top)
+	Travelnet.Back_Color = TravelnetBackColor(lodestone_side, lodestone_top)
+	Travelnet.Back = TravelnetBack()
+
+	Travelnet.Inv_Base, Travelnet.Inv_Color = TravelnetInv(&Travelnet)
 
 	block = "travelnet_travelnet_front_color.png"
-	if err := imaging.Save(TravelnetFrontColor(lodestone_side, lodestone_top), out_path+block); err != nil {
+	err = imaging.Save(Travelnet.Front_Color, out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_front.png"
-	if err := imaging.Save(TravelnetFront(), out_path+block); err != nil {
-		return saveErrMsg(stitch, clonia_path, block)
-	}
-
-	block = "travelnet_travelnet_side.png"
-	if err := imaging.Save(TravelnetSide(edgeless_glass, edgeless_glass), out_path+block); err != nil {
+	err = imaging.Save(Travelnet.Front, out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_side_color.png"
-	if err := imaging.Save(TravelnetSideColor(lodestone_side, lodestone_top), out_path+block); err != nil {
+	err = imaging.Save(Travelnet.Side_Color, out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
+	block = "travelnet_travelnet_side.png"
+	err = imaging.Save(Travelnet.Side, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+
 	block = "travelnet_bottom.png"
-	if err := imaging.Save(TravelnetBottom(carpet), out_path+block); err != nil {
+	err = imaging.Save(Travelnet.Bottom, out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_top.png"
-	if err := imaging.Save(TravelnetTop(lodestone_top), out_path+block); err != nil {
-		return saveErrMsg(stitch, clonia_path, block)
-	}
-
-	block = "travelnet_travelnet_back.png"
-	if err := imaging.Save(TravelnetBack(), out_path+block); err != nil {
+	err = imaging.Save(Travelnet.Top, out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_back_color.png"
-	if err := imaging.Save(TravelnetBackColor(lodestone_side, lodestone_top), out_path+block); err != nil {
+	err = imaging.Save(Travelnet.Back_Color, out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
+	block = "travelnet_travelnet_back.png"
+	err = imaging.Save(Travelnet.Back, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+	block = "travelnet_inv_base.png"
+	err = imaging.Save(Travelnet.Inv_Base, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+	block = "travelnet_inv_colorable.png"
+	err = imaging.Save(Travelnet.Inv_Color, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+
+	// Door
 	block = "travelnet_elevator_door_glass.png"
-	if err := imaging.Save(TravelnetGlassDoor(glass), out_path+block); err != nil {
+	err = imaging.Save(TravelnetGlassDoor(glass), out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
-	// Elevator Time
+	// Elevator
 	block = "travelnet_elevator_front.png"
-	if err := imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block); err != nil {
+	err = imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_floor.png"
-	if err := imaging.Save(TravelnetBottom(elevator_carpet), out_path+block); err != nil {
+	err = imaging.Save(TravelnetBottom(elevator_carpet), out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_controls.png"
-	if err := imaging.Save(ElevatorFront(lodestone_side, lodestone_top), out_path+block); err != nil {
+	err = imaging.Save(ElevatorFront(lodestone_side, lodestone_top), out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_sides_outside.png"
-	if err := imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block); err != nil {
+	err = imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_ceiling.png"
-	if err := imaging.Save(TravelnetBottom(lodestone_top), out_path+block); err != nil {
+	err = imaging.Save(TravelnetBottom(lodestone_top), out_path+block)
+	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	return nil
 }
 
-func TravelnetFrontColor(top, bot image.Image) image.Image {
+func TravelnetFrontColor(top, bot image.Image) *image.NRGBA {
 	scale := top.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 32*scale, color.NRGBA{0, 0, 0, 0})
 
@@ -142,12 +199,12 @@ func TravelnetFrontColor(top, bot image.Image) image.Image {
 	return dst
 }
 
-func TravelnetFront() image.Image { // it's blank, lol
+func TravelnetFront() *image.NRGBA { // it's blank, lol
 	dst := imaging.New(16, 32, color.NRGBA{0, 0, 0, 0})
 	return dst
 }
 
-func TravelnetSide(top, bot image.Image) image.Image {
+func TravelnetSide(top, bot image.Image) *image.NRGBA {
 	scale := top.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 32*scale, color.NRGBA{0, 0, 0, 0})
 
@@ -157,7 +214,7 @@ func TravelnetSide(top, bot image.Image) image.Image {
 	return dst
 }
 
-func TravelnetSideColor(top, bot image.Image) image.Image {
+func TravelnetSideColor(top, bot image.Image) *image.NRGBA {
 	scale := top.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 32*scale, color.NRGBA{0, 0, 0, 0})
 
@@ -169,7 +226,7 @@ func TravelnetSideColor(top, bot image.Image) image.Image {
 	return dst
 }
 
-func TravelnetBottom(bot image.Image) image.Image {
+func TravelnetBottom(bot image.Image) *image.NRGBA {
 	scale := bot.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 16*scale, color.Transparent)
 
@@ -177,7 +234,7 @@ func TravelnetBottom(bot image.Image) image.Image {
 	return dst
 }
 
-func TravelnetTop(top image.Image) image.Image {
+func TravelnetTop(top image.Image) *image.NRGBA {
 	scale := top.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 16*scale, color.Transparent)
 
@@ -187,12 +244,12 @@ func TravelnetTop(top image.Image) image.Image {
 	return dst
 }
 
-func TravelnetBack() image.Image { // it's blank, lol
+func TravelnetBack() *image.NRGBA { // it's blank, lol
 	dst := imaging.New(16, 32, color.NRGBA{0, 0, 0, 0})
 	return dst
 }
 
-func TravelnetBackColor(top, bot image.Image) image.Image {
+func TravelnetBackColor(top, bot image.Image) *image.NRGBA {
 	scale := top.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 32*scale, color.NRGBA{0, 0, 0, 0})
 
@@ -204,7 +261,7 @@ func TravelnetBackColor(top, bot image.Image) image.Image {
 	return dst
 }
 
-func TravelnetGlassDoor(glass image.Image) image.Image {
+func TravelnetGlassDoor(glass image.Image) *image.NRGBA {
 	scale := glass.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 16*scale, color.Transparent)
 
@@ -217,7 +274,7 @@ func TravelnetGlassDoor(glass image.Image) image.Image {
 	return dst
 }
 
-func ElevatorFront(top, bot image.Image) image.Image {
+func ElevatorFront(top, bot image.Image) *image.NRGBA {
 	scale := top.Bounds().Dx() / 16
 	dst := imaging.New(16*scale, 32*scale, color.NRGBA{0, 0, 0, 0})
 
@@ -227,4 +284,101 @@ func ElevatorFront(top, bot image.Image) image.Image {
 	dst = imaging.Paste(dst, bot, image.Pt(0, 16*scale))
 
 	return dst
+}
+
+func TravelnetInv(travelnet *Travelnet_t) (*image.NRGBA, *image.NRGBA) {
+	dstSize := float64(64)
+	dst := imaging.New(int(dstSize), int(dstSize), color.NRGBA{0, 0, 0, 0})
+
+	// bot
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Bottom,
+		dstSize*0.27, dstSize*0.83,   dstSize*0.46, dstSize*0.69,
+		dstSize*0.58, dstSize*0.92,   dstSize*0.74, dstSize*0.76,
+	)
+
+	// back
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Back_Color,
+		dstSize*0.22, dstSize*0.11,   dstSize*0.46, dstSize*0.08,
+		dstSize*0.27, dstSize*0.85,   dstSize*0.46, dstSize*0.71,
+	)
+
+	// behind side
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Side_Color,
+		dstSize*0.46, dstSize*0.08,   dstSize*0.77, dstSize*0.10,
+		dstSize*0.46, dstSize*0.71,   dstSize*0.74, dstSize*0.78,
+	)
+
+	// front side
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Side_Color,
+		dstSize*0.22, dstSize*0.11,   dstSize*0.58, dstSize*0.14,
+		dstSize*0.27, dstSize*0.85,   dstSize*0.58, dstSize*0.94,
+	)
+
+	// top
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Top,
+		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
+		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+	)
+
+	travelnet.Inv_Base = imaging.Clone(dst)
+	base_net := dst
+
+	// Now, we make the color version. //
+	dst = imaging.New(int(dstSize), int(dstSize), color.NRGBA{0, 0, 0, 0})
+
+	// back
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Back_Color,
+		dstSize*0.22, dstSize*0.11,   dstSize*0.46, dstSize*0.08,
+		dstSize*0.27, dstSize*0.85,   dstSize*0.46, dstSize*0.71,
+	)
+
+	// behind side
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Side_Color,
+		dstSize*0.46, dstSize*0.08,   dstSize*0.77, dstSize*0.10,
+		dstSize*0.46, dstSize*0.71,   dstSize*0.74, dstSize*0.78,
+	)
+
+	// front side
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Side_Color,
+		dstSize*0.22, dstSize*0.11,   dstSize*0.58, dstSize*0.14,
+		dstSize*0.27, dstSize*0.85,   dstSize*0.58, dstSize*0.94,
+	)
+
+	/*
+	// top
+	// this should remove color from the top
+	// note: i did not. :(
+	dst = imaging.OverlayCenter(dst, imaging.AdjustBrightness(PerspectiveOverlay(
+		*imaging.New(dst.Rect.Dx(), dst.Rect.Dy(), color.Transparent),
+		*travelnet.Top,
+		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
+		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+	), -100), 1.0)
+	*/
+
+	// top
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Top,
+		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
+		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+	)
+
+	return base_net, dst
 }

@@ -1,8 +1,6 @@
 package stitches
 
 import (
-	"log"
-
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
@@ -16,7 +14,6 @@ func RWCloniaFlipFixes(inputPackPath string, outputPackPath string) error {
 
 	for _, e := range flips {
 		img, err := imaging.Open(inputPackPath + data.CraftPaths[e.InPath] + e.InTexture)
-		log.Println(data.CraftPaths[e.InPath]+e.InTexture)
 		if err != nil {
 			readFails = append(readFails, [2]string{e.InPath, e.InTexture})
 		} else {

@@ -3,9 +3,12 @@ package stitches
 import (
 	"fmt"
 	"image"
+	"image/color"
+	"math"
 	"strings"
 
-	imaging "github.com/disintegration/imaging"
+	"github.com/danibezoff/perspective-transform/perspective"
+	"github.com/disintegration/imaging"
 )
 
 var (
@@ -45,4 +48,35 @@ func flipHV(img image.Image) *image.NRGBA {
 func cropToScale(img image.Image, x1, y1, x2, y2, scale int) *image.NRGBA {
 	return imaging.Crop(img, image.Rectangle{
 		image.Point{x1 * scale, y1 * scale}, image.Point{x2 * scale, y2 * scale}})
+}
+
+func PerspectiveOverlay(
+	dst, src image.NRGBA, topLeftX, topLeftY, topRightX, topRightY,
+	botLeftX, botLeftY, botRightX, botRightY float64) (*image.NRGBA) {
+	
+	var result = imaging.New(dst.Rect.Dx(), dst.Rect.Dy(), color.Transparent)
+
+	var srcPoints = [8]float64{
+			0, 0, float64(src.Rect.Dx()), 0,
+			float64(src.Rect.Dx()), float64(src.Rect.Dy()), 0, float64(src.Rect.Dy()),
+	}
+
+	var dstPoints = [8]float64{
+			float64(topLeftX), float64(topLeftY),
+			float64(topRightX), float64(topRightY),
+			float64(botRightX), float64(botRightY),
+			float64(botLeftX), float64(botLeftY),
+	}
+
+	p := perspective.New(srcPoints, dstPoints)
+
+		for x := result.Bounds().Min.X; x < result.Bounds().Max.X; x++ {
+			for y := result.Bounds().Min.Y; y < result.Bounds().Max.Y; y++ {
+				srcX, srcY := p.TransformInv(float64(x), float64(y))
+				c := src.At(int(math.Round(srcX)), int(math.Round(srcY)))
+				result.Set(x, y, c)
+			}
+		}
+
+	return imaging.Overlay(&dst, result, image.Pt(0, 0), 1.0)
 }
