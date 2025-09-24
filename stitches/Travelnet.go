@@ -19,7 +19,6 @@ type Travelnet_t struct {
 	Back *image.NRGBA
 
 	// 64x64 are the OG item textures
-	// We should use 128x128
 	Inv_Base *image.NRGBA
 	Inv_Color *image.NRGBA
 }
@@ -82,8 +81,6 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 	Travelnet.Back_Color = TravelnetBackColor(lodestone_side, lodestone_top)
 	Travelnet.Back = TravelnetBack()
 
-	Travelnet.Inv_Base, Travelnet.Inv_Color = TravelnetInv(&Travelnet)
-
 	block = "travelnet_travelnet_front_color.png"
 	err = imaging.Save(Travelnet.Front_Color, out_path+block)
 	if err != nil {
@@ -133,6 +130,58 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
+
+
+	// Door
+	block = "travelnet_elevator_door_glass.png"
+	err = imaging.Save(TravelnetGlassDoor(glass), out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+	elevator := Travelnet_t{}
+
+	elevator.Front = ElevatorFront(lodestone_top, lodestone_top)
+	elevator.Bottom = TravelnetBottom(elevator_carpet)
+	elevator.Back = ElevatorFront(lodestone_side, lodestone_top) // Controls
+	elevator.Side = ElevatorFront(lodestone_top, lodestone_top) // Blank
+	elevator.Top = TravelnetBottom(lodestone_top)
+
+	Travelnet.Inv_Base, Travelnet.Inv_Color, elevator.Inv_Base = TravelnetInv(&Travelnet, &elevator)
+
+	// Elevator
+	block = "travelnet_elevator_front.png"
+	err = imaging.Save(elevator.Front, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+	block = "travelnet_elevator_inside_floor.png"
+	err = imaging.Save(elevator.Bottom, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+	block = "travelnet_elevator_inside_controls.png"
+	err = imaging.Save(elevator.Back, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+	block = "travelnet_elevator_sides_outside.png"
+	err = imaging.Save(elevator.Side, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+
+	block = "travelnet_elevator_inside_ceiling.png"
+	err = imaging.Save(elevator.Top, out_path+block)
+	if err != nil {
+		return saveErrMsg(stitch, clonia_path, block)
+	}
+	
+	// Item icons
+
 	block = "travelnet_inv_base.png"
 	err = imaging.Save(Travelnet.Inv_Base, out_path+block)
 	if err != nil {
@@ -145,41 +194,8 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
-
-	// Door
-	block = "travelnet_elevator_door_glass.png"
-	err = imaging.Save(TravelnetGlassDoor(glass), out_path+block)
-	if err != nil {
-		return saveErrMsg(stitch, clonia_path, block)
-	}
-
-	// Elevator
-	block = "travelnet_elevator_front.png"
-	err = imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block)
-	if err != nil {
-		return saveErrMsg(stitch, clonia_path, block)
-	}
-
-	block = "travelnet_elevator_inside_floor.png"
-	err = imaging.Save(TravelnetBottom(elevator_carpet), out_path+block)
-	if err != nil {
-		return saveErrMsg(stitch, clonia_path, block)
-	}
-
-	block = "travelnet_elevator_inside_controls.png"
-	err = imaging.Save(ElevatorFront(lodestone_side, lodestone_top), out_path+block)
-	if err != nil {
-		return saveErrMsg(stitch, clonia_path, block)
-	}
-
-	block = "travelnet_elevator_sides_outside.png"
-	err = imaging.Save(ElevatorFront(lodestone_top, lodestone_top), out_path+block)
-	if err != nil {
-		return saveErrMsg(stitch, clonia_path, block)
-	}
-
-	block = "travelnet_elevator_inside_ceiling.png"
-	err = imaging.Save(TravelnetBottom(lodestone_top), out_path+block)
+	block = "travelnet_elevator_inv.png"
+	err = imaging.Save(elevator.Inv_Base, out_path+block)
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
@@ -286,7 +302,7 @@ func ElevatorFront(top, bot image.Image) *image.NRGBA {
 	return dst
 }
 
-func TravelnetInv(travelnet *Travelnet_t) (*image.NRGBA, *image.NRGBA) {
+func TravelnetInv(travelnet *Travelnet_t, elevator *Travelnet_t) (*image.NRGBA, *image.NRGBA, *image.NRGBA) {
 	dstSize := float64(64)
 	dst := imaging.New(int(dstSize), int(dstSize), color.NRGBA{0, 0, 0, 0})
 
@@ -380,5 +396,54 @@ func TravelnetInv(travelnet *Travelnet_t) (*image.NRGBA, *image.NRGBA) {
 		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
 	)
 
-	return base_net, dst
+	color_net := imaging.Clone(dst)
+
+	// Now, we make the elevator.
+
+	dst = imaging.New(int(dstSize), int(dstSize), color.NRGBA{0, 0, 0, 0})
+
+	// bot
+	dst = PerspectiveOverlay(
+		*dst,
+		*elevator.Bottom,
+		dstSize*0.27, dstSize*0.83,   dstSize*0.46, dstSize*0.69,
+		dstSize*0.58, dstSize*0.92,   dstSize*0.74, dstSize*0.76,
+	)
+
+	// back
+	dst = PerspectiveOverlay(
+		*dst,
+		*elevator.Side,
+		dstSize*0.22, dstSize*0.11,   dstSize*0.46, dstSize*0.08,
+		dstSize*0.27, dstSize*0.85,   dstSize*0.46, dstSize*0.71,
+	)
+
+	// behind side
+	dst = PerspectiveOverlay(
+		*dst,
+		*elevator.Side,
+		dstSize*0.46, dstSize*0.08,   dstSize*0.77, dstSize*0.10,
+		dstSize*0.46, dstSize*0.71,   dstSize*0.74, dstSize*0.78,
+	)
+
+	// front side
+	dst = PerspectiveOverlay(
+		*dst,
+		*elevator.Back,
+		dstSize*0.22, dstSize*0.11,   dstSize*0.58, dstSize*0.14,
+		dstSize*0.27, dstSize*0.85,   dstSize*0.58, dstSize*0.94,
+	)
+
+	// top
+	dst = PerspectiveOverlay(
+		*dst,
+		*elevator.Top,
+		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
+		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+	)
+
+	elevator.Inv_Base = imaging.Clone(dst)
+	elevator_icon := elevator.Inv_Base
+
+	return base_net, color_net, elevator_icon
 }
