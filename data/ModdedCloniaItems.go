@@ -41,6 +41,7 @@ var (
 		{"item", "diamond_pickaxe.png", "emerald_stuff", "mcl_emerald_stuff_pick.png", 1},
 		{"item", "diamond_shovel.png", "emerald_stuff", "mcl_emerald_stuff_shovel.png", 1},
 		{"item", "diamond_sword.png", "emerald_stuff", "mcl_emerald_stuff_sword.png", 1},
+		{"item", "diamond_hoe.png", "emerald_stuff", "mcl_emerald_stuff_hoe.png", 1},
 		{"item", "diamond_horse_armor.png", "emerald_stuff", "mcl_emerald_stuff_emerald_horse_armor.png", 1},
 	}
 
