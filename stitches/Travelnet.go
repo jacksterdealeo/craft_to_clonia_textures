@@ -10,16 +10,16 @@ import (
 
 type Travelnet_t struct {
 	Front_Color *image.NRGBA
-	Front *image.NRGBA
-	Side_Color *image.NRGBA
-	Side *image.NRGBA
-	Bottom *image.NRGBA
-	Top *image.NRGBA
-	Back_Color *image.NRGBA
-	Back *image.NRGBA
+	Front       *image.NRGBA
+	Side_Color  *image.NRGBA
+	Side        *image.NRGBA
+	Bottom      *image.NRGBA
+	Top         *image.NRGBA
+	Back_Color  *image.NRGBA
+	Back        *image.NRGBA
 
 	// 64x64 are the OG item textures
-	Inv_Base *image.NRGBA
+	Inv_Base  *image.NRGBA
 	Inv_Color *image.NRGBA
 }
 
@@ -105,7 +105,6 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
-
 	block = "travelnet_bottom.png"
 	err = imaging.Save(Travelnet.Bottom, out_path+block)
 	if err != nil {
@@ -130,8 +129,6 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
-
-
 	// Door
 	block = "travelnet_elevator_door_glass.png"
 	err = imaging.Save(TravelnetGlassDoor(glass), out_path+block)
@@ -144,7 +141,7 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 	elevator.Front = ElevatorFront(lodestone_top, lodestone_top)
 	elevator.Bottom = TravelnetBottom(elevator_carpet)
 	elevator.Back = ElevatorFront(lodestone_side, lodestone_top) // Controls
-	elevator.Side = ElevatorFront(lodestone_top, lodestone_top) // Blank
+	elevator.Side = ElevatorFront(lodestone_top, lodestone_top)  // Blank
 	elevator.Top = TravelnetBottom(lodestone_top)
 
 	Travelnet.Inv_Base, Travelnet.Inv_Color, elevator.Inv_Base = TravelnetInv(&Travelnet, &elevator)
@@ -179,7 +176,7 @@ func RWTravelnet(input_pack_path, output_pack_path string) error {
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
-	
+
 	// Item icons
 
 	block = "travelnet_inv_base.png"
@@ -310,40 +307,40 @@ func TravelnetInv(travelnet *Travelnet_t, elevator *Travelnet_t) (*image.NRGBA, 
 	dst = PerspectiveOverlay(
 		*dst,
 		*travelnet.Bottom,
-		dstSize*0.27, dstSize*0.83,   dstSize*0.46, dstSize*0.69,
-		dstSize*0.58, dstSize*0.92,   dstSize*0.74, dstSize*0.76,
-	)
-
-	// back
-	dst = PerspectiveOverlay(
-		*dst,
-		*travelnet.Back_Color,
-		dstSize*0.22, dstSize*0.11,   dstSize*0.46, dstSize*0.08,
-		dstSize*0.27, dstSize*0.85,   dstSize*0.46, dstSize*0.71,
+		dstSize*0.50, dstSize*0.70, dstSize*0.70, dstSize*0.80,
+		dstSize*0.30, dstSize*0.80, dstSize*0.50, dstSize*0.90,
 	)
 
 	// behind side
 	dst = PerspectiveOverlay(
 		*dst,
 		*travelnet.Side_Color,
-		dstSize*0.46, dstSize*0.08,   dstSize*0.77, dstSize*0.10,
-		dstSize*0.46, dstSize*0.71,   dstSize*0.74, dstSize*0.78,
+		dstSize*0.20, dstSize*0.15, dstSize*0.50, dstSize*0.10,
+		dstSize*0.30, dstSize*0.80, dstSize*0.50, dstSize*0.70,
+	)
+
+	// back
+	dst = PerspectiveOverlay(
+		*dst,
+		*travelnet.Back_Color,
+		dstSize*0.50, dstSize*0.10, dstSize*0.75, dstSize*0.15,
+		dstSize*0.50, dstSize*0.70, dstSize*0.70, dstSize*0.80,
 	)
 
 	// front side
 	dst = PerspectiveOverlay(
 		*dst,
 		*travelnet.Side_Color,
-		dstSize*0.22, dstSize*0.11,   dstSize*0.58, dstSize*0.14,
-		dstSize*0.27, dstSize*0.85,   dstSize*0.58, dstSize*0.94,
+		dstSize*0.50, dstSize*0.25, dstSize*0.75, dstSize*0.15,
+		dstSize*0.50, dstSize*0.90, dstSize*0.70, dstSize*0.80,
 	)
 
 	// top
 	dst = PerspectiveOverlay(
 		*dst,
 		*travelnet.Top,
-		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
-		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+		dstSize*0.50, dstSize*0.10, dstSize*0.75, dstSize*0.15,
+		dstSize*0.20, dstSize*0.15, dstSize*0.50, dstSize*0.25,
 	)
 
 	travelnet.Inv_Base = imaging.Clone(dst)
@@ -352,48 +349,48 @@ func TravelnetInv(travelnet *Travelnet_t, elevator *Travelnet_t) (*image.NRGBA, 
 	// Now, we make the color version. //
 	dst = imaging.New(int(dstSize), int(dstSize), color.NRGBA{0, 0, 0, 0})
 
-	// back
-	dst = PerspectiveOverlay(
-		*dst,
-		*travelnet.Back_Color,
-		dstSize*0.22, dstSize*0.11,   dstSize*0.46, dstSize*0.08,
-		dstSize*0.27, dstSize*0.85,   dstSize*0.46, dstSize*0.71,
-	)
-
 	// behind side
 	dst = PerspectiveOverlay(
 		*dst,
+		*travelnet.Back_Color,
+		dstSize*0.50, dstSize*0.10, dstSize*0.75, dstSize*0.15,
+		dstSize*0.50, dstSize*0.70, dstSize*0.70, dstSize*0.80,
+	)
+
+	// back
+	dst = PerspectiveOverlay(
+		*dst,
 		*travelnet.Side_Color,
-		dstSize*0.46, dstSize*0.08,   dstSize*0.77, dstSize*0.10,
-		dstSize*0.46, dstSize*0.71,   dstSize*0.74, dstSize*0.78,
+		dstSize*0.20, dstSize*0.15, dstSize*0.50, dstSize*0.10,
+		dstSize*0.30, dstSize*0.80, dstSize*0.50, dstSize*0.70,
 	)
 
 	// front side
 	dst = PerspectiveOverlay(
 		*dst,
 		*travelnet.Side_Color,
-		dstSize*0.22, dstSize*0.11,   dstSize*0.58, dstSize*0.14,
-		dstSize*0.27, dstSize*0.85,   dstSize*0.58, dstSize*0.94,
+		dstSize*0.50, dstSize*0.25, dstSize*0.75, dstSize*0.15,
+		dstSize*0.50, dstSize*0.90, dstSize*0.70, dstSize*0.80,
 	)
 
 	/*
-	// top
-	// this should remove color from the top
-	// note: i did not. :(
-	dst = imaging.OverlayCenter(dst, imaging.AdjustBrightness(PerspectiveOverlay(
-		*imaging.New(dst.Rect.Dx(), dst.Rect.Dy(), color.Transparent),
-		*travelnet.Top,
-		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
-		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
-	), -100), 1.0)
+		// top
+		// this should remove color from the top
+		// note: i did not. :(
+		dst = imaging.OverlayCenter(dst, imaging.AdjustBrightness(PerspectiveOverlay(
+			*imaging.New(dst.Rect.Dx(), dst.Rect.Dy(), color.Transparent),
+			*travelnet.Top,
+			dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
+			dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+		), -100), 1.0)
 	*/
 
 	// top
 	dst = PerspectiveOverlay(
 		*dst,
 		*travelnet.Top,
-		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
-		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+		dstSize*0.50, dstSize*0.10, dstSize*0.75, dstSize*0.15,
+		dstSize*0.20, dstSize*0.15, dstSize*0.50, dstSize*0.25,
 	)
 
 	color_net := imaging.Clone(dst)
@@ -406,40 +403,40 @@ func TravelnetInv(travelnet *Travelnet_t, elevator *Travelnet_t) (*image.NRGBA, 
 	dst = PerspectiveOverlay(
 		*dst,
 		*elevator.Bottom,
-		dstSize*0.27, dstSize*0.83,   dstSize*0.46, dstSize*0.69,
-		dstSize*0.58, dstSize*0.92,   dstSize*0.74, dstSize*0.76,
-	)
-
-	// back
-	dst = PerspectiveOverlay(
-		*dst,
-		*elevator.Side,
-		dstSize*0.22, dstSize*0.11,   dstSize*0.46, dstSize*0.08,
-		dstSize*0.27, dstSize*0.85,   dstSize*0.46, dstSize*0.71,
+		dstSize*0.50, dstSize*0.70, dstSize*0.70, dstSize*0.80,
+		dstSize*0.30, dstSize*0.80, dstSize*0.50, dstSize*0.90,
 	)
 
 	// behind side
 	dst = PerspectiveOverlay(
 		*dst,
 		*elevator.Side,
-		dstSize*0.46, dstSize*0.08,   dstSize*0.77, dstSize*0.10,
-		dstSize*0.46, dstSize*0.71,   dstSize*0.74, dstSize*0.78,
+		dstSize*0.50, dstSize*0.10, dstSize*0.75, dstSize*0.15,
+		dstSize*0.50, dstSize*0.70, dstSize*0.70, dstSize*0.80,
+	)
+
+	// control side
+	dst = PerspectiveOverlay(
+		*dst,
+		*elevator.Back,
+		dstSize*0.20, dstSize*0.15, dstSize*0.50, dstSize*0.10,
+		dstSize*0.30, dstSize*0.80, dstSize*0.50, dstSize*0.70,
 	)
 
 	// front side
 	dst = PerspectiveOverlay(
 		*dst,
-		*elevator.Back,
-		dstSize*0.22, dstSize*0.11,   dstSize*0.58, dstSize*0.14,
-		dstSize*0.27, dstSize*0.85,   dstSize*0.58, dstSize*0.94,
+		*elevator.Side,
+		dstSize*0.50, dstSize*0.25, dstSize*0.75, dstSize*0.15,
+		dstSize*0.50, dstSize*0.90, dstSize*0.70, dstSize*0.80,
 	)
 
 	// top
 	dst = PerspectiveOverlay(
 		*dst,
 		*elevator.Top,
-		dstSize*0.22, dstSize*0.10,   dstSize*0.46, dstSize*0.07,
-		dstSize*0.58, dstSize*0.13,   dstSize*0.77, dstSize*0.09,
+		dstSize*0.50, dstSize*0.10, dstSize*0.75, dstSize*0.15,
+		dstSize*0.20, dstSize*0.15, dstSize*0.50, dstSize*0.25,
 	)
 
 	elevator.Inv_Base = imaging.Clone(dst)
