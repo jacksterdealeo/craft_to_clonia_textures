@@ -107,8 +107,9 @@ Minecraft to Mineclonia Texture Pack Converter
 	}
 
 	for _, file := range files {
+		fileExt := filepath.Ext(file.Name())
 		if !file.IsDir() &&
-			filepath.Ext(file.Name()) == ".zip" {
+			(fileExt == ".zip" || fileExt == ".jar") {
 			if _, err := os.Stat(Config.InputDir + "/" + FileNameWithoutExt(file.Name())); errors.Is(err, os.ErrNotExist) {
 				fmt.Println("Unzipping:", file.Name())
 				if err2 := unzipSource(Config.InputDir+"/"+file.Name(), Config.InputDir+"/"+FileNameWithoutExt(file.Name())); err2 != nil {
