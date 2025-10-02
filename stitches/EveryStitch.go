@@ -17,6 +17,7 @@ var UniversalStitches = [...]func(string, string) error{
 	RWRedstoneLamp,
 	RWSigns,
 	RWSingleChests,
+	RWUI,
 	RWWater,
 
 	// Assumed Mods
