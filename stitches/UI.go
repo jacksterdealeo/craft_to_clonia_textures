@@ -76,7 +76,7 @@ func FurnaceArrow(burn_progress image.Image) (gui_furnace_arrow_bg, gui_furnace_
 }
 
 func FurnaceFire(lit_progress image.Image) (default_furnace_fire_bg, default_furnace_fire_fg *image.NRGBA) {
-	backgroundColor := lit_progress.At(0, 0)
+	backgroundColor := color.NRGBAModel.Convert(lit_progress.At(0, 0)).(color.NRGBA)
 	darkGray := color.NRGBA{104, 104, 104, 255}
 
 	lit_progress = imaging.AdjustFunc(lit_progress,
