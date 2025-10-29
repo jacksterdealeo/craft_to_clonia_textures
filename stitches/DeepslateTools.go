@@ -17,10 +17,11 @@ func RWDeepslateTools(inputPackPath, outputPackPath string) error {
 		stoneItem, err := imaging.Open(inputPackPath + item.ReadPath())
 		if err != nil {
 			errReport += fmt.Sprintf("\tFailed to open iron item \"%v\", giving up.\n", item.ReadPath())
+			continue
 		}
 
 		dst := DeepslateTool(stoneItem)
-		if saveErr := imaging.Save(dst, outputPackPath + item.SavePath()); saveErr != nil {
+		if saveErr := imaging.Save(dst, outputPackPath+item.SavePath()); saveErr != nil {
 			errReport += fmt.Sprintf("\tFailed to save iron item \"%v\", giving up.\n", item.SavePath())
 		}
 	}
@@ -56,19 +57,19 @@ func DeepslateTool(stoneItem image.Image) *image.NRGBA {
 }
 
 func within10(a, b, c int) bool {
-    min := a
-    if b < min {
-        min = b
-    }
-    if c < min {
-        min = c
-    }
-    max := a
-    if b > max {
-        max = b
-    }
-    if c > max {
-        max = c
-    }
-    return max-min <= 10
+	min := a
+	if b < min {
+		min = b
+	}
+	if c < min {
+		min = c
+	}
+	max := a
+	if b > max {
+		max = b
+	}
+	if c > max {
+		max = c
+	}
+	return max-min <= 10
 }

@@ -33,6 +33,7 @@ func RWCopperTools(inputPackPath, outputPackPath string) error {
 		ironItem, err := imaging.Open(inputPackPath + possibleTexture.FullPath())
 		if err != nil {
 			errReport += fmt.Sprintf("\tFailed to open iron item \"%v\", giving up.\n", possibleTexture.Texture)
+			continue
 		}
 
 		dst := CopperToolsFallback(ironItem)
