@@ -1330,7 +1330,7 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "fire_0.png", "fire", "fire_basic_flame.png", 1},
 	{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png", -1},
 	{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png", -1},
-	{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png", 8},
+	// {"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png", 8},
 	{"item", "fire_charge.png", "fire", "mcl_fire_fire_charge.png", 1},
 	{"item", "flint_and_steel.png", "fire", "mcl_fire_flint_and_steel.png", 1},
 	// -- mcl_fireworks

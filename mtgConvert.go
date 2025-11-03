@@ -11,12 +11,13 @@ import (
 	"codeberg.org/ostech/craft_to_clonia_textures/stitches"
 )
 
-func convertPackMTG(inName string, outName string) {
+func convertPackMTG(inName string, outName string, config Config) {
 	var textureErrorsLog string = fmt.Sprintf("%v %v\n", inName, nowShort)
 	var successes = 0
 	var failures = 0
-	texturePackLocation := Config.InputDir + inName
-	outPath := Config.OutputDir + outName
+
+	texturePackLocation := config.InputDir + inName
+	outPath := config.OutputDir + outName
 	if fs.ValidPath(outPath) {
 		if err := os.Mkdir(outPath, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {

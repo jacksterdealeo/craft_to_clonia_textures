@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	now      = time.Now().Format("01-02-2006 15:04:05")
-	nowShort = time.Now().Format("2Jan06")
+	nowShort       = time.Now().Format("2Jan06")
+	ConfigLocation = "config.json"
 )
 
 type readWriteError struct {
@@ -26,6 +26,15 @@ func (e *readWriteError) Error() string {
 }
 
 func main() {
+	var (
+		config *Config
+		err    error
+	)
+
+	if version == "scriptless" {
+		version += " " + nowShort
+	}
+
 	fmt.Printf("\x1b[0m"+
 		`⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⠀⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⠀⠀⠀
 ⠀⣾⠋⠙⠇⢠⣤⣤⣤⠀⣤⣤⡄⢀⣀⣿⣉⠁⣤⣿⣤⡄⠀⠀⠀⠀⢠⣼⣧⣤⠀⣠⣤⣄⠀⠀⠀⠀⠀⣸⠏⠉⠷⠀⢸⡇⠀⠀⣠⣦⣤⠀⢠⣠⣤⡄⢀⣈⣏⠀⢀⣤⣤⣄⠀
@@ -33,28 +42,35 @@ func main() {
 ⠀⢿⣦⣤⡦⣤⣿⣤⡄⠸⣧⣴⣿⠀⠀⣿⡀⠀⠀⢿⣤⡄⠀⠀⠀⠀⠀⠸⣧⣤⠀⢿⣥⣾⠃⠀⠀⠀⠀⠸⣧⣤⣶⠀⠸⣧⣤⠀⢿⣤⣼⠃⢸⠀⢸⡇⢠⣴⣿⣤⠘⣧⣤⣿⡄
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀
 Minecraft to Mineclonia Texture Pack Converter
-	Version: %s
+	release: %s
 	Using Minecraft Pack Version: %s`, version, mc_version)
 	fmt.Print("\n\n")
 
-	if config, err := loadJsonConfig(); err != nil {
-		fmt.Println(err)
-	} else {
-		Config = config
+	config, err = ReadConfigFile(ConfigLocation)
+	if errors.Is(err, os.ErrNotExist) {
+		config = NewConfig()
+		fmt.Println("Making the config.json file. Directories are unlikely to match your own.")
+		if saveErr := config.SaveConfig(ConfigLocation); saveErr != nil {
+			log.Fatal(saveErr)
+		}
+	} else if err != nil {
+		log.Fatal("coudn't read config.", err)
 	}
 
-	if !Config.DefinedInput {
-		Config.InputDir = "./input/"
+	fmt.Println(config)
+	fmt.Print("\n\n")
+
+	if !config.DefinedInput {
+		config.InputDir = "./input/"
 		if fs.ValidPath("input") {
 			err := os.Mkdir("input", 0755)
 			if err != nil {
 				if errors.Is(err, fs.ErrPermission) {
-					log.Panicf("Permission was denied. %s was not made.\n", "input")
+					log.Fatal("Permission was denied. \"input\" was not made.")
 				} else if errors.Is(err, fs.ErrExist) {
-					fmt.Printf("Folder %s already exists.\n", "input")
+					fmt.Println("Folder \"input\" already exists.")
 				} else {
-					fmt.Printf("How.\n")
-					log.Panic(err)
+					log.Fatal(err)
 				}
 			} else {
 				fmt.Println("Made the input folder!")
@@ -62,17 +78,16 @@ Minecraft to Mineclonia Texture Pack Converter
 		}
 	}
 
-	if !Config.DefinedOutput {
-		Config.OutputDir = "./output/"
+	if !config.DefinedOutput {
+		config.OutputDir = "./output/"
 		if fs.ValidPath("output") {
 			if err := os.Mkdir("output", 0755); err != nil {
 				if errors.Is(err, fs.ErrPermission) {
-					log.Panicf("Permission was denied. %s was not made.\n", "output")
+					log.Fatal("Permission was denied. \"output\" was not made.")
 				} else if errors.Is(err, fs.ErrExist) {
-					fmt.Printf("Folder %s already exists.\n", "output")
+					fmt.Println("Folder \"output\" already exists.")
 				} else {
-					fmt.Printf("How.\n")
-					log.Panic(err)
+					log.Fatal(err)
 				}
 			} else {
 				fmt.Println("Made the output folder!")
@@ -80,69 +95,55 @@ Minecraft to Mineclonia Texture Pack Converter
 		}
 	}
 
-	var dir *os.File
-	var err error
-	if !Config.DefinedInput {
-		dir, err = os.Open("./input/")
-		if err != nil {
-			log.Panic("Error:", err)
-			return
-		}
-	} else {
-		dir, err = os.Open(Config.InputDir)
-		if err != nil {
-			if errors.Is(err, fs.ErrNotExist) {
-				log.Println(Config.InputDir + "\n\nInput folder from config doesn't exist.")
-			} else {
-				log.Panic("Error:", err)
-				return
-			}
-		}
-	}
-	defer dir.Close()
-	files, err := dir.Readdir(-1)
+	var inputDir *os.File
+	inputDir, err = os.Open(config.InputDir)
 	if err != nil {
-		fmt.Println("Error:", err)
-		return
+		if errors.Is(err, fs.ErrNotExist) {
+			log.Println(config.InputDir + "Input folder doesn't exist.")
+		}
+		log.Fatal(err)
+	}
+	defer inputDir.Close()
+
+	inputFiles, err := inputDir.Readdir(-1)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	for _, file := range files {
-		fileExt := filepath.Ext(file.Name())
-		if !file.IsDir() &&
-			(fileExt == ".zip" || fileExt == ".jar") {
-			if _, err := os.Stat(Config.InputDir + "/" + FileNameWithoutExt(file.Name())); errors.Is(err, os.ErrNotExist) {
-				fmt.Println("Unzipping:", file.Name())
-				if err2 := unzipSource(Config.InputDir+"/"+file.Name(), Config.InputDir+"/"+FileNameWithoutExt(file.Name())); err2 != nil {
+	for _, inputFile := range inputFiles {
+		fileExt := filepath.Ext(inputFile.Name())
+		if !inputFile.IsDir() && (fileExt == ".zip" || fileExt == ".jar") {
+			if _, err := os.Stat(config.InputDir + "/" + FileNameWithoutExt(inputFile.Name())); errors.Is(err, os.ErrNotExist) {
+				fmt.Println("Unzipping:", inputFile.Name())
+				if err2 := unzipSource(config.InputDir+"/"+inputFile.Name(), config.InputDir+"/"+FileNameWithoutExt(inputFile.Name())); err2 != nil {
 					fmt.Println("Extraction Error:", err)
 				}
 			} else {
-				fmt.Println(file.Name(), "was already decompressed! :D")
+				fmt.Println(inputFile.Name(), "was already decompressed! :D")
 			}
 		}
 	}
 
-	dir, err = os.Open(Config.InputDir)
+	var outputDir *os.File
+	outputDir, err = os.Open(config.OutputDir)
 	if err != nil {
-		log.Panic("Error:", err)
-		return
+		if errors.Is(err, fs.ErrNotExist) {
+			log.Println(config.InputDir + "Output folder doesn't exist.")
+		}
+		log.Fatal(err)
 	}
-	defer dir.Close()
-	files, err = dir.Readdir(-1)
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
+	defer outputDir.Close()
 
-	for _, file := range files {
-		if file.IsDir() {
-			fmt.Println(file.Name())
-			if Config.ExportMineclonia {
-				o := fmt.Sprintf("%s_mc_to_clonia", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
-				convertPackClonia(file.Name(), o)
+	for _, inputFile := range inputFiles {
+		if inputFile.IsDir() {
+			fmt.Println(inputFile.Name())
+			if config.ExportMineclonia {
+				o := fmt.Sprintf("%s_mc_to_clonia", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
+				convertPackClonia(inputFile.Name(), o, *config)
 			}
-			if Config.ExportMinetest_Game {
-				o := fmt.Sprintf("%s_mc_to_mtg", strings.ReplaceAll(strings.ToLower(file.Name()), " ", "_"))
-				convertPackMTG(file.Name(), o)
+			if config.ExportMinetest_Game {
+				o := fmt.Sprintf("%s_mc_to_mtg", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
+				convertPackMTG(inputFile.Name(), o, *config)
 			}
 
 			fmt.Print("Done!\n\n")

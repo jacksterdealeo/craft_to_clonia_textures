@@ -1,84 +1,143 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 )
 
-type config struct {
+type Config struct {
 	DefinedInput        bool
 	DefinedOutput       bool
 	ExportMinetest_Game bool
 	ExportMineclonia    bool
-	InputDir            string
-	OutputDir           string
+
+	InputDir  string
+	OutputDir string
+
+	HUDOnFireAnimationFrames int
 }
 
-var Config *config = &config{
-	DefinedInput:        false,
-	DefinedOutput:       false,
-	ExportMinetest_Game: false,
-	ExportMineclonia:    true,
-	InputDir:            "./input/",
-	OutputDir:           "./output/",
+func NewConfig() *Config {
+	var config = Config{
+		DefinedInput:        false,
+		DefinedOutput:       false,
+		ExportMinetest_Game: false,
+		ExportMineclonia:    true,
+
+		HUDOnFireAnimationFrames: 8,
+	}
+
+	if userHomeDir, err := os.UserHomeDir(); err != nil {
+		fmt.Println("You have no home directory? %w", err)
+		config.InputDir = ("./input/")
+		config.OutputDir = ("./output/")
+	} else {
+		config.InputDir =
+			filepath.Join(userHomeDir, ".minecraft", "resourcepacks")
+		config.OutputDir =
+			filepath.Join(userHomeDir, ".var", "app", "org.luanti.luanti", ".minetest", "textures")
+	}
+
+	return &config
 }
 
-var (
-	ConfigLocation = "config.json"
-)
+// Reads the config file.
+// If feilds are missing from the file, it will add them.
+func ReadConfigFile(configLocation string) (*Config, error) {
+	var config *Config
+	var err error
 
-func loadJsonConfig() (*config, error) {
-	if _, statErr := os.Stat(ConfigLocation); errors.Is(statErr, os.ErrNotExist) {
-		fmt.Println("Making the config.json file. Directories are unlikely to match your own.")
-		if userHomeDir, err := os.UserHomeDir(); err != nil {
-			fmt.Println("You have no home directory?", err)
-			return Config, err
-		} else {
-			Config.InputDir =
-				userHomeDir + "/.minecraft/resourcepacks/"
-			Config.OutputDir =
-				userHomeDir + "/.var/app/org.luanti.luanti/.minetest/textures/"
-		}
-
-		configData, err := json.MarshalIndent(Config, "", "")
-
-		if err != nil {
-			fmt.Println("Couldn't Marshal config json :", err)
-			return nil, err
-		}
-		if err := os.WriteFile(ConfigLocation, []byte(configData), 0644); err != nil {
-			return nil, err
-		}
-		return Config, nil
+	if _, statErr := os.Stat(configLocation); errors.Is(statErr, os.ErrNotExist) {
+		return nil, statErr
 	}
 
-	configData, err := os.ReadFile(ConfigLocation)
+	configFile, err := os.ReadFile(configLocation)
 	if err != nil {
-		fmt.Println(err)
-		return Config, err
-	}
-	fmt.Printf("CONFIG FILE: %v\n", string(configData))
-	err = json.Unmarshal([]byte(configData), &Config)
-	if err != nil {
-		fmt.Println("Couldn't Marshal config json :", err)
+		fmt.Println("couldn't read config file:", err)
 		return nil, err
 	}
-	if err := os.WriteFile(ConfigLocation, []byte(configData), 0644); err != nil {
+	err = json.Unmarshal(configFile, &config)
+	if err != nil {
+		fmt.Println("couldn't marshal config json:", err)
 		return nil, err
 	}
 
-	// Sometimes people forget to add a slash to the end of their directories.
-	// If they didn't forget, the extra slash is ignored anyway.
-	Config.InputDir += "/"
-	Config.OutputDir += "/"
+	needsUpdate, updatedConfigFile, err := LegacyJsonConfigFileUpdater(configFile, config)
+	if err != nil {
+		fmt.Println("config was not updated:", err)
+	} else if needsUpdate {
+		configFile = updatedConfigFile
+		if err := os.WriteFile(configLocation, []byte(configFile), 0644); err != nil {
+			fmt.Println("couldn't update config file:", err)
+			return nil, err
+		}
+	}
 
-	if !Config.DefinedInput {
-		Config.InputDir = "input"
+	if !config.DefinedInput {
+		config.InputDir = ("./input/")
 	}
-	if !Config.DefinedOutput {
-		Config.OutputDir = "output"
+
+	if !config.DefinedOutput {
+		config.InputDir = ("./output/")
 	}
-	return Config, nil
+
+	return config, nil
+}
+
+func (c *Config) SaveConfig(saveLocation string) error {
+	configData, err := json.MarshalIndent(*c, "", "")
+	if err != nil {
+		return err
+	}
+	if err := os.WriteFile(saveLocation, []byte(configData), 0644); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Config) String() string {
+	if configData, err := json.MarshalIndent(*c, "", ""); err != nil {
+		return err.Error()
+	} else {
+		return (string(configData))
+	}
+}
+
+/*
+This does not update the config in memory.
+It just checks if feilds exist in a new config that
+don't exist in the existing one and returns an updated marshalled file if needed.
+
+Only checks lines that end in commas. Sorry if you don't like that kind of formatting.
+*/
+func LegacyJsonConfigFileUpdater(file []byte, config *Config) (needsUpdate bool, updatedFile []byte, err error) {
+	referenceBytes, err := json.MarshalIndent(*NewConfig(), "", "")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	referenceLineCount := bytes.Count(referenceBytes, []byte(",\n"))
+	fileLineCount := bytes.Count(file, []byte(",\n"))
+
+	if referenceLineCount == fileLineCount {
+		return false, file, nil
+	}
+
+	// Feild checks:
+	if config.HUDOnFireAnimationFrames == 0 {
+		config.HUDOnFireAnimationFrames = 8
+	}
+	// end
+
+	updatedFile, err = json.MarshalIndent(*config, "", "")
+	if err != nil {
+		return true, []byte{}, err
+	}
+
+	return true, updatedFile, nil
 }

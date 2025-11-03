@@ -17,12 +17,12 @@ var (
 	cloniaPaths = data.CloniaPaths
 )
 
-func convertPackClonia(inName string, outName string) {
+func convertPackClonia(inName string, outName string, config Config) {
 	var (
 		successes          = 0
 		failures           = 0
-		inputPackLocation  = Config.InputDir + inName
-		outputPackLocation = Config.OutputDir + outName
+		inputPackLocation  = config.InputDir + inName
+		outputPackLocation = config.OutputDir + outName
 	)
 
 	var textureErrorsLog = strings.Builder{}
@@ -116,7 +116,7 @@ func convertPackClonia(inName string, outName string) {
 		//double_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
 		//flip_fix(inputPackLocation, outputPackLocation),
 		//flowerpot_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["flowerpots"]),
-		hud_fix(inputPackLocation, outputPackLocation),
+		hud_fix(inputPackLocation, outputPackLocation, config),
 		//lava_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 		mods_fixes(inputPackLocation, outputPackLocation),
 		//single_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),

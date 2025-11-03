@@ -271,12 +271,21 @@ func flip_fix(inName string, outName string) *readWriteError {
 }
 */
 
-func hud_fix(inPath string, outPath string) *readWriteError {
+func hud_fix(inPath string, outPath string, config Config) *readWriteError {
 	fails := []string{}
 
 	make_pink := func(c color.NRGBA) color.NRGBA {
 		return color.NRGBA{120, 40, 90, c.A}
 	}
+
+	func() { // fire HUD (with limit)
+		frameLimit := config.HUDOnFireAnimationFrames
+		fire := data.SimpleConversion{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png", frameLimit}
+		err := copyTextureAnimated(inPath+craftPaths[fire.InPath]+fire.InTexture, outPath+cloniaPaths[fire.OutPath]+fire.OutTexture, config.HUDOnFireAnimationFrames)
+		if err != nil {
+			fails = append(fails, "firehud failed!")
+		}
+	}()
 
 	func() { // health HUD
 		heartLocation := inPath + craftPaths["hud"]
@@ -739,4 +748,3 @@ func stonecutter_fix(inPath string, outPath string) *readWriteError {
 	}
 	return nil
 }
-
