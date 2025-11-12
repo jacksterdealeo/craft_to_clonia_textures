@@ -105,7 +105,7 @@ Minecraft to Mineclonia Texture Pack Converter
 	}
 	defer inputDir.Close()
 
-	inputFiles, err := inputDir.Readdir(-1)
+	inputFiles, err := os.ReadDir(config.InputDir)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -133,6 +133,11 @@ Minecraft to Mineclonia Texture Pack Converter
 		log.Fatal(err)
 	}
 	defer outputDir.Close()
+
+	inputFiles, err = os.ReadDir(config.InputDir)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	for _, inputFile := range inputFiles {
 		if inputFile.IsDir() {
