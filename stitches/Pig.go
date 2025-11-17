@@ -4,11 +4,12 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWPig(input_pack_path, output_pack_path string) error {
+func RWPig(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	in_path := input_pack_path + data.CraftPaths["entity"] + "pig/"
 	out_path := output_pack_path + "/" + data.CloniaPaths["mobs_mc"]
 

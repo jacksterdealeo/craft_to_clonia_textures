@@ -5,11 +5,12 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWDeepslateTools(inputPackPath, outputPackPath string) error {
+func RWDeepslateTools(inputPackPath, outputPackPath string, _ *configure.Config) error {
 	// stitch := "DeepslateTools"
 	errReport := ""
 

@@ -4,10 +4,11 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWPackIcon(input_pack_path, output_pack_path string) error {
+func RWPackIcon(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Pack Icon"
 
 	src, err := imaging.Open(input_pack_path + "/pack.png")

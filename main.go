@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 )
 
 var (
@@ -27,7 +29,7 @@ func (e *readWriteError) Error() string {
 
 func main() {
 	var (
-		config *Config
+		config *configure.Config
 		err    error
 	)
 
@@ -46,9 +48,9 @@ Minecraft to Mineclonia Texture Pack Converter
 	Using Minecraft Pack Version: %s`, version, mc_version)
 	fmt.Print("\n\n")
 
-	config, err = ReadConfigFile(ConfigLocation)
+	config, err = configure.ReadConfigFile(ConfigLocation)
 	if errors.Is(err, os.ErrNotExist) {
-		config = NewConfig()
+		config = configure.NewConfig()
 		fmt.Println("Making the config.json file. Directories are unlikely to match your own.")
 		if saveErr := config.SaveConfig(ConfigLocation); saveErr != nil {
 			log.Fatal(saveErr)
@@ -144,11 +146,11 @@ Minecraft to Mineclonia Texture Pack Converter
 			fmt.Println(inputFile.Name())
 			if config.ExportMineclonia {
 				o := fmt.Sprintf("%s_mc_to_clonia", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
-				convertPackClonia(inputFile.Name(), o, *config)
+				convertPackClonia(inputFile.Name(), o, config)
 			}
 			if config.ExportMinetest_Game {
 				o := fmt.Sprintf("%s_mc_to_mtg", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
-				convertPackMTG(inputFile.Name(), o, *config)
+				convertPackMTG(inputFile.Name(), o, config)
 			}
 
 			fmt.Print("Done!\n\n")

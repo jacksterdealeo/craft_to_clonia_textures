@@ -4,11 +4,12 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	"github.com/disintegration/imaging"
 )
 
-func RWUI(input_pack_path, output_pack_path string) error {
+func RWUI(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "UI"
 	readFails := make([][2]string, 0)
 	saveFails := make([][2]string, 0)

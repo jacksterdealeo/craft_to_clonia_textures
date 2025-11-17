@@ -4,11 +4,12 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWDoubleChests(input_pack_path, output_pack_path string) error {
+func RWDoubleChests(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Chests"
 	craft_path := "chest"
 	clonia_path := "chests"
@@ -19,7 +20,7 @@ func RWDoubleChests(input_pack_path, output_pack_path string) error {
 	readFails := make([][2]string, 0)
 	saveFails := make([][2]string, 0)
 
-equals := [...][3]string{
+	equals := [...][3]string{
 		{"christmas_left.png", "christmas_right.png", "mcl_chests_normal_double_present.png"},
 		{"normal_left.png", "normal_right.png", "mcl_chests_normal_double.png"},
 		{"trapped_left.png", "trapped_right.png", "mcl_chests_trapped_double.png"},
@@ -146,8 +147,7 @@ equals := [...][3]string{
 	return multiErrMsg(stitch, readFails, saveFails)
 }
 
-
-func RWSingleChests(input_pack_path, output_pack_path string) error {
+func RWSingleChests(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Chests"
 	craft_path := "chest"
 	clonia_path := "chests"

@@ -8,8 +8,10 @@ import (
 	"os"
 	"strings"
 
-	data "codeberg.org/ostech/craft_to_clonia_textures/data"
-	imaging "github.com/disintegration/imaging"
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
+	"codeberg.org/ostech/craft_to_clonia_textures/data"
+
+	"github.com/disintegration/imaging"
 )
 
 var (
@@ -17,7 +19,7 @@ var (
 	cloniaPaths = data.CloniaPaths
 )
 
-func convertPackClonia(inName string, outName string, config Config) {
+func convertPackClonia(inName string, outName string, config *configure.Config) {
 	var (
 		successes          = 0
 		failures           = 0
@@ -101,7 +103,7 @@ func convertPackClonia(inName string, outName string, config Config) {
 	}
 
 	var stitches_error_log strings.Builder
-	mcStitches(inputPackLocation, outputPackLocation, &stitches_error_log)
+	mcStitches(inputPackLocation, outputPackLocation, &stitches_error_log, config)
 	textureErrorsLog.WriteString(stitches_error_log.String())
 	textureErrorsLog.WriteString("\n")
 

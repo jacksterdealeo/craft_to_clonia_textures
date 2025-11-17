@@ -4,10 +4,11 @@ import (
 	"log"
 	"os"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 )
 
-func RWEmbedded(input_pack_path, output_pack_path string) error {
+func RWEmbedded(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "RWEmbedded"
 	// craft_path := "whoKnows"
 	clonia_path := "embedded"
@@ -28,14 +29,14 @@ func RWEmbedded(input_pack_path, output_pack_path string) error {
 			log.Println(entry.Name(), "is a directory! This does not happen during normal usage!")
 			continue
 		}
-		contents, err := data.TexturesFS.ReadFile(x16Dir +"/"+ entry.Name())
+		contents, err := data.TexturesFS.ReadFile(x16Dir + "/" + entry.Name())
 		if err != nil {
 			readFails = append(readFails, [2]string{x16Dir, entry.Name()})
 			continue
 		}
 		if err := os.WriteFile(out_path+entry.Name(), contents, 0644); err != nil {
-    	saveFails = append(saveFails, [2]string{out_path, entry.Name()})
-    }
+			saveFails = append(saveFails, [2]string{out_path, entry.Name()})
+		}
 
 	}
 

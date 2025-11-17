@@ -4,6 +4,7 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	"github.com/disintegration/imaging"
 )
@@ -18,7 +19,7 @@ type Bed_t struct {
 	Inv *image.NRGBA
 }
 
-func RWBedInv(input_pack_path, output_pack_path string) error {
+func RWBedInv(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "BedInv"
 
 	for _, bed := range data.BedIcons {

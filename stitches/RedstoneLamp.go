@@ -1,15 +1,15 @@
 package stitches
 
-
 import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWRedstoneLamp(inputPackPath, outputPackPath string) error {
+func RWRedstoneLamp(inputPackPath, outputPackPath string, _ *configure.Config) error {
 	stitch := "Campfire"
 	craftPath := "block"
 	cloniaPath := "vl"
@@ -25,7 +25,7 @@ func RWRedstoneLamp(inputPackPath, outputPackPath string) error {
 	}
 
 	dst := RedstoneLampMask(lampOn)
-	if saveErr := imaging.Save(dst, outPath + outBlock); saveErr != nil {
+	if saveErr := imaging.Save(dst, outPath+outBlock); saveErr != nil {
 		return saveErrMsg(stitch, craftPath, outBlock)
 	}
 

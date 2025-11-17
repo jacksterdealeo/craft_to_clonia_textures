@@ -7,11 +7,12 @@ import (
 	"log"
 	"os"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	"codeberg.org/ostech/craft_to_clonia_textures/stitches"
 )
 
-func convertPackMTG(inName string, outName string, config Config) {
+func convertPackMTG(inName string, outName string, config *configure.Config) {
 	var textureErrorsLog string = fmt.Sprintf("%v %v\n", inName, nowShort)
 	var successes = 0
 	var failures = 0
@@ -39,7 +40,7 @@ func convertPackMTG(inName string, outName string, config Config) {
 		}
 	}
 
-	stitches.RWPackIcon(texturePackLocation, outPath)
+	stitches.RWPackIcon(texturePackLocation, outPath, config)
 
 	copyTextureFails := []string{}
 	catchReadWriteErrors := func(err *readWriteError) {

@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWPotionIndicator(input_pack_path, output_pack_path string) error {
+func RWPotionIndicator(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "PotionIndicator"
 	var errors string
 

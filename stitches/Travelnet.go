@@ -4,6 +4,7 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
@@ -23,7 +24,7 @@ type Travelnet_t struct {
 	Inv_Color *image.NRGBA
 }
 
-func RWTravelnet(input_pack_path, output_pack_path string) error {
+func RWTravelnet(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Travelnet"
 	craft_path := "block"
 	clonia_path := "travelnet"

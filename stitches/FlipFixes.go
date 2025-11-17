@@ -1,11 +1,12 @@
 package stitches
 
 import (
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWCloniaFlipFixes(inputPackPath string, outputPackPath string) error {
+func RWCloniaFlipFixes(inputPackPath string, outputPackPath string, _ *configure.Config) error {
 	stitch := "FlipFixes"
 
 	readFails := [][2]string{}
@@ -25,4 +26,3 @@ func RWCloniaFlipFixes(inputPackPath string, outputPackPath string) error {
 	}
 	return multiErrMsg(stitch, readFails, writeFails)
 }
-

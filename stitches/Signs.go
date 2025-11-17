@@ -4,11 +4,12 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWSigns(input_pack_path, output_pack_path string) error {
+func RWSigns(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Signs"
 
 	in_path := input_pack_path + data.CraftPaths["signs"]

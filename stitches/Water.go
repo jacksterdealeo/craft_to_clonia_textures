@@ -4,12 +4,13 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
 // TODO: Make this read animation frames.
-func RWWater(input_pack_path, output_pack_path string) error {
+func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	inPath := input_pack_path + "/" + data.CraftPaths["block"] + "/"
 	outPath := output_pack_path + "/" + data.CloniaPaths["core"] + "/"
 	/*

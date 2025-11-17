@@ -5,8 +5,10 @@ import (
 	"image/color"
 	"strconv"
 
-	data "codeberg.org/ostech/craft_to_clonia_textures/data"
-	imaging "github.com/disintegration/imaging"
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
+	"codeberg.org/ostech/craft_to_clonia_textures/data"
+
+	"github.com/disintegration/imaging"
 )
 
 var (
@@ -271,7 +273,7 @@ func flip_fix(inName string, outName string) *readWriteError {
 }
 */
 
-func hud_fix(inPath string, outPath string, config Config) *readWriteError {
+func hud_fix(inPath string, outPath string, config *configure.Config) *readWriteError {
 	fails := []string{}
 
 	make_pink := func(c color.NRGBA) color.NRGBA {

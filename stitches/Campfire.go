@@ -4,11 +4,12 @@ import (
 	"image"
 	"image/color"
 
+	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWCampfire(input_pack_path, output_pack_path string) error {
+func RWCampfire(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Campfire"
 	craft_path := "block"
 	clonia_path := "campfires"
