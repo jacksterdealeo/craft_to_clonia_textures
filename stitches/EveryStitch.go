@@ -20,6 +20,7 @@ var UniversalStitches = [...]func(string, string, *configure.Config) error{
 	RWRedstoneLamp,
 	RWSigns,
 	RWSingleChests,
+	RWStonecutter,
 	RWUI,
 	RWWater,
 

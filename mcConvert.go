@@ -122,7 +122,7 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 		//lava_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 		mods_fixes(inputPackLocation, outputPackLocation),
 		//single_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
-		stonecutter_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["stonecutter"]),
+		//stonecutter_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["stonecutter"]),
 		//water_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 
 		MobConvert(inputPackLocation, outputPackLocation),

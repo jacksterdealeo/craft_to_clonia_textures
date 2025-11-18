@@ -542,28 +542,3 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 		return nil
 	}
 }
-
-func stonecutter_fix(inPath string, outPath string) *readWriteError {
-	saw, err := imaging.Open(inPath + "stonecutter_saw.png")
-	if err != nil {
-		return &readWriteError{[]string{"block::stonecutter_saw.png failed to open!"}, "stonecutter textures"}
-	}
-	if saw.Bounds().Dx()%16 != 0 {
-		return &readWriteError{[]string{"block::stonecutter_saw.png has an incompatible image size!"}, "stonecutter textures"}
-	}
-	scale := saw.Bounds().Dx() / 16
-	numOfFrames := saw.Bounds().Dy() / saw.Bounds().Dx()
-	side, err := imaging.Open(inPath + "stonecutter_side.png")
-	if err != nil {
-		return &readWriteError{[]string{"block::stonecutter_side.png failed to open!"}, "stonecutter textures"}
-	}
-	dst := imaging.New(saw.Bounds().Dx(), saw.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-	dst = imaging.Overlay(dst, saw, image.Point{0, -9 * scale}, 1.0)
-	for i := range numOfFrames {
-		dst = imaging.Overlay(dst, side, image.Point{0, i * side.Bounds().Dx()}, 1.0)
-	}
-	if err := imaging.Save(dst, outPath+"mcl_stonecutter_saw.png"); err != nil {
-		return &readWriteError{[]string{"mcl_stonecutter_saw.png failed to save!"}, "stonecutter textures"}
-	}
-	return nil
-}
