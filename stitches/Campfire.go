@@ -1,6 +1,7 @@
 package stitches
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 
@@ -10,56 +11,70 @@ import (
 )
 
 func RWCampfire(input_pack_path, output_pack_path string, _ *configure.Config) error {
-	stitch := "Campfire"
-	craft_path := "block"
-	clonia_path := "campfires"
-
-	_ = clonia_path
-
-	var block string
+	//stitch := "Campfire"
 
 	in_path := input_pack_path + data.CraftPaths["block"]
-	out_path := output_pack_path + "/" + data.CloniaPaths["campfires"]
+	out_path := output_pack_path + data.CloniaPaths["anvils"]
 
-	_ = out_path
+	fails := []string{}
 
-	block = "campfire_log_lit.png"
-	campfire_log_lit, err := imaging.Open(in_path + block)
+	campfire_log_lit, err := imaging.Open(in_path + "campfire_log_lit.png")
 	if err != nil {
-		return openErrMsg(stitch, craft_path, block)
+		fails = append(fails, "campfires::campfire_log_lit.png failed to open!")
+	} else {
+		dst := imaging.New(campfire_log_lit.Bounds().Dx()*2, campfire_log_lit.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Paste(dst, campfire_log_lit, image.Pt(0, 0))
+		if err := imaging.Save(dst, out_path+"mcl_campfires_campfire_log_lit.png"); err != nil {
+			fails = append(fails, "mcl_campfires_campfire_log_lit.png failed to save!")
+		}
 	}
-	_ = campfire_log_lit
 
-	block = "soul_campfire_log_lit.png"
-	soul_campfire_log_lit, err := imaging.Open(in_path + block)
+	soul_campfire_log_lit, err := imaging.Open(in_path + "soul_campfire_log_lit.png")
 	if err != nil {
-		return openErrMsg(stitch, craft_path, block)
+		fails = append(fails, "campfires::soul_campfire_log_lit.png failed to open!")
+	} else {
+		dst := imaging.New(soul_campfire_log_lit.Bounds().Dx()*2, soul_campfire_log_lit.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Paste(dst, soul_campfire_log_lit, image.Pt(0, 0))
+		if err := imaging.Save(dst, out_path+"mcl_campfires_soul_campfire_log_lit.png"); err != nil {
+			fails = append(fails, "mcl_campfires_soul_campfire_log_lit.png failed to save!")
+		}
 	}
-	_ = soul_campfire_log_lit
 
 	campfire_log, err := imaging.Open(in_path + "campfire_log.png")
 	if err != nil {
-		return openErrMsg(stitch, craft_path, block)
+		fails = append(fails, "campfires::campfire_fire.png failed to open!")
+	} else {
+		dst := imaging.New(campfire_log.Bounds().Dx()*2, campfire_log.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Paste(dst, campfire_log, image.Pt(0, 0))
+		if err := imaging.Save(dst, out_path+"mcl_campfires_log.png"); err != nil {
+			fails = append(fails, "mcl_campfires_log.png failed to save!")
+		}
 	}
-	_ = campfire_log
 
 	fire, err := imaging.Open(in_path + "campfire_fire.png")
 	if err != nil {
-		return openErrMsg(stitch, craft_path, block)
+		fails = append(fails, "campfires::campfire_fire.png failed to open!")
+	} else {
+		dst := imaging.New(fire.Bounds().Dx()*2, fire.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Paste(dst, fire, image.Pt(fire.Bounds().Dx(), 0))
+		if err := imaging.Save(dst, out_path+"mcl_campfires_campfire_fire.png"); err != nil {
+			fails = append(fails, "mcl_campfires_campfire_fire.png failed to save!")
+		}
 	}
-	_ = fire
 
 	soulfire, err := imaging.Open(in_path + "soul_campfire_fire.png")
 	if err != nil {
-		return openErrMsg(stitch, craft_path, block)
+		fails = append(fails, "campfires::soul_campfire_fire.png failed to open!")
+	} else {
+		dst := imaging.New(soulfire.Bounds().Dx()*2, soulfire.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Paste(dst, soulfire, image.Pt(soulfire.Bounds().Dx(), 0))
+		if err := imaging.Save(dst, out_path+"mcl_campfires_soul_campfire_fire.png"); err != nil {
+			fails = append(fails, "mcl_campfires_soul_campfire_fire.png failed to save!")
+		}
 	}
-	_ = soulfire
 
+	if len(fails) > 0 {
+		return fmt.Errorf("%v\n", fails)
+	}
 	return nil
-}
-
-func CampfireLogLit(texture image.Image) image.Image {
-	dst := imaging.New(texture.Bounds().Dx()*2, texture.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-	dst = imaging.Paste(dst, texture, image.Pt(0, 0))
-	return dst
 }

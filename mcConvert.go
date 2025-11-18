@@ -112,7 +112,7 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	logRWErrs(
 		//anvil_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["anvils"]),
 		armor_fixes(inputPackLocation, outputPackLocation),
-		campfire_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["campfires"]),
+		//campfire_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["campfires"]),
 		//crack_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["hud_base_textures"]),
 		do_fixes(inputPackLocation, outputPackLocation),
 		//double_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),

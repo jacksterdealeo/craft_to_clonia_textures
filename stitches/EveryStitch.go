@@ -5,6 +5,7 @@ import "codeberg.org/ostech/craft_to_clonia_textures/configure"
 var UniversalStitches = [...]func(string, string, *configure.Config) error{
 	RWAnvil,
 	RWBedInv,
+	RWCampfire,
 	RWCow,
 	RWCrack,
 	RWDeepslateTools,
