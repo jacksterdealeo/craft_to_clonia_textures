@@ -14,7 +14,7 @@ func RWCampfire(input_pack_path, output_pack_path string, _ *configure.Config) e
 	//stitch := "Campfire"
 
 	in_path := input_pack_path + data.CraftPaths["block"]
-	out_path := output_pack_path + data.CloniaPaths["anvils"]
+	out_path := output_pack_path + data.CloniaPaths["campfires"]
 
 	fails := []string{}
 
