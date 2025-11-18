@@ -6,6 +6,7 @@ var UniversalStitches = [...]func(string, string, *configure.Config) error{
 	RWAnvil,
 	RWBedInv,
 	RWCow,
+	RWCrack,
 	RWDeepslateTools,
 	RWDoubleChests,
 	RWEmbedded,

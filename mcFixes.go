@@ -3,7 +3,6 @@ package main
 import (
 	"image"
 	"image/color"
-	"strconv"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -24,36 +23,6 @@ func cropToScale(img image.Image, x1, y1, x2, y2, scale int) *image.NRGBA {
 	return imaging.Crop(img, image.Rectangle{
 		image.Point{x1 * scale, y1 * scale}, image.Point{x2 * scale, y2 * scale}})
 }
-
-/*
-func animated_texture_fix(inName string, outName string) *readWriteError {
-	fails := []string{}
-	animated := [...][4]string{
-		{"block", "respawn_anchor_top.png", "beds", "respawn_anchor_top_on.png"},         //
-		{"block", "soul_fire_0.png", "blackstone", "soul_fire_basic_flame_animated.png"}, //
-		{"block", "fire_0.png", "fire", "fire_basic_flame_animated.png"},                 //
-		{"block", "fire_0.png", "fire", "mcl_burning_entity_flame_animated.png"},         //
-		{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png"},            //
-		{"block", "magma.png", "nether", "mcl_nether_magma.png"},                         //
-	}
-
-	for _, e := range animated {
-		img, err := imaging.Open(inName + craftPaths[e[0]] + e[1])
-		if err != nil {
-			fails = append(fails, e[0]+"::"+e[1]+" failed to open!")
-		} else {
-			if err = imaging.Save(img, outName+cloniaPaths[e[2]]+e[3]); err != nil {
-				fails = append(fails, e[3]+" failed to save!")
-			}
-		}
-	}
-	if len(fails) > 0 {
-		return &readWriteError{fails, "animated textures"}
-	} else {
-		return nil
-	}
-}
-*/
 
 func do_fixes(inPack string, outPack string) *readWriteError {
 	fails := []string{}
@@ -201,78 +170,6 @@ func campfire_fix(inPath string, outPath string) *readWriteError {
 	return nil
 }
 
-func crack_fix(inPath string, outPath string) *readWriteError {
-	destroy0, err := imaging.Open(inPath + "destroy_stage_0.png")
-	if err != nil {
-		return &readWriteError{[]string{"block::destroy_stage_0 failed to open!"}, "crack textures"}
-	}
-	dst := imaging.New(destroy0.Bounds().Dx(), destroy0.Bounds().Dy()*10, color.NRGBA{0, 0, 0, 0})
-	dst = imaging.Paste(dst, destroy0, image.Pt(0, 0))
-	for i := 1; i <= 9; i++ {
-		destroyPartI, err := imaging.Open(inPath + "destroy_stage_" + strconv.Itoa(i) + ".png")
-		if err != nil {
-			return &readWriteError{[]string{"block::destroy_stage_" + strconv.Itoa(i) + " failed to open!"}, "crack textures"}
-		}
-		dst = imaging.Paste(dst, destroyPartI, image.Pt(0, i*destroy0.Bounds().Dy()))
-	}
-	if err := imaging.Save(dst, outPath+"crack_anylength.png"); err != nil {
-		return &readWriteError{[]string{"crack_anylength.png failed to save!"}, "crack textures"}
-	}
-	return nil
-}
-
-/*
-func flip_fix(inName string, outName string) *readWriteError {
-	fails := []string{}
-	flips := [...][4]string{
-		////mcl_bamboo
-		{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom.png"},
-		{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top.png"},
-		////mcl_cherry_blossom
-		{"block", "cherry_door_bottom.png", "cherry_blossom", "mcl_cherry_blossom_door_bottom.png"},
-		{"block", "cherry_door_top.png", "cherry_blossom", "mcl_cherry_blossom_door_top.png"},
-		////mcl_crimson
-		{"block", "crimson_door_bottom.png", "crimson", "mcl_crimson_crimson_door_bottom.png"},
-		{"block", "crimson_door_top.png", "crimson", "mcl_crimson_crimson_door_top.png"},
-		{"block", "warped_door_bottom.png", "crimson", "mcl_crimson_warped_door_bottom.png"},
-		{"block", "warped_door_top.png", "crimson", "mcl_crimson_warped_door_top.png"},
-		////mcl_doors
-		{"block", "acacia_door_bottom.png", "doors", "mcl_doors_door_acacia_lower.png"},
-		{"block", "acacia_door_top.png", "doors", "mcl_doors_door_acacia_upper.png"},
-		{"block", "birch_door_bottom.png", "doors", "mcl_doors_door_birch_lower.png"},
-		{"block", "birch_door_top.png", "doors", "mcl_doors_door_birch_upper.png"},
-		{"block", "dark_oak_door_bottom.png", "doors", "mcl_doors_door_dark_oak_lower.png"},
-		{"block", "dark_oak_door_top.png", "doors", "mcl_doors_door_dark_oak_upper.png"},
-		{"block", "jungle_door_bottom.png", "doors", "mcl_doors_door_jungle_lower.png"},
-		{"block", "jungle_door_top.png", "doors", "mcl_doors_door_jungle_upper.png"},
-		{"block", "spruce_door_bottom.png", "doors", "mcl_doors_door_spruce_lower.png"},
-		{"block", "spruce_door_top.png", "doors", "mcl_doors_door_spruce_upper.png"},
-		{"block", "oak_door_bottom.png", "doors", "mcl_doors_door_wood_lower.png"},
-		{"block", "oak_door_top.png", "doors", "mcl_doors_door_wood_upper.png"},
-		////mcl_mangrove
-		{"block", "mangrove_door_bottom.png", "mangrove", "mcl_mangrove_door_bottom.png"},
-		{"block", "mangrove_door_top.png", "mangrove", "mcl_mangrove_door_top.png"},
-	}
-
-	for _, e := range flips {
-		img, err := imaging.Open(inName + craftPaths[e[0]] + e[1])
-		if err != nil {
-			fails = append(fails, e[0]+"::"+e[1]+" failed to open!")
-		} else {
-			img = flipH(img)
-			if err = imaging.Save(img, outName+cloniaPaths[e[2]]+e[3]); err != nil {
-				fails = append(fails, e[2]+"::"+e[3]+" failed to save!")
-			}
-		}
-	}
-	if len(fails) > 0 {
-		return &readWriteError{fails, "flip textures"}
-	} else {
-		return nil
-	}
-}
-*/
-
 func hud_fix(inPath string, outPath string, config *configure.Config) *readWriteError {
 	fails := []string{}
 
@@ -419,41 +316,10 @@ func hud_fix(inPath string, outPath string, config *configure.Config) *readWrite
 func mods_fixes(inPath, outPack string) *readWriteError {
 	fails := []string{}
 	mod := "copper_stuff"
-	/*
-		textures_for_copper := data.CopperStuffMod
-
-		for _, e := range textures_for_copper {
-			ironItem, err := imaging.Open(inPath + e.ReadPath())
-			if err != nil {
-				fails = append(fails, e.InTexture+" failed to open for mod", mod)
-			} else {
-				dst := imaging.New(ironItem.Bounds().Dx(), ironItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-				dst = imaging.Overlay(dst, ironItem, image.Point{0, 0}, 1.0)
-				dst = imaging.AdjustFunc(dst,
-					func(c color.NRGBA) color.NRGBA {
-						r := int(c.R)
-						g := int(c.G)
-						b := int(c.B)
-
-						if (r > g+20 || r < g-20) && (r > b+20 || r < b-20) {
-							return c
-						}
-
-						g = (r * 55) / 100
-						b = (r * 46) / 100
-
-						return color.NRGBA{c.R, uint8(g), uint8(b), c.A}
-					})
-				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
-					fails = append(fails, e.OutTexture+" failed to save!")
-				}
-			}
-		}
-	*/
-
 	func() {
 		mod := "rose_gold_stuff"
-		// They used diamond for the tools, netherite for the armor, and obviously, iron for the shears.
+		// They used diamond for the tools,
+		// netherite for the armor, and obviously, iron for the shears.
 
 		// Netherite is hard to consistantly make look good in pink. :(
 		netherite_to_rose_gold := data.RoseGoldStuffMod_NetheriteToRoseGold
@@ -499,55 +365,6 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 				}
 			}
 		}
-
-		/* Diamond stuff is not looking good :(
-		diamond_to_rose_gold := [...]simpleConversion{
-			{"item", "diamond_hoe.png", mod, "mcl_rose_gold_rose_gold_hoe.png", 1},
-			{"item", "diamond_axe.png", mod, "mcl_rose_gold_rose_gold_axe.png", 1},
-			{"item", "diamond_pickaxe.png", mod, "mcl_rose_gold_rose_gold_pick.png", 1},
-			{"item", "diamond_shovel.png", mod, "mcl_rose_gold_rose_gold_shovel.png", 1},
-			{"item", "diamond_sword.png", mod, "mcl_rose_gold_rose_gold_sword.png", 1},
-		}
-		for _, e := range diamond_to_rose_gold {
-			diamondItem, err := imaging.Open(inPath + e.readPath())
-			if err != nil {
-				fails = append(fails, e.inTexture+" failed to open for mod", mod)
-			} else {
-				dst := imaging.New(diamondItem.Bounds().Dx(), diamondItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-				dst = imaging.Overlay(dst, diamondItem, image.Point{0, 0}, 1.0)
-				dst = imaging.AdjustFunc(dst,
-					func(c color.NRGBA) color.NRGBA {
-
-						r := int(c.R)
-						g := int(c.G)
-						b := int(c.B)
-
-						if r > g || r > b {
-							return c
-						}
-
-						r = ((r * 100) / 21) + 20
-						g = ((g * 100) / 131) + 20
-						b = ((b * 100) / 115) + 20
-
-						if r > 255 {
-							r = 255
-						}
-						if g > 255 {
-							g = 255
-						}
-						if b > 255 {
-							b = 255
-						}
-
-						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
-					})
-				if err = imaging.Save(dst, outPack+e.savePath()); err != nil {
-					fails = append(fails, e.outTexture+" failed to save!")
-				}
-			}
-		}
-		*/
 
 		copper_to_rose_gold_exposed := data.RoseGoldStuffMod_CopperToRoseGoldExposed
 		for _, e := range copper_to_rose_gold_exposed {
