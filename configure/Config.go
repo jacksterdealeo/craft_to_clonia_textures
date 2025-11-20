@@ -42,7 +42,6 @@ func NewConfig() *Config {
 		config.OutputDir =
 			filepath.Join(userHomeDir, ".var", "app", "org.luanti.luanti", ".minetest", "textures")
 	}
-
 	return &config
 }
 
@@ -78,10 +77,12 @@ func ReadConfigFile(configLocation string) (*Config, error) {
 		}
 	}
 
+	config.InputDir = CutHomePath(config.InputDir)
+	config.OutputDir = CutHomePath(config.OutputDir)
+
 	if !config.DefinedInput {
 		config.InputDir = ("./input/")
 	}
-
 	if !config.DefinedOutput {
 		config.InputDir = ("./output/")
 	}
@@ -128,11 +129,11 @@ func LegacyJsonConfigFileUpdater(file []byte, config *Config) (needsUpdate bool,
 		return false, file, nil
 	}
 
-	// Field checks:
+	// Start of field checks
 	if config.HUDOnFireAnimationFrames == 0 {
 		config.HUDOnFireAnimationFrames = 8
 	}
-	// end
+	// End of field checks
 
 	updatedFile, err = json.MarshalIndent(*config, "", "")
 	if err != nil {
