@@ -13,7 +13,7 @@ func CutHomePath(path string) string {
 		if err != nil {
 			log.Panicf("You have no home directory? Maybe don't use \"~/\" in %v.\n %v\n", path, err)
 		}
-		return filepath.Join(home, cut)
+		return filepath.Join(home, cut) + "/"
 	}
 	return path
 }
