@@ -10,20 +10,40 @@ import (
 	imaging "github.com/disintegration/imaging"
 )
 
-func RWDeepslateTools(inputPackPath, outputPackPath string, _ *configure.Config) error {
+func RWDeepslateTools(inputPackPath, outputPackPath string, config *configure.Config) error {
 	// stitch := "DeepslateTools"
 	errReport := ""
 
-	for _, item := range data.VLDeepslate {
+	doEdit := func(item data.SimpleConversion) {
 		stoneItem, err := imaging.Open(inputPackPath + item.ReadPath())
 		if err != nil {
 			errReport += fmt.Sprintf("\tFailed to open iron item \"%v\", giving up.\n", item.ReadPath())
-			continue
+			return
 		}
 
 		dst := DeepslateTool(stoneItem)
 		if saveErr := imaging.Save(dst, outputPackPath+item.SavePath()); saveErr != nil {
-			errReport += fmt.Sprintf("\tFailed to save iron item \"%v\", giving up.\n", item.SavePath())
+			errReport += fmt.Sprintf("\tFailed to save stone item \"%v\", giving up.\n", item.SavePath())
+		}
+	}
+
+	for _, item := range data.VLDeepslate {
+		doEdit(item)
+	}
+
+	switch config.SpearVersion {
+	case "short":
+		doEdit(data.ShortDSSpear)
+	case "long":
+		item := data.LongDSSpear
+		stoneItem, err := imaging.Open(inputPackPath + item.ReadPath())
+		if err != nil {
+			errReport += fmt.Sprintf("\tFailed to open stone item \"%v\", giving up.\n", item.ReadPath())
+		} else {
+			dst := imaging.Rotate270(DeepslateTool(stoneItem))
+			if saveErr := imaging.Save(dst, outputPackPath+item.SavePath()); saveErr != nil {
+				errReport += fmt.Sprintf("\tFailed to save deepslate item \"%v\", giving up.\n", item.SavePath())
+			}
 		}
 	}
 

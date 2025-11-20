@@ -1,6 +1,9 @@
 package data
 
-import "image"
+import (
+	"image"
+	"path/filepath"
+)
 
 type SimpleTexture struct {
 	Path    string
@@ -9,7 +12,7 @@ type SimpleTexture struct {
 
 // Returns the texture path appended with texture name.
 func (e *SimpleTexture) FullPath() string {
-	return CraftPaths[e.Path] + "/" + e.Texture
+	return filepath.Join(CraftPaths[e.Path], e.Texture)
 }
 
 // Used for textures that could have animation data.
@@ -24,12 +27,12 @@ type SimpleConversion struct {
 
 // Returns the texture Minecraft inPath appended with texture name.
 func (e *SimpleConversion) ReadPath() string {
-	return CraftPaths[e.InPath] + "/" + e.InTexture
+	return filepath.Join(CraftPaths[e.InPath], e.InTexture)
 }
 
 // Returns the texture Mineclonia outPath appended with texture name.
 func (e *SimpleConversion) SavePath() string {
-	return CloniaPaths[e.OutPath] + "/" + e.OutTexture
+	return filepath.Join(CloniaPaths[e.OutPath], e.OutTexture)
 }
 
 type ConversionWithFallback struct {
@@ -42,7 +45,7 @@ type ConversionWithFallback struct {
 
 // Returns the texture Mineclonia outPath appended with texture name.
 func (e *ConversionWithFallback) SavePath() string {
-	return CloniaPaths[e.OutPath] + "/" + e.OutTexture
+	return filepath.Join(CloniaPaths[e.OutPath], e.OutTexture)
 }
 
 type BasicArmorConversion struct {

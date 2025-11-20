@@ -1,4 +1,4 @@
-package main
+package stitches
 
 import (
 	"image"
@@ -10,7 +10,7 @@ import (
 )
 
 // Copies over a texture file with no changes.
-func copyTexture(src string, dest string) error {
+func CopyTexture(src string, dest string) error {
 	img, err := imaging.Open(src)
 	if err != nil {
 		return err
@@ -29,7 +29,7 @@ func copyTexture(src string, dest string) error {
 
 // Copies over a texture file with animation frames intact.
 // Set framesAllowed to less than 1 to copy the texture with all the frames.
-func copyTextureAnimated(src string, dest string, framesAllowed int) error {
+func CopyTextureAnimated(src string, dest string, framesAllowed int) error {
 	img, err := imaging.Open(src)
 	if err != nil {
 		return err

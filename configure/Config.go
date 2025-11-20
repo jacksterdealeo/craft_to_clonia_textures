@@ -20,6 +20,7 @@ type Config struct {
 	OutputDir string
 
 	HUDOnFireAnimationFrames int
+	SpearVersion             string
 }
 
 func NewConfig() *Config {
@@ -30,6 +31,7 @@ func NewConfig() *Config {
 		ExportMineclonia:    true,
 
 		HUDOnFireAnimationFrames: 8,
+		SpearVersion:             "short",
 	}
 
 	if userHomeDir, err := os.UserHomeDir(); err != nil {
@@ -116,7 +118,7 @@ don't exist in the existing one and returns an updated marshalled file if needed
 
 Only checks lines that end in commas. Sorry if you don't like that kind of formatting.
 */
-func LegacyJsonConfigFileUpdater(file []byte, config *Config) (needsUpdate bool, updatedFile []byte, err error) {
+func LegacyJsonConfigFileUpdater(file []byte, c *Config) (needsUpdate bool, updatedFile []byte, err error) {
 	referenceBytes, err := json.MarshalIndent(*NewConfig(), "", "")
 	if err != nil {
 		log.Panic(err)
@@ -130,12 +132,15 @@ func LegacyJsonConfigFileUpdater(file []byte, config *Config) (needsUpdate bool,
 	}
 
 	// Start of field checks
-	if config.HUDOnFireAnimationFrames == 0 {
-		config.HUDOnFireAnimationFrames = 8
+	if c.HUDOnFireAnimationFrames == 0 {
+		c.HUDOnFireAnimationFrames = 8
+	}
+	if c.SpearVersion == "" {
+		c.SpearVersion = "short"
 	}
 	// End of field checks
 
-	updatedFile, err = json.MarshalIndent(*config, "", "")
+	updatedFile, err = json.MarshalIndent(*c, "", "")
 	if err != nil {
 		return true, []byte{}, err
 	}

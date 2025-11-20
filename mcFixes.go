@@ -24,7 +24,7 @@ func cropToScale(img image.Image, x1, y1, x2, y2, scale int) *image.NRGBA {
 		image.Point{x1 * scale, y1 * scale}, image.Point{x2 * scale, y2 * scale}})
 }
 
-func do_fixes(inPack string, outPack string) *readWriteError {
+func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteError {
 	fails := []string{}
 
 	func() { // special slabs
@@ -249,7 +249,7 @@ func hud_fix(inPath string, outPath string, config *configure.Config) *readWrite
 	}
 }
 
-func mods_fixes(inPath, outPack string) *readWriteError {
+func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 	fails := []string{}
 	mod := "copper_stuff"
 	func() {
@@ -441,29 +441,52 @@ func mods_fixes(inPath, outPack string) *readWriteError {
 	}() // end of "Rose Gold Stuff"
 
 	mod = "emerald_stuff"
-	emerald_stuff_textures := data.EmeraldStuffMod
+
+	greenIt := func(img image.Image) image.Image {
+		dst := imaging.New(img.Bounds().Dx(), img.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
+		dst = imaging.Overlay(dst, img, image.Point{0, 0}, 1.0)
+		dst = imaging.AdjustFunc(dst,
+			func(c color.NRGBA) color.NRGBA {
+				r := int(c.R)
+				g := int(c.G)
+				b := int(c.B)
+
+				if r >= g || r >= b {
+					return c
+				}
+
+				b /= 2
+
+				return color.NRGBA{c.R, c.G, uint8(b), c.A}
+			})
+		return dst
+	}
+
+	var emerald_stuff_textures = make([]data.SimpleConversion, 0, 11)
+	emerald_stuff_textures = append(emerald_stuff_textures, data.EmeraldStuffMod[:]...)
+	switch c.SpearVersion {
+	case "short":
+		emerald_stuff_textures = append(emerald_stuff_textures, data.SimpleConversion{"item", "diamond_spear.png", "vl", "mcl_emerald_stuff_spear.png", 1})
+	case "long":
+		emerald_long_spear := data.SimpleConversion{"item", "diamond_spear_in_hand.png", "vl", "mcl_emerald_stuff_spear.png", 1}
+		img, err := imaging.Open(inPath + emerald_long_spear.ReadPath())
+		if err != nil {
+			fails = append(fails, emerald_long_spear.InTexture+" failed to open for mod", mod)
+		} else {
+			img = greenIt(img)
+			img = imaging.Rotate270(img)
+			if err = imaging.Save(img, outPack+emerald_long_spear.SavePath()); err != nil {
+				fails = append(fails, emerald_long_spear.OutTexture+" failed to save!")
+			}
+		}
+	}
 
 	for _, e := range emerald_stuff_textures {
 		diamondItem, err := imaging.Open(inPath + e.ReadPath())
 		if err != nil {
 			fails = append(fails, e.InTexture+" failed to open for mod", mod)
 		} else {
-			dst := imaging.New(diamondItem.Bounds().Dx(), diamondItem.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
-			dst = imaging.Overlay(dst, diamondItem, image.Point{0, 0}, 1.0)
-			dst = imaging.AdjustFunc(dst,
-				func(c color.NRGBA) color.NRGBA {
-					r := int(c.R)
-					g := int(c.G)
-					b := int(c.B)
-
-					if r >= g || r >= b {
-						return c
-					}
-
-					b /= 2
-
-					return color.NRGBA{c.R, c.G, uint8(b), c.A}
-				})
+			dst := greenIt(diamondItem)
 			if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
 				fails = append(fails, e.OutTexture+" failed to save!")
 			}

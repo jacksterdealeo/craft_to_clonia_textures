@@ -21,11 +21,11 @@
 !build.sh
 !/data
 !/stitches
-!/mcmeta-handler
+!/mcmetaHandler
 !/configure
 
 !/data/textures/
 !/data/textures/16/
-!/data/textures/16/*.png
+!/data/textures/16/*
 
 # !Makefile
