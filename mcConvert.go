@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
@@ -77,8 +78,8 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 
 	for _, texture := range data.SimpleNoEdits {
 		if err := copyTexture(
-			inputPackLocation+craftPaths[texture.InPath]+texture.InTexture,
-			outputPackLocation+cloniaPaths[texture.OutPath]+texture.OutTexture,
+			filepath.Join(craftPaths[texture.InPath], texture.InTexture),
+			filepath.Join(cloniaPaths[texture.OutPath], texture.OutTexture),
 		); err != nil {
 			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 		} else {

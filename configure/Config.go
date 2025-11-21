@@ -79,8 +79,8 @@ func ReadConfigFile(configLocation string) (*Config, error) {
 		}
 	}
 
-	config.InputDir = CutHomePath(config.InputDir)
-	config.OutputDir = CutHomePath(config.OutputDir)
+	config.InputDir = CutHomePath(config.InputDir) + "/"
+	config.OutputDir = CutHomePath(config.OutputDir) + "/"
 
 	if !config.DefinedInput {
 		config.InputDir = ("./input/")
