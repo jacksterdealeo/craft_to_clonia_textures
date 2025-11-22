@@ -72,6 +72,7 @@ func RWEmbedded(input_pack_path, output_pack_path string, config *configure.Conf
 			img, err := imaging.Open(filepath.Join(input_pack_path, e.ReadPath()))
 			if err != nil {
 				fails = append(fails, fmt.Errorf("%v, %v, %w", "shortSpears", e.OutTexture, err))
+				continue
 			}
 			imgX := img.Bounds().Dx()
 			// imgY := img.Bounds().Dy()
