@@ -18,6 +18,7 @@ and many things are just not added in yet.
 - Run the project once, and it'll create an input folder, an output folder, and a config file. The config file has options you may want to check before continuing.
 - Place texture packs from Minecraft into the input folder.
 - Run the project again, and it'll place the converted packs into the output folder.
+- The config file is explained here: [CONFIG.md](https://codeberg.org/ostech/craft_to_clonia_textures/src/branch/main/CONFIG.md)
 
 ## License
 This project is distributed under the terms of [MIT License](LICENSE).
