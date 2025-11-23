@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -18,7 +19,7 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 	var failures = 0
 
 	texturePackLocation := config.InputDir + inName
-	outPath := config.OutputDir + outName
+	outPath := filepath.Join(config.OutputDir, outName) + "/"
 	if fs.ValidPath(outPath) {
 		if err := os.Mkdir(outPath, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {

@@ -148,7 +148,7 @@ Minecraft to Mineclonia Texture Pack Converter
 				o := fmt.Sprintf("%s_mc_to_clonia", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
 				convertPackClonia(inputFile.Name(), o, config)
 			}
-			if config.ExportMinetest_Game {
+			if config.ExportMinetestGame {
 				o := fmt.Sprintf("%s_mc_to_mtg", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
 				convertPackMTG(inputFile.Name(), o, config)
 			}

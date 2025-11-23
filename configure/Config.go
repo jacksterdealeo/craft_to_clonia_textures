@@ -11,10 +11,10 @@ import (
 )
 
 type Config struct {
-	DefinedInput        bool
-	DefinedOutput       bool
-	ExportMinetest_Game bool
-	ExportMineclonia    bool
+	DefinedInput       bool
+	DefinedOutput      bool
+	ExportMinetestGame bool
+	ExportMineclonia   bool
 
 	InputDir  string
 	OutputDir string
@@ -25,10 +25,10 @@ type Config struct {
 
 func NewConfig() *Config {
 	var config = Config{
-		DefinedInput:        false,
-		DefinedOutput:       false,
-		ExportMinetest_Game: false,
-		ExportMineclonia:    true,
+		DefinedInput:       false,
+		DefinedOutput:      false,
+		ExportMinetestGame: false,
+		ExportMineclonia:   true,
 
 		HUDOnFireAnimationFrames: 8,
 		SpearVersion:             "short",
@@ -111,14 +111,10 @@ func (c *Config) String() string {
 	}
 }
 
-/*
-This does not update the config in memory.
-It just checks if feilds exist in a new config that
-don't exist in the existing one and returns an updated marshalled file if needed.
-
-Only checks lines that end in commas. Sorry if you don't like that kind of formatting.
-*/
+// Only checks lines that end in commas. Sorry if you don't like that kind of formatting.
 func LegacyJsonConfigFileUpdater(file []byte, c *Config) (needsUpdate bool, updatedFile []byte, err error) {
+	needsUpdate = false
+
 	referenceBytes, err := json.MarshalIndent(*NewConfig(), "", "")
 	if err != nil {
 		log.Panic(err)
@@ -126,9 +122,12 @@ func LegacyJsonConfigFileUpdater(file []byte, c *Config) (needsUpdate bool, upda
 
 	referenceLineCount := bytes.Count(referenceBytes, []byte(",\n"))
 	fileLineCount := bytes.Count(file, []byte(",\n"))
+	if referenceLineCount != fileLineCount {
+		needsUpdate = true
+	}
 
-	if referenceLineCount == fileLineCount {
-		return false, file, nil
+	if bytes.Contains(file, []byte("ExportMinetest_Game")) {
+		needsUpdate = true
 	}
 
 	// Start of field checks
@@ -140,10 +139,13 @@ func LegacyJsonConfigFileUpdater(file []byte, c *Config) (needsUpdate bool, upda
 	}
 	// End of field checks
 
-	updatedFile, err = json.MarshalIndent(*c, "", "")
-	if err != nil {
-		return true, []byte{}, err
+	if !needsUpdate {
+		return
 	}
 
+	updatedFile, err = json.MarshalIndent(*c, "", "")
+	if err != nil {
+		return
+	}
 	return true, updatedFile, nil
 }
