@@ -86,7 +86,7 @@ func ReadConfigFile(configLocation string) (*Config, error) {
 		config.InputDir = ("./input/")
 	}
 	if !config.DefinedOutput {
-		config.InputDir = ("./output/")
+		config.OutputDir = ("./output/")
 	}
 
 	return config, nil
