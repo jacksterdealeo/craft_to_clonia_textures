@@ -2,6 +2,8 @@
 
 ## Build
 
+- Use the Go compiler at [go.dev](https://go.dev/). This project requires at least version 1.24.2.
+
 - Build for yourself by using `go build .`.
 
 - Build for every supported platform by using `go run build.go`.
