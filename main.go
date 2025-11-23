@@ -97,16 +97,6 @@ Minecraft to Mineclonia Texture Pack Converter
 		}
 	}
 
-	var inputDir *os.File
-	inputDir, err = os.Open(config.InputDir)
-	if err != nil {
-		if errors.Is(err, fs.ErrNotExist) {
-			log.Println(config.InputDir + "Input folder doesn't exist.")
-		}
-		log.Fatal(err)
-	}
-	defer inputDir.Close()
-
 	inputFiles, err := os.ReadDir(config.InputDir)
 	if err != nil {
 		log.Fatal(err)
@@ -124,6 +114,10 @@ Minecraft to Mineclonia Texture Pack Converter
 				fmt.Println(inputFile.Name(), "was already decompressed! :D")
 			}
 		}
+	}
+
+	if err := assetsOnlyChecks(config.InputDir); err != nil {
+		fmt.Println(err)
 	}
 
 	var outputDir *os.File

@@ -10,7 +10,7 @@
 - Default: false
 - Accepts: true/false
 
-## ExportMinetest_Game
+## ExportMinetestGame
 > Decides whether textures are converted to Minetest Game's format.
 - Default: false
 - Accepts: true/false
