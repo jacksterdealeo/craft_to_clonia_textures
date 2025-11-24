@@ -32,6 +32,8 @@
 
 - The config file is explained at [`CONFIG.md`](https://codeberg.org/ostech/craft_to_clonia_textures/src/branch/main/CONFIG.md).
 
+- You can find information on how to install texture packs on the Luanti website, at https://docs.luanti.org/for-players/texture-packs/
+
 ## License
 
 This project is distributed under the terms of [the MIT License](LICENSE).
