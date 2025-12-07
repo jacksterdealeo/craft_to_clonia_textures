@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 
@@ -107,8 +108,14 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 }
 
 func hud_fix(inPath string, outPath string, config *configure.Config) *readWriteError {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf(`	HUD FIX PANIC!
+	Not to worry, this has happened here before! Send a report to Jack with a link to the texture pack used.`+
+				"\n	%v\n", r)
+		}
+	}()
 	fails := []string{}
-
 	make_pink := func(c color.NRGBA) color.NRGBA {
 		return color.NRGBA{120, 40, 90, c.A}
 	}
@@ -172,6 +179,11 @@ func hud_fix(inPath string, outPath string, config *configure.Config) *readWrite
 			if saveErr != nil {
 				fails = append(fails, "potions::mcl_potions_icon_wither.png failed to save!")
 			}
+
+			dst = imaging.Overlay(heartContainerRegen, heartWither, image.Pt(0, 0), 1.0)
+			if err := imaging.Save(dst, outPath+cloniaPaths["potions"]+"mcl_potions_icon_regen_wither.png"); err != nil {
+				fails = append(fails, "potions::mcl_potions_icon_regen_wither.png failed to save!")
+			}
 		}
 
 		heartPoison, err := imaging.Open(heartLocation + "heart/poisoned_full.png")
@@ -182,6 +194,11 @@ func hud_fix(inPath string, outPath string, config *configure.Config) *readWrite
 			saveErr = imaging.Save(dst, outPath+cloniaPaths["hunger"]+"hbhunger_icon_health_poison.png")
 			if saveErr != nil {
 				fails = append(fails, "hunger::hbhunger_icon_health_poison.png failed to save!")
+			}
+
+			dst = imaging.Overlay(heartContainerRegen, heartPoison, image.Pt(0, 0), 1.0)
+			if err := imaging.Save(dst, outPath+cloniaPaths["potions"]+"hbhunger_icon_regen_poison.png"); err != nil {
+				fails = append(fails, "potions::hbhunger_icon_regen_poison.png failed to save!")
 			}
 		}
 
@@ -195,18 +212,8 @@ func hud_fix(inPath string, outPath string, config *configure.Config) *readWrite
 				fails = append(fails, "powder_snow::frozen_heart.png failed to save!")
 			}
 		}
-
-		dst = imaging.Overlay(heartContainerRegen, heartPoison, image.Pt(0, 0), 1.0)
-		if err := imaging.Save(dst, outPath+cloniaPaths["potions"]+"hbhunger_icon_regen_poison.png"); err != nil {
-			fails = append(fails, "potions::hbhunger_icon_regen_poison.png failed to save!")
-		}
-
-		dst = imaging.Overlay(heartContainerRegen, heartWither, image.Pt(0, 0), 1.0)
-		if err := imaging.Save(dst, outPath+cloniaPaths["potions"]+"mcl_potions_icon_regen_wither.png"); err != nil {
-			fails = append(fails, "potions::mcl_potions_icon_regen_wither.png failed to save!")
-		}
-
 	}()
+
 	func() { // hunger HUD
 		hungerLocation := inPath + craftPaths["hud"]
 		hunger, err := imaging.Open(hungerLocation + "food_full.png")
@@ -437,7 +444,6 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 				}
 			}
 		}
-
 	}() // end of "Rose Gold Stuff"
 
 	mod = "emerald_stuff"
