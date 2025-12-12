@@ -41,3 +41,8 @@
 - Default: "short"
 - Accepts: "long", "old", "short"
 - Minecraft uses "short" textures for spears as an item and "long" for spears thrown or in hand. "old" will switch to textures I made from before Minecraft got spears.
+
+## EnlargeObjectCrosshair
+> Makes the crosshair bigger when your cursor is on an entity.
+- Default: false
+- Accepts: true/false
