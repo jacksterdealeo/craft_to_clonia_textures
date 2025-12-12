@@ -21,6 +21,7 @@ type Config struct {
 
 	HUDOnFireAnimationFrames int
 	SpearVersion             string
+	EnlargeObjectCrosshair   bool
 }
 
 func NewConfig() *Config {
@@ -32,6 +33,7 @@ func NewConfig() *Config {
 
 		HUDOnFireAnimationFrames: 8,
 		SpearVersion:             "short",
+		EnlargeObjectCrosshair:   false,
 	}
 
 	if userHomeDir, err := os.UserHomeDir(); err != nil {

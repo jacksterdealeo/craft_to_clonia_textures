@@ -8,6 +8,7 @@ var UniversalStitches = [...]func(string, string, *configure.Config) error{
 	RWCampfire,
 	RWCow,
 	RWCrack,
+	RWCrosshair,
 	RWDeepslateTools,
 	RWDoubleChests,
 	RWEmbedded,

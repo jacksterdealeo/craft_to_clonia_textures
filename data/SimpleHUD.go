@@ -18,7 +18,7 @@ var SimpleHUD = [...]SimpleConversion{
 	{"hud", "air.png", "hud_base_textures", "bubble.png", 1},
 	//{"block", "destroy_stage_0.png", "", "crack_anylength.png", 1},
 	//{"block", "destroy_stage_9.png", "", "crack_anylength.png", 1},
-	{"hud", "crosshair.png", "hud_base_textures", "crosshair.png", 1},
+	// {"hud", "crosshair.png", "hud_base_textures", "crosshair.png", 1}, // requires sizing
 	//{"hud", "heart/full.png", "hud_base_textures", "heart.png", 1},
 	//{"", ".png", "", "mcl_base_textures_background.png", 1},
 	//{"", ".png", "", "mcl_base_textures_background9.png", 1},
