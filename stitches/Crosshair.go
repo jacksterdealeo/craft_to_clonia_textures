@@ -9,7 +9,7 @@ import (
 )
 
 func RWCrosshair(input_pack_path, output_pack_path string, config *configure.Config) error {
-	stitch := "Crack"
+	stitch := "Crosshair"
 
 	in_path := input_pack_path + data.CraftPaths["hud"]
 	out_path := output_pack_path + data.CloniaPaths["hud_base_textures"]
