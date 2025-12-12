@@ -1032,7 +1032,7 @@ var SimpleItems = [...]SimpleConversion{
 	{"item", "sugar.png", "core", "mcl_core_sugar.png", 1},
 	//{"block", "vine.png", "core", "mcl_core_vine.png", 1}, // special attention
 	//"mcl_core_void.png"     //no match
-	{"block", "cobweb.png", "core", "mcl_core_web.png", 1},
+	// {"block", "cobweb.png", "core", "mcl_core_web.png", 1}, // handled elsewhere
 	{"block", "grass_block_side_overlay.png", "core", "mcl_dirt_grass_shadow.png", 1}, // special attention?
 	{"particle", "lava.png", "core", "mcl_particles_lava.png", 1},
 	//{"block", "", "core", "mcl_stairs_andesite_smooth_slab.png", 1}, // special attention
