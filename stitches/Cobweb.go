@@ -10,7 +10,7 @@ import (
 )
 
 // {"block", "cobweb.png", "core", "mcl_core_web.png", 1},
-func RWCobweb(input_pack_path, output_pack_path string, config *configure.Config) error {
+func RWCobweb(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Cobweb"
 
 	in_path := input_pack_path + data.CraftPaths["block"]
@@ -32,12 +32,6 @@ func RWCobweb(input_pack_path, output_pack_path string, config *configure.Config
 
 	if err = imaging.Save(dst, path.Join(out_path, "mcl_core_web.png")); err != nil {
 		return saveErrMsg(stitch, out_path, "mcl_core_web.png")
-	}
-	if config.EnlargeObjectCrosshair == true {
-		dst = imaging.Resize(img, 45, 45, imaging.Lanczos)
-	}
-	if err = imaging.Save(dst, path.Join(out_path, "object_crosshair.png")); err != nil {
-		return saveErrMsg(stitch, out_path, "object_crosshair.png")
 	}
 	return nil
 }

@@ -868,6 +868,7 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "ladder.png", "core", "default_ladder.png", 1},
 	//{"block", "lava_flow.png", "core", "default_lava_flowing_animated.png", -1}, // special attention
 	{"block", "lava_still.png", "core", "default_lava_source_animated.png", -1},
+	{"block", "lava_still.png", "vl", "mcl_core_lava_source_animation.png", -1},
 	{"block", "oak_leaves.png", "core", "default_leaves.png", 1},
 	{"block", "mossy_cobblestone.png", "core", "default_mossycobble.png", 1},
 	{"block", "obsidian.png", "core", "default_obsidian.png", 1},

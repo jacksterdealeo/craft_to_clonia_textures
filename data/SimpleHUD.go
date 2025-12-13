@@ -24,7 +24,7 @@ var SimpleHUD = [...]SimpleConversion{
 	//{"", ".png", "", "mcl_base_textures_background9.png", 1},
 	//{"", ".png", "", "mcl_base_textures_button9.png", 1},
 	//{"", ".png", "", "mcl_base_textures_button9_pressed.png", 1},
-	{"hud", "crosshair.png", "hud_base_textures", "object_crosshair.png", 1},
+	//{"hud", "crosshair.png", "hud_base_textures", "object_crosshair.png", 1},  // handled
 	//{"", ".png", "", "smoke_puff.png", 1},
 	//{"", ".png", "", ".png", 1},
 	// -- hunger
