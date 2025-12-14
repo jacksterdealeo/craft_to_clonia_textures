@@ -78,8 +78,8 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 
 	for _, texture := range data.SimpleNoEdits {
 		if err := copyTexture(
-			filepath.Join(craftPaths[texture.InPath], texture.InTexture),
-			filepath.Join(cloniaPaths[texture.OutPath], texture.OutTexture),
+			filepath.Join(inputPackLocation, craftPaths[texture.InPath], texture.InTexture),
+			filepath.Join(outputPackLocation, cloniaPaths[texture.OutPath], texture.OutTexture),
 		); err != nil {
 			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 		} else {

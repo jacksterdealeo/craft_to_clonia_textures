@@ -2,7 +2,7 @@ package stitches
 
 import (
 	"image/color"
-	"path"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -18,7 +18,7 @@ func RWCobweb(input_pack_path, output_pack_path string, _ *configure.Config) err
 	var err error
 
 	file_name := "cobweb.png"
-	img, err := imaging.Open(path.Join(in_path, file_name))
+	img, err := imaging.Open(filepath.Join(in_path, file_name))
 	if err != nil {
 		return openErrMsg(stitch, in_path, file_name)
 	}
@@ -30,7 +30,7 @@ func RWCobweb(input_pack_path, output_pack_path string, _ *configure.Config) err
 		return c
 	})
 
-	if err = imaging.Save(dst, path.Join(out_path, "mcl_core_web.png")); err != nil {
+	if err = imaging.Save(dst, filepath.Join(out_path, "mcl_core_web.png")); err != nil {
 		return saveErrMsg(stitch, out_path, "mcl_core_web.png")
 	}
 	return nil

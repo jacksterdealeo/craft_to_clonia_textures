@@ -45,11 +45,6 @@ func flipHV(img image.Image) *image.NRGBA {
 	return imaging.FlipH(imaging.FlipV(img))
 }
 
-func cropToScale(img image.Image, x1, y1, x2, y2, scale int) *image.NRGBA {
-	return imaging.Crop(img, image.Rectangle{
-		image.Point{x1 * scale, y1 * scale}, image.Point{x2 * scale, y2 * scale}})
-}
-
 func PerspectiveOverlay(
 	dst, src image.NRGBA, topLeftX, topLeftY, topRightX, topRightY,
 	botLeftX, botLeftY, botRightX, botRightY float64) *image.NRGBA {

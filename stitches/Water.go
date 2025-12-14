@@ -3,7 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
-	"path"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -12,9 +12,9 @@ import (
 
 // TODO: Make this read animation frames.
 func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) error {
-	inPath := path.Join(input_pack_path, data.CraftPaths["block"])
-	outPath := path.Join(output_pack_path, data.CloniaPaths["core"])
-	voxPath := path.Join(output_pack_path, data.CloniaPaths["vl"])
+	inPath := filepath.Join(input_pack_path, data.CraftPaths["block"])
+	outPath := filepath.Join(output_pack_path, data.CloniaPaths["core"])
+	voxPath := filepath.Join(output_pack_path, data.CloniaPaths["vl"])
 	/*
 		craft water
 		  still   :  16 x 512
@@ -23,7 +23,7 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 		  still   :  16 x 256
 		  flowing :  16 x 1024
 	*/
-	wStill, err := imaging.Open(path.Join(inPath, "water_still.png"))
+	wStill, err := imaging.Open(filepath.Join(inPath, "water_still.png"))
 	if err != nil {
 		return openErrMsg("Water", "block", "water_still.png")
 	} else {
@@ -31,7 +31,7 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 		wStillY := wStill.Bounds().Dy()
 		dst := imaging.New(wStillX, wStillY, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, wStill, image.Point{0, 0}, 1.0)
-		if err = imaging.Save(dst, path.Join(voxPath, "mcl_core_water_source_animation.png")); err != nil {
+		if err = imaging.Save(dst, filepath.Join(voxPath, "mcl_core_water_source_animation.png")); err != nil {
 			return saveErrMsg("Water", "vl", "mcl_core_water_source_animation.png")
 		}
 		plainWater := imaging.AdjustFunc(dst,
@@ -50,7 +50,7 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, path.Join(outPath, "default_water_source_animated.png")); err != nil {
+		if err = imaging.Save(plainWater, filepath.Join(outPath, "default_water_source_animated.png")); err != nil {
 			return saveErrMsg("Water", "core", "default_water_source_animated.png")
 		}
 
@@ -70,12 +70,12 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(riverWater, path.Join(outPath, "default_river_water_source_animated.png")); err != nil {
+		if err = imaging.Save(riverWater, filepath.Join(outPath, "default_river_water_source_animated.png")); err != nil {
 			return saveErrMsg("Water", "core", "default_river_water_source_animated.png")
 		}
 	}
 
-	wFlowing, err := imaging.Open(path.Join(inPath, "water_flow.png"))
+	wFlowing, err := imaging.Open(filepath.Join(inPath, "water_flow.png"))
 	if err != nil {
 		return openErrMsg("Water", "block", "water_flow.png")
 	} else {
@@ -83,7 +83,7 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 		wFlowingY := wFlowing.Bounds().Dy()
 		dst := imaging.New(wFlowingX/2, wFlowingY, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, wFlowing, image.Point{0, 0}, 1.0)
-		if err = imaging.Save(dst, path.Join(voxPath, "mcl_core_water_flow_animation.png")); err != nil {
+		if err = imaging.Save(dst, filepath.Join(voxPath, "mcl_core_water_flow_animation.png")); err != nil {
 			return saveErrMsg("Water", "vl", "mcl_core_water_flow_animation.png")
 		}
 		plainWater := imaging.AdjustFunc(dst,
@@ -102,7 +102,7 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, path.Join(outPath, "default_water_flowing_animated.png")); err != nil {
+		if err = imaging.Save(plainWater, filepath.Join(outPath, "default_water_flowing_animated.png")); err != nil {
 			return saveErrMsg("Water", "core", "default_water_flowing_animated.png")
 		}
 
@@ -122,12 +122,12 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(riverWater, path.Join(outPath, "default_river_water_flowing_animated.png")); err != nil {
+		if err = imaging.Save(riverWater, filepath.Join(outPath, "default_river_water_flowing_animated.png")); err != nil {
 			return saveErrMsg("Water", "core", "default_river_water_flowing_animated.png")
 		}
 	}
 
-	waterBucket, err := imaging.Open(path.Join(input_pack_path, data.CraftPaths["item"], "water_bucket.png"))
+	waterBucket, err := imaging.Open(filepath.Join(input_pack_path, data.CraftPaths["item"], "water_bucket.png"))
 	if err != nil {
 		return openErrMsg("Water", "item", "water_bucket.png")
 	}
@@ -151,10 +151,10 @@ func RWWater(input_pack_path, output_pack_path string, _ *configure.Config) erro
 			}
 			return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 		})
-	if err = imaging.Save(riverWaterBucket, path.Join(output_pack_path, data.CloniaPaths["buckets"], "bucket_river_water.png")); err != nil {
+	if err = imaging.Save(riverWaterBucket, filepath.Join(output_pack_path, data.CloniaPaths["buckets"], "bucket_river_water.png")); err != nil {
 		return saveErrMsg("Water", "buckets", "bucket_river_water.png")
 	}
-	if err = imaging.Save(riverWaterBucket, path.Join(output_pack_path, data.CloniaPaths["vl"], "mcl_buckets_river_water_bucket.png")); err != nil {
+	if err = imaging.Save(riverWaterBucket, filepath.Join(output_pack_path, data.CloniaPaths["vl"], "mcl_buckets_river_water_bucket.png")); err != nil {
 		return saveErrMsg("Water", "vl", "mcl_buckets_river_water_bucket.png")
 	}
 

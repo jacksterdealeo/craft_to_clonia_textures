@@ -41,45 +41,45 @@ func RWDoubleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 		scale := chestX / 64
 		dst := imaging.New(chestX*2, chestX, color.NRGBA{0, 0, 0, 0})
 		chestF1 := flipHV(
-			cropToScale(chestLeft, 14, 0, 29, 14, scale))
+			CropToScale(chestLeft, 14, 0, 29, 14, scale))
 		chestF2 := flipV(
-			cropToScale(chestLeft, 29, 0, 44, 14, scale))
+			CropToScale(chestLeft, 29, 0, 44, 14, scale))
 		chestF3 := flipHV(
-			cropToScale(chestLeft, 14, 14, 29, 19, scale))
+			CropToScale(chestLeft, 14, 14, 29, 19, scale))
 		chestF4 := flipHV(
-			cropToScale(chestLeft, 29, 14, 43, 19, scale))
+			CropToScale(chestLeft, 29, 14, 43, 19, scale))
 		chestF5 := flipHV(
-			cropToScale(chestLeft, 43, 14, 58, 19, scale))
+			CropToScale(chestLeft, 43, 14, 58, 19, scale))
 		chestF6 := flipHV(
-			cropToScale(chestLeft, 14, 19, 29, 33, scale))
+			CropToScale(chestLeft, 14, 19, 29, 33, scale))
 		chestF7 := flipV(
-			cropToScale(chestLeft, 29, 19, 44, 33, scale))
+			CropToScale(chestLeft, 29, 19, 44, 33, scale))
 		chestF8 := flipHV(
-			cropToScale(chestLeft, 14, 33, 29, 43, scale))
+			CropToScale(chestLeft, 14, 33, 29, 43, scale))
 		chestF9 := flipHV(
-			cropToScale(chestLeft, 29, 33, 43, 43, scale))
+			CropToScale(chestLeft, 29, 33, 43, 43, scale))
 		chestF10 := flipHV(
-			cropToScale(chestLeft, 43, 33, 58, 43, scale))
+			CropToScale(chestLeft, 43, 33, 58, 43, scale))
 		chestF11 := flipHV(
-			cropToScale(chestRight, 14, 0, 29, 14, scale))
+			CropToScale(chestRight, 14, 0, 29, 14, scale))
 		chestF12 := flipV(
-			cropToScale(chestRight, 29, 0, 44, 14, scale))
+			CropToScale(chestRight, 29, 0, 44, 14, scale))
 		chestF13 := flipHV(
-			cropToScale(chestRight, 0, 14, 14, 19, scale))
+			CropToScale(chestRight, 0, 14, 14, 19, scale))
 		chestF14 := flipHV(
-			cropToScale(chestRight, 14, 14, 29, 19, scale))
+			CropToScale(chestRight, 14, 14, 29, 19, scale))
 		chestF15 := flipHV(
-			cropToScale(chestRight, 43, 14, 58, 19, scale))
+			CropToScale(chestRight, 43, 14, 58, 19, scale))
 		chestF16 := flipHV(
-			cropToScale(chestRight, 14, 19, 29, 33, scale))
+			CropToScale(chestRight, 14, 19, 29, 33, scale))
 		chestF17 := flipV(
-			cropToScale(chestRight, 29, 19, 44, 33, scale))
+			CropToScale(chestRight, 29, 19, 44, 33, scale))
 		chestF18 := flipHV(
-			cropToScale(chestRight, 0, 33, 14, 43, scale))
+			CropToScale(chestRight, 0, 33, 14, 43, scale))
 		chestF19 := flipHV(
-			cropToScale(chestRight, 14, 33, 29, 43, scale))
+			CropToScale(chestRight, 14, 33, 29, 43, scale))
 		chestF20 := flipHV(
-			cropToScale(chestRight, 43, 33, 58, 43, scale))
+			CropToScale(chestRight, 43, 33, 58, 43, scale))
 
 		dst = imaging.Overlay(dst, chestF1, image.Point{44 * scale, 0 * scale}, 1.0)
 		dst = imaging.Overlay(dst, chestF2, image.Point{29 * scale, 0 * scale}, 1.0)
@@ -120,17 +120,17 @@ func RWDoubleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 		dst = imaging.Overlay(dst, chestL3, image.Point{3 * scale, 0 * scale}, 1.0)
 		dst = imaging.Overlay(dst, chestL4, image.Point{4 * scale, 0 * scale}, 1.0)
 
-		chestLockStrip1 := cropToScale(chestLeft, 1, 1, 2, 5, scale)
+		chestLockStrip1 := CropToScale(chestLeft, 1, 1, 2, 5, scale)
 		chestLockStrip1 = flipHV(chestLockStrip1)
-		chestLockStrip2 := cropToScale(chestLeft, 2, 1, 3, 5, scale)
+		chestLockStrip2 := CropToScale(chestLeft, 2, 1, 3, 5, scale)
 		chestLockStrip2 = flipHV(chestLockStrip2)
-		chestLockStrip3 := cropToScale(chestLeft, 3, 1, 4, 5, scale)
+		chestLockStrip3 := CropToScale(chestLeft, 3, 1, 4, 5, scale)
 		chestLockStrip3 = flipHV(chestLockStrip3)
-		chestLockStrip4 := cropToScale(chestRight, 0, 1, 1, 5, scale)
+		chestLockStrip4 := CropToScale(chestRight, 0, 1, 1, 5, scale)
 		chestLockStrip4 = flipHV(chestLockStrip4)
-		chestLockStrip5 := cropToScale(chestRight, 1, 1, 2, 5, scale)
+		chestLockStrip5 := CropToScale(chestRight, 1, 1, 2, 5, scale)
 		chestLockStrip5 = flipHV(chestLockStrip5)
-		chestLockStrip6 := cropToScale(chestRight, 3, 1, 4, 5, scale)
+		chestLockStrip6 := CropToScale(chestRight, 3, 1, 4, 5, scale)
 		chestLockStrip6 = flipHV(chestLockStrip6)
 
 		dst = imaging.Overlay(dst, chestLockStrip1, image.Point{4 * scale, 1 * scale}, 1.0)

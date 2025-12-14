@@ -389,11 +389,15 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "bookshelf.png", "books", "default_bookshelf.png", 1},
 	//{"item", ".png", "books", "mcl_book_book_empty_slot.png", 1}, //no match
 	//{"gui", "book.png", "books", "mcl_books_book_bg.png", 1}, // special attention & it's not a square!
-	{"block", "chiseled_bookshelf_top.png", "books", "mcl_books_bookshelf_top.png", 1},
+	{"block", "oak_planks.png", "books", "mcl_books_bookshelf_top.png", 1},
 	{"item", "writable_book.png", "books", "mcl_books_book_writable.png", 1},
 	{"item", "written_book.png", "books", "mcl_books_book_written.png", 1},
 	//{"item", ".png", "books", "mcl_books_button9.png", 1},         // special attention
 	//{"item", ".png", "books", "mcl_books_button9_pressed.png", 1}, // special attention
+	{"block", "chiseled_bookshelf_empty.png", "books", "mcl_books_chiseled_bookshelf_empty.png", 1},
+	{"block", "chiseled_bookshelf_occupied.png", "books", "mcl_books_chiseled_bookshelf_full.png", 1},
+	{"block", "chiseled_bookshelf_side.png", "books", "mcl_books_chiseled_bookshelf_side.png", 1},
+	{"block", "chiseled_bookshelf_top.png", "books", "mcl_books_chiseled_bookshelf_top.png", 1},
 	// -- mcl_bows
 	{"projectiles", "arrow.png", "bows", "mcl_bows_arrow.png", 1},
 	//{"item", ".png", "bows", "mcl_bows_arrow_back.png", 1},
