@@ -1440,8 +1440,8 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "jukebox_side.png", "jukebox", "mcl_jukebox_side.png", 1},
 	{"block", "jukebox_top.png", "jukebox", "mcl_jukebox_top.png", 1},
 	// -- mcl_lanterns
-	{"block", "chain.png", "lanterns", "mcl_lanterns_chain.png", 1},
-	{"item", "chain.png", "lanterns", "mcl_lanterns_chain_inv.png", 1},
+	{"block", "iron_chain.png", "lanterns", "mcl_lanterns_chain.png", 1},
+	{"item", "iron_chain.png", "lanterns", "mcl_lanterns_chain_inv.png", 1},
 	{"block", "lantern.png", "lanterns", "mcl_lanterns_lantern.png", -1},
 	{"item", "lantern.png", "lanterns", "mcl_lanterns_lantern_inv.png", 1},
 	{"block", "soul_lantern.png", "lanterns", "mcl_lanterns_soul_lantern.png", -1},
@@ -2101,6 +2101,12 @@ var SimpleItems = [...]SimpleConversion{
 
 	// -- HUD/mcl_experience
 	{"item", "experience_bottle.png", "experience", "mcl_experience_bottle.png", 1},
+
+	// -- modded
+	{"block", "copper_chain.png", "copper_stuff", "mcl_copper_stuff_copper_chain.png", 1},
+	{"item", "copper_chain.png", "copper_stuff", "mcl_copper_stuff_copper_chain_inv.png", 1},
+	{"block", "copper_lantern.png", "copper_stuff", "mcl_copper_stuff_copper_lantern.png", -1},
+	{"item", "copper_lantern.png", "copper_stuff", "mcl_copper_stuff_copper_lantern_inv.png", 1},
 
 	//{"block", ".png", "", ".png", 1},
 }

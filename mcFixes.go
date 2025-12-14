@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -258,7 +259,6 @@ func hud_fix(inPath string, outPath string, config *configure.Config) *readWrite
 
 func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 	fails := []string{}
-	mod := "copper_stuff"
 	func() {
 		mod := "rose_gold_stuff"
 		// They used diamond for the tools,
@@ -378,7 +378,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 		iron_to_rose_gold := data.RoseGoldStuffMod_IronToRoseGold
 		for _, e := range iron_to_rose_gold {
-			ironItem, err := imaging.Open(inPath + e.ReadPath())
+			ironItem, err := imaging.Open(filepath.Join(inPath, e.ReadPath()))
 			if err != nil {
 				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
@@ -391,9 +391,12 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 						g := int(c.G)
 						b := int(c.B)
 
-						if (r > g+20 || r < g-20) && (r > b+20 || r < b-20) {
+						if (r > g-5 || r < g-20) && (r >= b+5 || r < b-20) {
 							return c
 						}
+						// if (r/12 > g/11 || r/11 < g/12) && (r/12 > b/11 || r/11 < b/12) {
+						// 	return c
+						// }
 
 						average := (int(c.R) + int(c.G) + int(c.B)) / 3
 
@@ -446,8 +449,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 		}
 	}() // end of "Rose Gold Stuff"
 
-	mod = "emerald_stuff"
-
+	mod := "emerald_stuff"
 	greenIt := func(img image.Image) image.Image {
 		dst := imaging.New(img.Bounds().Dx(), img.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, img, image.Point{0, 0}, 1.0)

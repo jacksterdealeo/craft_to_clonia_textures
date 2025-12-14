@@ -17,6 +17,7 @@ var (
 
 		{[2]SimpleTexture{{"item", "copper_shears_not_real_object_to_please_the_function_params.png"}, {"item", "shears.png"}}, "copper_stuff", "mcl_copper_stuff_copper_shears.png", 0},
 		{[2]SimpleTexture{{"item", "copper_nugget.png"}, {"item", "iron_nugget.png"}}, "copper_stuff", "mcl_copper_stuff_copper_nugget.png", 0},
+		{[2]SimpleTexture{{"block", "copper_bars.png"}, {"block", "iron_bars.png"}}, "copper_stuff", "xpanes_pane_copper.png", 0},
 	}
 
 	// Emerald Stuff
@@ -69,8 +70,8 @@ var (
 	}
 	RoseGoldStuffMod_IronToRoseGoldNoFilter = [...]SimpleConversion{
 		{"item", "iron_nugget.png", "rose_gold_stuff", "mcl_rose_gold_rose_gold_nugget.png", 1},
-		{"block", "chain.png", "rose_gold_stuff", "mcl_rose_gold_rose_gold_chain.png", 1},
-		{"item", "chain.png", "rose_gold_stuff", "mcl_rose_gold_rose_gold_chain_inv.png", 1},
+		{"block", "iron_chain.png", "rose_gold_stuff", "mcl_rose_gold_rose_gold_chain.png", 1},
+		{"item", "iron_chain.png", "rose_gold_stuff", "mcl_rose_gold_rose_gold_chain_inv.png", 1},
 	}
 )
 

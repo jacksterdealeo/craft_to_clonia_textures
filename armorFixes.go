@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"path/filepath"
 
 	imaging "github.com/disintegration/imaging"
 )
@@ -25,86 +26,84 @@ type armorSetTextures struct {
 	boots      *image.NRGBA
 }
 
+func SaveArmorSet(outPath string, textures armorSetTextures, set basicArmorConversion) error {
+	fails := make([]string, 0)
+	if err := imaging.Save(textures.helmet, filepath.Join(outPath, cloniaPaths["armor"], set.outHelmet)); err != nil {
+		fails = append(fails, "Couldn't save ~"+set.outHelmet+"")
+	}
+	if err := imaging.Save(textures.chestplate, filepath.Join(outPath, cloniaPaths["armor"], set.outChestplate)); err != nil {
+		fails = append(fails, "Couldn't save ~"+set.outChestplate+"")
+	}
+	if err := imaging.Save(textures.leggings, filepath.Join(outPath, cloniaPaths["armor"], set.outLeggings)); err != nil {
+		fails = append(fails, "Couldn't save ~"+set.outLeggings+"")
+	}
+	if err := imaging.Save(textures.boots, filepath.Join(outPath, cloniaPaths["armor"], set.outBoots)); err != nil {
+		fails = append(fails, "Couldn't save ~"+set.outBoots+"")
+	}
+	if len(fails) > 0 {
+		return fmt.Errorf("%v", fails)
+	}
+	return nil
+}
+
+// Returns a Helmet, Chestplate, Leggings, Boots, and a possible error.
+// Use with power.
+func GetArmorSet(inPack, armorLocation, leggingsLocation string, e basicArmorConversion) (armor armorSetTextures, err error) {
+	glob, err := imaging.Open(filepath.Join(inPack, armorLocation, e.inTexture))
+	if err != nil {
+		return armor, fmt.Errorf("Couldn't open ~ %v (the basic version). Dropping that armor set.", e.inTexture)
+	}
+	leggings, err := imaging.Open(filepath.Join(inPack, leggingsLocation, e.inTexture))
+	if err != nil {
+		return armor, fmt.Errorf("Couldn't open ~ %v. (the leggings version). Dropping that armor set.", e.inTexture)
+	}
+	// IMPORTANT: Output for armor must be scaled down to 64x32 before export!
+	scale := glob.Bounds().Dx() / 64
+
+	filter_of_choice := imaging.Lanczos
+
+	helmet := cropToScale(glob, 0, 0, 32, 16, scale)
+	if scale != 1 {
+		helmet = imaging.Fit(helmet, helmet.Rect.Dx()/scale, helmet.Rect.Dy()/scale, filter_of_choice)
+	}
+	helmet_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+	helmet_out = imaging.Paste(helmet_out, helmet, image.Pt(32, 0))
+
+	chestplate := cropToScale(glob, 16, 16, 56, 32, scale)
+	if scale != 1 {
+		chestplate = imaging.Fit(chestplate, chestplate.Rect.Dx()/scale, chestplate.Rect.Dy()/scale, filter_of_choice)
+	}
+	chestplate_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+	chestplate_out = imaging.Paste(chestplate_out, chestplate, image.Pt(16, 16))
+
+	boots := cropToScale(glob, 0, 16, 16, 32, scale)
+	if scale != 1 {
+		boots = imaging.Fit(boots, boots.Rect.Dx()/scale, boots.Rect.Dy()/scale, filter_of_choice)
+	}
+	boots_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+	boots_out = imaging.Paste(boots_out, boots, image.Pt(0, 16))
+
+	if scale != 1 {
+		leggings = imaging.Fit(leggings, leggings.Bounds().Dx()/scale, leggings.Bounds().Dy()/scale, filter_of_choice)
+	}
+	leggings_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
+	leggings_out = imaging.Paste(leggings_out, leggings, image.Pt(0, 0))
+
+	armor = armorSetTextures{
+		helmet_out,
+		chestplate_out,
+		leggings_out,
+		boots_out,
+	}
+	return
+}
+
 func armor_fixes(inPack string, outPath string) *readWriteError {
 	var (
-		doModded         = true
-		_                = doModded // This might be a config option in the future.
 		armorLocation    = craftPaths["entity>equipment>humanoid"]
 		leggingsLocation = craftPaths["entity>equipment>humanoid_leggings"]
-		fails            = []string{}
+		fails            = make([]string, 0)
 	)
-
-	// Returns a Helmet, Chestplate, Leggings, Boots, and a possible error.
-	// Use with power.
-	var getArmorSet = func(e basicArmorConversion) (armor armorSetTextures, err error) {
-
-		glob, err := imaging.Open(inPack + armorLocation + e.inTexture)
-		if err != nil {
-			return armor, fmt.Errorf("Couldn't open ~ %v (the basic version). Dropping that armor set.", e.inTexture)
-		}
-		// IMPORTANT: Output for armor must be scaled down to 64x32 before export!
-		scale := glob.Bounds().Dx() / 64
-
-		filter_of_choice := imaging.Lanczos
-
-		helmet := cropToScale(glob, 0, 0, 32, 16, scale)
-		if scale != 1 {
-			helmet = imaging.Fit(helmet, helmet.Rect.Dx()/scale, helmet.Rect.Dy()/scale, filter_of_choice)
-		}
-		helmet_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
-		helmet_out = imaging.Paste(helmet_out, helmet, image.Pt(32, 0))
-
-		chestplate := cropToScale(glob, 16, 16, 56, 32, scale)
-		if scale != 1 {
-			chestplate = imaging.Fit(chestplate, chestplate.Rect.Dx()/scale, chestplate.Rect.Dy()/scale, filter_of_choice)
-		}
-		chestplate_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
-		chestplate_out = imaging.Paste(chestplate_out, chestplate, image.Pt(16, 16))
-
-		boots := cropToScale(glob, 0, 16, 16, 32, scale)
-		if scale != 1 {
-			boots = imaging.Fit(boots, boots.Rect.Dx()/scale, boots.Rect.Dy()/scale, filter_of_choice)
-		}
-		boots_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
-		boots_out = imaging.Paste(boots_out, boots, image.Pt(0, 16))
-
-		leggings, err := imaging.Open(inPack + leggingsLocation + e.inTexture)
-		if err != nil {
-			return armor, fmt.Errorf("Couldn't open ~ %v. (the leggings version). Dropping that armor set.", e.inTexture)
-		}
-		if scale != 1 {
-			leggings = imaging.Fit(leggings, leggings.Bounds().Dx()/scale, leggings.Bounds().Dy()/scale, filter_of_choice)
-		}
-		leggings_out := imaging.New(64, 32, color.NRGBA{0, 0, 0, 0})
-		leggings_out = imaging.Paste(leggings_out, leggings, image.Pt(0, 0))
-
-		armor = armorSetTextures{
-			helmet_out,
-			chestplate_out,
-			leggings_out,
-			boots_out,
-		}
-		return
-	}
-
-	var saveArmorSet = func(set basicArmorConversion) {
-		if textures, err := getArmorSet(set); err != nil {
-			fails = append(fails, err.Error())
-		} else {
-			if err := imaging.Save(textures.helmet, outPath+cloniaPaths["armor"]+set.outHelmet); err != nil {
-				fails = append(fails, "Couldn't save ~"+set.outHelmet+"")
-			}
-			if err := imaging.Save(textures.chestplate, outPath+cloniaPaths["armor"]+set.outChestplate); err != nil {
-				fails = append(fails, "Couldn't save ~"+set.outChestplate+"")
-			}
-			if err := imaging.Save(textures.leggings, outPath+cloniaPaths["armor"]+set.outLeggings); err != nil {
-				fails = append(fails, "Couldn't save ~"+set.outLeggings+"")
-			}
-			if err := imaging.Save(textures.boots, outPath+cloniaPaths["armor"]+set.outBoots); err != nil {
-				fails = append(fails, "Couldn't save ~"+set.outBoots+"")
-			}
-		}
-	}
 
 	chainmail_conversion := basicArmorConversion{
 		inTexture:     "chainmail.png",
@@ -134,6 +133,13 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		outLeggings:   "mcl_armor_leggings_iron.png",
 		outBoots:      "mcl_armor_boots_iron.png",
 	}
+	copper_conversion := basicArmorConversion{
+		inTexture:     "copper.png",
+		outHelmet:     "mcl_copper_stuff_helmet_copper.png",
+		outChestplate: "mcl_copper_stuff_chestplate_copper.png",
+		outLeggings:   "mcl_copper_stuff_leggings_copper.png",
+		outBoots:      "mcl_copper_stuff_boots_copper.png",
+	}
 	netherite_conversion := basicArmorConversion{
 		inTexture:     "netherite.png",
 		outHelmet:     "mcl_armor_helmet_netherite.png",
@@ -142,21 +148,38 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		outBoots:      "mcl_armor_boots_netherite.png",
 	}
 
-	saveArmorSet(chainmail_conversion)
-	saveArmorSet(diamond_conversion)
-	saveArmorSet(gold_conversion)
-	saveArmorSet(iron_conversion)
-	saveArmorSet(netherite_conversion)
-
-	if !doModded {
-		if len(fails) > 0 {
-			return &readWriteError{fails, "armor model textures"}
-		} else {
-			return nil
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, chainmail_conversion); err != nil {
+	} else {
+		if err := SaveArmorSet(outPath, tex, chainmail_conversion); err != nil {
+			fails = append(fails, err.Error())
+		}
+	}
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, diamond_conversion); err != nil {
+	} else {
+		if err := SaveArmorSet(outPath, tex, diamond_conversion); err != nil {
+			fails = append(fails, err.Error())
+		}
+	}
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, gold_conversion); err != nil {
+	} else {
+		if err := SaveArmorSet(outPath, tex, gold_conversion); err != nil {
+			fails = append(fails, err.Error())
+		}
+	}
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, iron_conversion); err != nil {
+	} else {
+		if err := SaveArmorSet(outPath, tex, iron_conversion); err != nil {
+			fails = append(fails, err.Error())
+		}
+	}
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, netherite_conversion); err != nil {
+	} else {
+		if err := SaveArmorSet(outPath, tex, netherite_conversion); err != nil {
+			fails = append(fails, err.Error())
 		}
 	}
 
-	if rose_gold_armor, err := getArmorSet(netherite_conversion); err != nil {
+	if rose_gold_armor, err := GetArmorSet(inPack, armorLocation, leggingsLocation, netherite_conversion); err != nil {
 		fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
 	} else {
 		armorToChange := []*image.NRGBA{
@@ -213,7 +236,7 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		}
 	}
 
-	if emerald_armor, err := getArmorSet(diamond_conversion); err != nil {
+	if emerald_armor, err := GetArmorSet(inPack, armorLocation, leggingsLocation, diamond_conversion); err != nil {
 		fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
 	} else {
 		armorToChange := []*image.NRGBA{
@@ -254,7 +277,21 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 		}
 	}
 
-	if copper_armor, err := getArmorSet(iron_conversion); err != nil {
+	copperPath := filepath.Join(outPath, cloniaPaths["copper_stuff"])
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, copper_conversion); err == nil {
+		if err := imaging.Save(tex.helmet, filepath.Join(copperPath, copper_conversion.outHelmet)); err != nil {
+			fails = append(fails, "Couldn't save ~"+copper_conversion.outHelmet+"")
+		}
+		if err := imaging.Save(tex.chestplate, filepath.Join(copperPath, copper_conversion.outChestplate)); err != nil {
+			fails = append(fails, "Couldn't save ~"+copper_conversion.outChestplate+"")
+		}
+		if err := imaging.Save(tex.leggings, filepath.Join(copperPath, copper_conversion.outLeggings)); err != nil {
+			fails = append(fails, "Couldn't save ~"+copper_conversion.outLeggings+"")
+		}
+		if err := imaging.Save(tex.boots, filepath.Join(copperPath, copper_conversion.outBoots)); err != nil {
+			fails = append(fails, "Couldn't save ~"+copper_conversion.outBoots+"")
+		}
+	} else if copper_armor, err := GetArmorSet(inPack, armorLocation, leggingsLocation, iron_conversion); err != nil {
 		fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 	} else {
 		armorToChange := []*image.NRGBA{
