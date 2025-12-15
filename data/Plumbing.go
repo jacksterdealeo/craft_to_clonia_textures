@@ -2,6 +2,7 @@ package data
 
 import (
 	"image"
+	"log"
 	"path/filepath"
 )
 
@@ -68,4 +69,22 @@ type ArmorSetTextures struct {
 type MCArmorSet struct {
 	MostParts *image.NRGBA
 	Leggings  *image.NRGBA
+}
+
+// Used for hard-coded locations. This makes invalid paths easy for me to catch.
+func GetCloniaPath(shortLocation string) string {
+	path, ok := CloniaPaths[shortLocation]
+	if !ok {
+		log.Panic("Incorrect Location Value!")
+	}
+	return path
+}
+
+// Used for hard-coded locations. This makes invalid paths easy for me to catch.
+func GetCraftPath(shortLocation string) string {
+	path, ok := CraftPaths[shortLocation]
+	if !ok {
+		log.Panic("Incorrect Location Value!")
+	}
+	return path
 }

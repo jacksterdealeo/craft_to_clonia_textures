@@ -66,4 +66,6 @@ var VoxeLibreSpecific = [...]SimpleConversion{
 	{"block", "cartography_table_side2.png", "cartography_table", "mcl_cartography_table_side2.png", 1},
 	{"block", "cartography_table_side3.png", "cartography_table", "mcl_cartography_table_side3.png", 1},
 	{"block", "cartography_table_top.png", "cartography_table", "mcl_cartography_table_top.png", 1},
+
+	{"item", "wind_charge.png", "vl", "vl_mobitems_aery_charge.png", 1},
 }

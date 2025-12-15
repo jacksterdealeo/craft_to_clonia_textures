@@ -104,6 +104,7 @@ var CloniaPaths = map[string]string{
 	"mushrooms": "/ITEMS/mcl_mushrooms/",
 	"nether":    "/ITEMS/mcl_nether/",
 	"ocean":     "/ITEMS/mcl_ocean/",
+	"paintings": "/ENTITIES/mcl_paintings/",
 	"panes":     "/ITEMS/mcl_panes/",
 
 	"portals":        "/ITEMS/mcl_portals/",
@@ -155,7 +156,7 @@ var CloniaPaths = map[string]string{
 	"travelnet":       "/modded/travelnet/",
 
 	// VoxeLibre dumps almost their textures into one folder I guess.
-	"vl": "/vl/",
+	"vl":         "/vl/",
 	"compressed": "/vl/mcl_compressed_blocks/",
-	"embedded": "/embedded/",
+	"embedded":   "/embedded/",
 }

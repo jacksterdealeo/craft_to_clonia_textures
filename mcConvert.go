@@ -47,7 +47,7 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	}
 
 	for _, e := range data.CloniaPaths {
-		if err := os.MkdirAll(outputPackLocation+e, 0755); err != nil {
+		if err := os.MkdirAll(filepath.Join(outputPackLocation, e), 0755); err != nil {
 			log.Panic(err)
 		}
 	}
@@ -57,8 +57,8 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 		for _, set := range setsOfTextures {
 			for _, texture := range set {
 				err := copyTextureAnimated(
-					inputPackLocation+data.CraftPaths[texture.InPath]+texture.InTexture,
-					outputPackLocation+data.CloniaPaths[texture.OutPath]+texture.OutTexture,
+					filepath.Join(inputPackLocation, data.GetCraftPath(texture.InPath), texture.InTexture),
+					filepath.Join(outputPackLocation, data.GetCloniaPath(texture.OutPath), texture.OutTexture),
 					texture.FramesAllowed,
 				)
 				if err != nil {
@@ -78,8 +78,8 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 
 	for _, texture := range data.SimpleNoEdits {
 		if err := copyTexture(
-			filepath.Join(inputPackLocation, craftPaths[texture.InPath], texture.InTexture),
-			filepath.Join(outputPackLocation, cloniaPaths[texture.OutPath], texture.OutTexture),
+			filepath.Join(inputPackLocation, data.GetCraftPath(texture.InPath), texture.InTexture),
+			filepath.Join(outputPackLocation, data.GetCloniaPath(texture.OutPath), texture.OutTexture),
 		); err != nil {
 			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 		} else {
@@ -93,7 +93,7 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 		failures += len(copyTextureFails)
 	}
 
-	////special casses
+	//// special casses
 	logRWErrs := func(e ...*readWriteError) {
 		for _, error := range e {
 			if error != nil {
@@ -130,20 +130,20 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	)
 
 	// Experience Bar
-	if expProgress, err := imaging.Open(inputPackLocation + craftPaths["hud"] + "experience_bar_progress.png"); err != nil {
+	if expProgress, err := imaging.Open(filepath.Join(inputPackLocation, data.GetCraftPath("hud"), "experience_bar_progress.png")); err != nil {
 		textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n")
 		failures++
 	} else {
-		if err2 := imaging.Save(imaging.Rotate90(expProgress), outputPackLocation+cloniaPaths["experience"]+"mcl_experience_bar.png"); err2 != nil {
+		if err2 := imaging.Save(imaging.Rotate90(expProgress), filepath.Join(outputPackLocation, data.GetCloniaPath("experience"), "mcl_experience_bar.png")); err2 != nil {
 			textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Save \"mcl_experience_bar.png\".\n\n")
 			failures++
 		}
 	}
-	if expEmpty, err := imaging.Open(inputPackLocation + craftPaths["hud"] + "experience_bar_background.png"); err != nil {
+	if expEmpty, err := imaging.Open(filepath.Join(inputPackLocation, data.GetCraftPath("hud"), "experience_bar_background.png")); err != nil {
 		textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Open \"experience_bar_background.png\".\n\n")
 		failures++
 	} else {
-		if err2 := imaging.Save(imaging.Rotate90(expEmpty), outputPackLocation+cloniaPaths["experience"]+"mcl_experience_bar_background.png"); err2 != nil {
+		if err2 := imaging.Save(imaging.Rotate90(expEmpty), filepath.Join(outputPackLocation, data.GetCloniaPath("experience"), "mcl_experience_bar_background.png")); err2 != nil {
 			textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Save \"mcl_experience_bar_background.png\".\n\n")
 			failures++
 		}
@@ -153,7 +153,9 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 			{"hud", "hotbar.png", "inventory", "mcl_inventory_hotbar.png", -1},
 		}
 		for _, e := range sc {
-			err := copyTexture(inputPackLocation+craftPaths[e.InPath]+e.InTexture, outputPackLocation+cloniaPaths[e.OutPath]+e.OutTexture)
+			err := copyTexture(
+				filepath.Join(inputPackLocation, data.GetCraftPath(e.InPath), e.InTexture),
+				filepath.Join(outputPackLocation, data.GetCloniaPath(e.OutPath), e.OutTexture))
 			if err != nil {
 				textureErrorsLog.WriteString(e.OutTexture + " failed to convert.\n")
 			}
@@ -166,11 +168,11 @@ name = %s
 description = Mineclonia texture pack converted from Minecraft. %d successes, %d failures, %d%% compatible, converted %v.`,
 		inName, outName, successes, failures, compatibilityRating, nowShort)
 	fmt.Printf("%s\n", packConfigFile)
-	if err := os.WriteFile(outputPackLocation+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(outputPackLocation, "texture_pack.conf"), []byte(packConfigFile), 0644); err != nil {
 		log.Panic(err)
 	}
 
-	if err := os.WriteFile(outputPackLocation+"/craft_to_clonia_errors_log.txt", []byte(textureErrorsLog.String()), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(outputPackLocation, "craft_to_clonia_errors_log.txt"), []byte(textureErrorsLog.String()), 0644); err != nil {
 		log.Panic(err)
 	}
 }

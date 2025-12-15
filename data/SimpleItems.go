@@ -101,7 +101,7 @@ var SimpleItems = [...]SimpleConversion{
 	//{"item", ".png", "armor", "mcl_armor_chestplate_leather_desat.png", 1},
 	//{"item", ".png", "armor", "mcl_armor_chestplate_leather.png", 1},
 	//{"item", ".png", "armor", "mcl_armor_chestplate_netherite.png", 1},
-	//{"item", ".png", "armor", "mcl_armor_elytra.png", 1},
+	//{"item", ".png", "armor", "mcl_armor_elytra.png", 1},  // handled
 	//{"item", ".png", "armor", "mcl_armor_helmet_chain.png", 1},
 	//{"item", ".png", "armor", "mcl_armor_helmet_diamond.png", 1},
 	//{"item", ".png", "armor", "mcl_armor_helmet_gold.png", 1},
@@ -126,6 +126,7 @@ var SimpleItems = [...]SimpleConversion{
 	//{"item", ".png", "armor", "mcl_armor_inv_chestplate_leather.png", 1},
 
 	{"item", "netherite_chestplate.png", "armor", "mcl_armor_inv_chestplate_netherite.png", 1},
+	{"item", "elytra_broken.png", "armor", "mcl_armor_broken_elytra.png", 1},
 	{"item", "elytra.png", "armor", "mcl_armor_inv_elytra.png", 1},
 	{"item", "chainmail_helmet.png", "armor", "mcl_armor_inv_helmet_chain.png", 1},
 	{"item", "diamond_helmet.png", "armor", "mcl_armor_inv_helmet_diamond.png", 1},
@@ -394,8 +395,7 @@ var SimpleItems = [...]SimpleConversion{
 	{"item", "written_book.png", "books", "mcl_books_book_written.png", 1},
 	//{"item", ".png", "books", "mcl_books_button9.png", 1},         // special attention
 	//{"item", ".png", "books", "mcl_books_button9_pressed.png", 1}, // special attention
-	{"block", "chiseled_bookshelf_empty.png", "books", "mcl_books_chiseled_bookshelf_empty.png", 1},
-	{"block", "chiseled_bookshelf_occupied.png", "books", "mcl_books_chiseled_bookshelf_full.png", 1},
+	// {"block", "chiseled_bookshelf_occupied.png", "books", "mcl_books_chiseled_bookshelf_full.png", 1},
 	{"block", "chiseled_bookshelf_side.png", "books", "mcl_books_chiseled_bookshelf_side.png", 1},
 	{"block", "chiseled_bookshelf_top.png", "books", "mcl_books_chiseled_bookshelf_top.png", 1},
 	// -- mcl_bows
@@ -1743,6 +1743,8 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "tube_coral.png", "ocean", "mcl_ocean_tube_coral.png", 1},
 	{"block", "tube_coral_block.png", "ocean", "mcl_ocean_tube_coral_block.png", 1},
 	{"block", "tube_coral_fan.png", "ocean", "mcl_ocean_tube_coral_fan.png", 1},
+	// -- mcl_paintings
+	{"item", "painting.png", "paintings", "mcl_paintings_painting.png", 1},
 	// -- mcl_panes
 	{"block", "iron_bars.png", "panes", "xpanes_pane_iron.png", 1},
 	//{"block", ".png", "panes", "xpanes_top_glass_black.png", 1},

@@ -13,16 +13,19 @@ var CraftPaths = map[string]string{
 	"block":       "/assets/minecraft/textures/block/",
 	"entity":      "/assets/minecraft/textures/entity/",
 	"environment": "/assets/minecraft/textures/environment/",
-	"gui":         "/assets/minecraft/textures/gui/",
-	"item":        "/assets/minecraft/textures/item/",
-	"map":         "/assets/minecraft/textures/map/",
-	"misc":        "/assets/minecraft/textures/misc/",
+
+	"gui":  "/assets/minecraft/textures/gui/",
+	"item": "/assets/minecraft/textures/item/",
+	"map":  "/assets/minecraft/textures/map/",
+	"misc": "/assets/minecraft/textures/misc/",
+
 	"mob_effect":  "/assets/minecraft/textures/mob_effect/",
+	"painting":    "/assets/minecraft/textures/painting/",
 	"particle":    "/assets/minecraft/textures/particle/",
 	"projectiles": "/assets/minecraft/textures/entity/projectiles/",
 	"signs":       "/assets/minecraft/textures/entity/signs/",
 
-	"chest":      "/assets/minecraft/textures/entity/chest/",
+	"chest": "/assets/minecraft/textures/entity/chest/",
 
 	"humanoid":          "/assets/minecraft/textures/entity/equipment/humanoid/",
 	"humanoid_leggings": "/assets/minecraft/textures/entity/equipment/humanoid_leggings/",
@@ -33,4 +36,5 @@ var CraftPaths = map[string]string{
 	"villager":                           "/assets/minecraft/textures/entity/villager/",
 	"zombie_villager":                    "/assets/minecraft/textures/entity/zombie_villager/",
 	"trims>items":                        "/assets/minecraft/textures/trims/items/",
+	"wings":                              "/assets/minecraft/textures/entity/equipment/wings/",
 }
