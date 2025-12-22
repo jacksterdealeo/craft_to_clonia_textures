@@ -6,19 +6,19 @@
 
 - Build for yourself by using `go build .`.
 
-- Build for every supported platform by using `go run build.go`.
+- Build for every supported platform by using `go run build.go`. This is not recommended for personal use.
 
 ## Disclaimers
 
+- Custom models are not supported by this project. Luanti's texture packs only allow for custom textures. If you convert a pack that makes use of custom models, there will be garbled results. I have not found a way around this limitation.
+
 - “Minetest Game” is supported, but not the default target. You just need to enable it in the program's config file.
 
-- VoxeLibre is supported. Its textures are exported with Mineclonia exports.
+- VoxeLibre is supported. Its textures are exported with Mineclonia exports. This may change in the future.
 
 - Some Minecraft texture packs have a license that prohibits using their packs outside of Minecraft. This software does not care what packs you convert with it, so use responsibly.
 
 - All mobs, some UI, and other things will not transfer over. Some things are not reasonably possible to transfer (like the brewing stand), and many things are just not added in yet.
-
-- If a pack has custom models for blocks, that can cause problems with the transfer.
 
 - The compatibility rating is loose. Minecraft itself wouldn't report perfect compatibility.
 
@@ -40,4 +40,12 @@ This project is distributed under the terms of [the MIT License](LICENSE).
 
 ## Thank You
 
-This project is over a year old, and it has been fun working on it. Thank you all for playing!
+This project is mainly for my own use, but I am happy other people have found it helpful.
+
+Additional help was given by:
+
+- [lemonzest](https://codeberg.org/lemonzest)
+
+- [RokeJulianLockhart](https://codeberg.org/RokeJulianLockhart)
+
+- [arcensyl](https://github.com/arcensyl)
