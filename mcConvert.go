@@ -53,12 +53,24 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	}
 
 	copyTextureFails := []string{}
-	logCopyTextureAnimatedErrs := func(setsOfTextures ...[]data.SimpleConversion) {
+	ConvertAnimatedAndLogErrs := func(setsOfTextures ...[]data.SimpleConversion) {
 		for _, set := range setsOfTextures {
 			for _, texture := range set {
 				err := texture.Convert(inputPackLocation, outputPackLocation)
 				if err != nil {
-					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
+					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.ReadPath()+"::"+texture.SavePath())
+				} else {
+					successes += 1
+				}
+			}
+		}
+	}
+	ConvertAndLogErrs := func(setsOfTextures ...[]data.StaticTexture) {
+		for _, set := range setsOfTextures {
+			for _, texture := range set {
+				err := texture.Convert(inputPackLocation, outputPackLocation)
+				if err != nil {
+					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.ReadPath()+"::"+texture.SavePath())
 				} else {
 					successes += 1
 				}
@@ -66,11 +78,12 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 		}
 	}
 
-	logCopyTextureAnimatedErrs(
-		data.SimpleItems[:],
-		data.SimpleHUD[:],
-		data.VoxeLibreSpecific[:],
-	)
+	ConvertAnimatedAndLogErrs(data.SimpleItems[:])
+	ConvertAnimatedAndLogErrs(data.SimpleHUD[:])
+	ConvertAnimatedAndLogErrs(data.VoxeLibreSpecific[:])
+	ConvertAnimatedAndLogErrs(data.MinecloniaSpecific[:])
+
+	ConvertAndLogErrs(data.MinecloniaSpecificNoEdits[:])
 
 	for _, texture := range data.SimpleNoEdits {
 		if err := texture.Convert(inputPackLocation, outputPackLocation); err != nil {

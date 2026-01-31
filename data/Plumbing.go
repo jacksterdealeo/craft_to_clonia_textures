@@ -12,8 +12,10 @@ import (
 	"github.com/disintegration/imaging"
 )
 
-type Texture interface {
-	Convert()
+type GeneralConversion interface {
+	Convert(string, string) error
+	ReadPath() string
+	SavePath() string
 }
 
 // Used for textures that should have no edits done.

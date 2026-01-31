@@ -105,6 +105,7 @@ var CloniaPaths = map[string]string{
 	"nether":    "/ITEMS/mcl_nether/",
 	"ocean":     "/ITEMS/mcl_ocean/",
 	"paintings": "/ENTITIES/mcl_paintings/",
+	"pale_oak":  "/ITEMS/mcl_pale_oak/",
 	"panes":     "/ITEMS/mcl_panes/",
 
 	"portals":        "/ITEMS/mcl_portals/",
@@ -132,10 +133,12 @@ var CloniaPaths = map[string]string{
 	"torches":  "/ITEMS/mcl_torches/",
 	"totems":   "/ITEMS/mcl_torches/",
 
+	"trident": "/ITEMS/mcl_tridents/",
 	"vaults":  "/ITEMS/mcl_vaults/",
 	"walls":   "/ITEMS/mcl_walls/",
 	"wool":    "/ITEMS/mcl_wool/",
 	"xfences": "/ITEMS/mclx_fences/",
+
 	"xstairs": "/ITEMS/mclx_stairs/",
 
 	//"": "/ITEMS//",

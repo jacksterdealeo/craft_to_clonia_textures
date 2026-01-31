@@ -145,7 +145,6 @@ Minecraft to Mineclonia Texture Pack Converter
 					if err := os.RemoveAll(filepath.Join(config.OutputDir, o)); err != nil {
 						fmt.Println(err)
 					} else {
-						log.Println(filepath.Join(config.OutputDir, o))
 					}
 				}
 
