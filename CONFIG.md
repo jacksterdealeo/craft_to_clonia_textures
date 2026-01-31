@@ -20,6 +20,11 @@
 - Default: true
 - Accepts: true/false
 
+## ForceClearOldConvertPacks
+> Decides whether old converted packs are deleted when re-converted.
+- Default: false
+- Accepts: true/false
+
 ## InputDir
 > Changes where Minecraft texture packs are read.
 - Default: guessed vanilla Minecraft's texture pack path

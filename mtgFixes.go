@@ -4,6 +4,7 @@ import (
 	"errors"
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
 	imaging "github.com/disintegration/imaging"
@@ -144,7 +145,7 @@ func mtg_obsidian_glass_fix(inPath, outPath string) *readWriteError {
 	return nil
 }
 
-func mtgLavaFix(inPath string, outPath string) *readWriteError {
+func mtgLavaFix(inputPackLocation, inPath, outputPackLocation string) *readWriteError {
 	/*
 		craft lava
 		  still   :  16 x 512
@@ -153,19 +154,29 @@ func mtgLavaFix(inPath string, outPath string) *readWriteError {
 			still   :  16 x 128
 		  flowing :  16 x 256
 	*/
-	lavaFlowing, err := imaging.Open(inPath + "lava_flow.png")
+
+	lavaFlowing, err := imaging.Open(filepath.Join(inputPackLocation + inPath + "lava_flow.png"))
 	if err != nil {
 		return &readWriteError{[]string{"lava_flow.png failed to open!"}, "lava textures"}
 	} else {
-		lavaStillX := lavaFlowing.Bounds().Dx()
-		lavaStillY := lavaFlowing.Bounds().Dy()
-		dst := imaging.New(lavaStillX/2, lavaStillY, color.NRGBA{0, 0, 0, 0})
+		lavaFlowingX := lavaFlowing.Bounds().Dx()
+		lavaFlowingY := lavaFlowing.Bounds().Dy()
+		dst := imaging.New(lavaFlowingX/2, lavaFlowingY, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, lavaFlowing, image.Point{0, 0}, 1.0)
-		if err = imaging.Save(dst, outPath+data.MTPaths["mtg"]+"default_lava_flowing_animated.png"); err != nil {
+		if err = imaging.Save(dst, outputPackLocation+data.MTPaths["mtg"]+"default_lava_flowing_animated.png"); err != nil {
 			return &readWriteError{[]string{"default_lava_flowing_animated.png failed to save!"}, "lava textures"}
 		}
 	}
-	if err := copyTextureAnimated(inPath+"lava_still.png", outPath+data.MTPaths["mtg"]+"default_lava_source_animated.png", -1); err != nil {
+
+	lavaStill := data.SimpleConversion{
+		InPath:        "block",
+		InTexture:     "lava_still.png",
+		OutPath:       "mtg",
+		OutTexture:    "default_lava_source_animated.png",
+		FramesAllowed: -1,
+	}
+
+	if err := lavaStill.Convert(inputPackLocation, outputPackLocation); err != nil {
 		return &readWriteError{[]string{"default_lava_source_animated.png failed to copy!"}, "lava textures"}
 	}
 	return nil

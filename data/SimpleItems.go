@@ -21,6 +21,8 @@ var SimpleItems = [...]SimpleConversion{
 	{"item", "oak_boat.png", "boats", "mcl_boats_oak_boat.png", 1},
 	{"item", "oak_chest_boat.png", "boats", "mcl_boats_oak_chest_boat.png", 1},
 	// {"item", ".png", "boats", "mcl_boats_obsidian_boat.png", 1}, // no match.
+	{"item", "pale_oak_boat.png", "boats", "mcl_boats_pale_oak_boat.png", 1},
+	{"item", "pale_oak_chest_boat.png", "boats", "mcl_boats_pale_oak_chest_boat.png", 1},
 	{"item", "spruce_boat.png", "boats", "mcl_boats_spruce_boat.png", 1},
 	{"item", "spruce_chest_boat.png", "boats", "mcl_boats_spruce_chest_boat.png", 1},
 	// TODO : entity boats
@@ -1745,6 +1747,29 @@ var SimpleItems = [...]SimpleConversion{
 	{"block", "tube_coral_fan.png", "ocean", "mcl_ocean_tube_coral_fan.png", 1},
 	// -- mcl_paintings
 	{"item", "painting.png", "paintings", "mcl_paintings_painting.png", 1},
+	// -- mcl_pale_oak
+	{"block", "stripped_pale_oak_log_top.png", "pale_oak", "mcl_stripped_pale_oak_log_top.png", 1},
+	{"block", "stripped_pale_oak_log.png", "pale_oak", "mcl_stripped_pale_oak_log_side.png", 1},
+	{"block", "pale_oak_planks.png", "pale_oak", "mcl_pale_oak_trapdoor_side.png", 1},
+	{"block", "pale_oak_trapdoor.png", "pale_oak", "mcl_pale_oak_trapdoor.png", 1},
+	{"block", "pale_oak_sapling.png", "pale_oak", "mcl_pale_oak_sapling_pale_oak.png", 1},
+	{"item", "resin_clump.png", "pale_oak", "mcl_pale_oak_resin_clump.png", 1},
+	{"block", "resin_bricks.png", "pale_oak", "mcl_pale_oak_resin_brick_block.png", 1},
+	{"item", "resin_brick.png", "pale_oak", "mcl_pale_oak_resin_brick.png", 1},
+	{"block", "resin_block.png", "pale_oak", "mcl_pale_oak_resin_block.png", 1},
+	{"block", "pale_oak_planks.png", "pale_oak", "mcl_pale_oak_planks.png", 1},
+	{"block", "pale_moss_block.png", "pale_oak", "mcl_pale_oak_moss.png", 1},
+	{"block", "pale_oak_log_top.png", "pale_oak", "mcl_pale_oak_log_top.png", 1},
+	{"block", "pale_oak_log.png", "pale_oak", "mcl_pale_oak_log.png", 1},
+	{"block", "pale_oak_leaves.png", "pale_oak", "mcl_pale_oak_leaves.png", 1},
+	{"block", "pale_hanging_moss_tip.png", "pale_oak", "mcl_pale_oak_hanging_moss_tip.png", 1},
+	{"block", "pale_hanging_moss.png", "pale_oak", "mcl_pale_oak_hanging_moss.png", 1},
+	{"block", "open_eyeblossom.png", "pale_oak", "mcl_pale_oak_eyeblossom_open.png", 1},
+	{"block", "closed_eyeblossom.png", "pale_oak", "mcl_pale_oak_eyeblossom.png", 1},
+	{"block", "pale_oak_door_top.png", "pale_oak", "mcl_pale_oak_door_top.png", 1},
+	{"item", "pale_oak_door.png", "pale_oak", "mcl_pale_oak_door_item.png", 1},
+	{"block", "pale_oak_door_bottom.png", "pale_oak", "mcl_pale_oak_door_bottom.png", 1},
+	{"block", "chiseled_resin_bricks.png", "pale_oak", "mcl_pale_oak_chiseled_resin_bricks.png", 1},
 	// -- mcl_panes
 	{"block", "iron_bars.png", "panes", "xpanes_pane_iron.png", 1},
 	//{"block", ".png", "panes", "xpanes_top_glass_black.png", 1},

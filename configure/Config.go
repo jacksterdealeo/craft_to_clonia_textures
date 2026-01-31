@@ -15,13 +15,15 @@ type Config struct {
 	DefinedOutput      bool
 	ExportMinetestGame bool
 	ExportMineclonia   bool
+	// ExportVoxeLibre    bool
 
 	InputDir  string
 	OutputDir string
 
-	HUDOnFireAnimationFrames int
-	SpearVersion             string
-	EnlargeObjectCrosshair   bool
+	ForceClearOldConvertPacks bool
+	HUDOnFireAnimationFrames  int
+	SpearVersion              string
+	EnlargeObjectCrosshair    bool
 }
 
 func NewConfig() *Config {
@@ -30,10 +32,12 @@ func NewConfig() *Config {
 		DefinedOutput:      false,
 		ExportMinetestGame: false,
 		ExportMineclonia:   true,
+		// ExportVoxeLibre:    false,
 
-		HUDOnFireAnimationFrames: 8,
-		SpearVersion:             "short",
-		EnlargeObjectCrosshair:   false,
+		ForceClearOldConvertPacks: false,
+		HUDOnFireAnimationFrames:  8,
+		SpearVersion:              "short",
+		EnlargeObjectCrosshair:    false,
 	}
 
 	if userHomeDir, err := os.UserHomeDir(); err != nil {
@@ -113,7 +117,6 @@ func (c *Config) String() string {
 	}
 }
 
-// Only checks lines that end in commas. Sorry if you don't like that kind of formatting.
 func LegacyJsonConfigFileUpdater(file []byte, c *Config) (needsUpdate bool, updatedFile []byte, err error) {
 	needsUpdate = false
 
@@ -122,8 +125,8 @@ func LegacyJsonConfigFileUpdater(file []byte, c *Config) (needsUpdate bool, upda
 		log.Panic(err)
 	}
 
-	referenceLineCount := bytes.Count(referenceBytes, []byte(",\n"))
-	fileLineCount := bytes.Count(file, []byte(",\n"))
+	referenceLineCount := bytes.Count(referenceBytes, []byte("\n"))
+	fileLineCount := bytes.Count(file, []byte("\n"))
 	if referenceLineCount != fileLineCount {
 		needsUpdate = true
 	}
