@@ -56,11 +56,7 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	logCopyTextureAnimatedErrs := func(setsOfTextures ...[]data.SimpleConversion) {
 		for _, set := range setsOfTextures {
 			for _, texture := range set {
-				err := copyTextureAnimated(
-					filepath.Join(inputPackLocation, data.GetCraftPath(texture.InPath), texture.InTexture),
-					filepath.Join(outputPackLocation, data.GetCloniaPath(texture.OutPath), texture.OutTexture),
-					texture.FramesAllowed,
-				)
+				err := texture.Convert(inputPackLocation, outputPackLocation)
 				if err != nil {
 					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 				} else {
@@ -77,10 +73,7 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	)
 
 	for _, texture := range data.SimpleNoEdits {
-		if err := copyTexture(
-			filepath.Join(inputPackLocation, data.GetCraftPath(texture.InPath), texture.InTexture),
-			filepath.Join(outputPackLocation, data.GetCloniaPath(texture.OutPath), texture.OutTexture),
-		); err != nil {
+		if err := texture.Convert(inputPackLocation, outputPackLocation); err != nil {
 			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 		} else {
 			successes += 1
@@ -148,19 +141,6 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 			failures++
 		}
 	}
-	func() {
-		sc := [...]data.SimpleConversion{
-			{"hud", "hotbar.png", "inventory", "mcl_inventory_hotbar.png", -1},
-		}
-		for _, e := range sc {
-			err := copyTexture(
-				filepath.Join(inputPackLocation, data.GetCraftPath(e.InPath), e.InTexture),
-				filepath.Join(outputPackLocation, data.GetCloniaPath(e.OutPath), e.OutTexture))
-			if err != nil {
-				textureErrorsLog.WriteString(e.OutTexture + " failed to convert.\n")
-			}
-		}
-	}()
 
 	compatibilityRating := (successes * 100) / (successes + failures)
 	packConfigFile := fmt.Sprintf(`title = MC %s

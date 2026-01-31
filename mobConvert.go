@@ -2,15 +2,12 @@ package main
 
 import "codeberg.org/ostech/craft_to_clonia_textures/data"
 
-func MobConvert(inPath string, outPath string) *readWriteError {
+func MobConvert(inputPackLocation string, outputPackLocation string) *readWriteError {
 	copyTextureFails := []string{}
 	successes := 0
 
 	for _, texture := range data.SimpleMobs {
-		err := copyTexture(
-			inPath+data.CraftPaths[texture.InPath]+texture.InTexture,
-			outPath+data.CloniaPaths[texture.OutPath]+texture.OutTexture,
-		)
+		err := texture.Convert(inputPackLocation, outputPackLocation)
 		if err != nil {
 			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
 		} else {

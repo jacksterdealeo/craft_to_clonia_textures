@@ -5,11 +5,49 @@ import (
 	"image"
 	"image/color"
 	"log"
+	"os"
 	"path/filepath"
 
-	mcmetahandler "codeberg.org/ostech/craft_to_clonia_textures/mcmetaHandler"
+	"codeberg.org/ostech/craft_to_clonia_textures/mcmetahandler"
 	"github.com/disintegration/imaging"
 )
+
+type Texture interface {
+	Convert()
+}
+
+// Used for textures that should have no edits done.
+// This is not to be used for most blocks, items, or anything that could possibly be animated by a custom pack.
+// This just copies the file verbatim.
+type StaticTexture struct {
+	InPath     string
+	InTexture  string
+	OutPath    string
+	OutTexture string
+}
+
+func (e *StaticTexture) Convert(inputPackLocation string, outputPackLocation string) error {
+	err := copyTexture(
+		filepath.Join(inputPackLocation, GetCraftPath(e.InPath), e.InTexture),
+		filepath.Join(outputPackLocation, GetCloniaPath(e.OutPath), e.OutTexture),
+	)
+	if err != nil {
+		return errors.New(err.Error() + " ~ " + e.InPath + "::" + e.InTexture)
+	}
+	return nil
+}
+
+// Returns the texture Minecraft inPath appended with texture name.
+// This does not include the path to the pack itself.
+func (e *StaticTexture) ReadPath() string {
+	return filepath.Join(GetCraftPath(e.InPath), e.InTexture)
+}
+
+// Returns the texture Mineclonia outPath appended with texture name.
+// This does not include the path to the pack itself.
+func (e *StaticTexture) SavePath() string {
+	return filepath.Join(GetCloniaPath(e.OutPath), e.OutTexture)
+}
 
 type SimpleTexture struct {
 	Path    string
@@ -32,11 +70,13 @@ type SimpleConversion struct {
 }
 
 // Returns the texture Minecraft inPath appended with texture name.
+// This does not include the path to the pack itself.
 func (e *SimpleConversion) ReadPath() string {
 	return filepath.Join(GetCraftPath(e.InPath), e.InTexture)
 }
 
 // Returns the texture Mineclonia outPath appended with texture name.
+// This does not include the path to the pack itself.
 func (e *SimpleConversion) SavePath() string {
 	return filepath.Join(GetCloniaPath(e.OutPath), e.OutTexture)
 }
@@ -92,7 +132,7 @@ type MCArmorSet struct {
 func GetCloniaPath(shortLocation string) string {
 	path, ok := CloniaPaths[shortLocation]
 	if !ok {
-		log.Panic("Incorrect Location Value!")
+		log.Panic("Incorrect Location Value! ", shortLocation, "!")
 	}
 	return path
 }
@@ -101,11 +141,27 @@ func GetCloniaPath(shortLocation string) string {
 func GetCraftPath(shortLocation string) string {
 	path, ok := CraftPaths[shortLocation]
 	if !ok {
-		log.Panic("Incorrect Location Value!")
+		log.Panic("Incorrect Location Value! ", shortLocation, "!")
 	}
 	return path
 }
 
+// Copies a texture without making any changes.
+func copyTexture(src string, dst string) error {
+	data, err := os.ReadFile(src)
+	if err != nil {
+		return err
+	}
+
+	err = os.WriteFile(dst, data, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Copies a texture and can limit it's frames if required.
 func copyTextureAnimated(src string, dest string, framesAllowed int) error {
 	img, err := imaging.Open(src)
 	if err != nil {

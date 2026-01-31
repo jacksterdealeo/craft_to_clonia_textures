@@ -1,5 +1,6 @@
 package data
 
-var SimpleNoEdits = [...]SimpleConversion{
-	{"entity", "enchanting_table_book.png", "enchanting", "mcl_enchanting_book_entity.png", 1},
+var SimpleNoEdits = [...]StaticTexture{
+	{"entity", "enchanting_table_book.png", "enchanting", "mcl_enchanting_book_entity.png"},
+	{"hud", "hotbar.png", "inventory", "mcl_inventory_hotbar.png"},
 }

@@ -140,12 +140,43 @@ Minecraft to Mineclonia Texture Pack Converter
 			fmt.Println(inputFile.Name())
 			if config.ExportMineclonia {
 				o := fmt.Sprintf("%s_mc_to_clonia", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
+
+				if config.ForceClearOldConvertPacks {
+					if err := os.RemoveAll(filepath.Join(config.OutputDir, o)); err != nil {
+						fmt.Println(err)
+					} else {
+						log.Println(filepath.Join(config.OutputDir, o))
+					}
+				}
+
 				convertPackClonia(inputFile.Name(), o, config)
 			}
 			if config.ExportMinetestGame {
 				o := fmt.Sprintf("%s_mc_to_mtg", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
+
+				if config.ForceClearOldConvertPacks {
+					if err := os.RemoveAll(filepath.Join(config.OutputDir, o)); err != nil {
+						fmt.Println(err)
+					}
+				}
+
 				convertPackMTG(inputFile.Name(), o, config)
 			}
+
+			/*
+				// TODO: ADD VOXELIBRE AS A SEPERATE OPTION
+				if config.ExportVoxeLibre {
+					o := fmt.Sprintf("%s_mc_to_vl", strings.ReplaceAll(strings.ToLower(inputFile.Name()), " ", "_"))
+
+					if config.ForceClearOldConvertPacks {
+						if err := os.RemoveAll(filepath.Join(config.OutputDir, o)); err != nil {
+							fmt.Println(err)
+						}
+					}
+
+					// convertPackVL(inputFile.Name(), o, config)
+				}
+			*/
 
 			fmt.Print("Done!\n\n")
 		}

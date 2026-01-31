@@ -4,7 +4,7 @@ import (
 	"image"
 	"image/color"
 
-	mcmetahandler "codeberg.org/ostech/craft_to_clonia_textures/mcmetaHandler"
+	"codeberg.org/ostech/craft_to_clonia_textures/mcmetahandler"
 
 	imaging "github.com/disintegration/imaging"
 )

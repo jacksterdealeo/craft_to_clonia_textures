@@ -18,16 +18,16 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 	var successes = 0
 	var failures = 0
 
-	texturePackLocation := config.InputDir + inName
-	outPath := filepath.Join(config.OutputDir, outName) + "/"
-	if fs.ValidPath(outPath) {
-		if err := os.Mkdir(outPath, 0755); err != nil {
+	inputPackLocation := config.InputDir + inName
+	outputPackLocation := filepath.Join(config.OutputDir, outName) + "/"
+	if fs.ValidPath(outputPackLocation) {
+		if err := os.Mkdir(outputPackLocation, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {
-				log.Panicf("Folder %s is an \"invalid argument\". Maybe rename %s?\n", outPath, texturePackLocation)
+				log.Panicf("Folder %s is an \"invalid argument\". Maybe rename %s?\n", outputPackLocation, inputPackLocation)
 			} else if errors.Is(err, fs.ErrPermission) {
-				log.Panicf("Permission was denied. %s was not made.\n", outPath)
+				log.Panicf("Permission was denied. %s was not made.\n", outputPackLocation)
 			} else if errors.Is(err, fs.ErrExist) {
-				fmt.Printf("Folder %s already exists. Writing into it.\n", outPath)
+				fmt.Printf("Folder %s already exists. Writing into it.\n", outputPackLocation)
 			} else {
 				fmt.Printf("How.\n")
 				log.Panic(err)
@@ -36,12 +36,12 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 	}
 
 	for _, e := range data.MTPaths {
-		if err := os.MkdirAll(outPath+e, 0755); err != nil {
+		if err := os.MkdirAll(outputPackLocation+e, 0755); err != nil {
 			log.Panic(err)
 		}
 	}
 
-	stitches.RWPackIcon(texturePackLocation, outPath, config)
+	stitches.RWPackIcon(inputPackLocation, outputPackLocation, config)
 
 	copyTextureFails := []string{}
 	catchReadWriteErrors := func(err *readWriteError) {
@@ -53,20 +53,21 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 	}
 
 	for _, e := range data.MinetestGreenery {
-		catchReadWriteErrors(mtg_greenify(e, texturePackLocation, outPath))
+		catchReadWriteErrors(mtg_greenify(e, inputPackLocation, outputPackLocation))
 	}
-	catchReadWriteErrors(mtg_obsidian_glass_fix(texturePackLocation, outPath))
-	catchReadWriteErrors(mtg_grass_fix(texturePackLocation, outPath))
+	catchReadWriteErrors(mtg_obsidian_glass_fix(inputPackLocation, outputPackLocation))
+	catchReadWriteErrors(mtg_grass_fix(inputPackLocation, outputPackLocation))
 
 	for _, e := range data.MinetestGameItems {
-		if err := copyTextureAnimated(texturePackLocation+craftPaths[e.InPath]+e.InTexture, outPath+data.MTPaths[e.OutPath]+e.OutTexture, e.FramesAllowed); err != nil {
+		//if err := copyTextureAnimated(inputPackLocation+craftPaths[e.InPath]+e.InTexture, outputPackLocation+data.MTPaths[e.OutPath]+e.OutTexture, e.FramesAllowed); err != nil {
+		if err := e.Convert(inputPackLocation, outputPackLocation); err != nil {
 			copyTextureFails = append(copyTextureFails, e.InPath+"::"+e.InTexture+" failed to copy!")
 		} else {
 			successes += 1
 		}
 	}
-	catchReadWriteErrors(mtgLavaFix(texturePackLocation+craftPaths["block"], outPath))
-	catchReadWriteErrors(mtgWaterFix(texturePackLocation+craftPaths["block"], outPath))
+	catchReadWriteErrors(mtgLavaFix(inputPackLocation, craftPaths["block"], outputPackLocation))
+	catchReadWriteErrors(mtgWaterFix(inputPackLocation+craftPaths["block"], outputPackLocation))
 
 	if len(copyTextureFails) > 0 {
 		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
@@ -80,11 +81,11 @@ name = %s
 description = MTG texture pack converted from Minecraft. %d successes, %d failures, %d%% compatible, converted %v.`,
 		inName, outName, successes, failures, compatibilityRating, nowShort)
 	fmt.Printf("%s\n", packConfigFile)
-	if err := os.WriteFile(outPath+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
+	if err := os.WriteFile(outputPackLocation+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
 		log.Panic(err)
 	}
 
-	if err := os.WriteFile(outPath+"/craft_to_clonia_errors_log.txt", []byte(textureErrorsLog), 0644); err != nil {
+	if err := os.WriteFile(outputPackLocation+"/craft_to_clonia_errors_log.txt", []byte(textureErrorsLog), 0644); err != nil {
 		log.Panic(err)
 	}
 
