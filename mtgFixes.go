@@ -125,7 +125,12 @@ func GlassCarveCenter(img image.Image) (*image.NRGBA, error) {
 
 // Makes obsidian glass fully transparent, as MTG doesn't like partial transparency.
 func mtg_obsidian_glass_fix(inPath, outPath string) *readWriteError {
-	tintedGlass := data.SimpleConversion{"block", "obsidian.png", "mtg", "default_obsidian_glass.png", 1}
+	tintedGlass := data.SimpleConversion{
+		InPath:        "block",
+		InTexture:     "obsidian.png",
+		OutPath:       "mtg",
+		OutTexture:    "default_obsidian_glass.png",
+		FramesAllowed: 1}
 	// using mossy_cobblestone until I know the crop works correctly.
 	inImage, err := imaging.Open(inPath + tintedGlass.ReadPath())
 	if err != nil {

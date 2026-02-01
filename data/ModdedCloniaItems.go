@@ -34,6 +34,8 @@ var (
 		{"item", "diamond_hoe.png", "emerald_stuff", "mcl_emerald_stuff_hoe.png", 1},
 		{"item", "diamond_horse_armor.png", "emerald_stuff", "mcl_emerald_stuff_emerald_horse_armor.png", 1},
 	}
+	EmeraldStuffModShortSpear = SimpleConversion{"item", "diamond_spear.png", "vl", "mcl_emerald_stuff_spear.png", 1}
+	EmeraldStuffModLongSpear  = SimpleConversion{"item", "diamond_spear_in_hand.png", "vl", "mcl_emerald_stuff_spear.png", 1}
 
 	// Rose Gold Stuff
 	RoseGoldStuffMod_NetheriteToRoseGold = [...]SimpleConversion{

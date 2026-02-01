@@ -30,14 +30,7 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 	fails := []string{}
 
 	func() { // special slabs
-		t := [...]data.SimpleConversion{
-			{"block", "polished_andesite.png", "core", "mcl_stairs_andesite_smooth_slab.png", 1},
-			{"block", "polished_diorite.png", "core", "mcl_stairs_diorite_smooth_slab.png", 1},
-			{"block", "polished_granite.png", "core", "mcl_stairs_granite_smooth_slab.png", 1},
-			{"block", "gold_block.png", "xstairs", "mcl_stairs_gold_block_slab.png", 1},
-			{"block", "iron_block.png", "xstairs", "mcl_stairs_iron_block_slab.png", 1},
-			{"block", "lapis_block.png", "xstairs", "mcl_stairs_lapis_block_slab.png", 1},
-		}
+		t := data.CloniaSpecialSlabs
 		for _, e := range t {
 			block, err := imaging.Open(inPack + craftPaths[e.InPath] + e.InTexture)
 			_ = block
@@ -62,15 +55,7 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 	}()
 
 	func() { // green plants
-		t := [...]data.SimpleConversion{
-			{"block", "vine.png", "core", "mcl_core_vine.png", 1},
-			{"block", "lily_pad.png", "flowers", "flowers_waterlily.png", 1},
-			{"block", "large_fern_top.png", "flowers", "mcl_flowers_double_plant_fern_inv.png", 1},
-			{"block", "tall_grass_top.png", "flowers", "mcl_flowers_double_plant_grass_inv.png", 1},
-			{"block", "fern.png", "flowers", "mcl_flowers_fern_inv.png", 1},
-			{"block", "short_grass.png", "flowers", "mcl_flowers_tallgrass_inv.png", 1},
-		}
-		for _, e := range t {
+		for _, e := range data.GreenPlants {
 			grayImage, err := imaging.Open(inPack + e.ReadPath())
 			if err != nil {
 				fails = append(fails, e.InTexture+" failed to open!")
@@ -123,7 +108,13 @@ func hud_fix(inputPackLocation string, outputPackLocation string, config *config
 
 	func() { // fire HUD (with limit)
 		frameLimit := config.HUDOnFireAnimationFrames
-		fire := data.SimpleConversion{"block", "fire_0.png", "fire", "mcl_burning_hud_flame_animated.png", frameLimit}
+		fire := data.SimpleConversion{
+			InPath:        "block",
+			InTexture:     "fire_0.png",
+			OutPath:       "fire",
+			OutTexture:    "mcl_burning_hud_flame_animated.png",
+			FramesAllowed: frameLimit,
+		}
 
 		err := fire.Convert(inputPackLocation, outputPackLocation)
 
@@ -476,10 +467,10 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 	emerald_stuff_textures = append(emerald_stuff_textures, data.EmeraldStuffMod[:]...)
 	switch c.SpearVersion {
 	case "short":
-		emerald_stuff_textures = append(emerald_stuff_textures, data.SimpleConversion{"item", "diamond_spear.png", "vl", "mcl_emerald_stuff_spear.png", 1})
+		emerald_stuff_textures = append(emerald_stuff_textures, data.EmeraldStuffModShortSpear)
 	case "long":
-		emerald_long_spear := data.SimpleConversion{"item", "diamond_spear_in_hand.png", "vl", "mcl_emerald_stuff_spear.png", 1}
-		img, err := imaging.Open(inPath + emerald_long_spear.ReadPath())
+		emerald_long_spear := data.EmeraldStuffModLongSpear
+		img, err := imaging.Open(filepath.Join(inPath, emerald_long_spear.ReadPath()))
 		if err != nil {
 			fails = append(fails, emerald_long_spear.InTexture+" failed to open for mod", mod)
 		} else {
@@ -492,12 +483,12 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 	}
 
 	for _, e := range emerald_stuff_textures {
-		diamondItem, err := imaging.Open(inPath + e.ReadPath())
+		diamondItem, err := imaging.Open(filepath.Join(inPath, e.ReadPath()))
 		if err != nil {
 			fails = append(fails, e.InTexture+" failed to open for mod", mod)
 		} else {
 			dst := greenIt(diamondItem)
-			if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+			if err = imaging.Save(dst, filepath.Join(outPack, e.SavePath())); err != nil {
 				fails = append(fails, e.OutTexture+" failed to save!")
 			}
 		}

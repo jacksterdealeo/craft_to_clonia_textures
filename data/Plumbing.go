@@ -18,9 +18,9 @@ type GeneralConversion interface {
 	SavePath() string
 }
 
-// Used for textures that should have no edits done.
+// Used for textures that don't have animations, or require special editing.
 // This is not to be used for most blocks, items, or anything that could possibly be animated by a custom pack.
-// This just copies the file verbatim.
+// The Convert method just copies the file verbatim.
 type StaticTexture struct {
 	InPath     string
 	InTexture  string
