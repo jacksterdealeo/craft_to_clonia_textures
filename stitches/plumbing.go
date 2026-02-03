@@ -1,6 +1,7 @@
 package stitches
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -38,7 +39,7 @@ func multiErrMsg(stitch string, readDirsAndFiles [][2]string, writeDirsAndFiles 
 	if len(msg) == 0 {
 		return nil
 	}
-	return fmt.Errorf(strings.Join(msg, ""))
+	return errors.New((strings.Join(msg, "")))
 }
 
 func flipHV(img image.Image) *image.NRGBA {

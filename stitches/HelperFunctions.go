@@ -22,9 +22,9 @@ func ImageToNRGBA(img image.Image) image.NRGBA {
 func MakeBrown(img *image.NRGBA) *image.NRGBA {
 	img = imaging.AdjustFunc(img,
 		func(c color.NRGBA) color.NRGBA {
-			r := int(c.R) / 2
-			g := int(c.G) / 3
-			b := int(c.B) / 6
+			r := float64(c.R) * .60
+			g := float64(c.G) * .39999
+			b := float64(c.B) * .19999
 			return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 		})
 	return img

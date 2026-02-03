@@ -133,12 +133,13 @@ var CloniaPaths = map[string]string{
 	"torches":  "/ITEMS/mcl_torches/",
 	"totems":   "/ITEMS/mcl_torches/",
 
+	"trial":   "/ITEMS/mcl_trial_spawners/",
 	"trident": "/ITEMS/mcl_tridents/",
 	"vaults":  "/ITEMS/mcl_vaults/",
 	"walls":   "/ITEMS/mcl_walls/",
 	"wool":    "/ITEMS/mcl_wool/",
-	"xfences": "/ITEMS/mclx_fences/",
 
+	"xfences": "/ITEMS/mclx_fences/",
 	"xstairs": "/ITEMS/mclx_stairs/",
 
 	//"": "/ITEMS//",

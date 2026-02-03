@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -12,10 +13,10 @@ import (
 func RWLeatherArmor(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	var (
 		stitch           = "Leather Armor"
-		armor_path       = input_pack_path + data.CraftPaths["humanoid"]
-		leggings_path    = input_pack_path + data.CraftPaths["humanoid_leggings"]
-		item_path        = input_pack_path + data.CraftPaths["item"]
-		out_path         = output_pack_path + data.CloniaPaths["armor"]
+		armor_path       = filepath.Join(input_pack_path, data.GetCraftPath("humanoid")) + "/"
+		leggings_path    = filepath.Join(input_pack_path, data.GetCraftPath("humanoid_leggings")) + "/"
+		item_path        = filepath.Join(input_pack_path, data.GetCraftPath("item")) + "/"
+		out_path         = filepath.Join(output_pack_path, data.GetCloniaPath("armor")) + "/"
 		filter_of_choice = imaging.Lanczos
 	)
 
@@ -103,20 +104,8 @@ func RWLeatherArmor(input_pack_path, output_pack_path string, _ *configure.Confi
 
 	i_helmet := "leather_helmet.png"
 	i_helmet_overlay := "leather_helmet_overlay.png"
-	i_leggings := "leather_leggings.png"
-	i_leggings_overlay := "leather_leggings_overlay.png"
-	i_boots := "leather_boots.png"
-	i_boots_overlay := "leather_boots_overlay.png"
-	i_chestplate := "leather_chestplate.png"
-
 	o_helmet := "mcl_armor_inv_helmet_leather.png"
 	o_helmet_desat := "mcl_armor_inv_helmet_leather_desat.png"
-	o_leggings := "mcl_armor_inv_leggings_leather.png"
-	o_leggings_desat := "mcl_armor_inv_leggings_leather_desat.png"
-	o_boots := "mcl_armor_inv_boots_leather.png"
-	o_boots_desat := "mcl_armor_inv_boots_leather_desat.png"
-	o_chestplate := "mcl_armor_inv_chestplate_leather.png"
-	o_chestplate_desat := "mcl_armor_inv_chestplate_leather_desat.png"
 
 	i_helmet_img, err := imaging.Open(item_path + i_helmet)
 	if err != nil {
@@ -135,6 +124,11 @@ func RWLeatherArmor(input_pack_path, output_pack_path string, _ *configure.Confi
 		return saveErrMsg(stitch, "armor", o_helmet_desat)
 	}
 
+	i_leggings := "leather_leggings.png"
+	i_leggings_overlay := "leather_leggings_overlay.png"
+	o_leggings := "mcl_armor_inv_leggings_leather.png"
+	o_leggings_desat := "mcl_armor_inv_leggings_leather_desat.png"
+
 	i_leggings_img, err := imaging.Open(item_path + i_leggings)
 	if err != nil {
 		return openErrMsg(stitch, "item", i_leggings)
@@ -151,6 +145,11 @@ func RWLeatherArmor(input_pack_path, output_pack_path string, _ *configure.Confi
 	if err := imaging.Save(out_leggings_desat, out_path+o_leggings_desat); err != nil {
 		return saveErrMsg(stitch, "armor", o_leggings_desat)
 	}
+
+	i_boots := "leather_boots.png"
+	i_boots_overlay := "leather_boots_overlay.png"
+	o_boots := "mcl_armor_inv_boots_leather.png"
+	o_boots_desat := "mcl_armor_inv_boots_leather_desat.png"
 
 	i_boots_img, err := imaging.Open(item_path + i_boots)
 	if err != nil {
@@ -169,6 +168,10 @@ func RWLeatherArmor(input_pack_path, output_pack_path string, _ *configure.Confi
 		return saveErrMsg(stitch, "armor", o_boots_desat)
 	}
 
+	i_chestplate := "leather_chestplate.png"
+	o_chestplate := "mcl_armor_inv_chestplate_leather.png"
+	o_chestplate_desat := "mcl_armor_inv_chestplate_leather_desat.png"
+
 	// The chestplate item doesn't have an overlay.
 	i_chestplate_img, err := imaging.Open(item_path + i_chestplate)
 	if err != nil {
@@ -182,6 +185,29 @@ func RWLeatherArmor(input_pack_path, output_pack_path string, _ *configure.Confi
 	}
 	if err := imaging.Save(out_chestplate_desat, out_path+o_chestplate_desat); err != nil {
 		return saveErrMsg(stitch, "armor", o_chestplate_desat)
+	}
+
+	i_horse := "leather_horse_armor.png"
+	i_horse_overlay := "leather_horse_armor_overlay.png"
+	o_horse := "mcl_mobitems_leather_horse_armor.png"
+	o_horse_desat := "mcl_mobitems_leather_horse_armor_desat.png"
+	horse_out_path := filepath.Join(output_pack_path, data.GetCloniaPath("mobitems")) + "/"
+
+	i_horse_img, err := imaging.Open(item_path + i_horse)
+	if err != nil {
+		return openErrMsg(stitch, "item", i_horse)
+	}
+	i_horse_overlay_img, err := imaging.Open(item_path + i_horse_overlay)
+	if err != nil {
+		return openErrMsg(stitch, "item", i_horse_overlay)
+	}
+
+	out_horse, out_horse_desat := LeatherArmorItem(i_horse_img, i_horse_overlay_img)
+	if err := imaging.Save(out_horse, horse_out_path+o_horse); err != nil {
+		return saveErrMsg(stitch, "armor", o_horse)
+	}
+	if err := imaging.Save(out_horse_desat, horse_out_path+o_horse_desat); err != nil {
+		return saveErrMsg(stitch, "armor", o_horse_desat)
 	}
 
 	return nil
