@@ -135,6 +135,14 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 	}
 	copper_conversion := basicArmorConversion{
 		inTexture:     "copper.png",
+		outHelmet:     "mcl_armor_helmet_copper.png",
+		outChestplate: "mcl_armor_chestplate_copper.png",
+		outLeggings:   "mcl_armor_leggings_copper.png",
+		outBoots:      "mcl_armor_boots_copper.png",
+	}
+	// TODO: REMOVE MODDED COPPER AT A LATER POINT. RIGHT NOW THERE ARE STILL USERS OF THIS MOD.
+	modded_copper_conversion := basicArmorConversion{
+		inTexture:     "copper.png",
 		outHelmet:     "mcl_copper_stuff_helmet_copper.png",
 		outChestplate: "mcl_copper_stuff_chestplate_copper.png",
 		outLeggings:   "mcl_copper_stuff_leggings_copper.png",
@@ -169,6 +177,12 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, iron_conversion); err != nil {
 	} else {
 		if err := SaveArmorSet(outPath, tex, iron_conversion); err != nil {
+			fails = append(fails, err.Error())
+		}
+	}
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, copper_conversion); err != nil {
+	} else {
+		if err := SaveArmorSet(outPath, tex, copper_conversion); err != nil {
 			fails = append(fails, err.Error())
 		}
 	}
@@ -278,18 +292,18 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 	}
 
 	copperPath := filepath.Join(outPath, cloniaPaths["copper_stuff"])
-	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, copper_conversion); err == nil {
-		if err := imaging.Save(tex.helmet, filepath.Join(copperPath, copper_conversion.outHelmet)); err != nil {
-			fails = append(fails, "Couldn't save ~"+copper_conversion.outHelmet+"")
+	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, modded_copper_conversion); err == nil {
+		if err := imaging.Save(tex.helmet, filepath.Join(copperPath, modded_copper_conversion.outHelmet)); err != nil {
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outHelmet+"")
 		}
-		if err := imaging.Save(tex.chestplate, filepath.Join(copperPath, copper_conversion.outChestplate)); err != nil {
-			fails = append(fails, "Couldn't save ~"+copper_conversion.outChestplate+"")
+		if err := imaging.Save(tex.chestplate, filepath.Join(copperPath, modded_copper_conversion.outChestplate)); err != nil {
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outChestplate+"")
 		}
-		if err := imaging.Save(tex.leggings, filepath.Join(copperPath, copper_conversion.outLeggings)); err != nil {
-			fails = append(fails, "Couldn't save ~"+copper_conversion.outLeggings+"")
+		if err := imaging.Save(tex.leggings, filepath.Join(copperPath, modded_copper_conversion.outLeggings)); err != nil {
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outLeggings+"")
 		}
-		if err := imaging.Save(tex.boots, filepath.Join(copperPath, copper_conversion.outBoots)); err != nil {
-			fails = append(fails, "Couldn't save ~"+copper_conversion.outBoots+"")
+		if err := imaging.Save(tex.boots, filepath.Join(copperPath, modded_copper_conversion.outBoots)); err != nil {
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outBoots+"")
 		}
 	} else if copper_armor, err := GetArmorSet(inPack, armorLocation, leggingsLocation, iron_conversion); err != nil {
 		fails = append(fails, "Copper Armor Failed ~ "+err.Error())
