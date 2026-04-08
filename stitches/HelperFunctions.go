@@ -29,3 +29,15 @@ func MakeBrown(img *image.NRGBA) *image.NRGBA {
 		})
 	return img
 }
+
+func ClampTransparency(img *image.NRGBA, line uint8) *image.NRGBA {
+	img = imaging.AdjustFunc(img,
+		func(c color.NRGBA) color.NRGBA {
+			if c.A < line {
+				return color.NRGBA{c.R, c.G, c.B, 0}
+			}
+			return color.NRGBA{c.R, c.G, c.B, 255}
+		})
+	return img
+
+}
