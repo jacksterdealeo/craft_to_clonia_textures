@@ -24,8 +24,8 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	var (
 		successes          = 0
 		failures           = 0
-		inputPackLocation  = config.InputDir + inName
-		outputPackLocation = config.OutputDir + outName
+		inputPackLocation  = filepath.Join(config.InputDir, inName)
+		outputPackLocation = filepath.Join(config.OutputDir, outName)
 	)
 
 	var textureErrorsLog = strings.Builder{}
@@ -117,20 +117,10 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	// I want to replace most or all the "fix" functions with "stitch" functions for better performace, and maintenance.
 	// Any that are commented out are replaced already. I am leaving them fully listed until they are all finished.
 	logRWErrs(
-		//anvil_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["anvils"]),
 		armor_fixes(inputPackLocation, outputPackLocation),
-		//campfire_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["campfires"]),
-		//crack_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["hud_base_textures"]),
 		do_fixes(inputPackLocation, outputPackLocation, config),
-		//double_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
-		//flip_fix(inputPackLocation, outputPackLocation),
-		//flowerpot_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["flowerpots"]),
 		hud_fix(inputPackLocation, outputPackLocation, config),
-		//lava_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 		mods_fixes(inputPackLocation, outputPackLocation, config),
-		//single_chests_fix(inputPackLocation+craftPaths["entity"]+"chest/", outputPackLocation+cloniaPaths["chests"]),
-		//stonecutter_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["stonecutter"]),
-		//water_fix(inputPackLocation+craftPaths["block"], outputPackLocation+cloniaPaths["core"]),
 
 		MobConvert(inputPackLocation, outputPackLocation),
 	)
@@ -138,20 +128,20 @@ func convertPackClonia(inName string, outName string, config *configure.Config) 
 	// Experience Bar
 	if expProgress, err := imaging.Open(filepath.Join(inputPackLocation, data.GetCraftPath("hud"), "experience_bar_progress.png")); err != nil {
 		textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n")
-		failures++
+		failures += 1
 	} else {
 		if err2 := imaging.Save(imaging.Rotate90(expProgress), filepath.Join(outputPackLocation, data.GetCloniaPath("experience"), "mcl_experience_bar.png")); err2 != nil {
 			textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Save \"mcl_experience_bar.png\".\n\n")
-			failures++
+			failures += 1
 		}
 	}
 	if expEmpty, err := imaging.Open(filepath.Join(inputPackLocation, data.GetCraftPath("hud"), "experience_bar_background.png")); err != nil {
 		textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Open \"experience_bar_background.png\".\n\n")
-		failures++
+		failures += 1
 	} else {
 		if err2 := imaging.Save(imaging.Rotate90(expEmpty), filepath.Join(outputPackLocation, data.GetCloniaPath("experience"), "mcl_experience_bar_background.png")); err2 != nil {
 			textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Save \"mcl_experience_bar_background.png\".\n\n")
-			failures++
+			failures += 1
 		}
 	}
 

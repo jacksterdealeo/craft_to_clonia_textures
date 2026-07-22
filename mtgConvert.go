@@ -18,8 +18,8 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 	var successes = 0
 	var failures = 0
 
-	inputPackLocation := config.InputDir + inName
-	outputPackLocation := filepath.Join(config.OutputDir, outName) + "/"
+	inputPackLocation := filepath.Join(config.InputDir, inName)
+	outputPackLocation := filepath.Join(config.OutputDir, outName)
 	if fs.ValidPath(outputPackLocation) {
 		if err := os.Mkdir(outputPackLocation, 0755); err != nil {
 			if errors.Is(err, fs.ErrInvalid) {
@@ -36,7 +36,7 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 	}
 
 	for _, e := range data.MTPaths {
-		if err := os.MkdirAll(outputPackLocation+e, 0755); err != nil {
+		if err := os.MkdirAll(filepath.Join(outputPackLocation, e), 0755); err != nil {
 			log.Panic(err)
 		}
 	}
@@ -59,7 +59,10 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 	catchReadWriteErrors(mtg_grass_fix(inputPackLocation, outputPackLocation))
 
 	for _, e := range data.MinetestGameItems {
-		//if err := copyTextureAnimated(inputPackLocation+craftPaths[e.InPath]+e.InTexture, outputPackLocation+data.MTPaths[e.OutPath]+e.OutTexture, e.FramesAllowed); err != nil {
+		/*
+			if err := copyTextureAnimated(filepath.Join(inputPackLocation, craftPaths[e.InPath], e.InTexture),
+			filepath.Join(outputPackLocation, data.MTPaths[e.OutPath], e.OutTexture), e.FramesAllowed); err != nil {
+		*/
 		if err := e.Convert(inputPackLocation, outputPackLocation); err != nil {
 			copyTextureFails = append(copyTextureFails, e.InPath+"::"+e.InTexture+" failed to copy!")
 		} else {
@@ -67,7 +70,8 @@ func convertPackMTG(inName string, outName string, config *configure.Config) {
 		}
 	}
 	catchReadWriteErrors(mtgLavaFix(inputPackLocation, craftPaths["block"], outputPackLocation))
-	catchReadWriteErrors(mtgWaterFix(inputPackLocation+craftPaths["block"], outputPackLocation))
+	catchReadWriteErrors(mtgWaterFix(
+		filepath.Join(inputPackLocation, craftPaths["block"]), outputPackLocation))
 
 	if len(copyTextureFails) > 0 {
 		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
@@ -81,12 +85,15 @@ name = %s
 description = MTG texture pack converted from Minecraft. %d successes, %d failures, %d%% compatible, converted %v.`,
 		inName, outName, successes, failures, compatibilityRating, nowShort)
 	fmt.Printf("%s\n", packConfigFile)
-	if err := os.WriteFile(outputPackLocation+"/texture_pack.conf", []byte(packConfigFile), 0644); err != nil {
+	if err := os.WriteFile(
+		filepath.Join(outputPackLocation, "/texture_pack.conf"),
+		[]byte(packConfigFile), 0644); err != nil {
 		log.Panic(err)
 	}
 
-	if err := os.WriteFile(outputPackLocation+"/craft_to_clonia_errors_log.txt", []byte(textureErrorsLog), 0644); err != nil {
+	if err := os.WriteFile(
+		filepath.Join(outputPackLocation, "/craft_to_clonia_errors_log.txt"),
+		[]byte(textureErrorsLog), 0644); err != nil {
 		log.Panic(err)
 	}
-
 }

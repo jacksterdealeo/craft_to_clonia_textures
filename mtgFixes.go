@@ -31,21 +31,24 @@ func mtg_green_it(img image.Image) (result *image.NRGBA) {
 }
 
 func mtg_greenify(greenery data.SimpleConversion, inPath, outPath string) *readWriteError { // green plants
-	grayImage, err := imaging.Open(inPath + greenery.ReadPath())
+	grayImage, err := imaging.Open(filepath.Join(inPath, greenery.ReadPath()))
 	if err != nil {
 		return &readWriteError{[]string{greenery.InTexture}, " failed to open!"}
 	}
 	dst := imaging.New(grayImage.Bounds().Dx(), grayImage.Bounds().Dx(), color.NRGBA{0, 0, 0, 0}) // disallows animated textures
 	dst = imaging.Overlay(dst, grayImage, image.Point{0, 0}, 1.0)
 	dst = mtg_green_it(dst)
-	if err = imaging.Save(dst, outPath+data.MTPaths[greenery.OutPath]+"/"+greenery.OutTexture); err != nil {
+	if err = imaging.Save(dst, filepath.Join(
+		outPath,
+		data.MTPaths[greenery.OutPath],
+		greenery.OutTexture)); err != nil {
 		return &readWriteError{[]string{greenery.InTexture}, " failed to save!"}
 	}
 	return nil
 }
 
 func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this first!
-	shortGrass, err := imaging.Open(inPath + craftPaths["block"] + "short_grass.png")
+	shortGrass, err := imaging.Open(filepath.Join(inPath, craftPaths["block"], "short_grass.png"))
 	if err != nil {
 		return &readWriteError{[]string{"block::short_grass.png"}, " failed to open!"}
 	}
@@ -57,7 +60,10 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 	//dst5 = imaging.Overlay(shortGrass)
 
 	// dst4 := imaging.New(shortGrass.Bounds().Dx(), shortGrass.Bounds().Dx(), color.NRGBA{0, 0, 0, 0}) // disallows animated textures
-	if err = imaging.Save(dst5, outPath+data.MTPaths["mtg"]+"/default_grass_5.png"); err != nil {
+	if err = imaging.Save(dst5,
+		filepath.Join(outPath,
+			data.MTPaths["mtg"],
+			"default_grass_5.png")); err != nil {
 		return &readWriteError{[]string{"default_grass_5.png"}, " failed to save!"}
 	}
 
@@ -68,7 +74,9 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 6*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst4, outPath+data.MTPaths["mtg"]+"/default_grass_4.png"); err != nil {
+	if err = imaging.Save(dst4, filepath.Join(outPath,
+		data.MTPaths["mtg"],
+		"default_grass_4.png")); err != nil {
 		return &readWriteError{[]string{"default_grass_4.png"}, " failed to save!"}
 	}
 
@@ -78,7 +86,9 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 3*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst3, outPath+data.MTPaths["mtg"]+"/default_grass_3.png"); err != nil {
+	if err = imaging.Save(dst3, filepath.Join(outPath,
+		data.MTPaths["mtg"],
+		"default_grass_3.png")); err != nil {
 		return &readWriteError{[]string{"default_grass_3.png"}, " failed to save!"}
 	}
 
@@ -88,7 +98,9 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 2*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst2, outPath+data.MTPaths["mtg"]+"/default_grass_2.png"); err != nil {
+	if err = imaging.Save(dst2, filepath.Join(outPath,
+		data.MTPaths["mtg"],
+		"default_grass_2.png")); err != nil {
 		return &readWriteError{[]string{"default_grass_2.png"}, " failed to save!"}
 	}
 
@@ -98,7 +110,9 @@ func mtg_grass_fix(inPath, outPath string) *readWriteError { // work on this fir
 		image.Pt(0, 2*scale),
 		1.0,
 	)
-	if err = imaging.Save(dst1, outPath+data.MTPaths["mtg"]+"/default_grass_1.png"); err != nil {
+	if err = imaging.Save(dst1, filepath.Join(outPath,
+		data.MTPaths["mtg"],
+		"default_grass_1.png")); err != nil {
 		return &readWriteError{[]string{"default_grass_1.png"}, " failed to save!"}
 	}
 	return nil
@@ -132,7 +146,7 @@ func mtg_obsidian_glass_fix(inPath, outPath string) *readWriteError {
 		OutTexture:    "default_obsidian_glass.png",
 		FramesAllowed: 1}
 	// using mossy_cobblestone until I know the crop works correctly.
-	inImage, err := imaging.Open(inPath + tintedGlass.ReadPath())
+	inImage, err := imaging.Open(filepath.Join(inPath, tintedGlass.ReadPath()))
 	if err != nil {
 		return &readWriteError{[]string{tintedGlass.InTexture}, " failed to open!"}
 	}
@@ -144,7 +158,10 @@ func mtg_obsidian_glass_fix(inPath, outPath string) *readWriteError {
 		return &readWriteError{[]string{tintedGlass.InTexture}, " faild to carve out the center!"}
 	}
 
-	if err = imaging.Save(obsidianGlass, outPath+data.MTPaths[tintedGlass.OutPath]+"/"+tintedGlass.OutTexture); err != nil {
+	if err = imaging.Save(obsidianGlass, filepath.Join(
+		outPath,
+		data.MTPaths[tintedGlass.OutPath],
+		tintedGlass.OutTexture)); err != nil {
 		return &readWriteError{[]string{tintedGlass.InTexture}, " failed to save!"}
 	}
 	return nil
@@ -160,7 +177,7 @@ func mtgLavaFix(inputPackLocation, inPath, outputPackLocation string) *readWrite
 		  flowing :  16 x 256
 	*/
 
-	lavaFlowing, err := imaging.Open(filepath.Join(inputPackLocation + inPath + "lava_flow.png"))
+	lavaFlowing, err := imaging.Open(filepath.Join(inputPackLocation, inPath, "lava_flow.png"))
 	if err != nil {
 		return &readWriteError{[]string{"lava_flow.png failed to open!"}, "lava textures"}
 	} else {
@@ -168,7 +185,9 @@ func mtgLavaFix(inputPackLocation, inPath, outputPackLocation string) *readWrite
 		lavaFlowingY := lavaFlowing.Bounds().Dy()
 		dst := imaging.New(lavaFlowingX/2, lavaFlowingY, color.NRGBA{0, 0, 0, 0})
 		dst = imaging.Overlay(dst, lavaFlowing, image.Point{0, 0}, 1.0)
-		if err = imaging.Save(dst, outputPackLocation+data.MTPaths["mtg"]+"default_lava_flowing_animated.png"); err != nil {
+		if err = imaging.Save(dst, filepath.Join(outputPackLocation,
+			data.MTPaths["mtg"],
+			"default_lava_flowing_animated.png")); err != nil {
 			return &readWriteError{[]string{"default_lava_flowing_animated.png failed to save!"}, "lava textures"}
 		}
 	}
@@ -197,7 +216,7 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 		  still   :  16 x 256
 		  flowing :  16 x 1024
 	*/
-	wStill, err := imaging.Open(inPath + "water_still.png")
+	wStill, err := imaging.Open(filepath.Join(inPath, "water_still.png"))
 	if err != nil {
 		fails = append(fails, "block::water_still.png failed to open!")
 	} else {
@@ -221,7 +240,9 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, outPath+data.MTPaths["mtg"]+"default_water_source_animated.png"); err != nil {
+		if err = imaging.Save(plainWater, filepath.Join(outPath,
+			data.MTPaths["mtg"],
+			"default_water_source_animated.png")); err != nil {
 			fails = append(fails, "default_water_source_animated.png failed to save!")
 		}
 
@@ -241,12 +262,14 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(riverWater, outPath+data.MTPaths["mtg"]+"default_river_water_source_animated.png"); err != nil {
+		if err = imaging.Save(riverWater, filepath.Join(outPath,
+			data.MTPaths["mtg"],
+			"default_river_water_source_animated.png")); err != nil {
 			fails = append(fails, "default_river_water_source_animated.png failed to save!")
 		}
 	}
 
-	wFlowing, err := imaging.Open(inPath + "water_flow.png")
+	wFlowing, err := imaging.Open(filepath.Join(inPath, "water_flow.png"))
 	if err != nil {
 		fails = append(fails, "block::water_flow.png failed to open!")
 	} else {
@@ -270,7 +293,9 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(plainWater, outPath+data.MTPaths["mtg"]+"default_water_flowing_animated.png"); err != nil {
+		if err = imaging.Save(plainWater, filepath.Join(outPath,
+			data.MTPaths["mtg"],
+			"default_water_flowing_animated.png")); err != nil {
 			fails = append(fails, "default_water_flowing_animated.png failed to save!")
 		}
 
@@ -290,7 +315,9 @@ func mtgWaterFix(inPath string, outPath string) *readWriteError {
 				}
 				return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 			})
-		if err = imaging.Save(riverWater, outPath+data.MTPaths["mtg"]+"default_river_water_flowing_animated.png"); err != nil {
+		if err = imaging.Save(riverWater, filepath.Join(outPath,
+			data.MTPaths["mtg"],
+			"default_river_water_flowing_animated.png")); err != nil {
 			fails = append(fails, "default_river_water_flowing_animated.png failed to save!")
 		}
 	}

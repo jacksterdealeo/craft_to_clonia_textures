@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
-	imaging "github.com/disintegration/imaging"
+	"github.com/disintegration/imaging"
 )
 
 func RWDeepslateTools(inputPackPath, outputPackPath string, config *configure.Config) error {
@@ -15,14 +16,14 @@ func RWDeepslateTools(inputPackPath, outputPackPath string, config *configure.Co
 	errReport := ""
 
 	doEdit := func(item data.SimpleConversion) {
-		stoneItem, err := imaging.Open(inputPackPath + item.ReadPath())
+		stoneItem, err := imaging.Open(filepath.Join(inputPackPath, item.ReadPath()))
 		if err != nil {
 			errReport += fmt.Sprintf("\tFailed to open iron item \"%v\", giving up.\n", item.ReadPath())
 			return
 		}
 
 		dst := DeepslateTool(stoneItem)
-		if saveErr := imaging.Save(dst, outputPackPath+item.SavePath()); saveErr != nil {
+		if saveErr := imaging.Save(dst, filepath.Join(outputPackPath, item.SavePath())); saveErr != nil {
 			errReport += fmt.Sprintf("\tFailed to save stone item \"%v\", giving up.\n", item.SavePath())
 		}
 	}
@@ -36,12 +37,12 @@ func RWDeepslateTools(inputPackPath, outputPackPath string, config *configure.Co
 		doEdit(data.ShortDSSpear)
 	case "long":
 		item := data.LongDSSpear
-		stoneItem, err := imaging.Open(inputPackPath + item.ReadPath())
+		stoneItem, err := imaging.Open(filepath.Join(inputPackPath, item.ReadPath()))
 		if err != nil {
 			errReport += fmt.Sprintf("\tFailed to open stone item \"%v\", giving up.\n", item.ReadPath())
 		} else {
 			dst := imaging.Rotate270(DeepslateTool(stoneItem))
-			if saveErr := imaging.Save(dst, outputPackPath+item.SavePath()); saveErr != nil {
+			if saveErr := imaging.Save(dst, filepath.Join(outputPackPath, item.SavePath())); saveErr != nil {
 				errReport += fmt.Sprintf("\tFailed to save deepslate item \"%v\", giving up.\n", item.SavePath())
 			}
 		}

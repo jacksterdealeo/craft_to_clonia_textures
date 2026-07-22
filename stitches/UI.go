@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -14,31 +15,31 @@ func RWUI(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	readFails := make([][2]string, 0)
 	saveFails := make([][2]string, 0)
 
-	in_path := input_pack_path + "/assets/minecraft/textures/gui/sprites/container/furnace/"
-	out_path := output_pack_path + data.CloniaPaths["furnaces"]
+	in_path := filepath.Join(input_pack_path, "/assets/minecraft/textures/gui/sprites/container/furnace/")
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths["furnaces"])
 
-	burn_progress, err := imaging.Open(in_path + "burn_progress.png")
+	burn_progress, err := imaging.Open(filepath.Join(in_path, "burn_progress.png"))
 	if err != nil {
 		readFails = append(readFails, [2]string{stitch, "burn_progress.png"})
 	} else {
 		gui_furnace_arrow_bg, gui_furnace_arrow_fg := FurnaceArrow(burn_progress)
-		if err := imaging.Save(gui_furnace_arrow_bg, out_path+"gui_furnace_arrow_bg.png"); err != nil {
+		if err := imaging.Save(gui_furnace_arrow_bg, filepath.Join(out_path, "gui_furnace_arrow_bg.png")); err != nil {
 			saveFails = append(saveFails, [2]string{stitch, "gui_furnace_arrow_bg.png"})
 		}
-		if err := imaging.Save(gui_furnace_arrow_fg, out_path+"gui_furnace_arrow_fg.png"); err != nil {
+		if err := imaging.Save(gui_furnace_arrow_fg, filepath.Join(out_path, "gui_furnace_arrow_fg.png")); err != nil {
 			saveFails = append(saveFails, [2]string{stitch, "gui_furnace_arrow_fg.png"})
 		}
 	}
 
-	lit_progress, err := imaging.Open(in_path + "lit_progress.png")
+	lit_progress, err := imaging.Open(filepath.Join(in_path, "lit_progress.png"))
 	if err != nil {
 		readFails = append(readFails, [2]string{stitch, "lit_progress.png"})
 	} else {
 		default_furnace_fire_bg, default_furnace_fire_fg := FurnaceFire(lit_progress)
-		if err := imaging.Save(default_furnace_fire_bg, out_path+"default_furnace_fire_bg.png"); err != nil {
+		if err := imaging.Save(default_furnace_fire_bg, filepath.Join(out_path, "default_furnace_fire_bg.png")); err != nil {
 			saveFails = append(saveFails, [2]string{stitch, "default_furnace_fire_bg.png"})
 		}
-		if err := imaging.Save(default_furnace_fire_fg, out_path+"default_furnace_fire_fg.png"); err != nil {
+		if err := imaging.Save(default_furnace_fire_fg, filepath.Join(out_path, "default_furnace_fire_fg.png")); err != nil {
 			saveFails = append(saveFails, [2]string{stitch, "default_furnace_fire_fg.png"})
 		}
 	}

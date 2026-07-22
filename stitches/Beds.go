@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -23,14 +24,14 @@ func RWBedInv(input_pack_path, output_pack_path string, _ *configure.Config) err
 	stitch := "BedInv"
 
 	for _, bed := range data.BedIcons {
-		bedImg, err := imaging.Open(input_pack_path + bed.ReadPath())
+		bedImg, err := imaging.Open(filepath.Join(input_pack_path, bed.ReadPath()))
 		if err != nil {
 			return openErrMsg(stitch, bed.InPath, bed.InTexture)
 		}
 
 		result := BedInv(bedImg)
 
-		err = imaging.Save(result, output_pack_path+bed.SavePath())
+		err = imaging.Save(result, filepath.Join(output_pack_path, bed.SavePath()))
 		if err != nil {
 			return saveErrMsg(stitch, bed.OutPath, bed.OutTexture)
 		}
@@ -38,7 +39,7 @@ func RWBedInv(input_pack_path, output_pack_path string, _ *configure.Config) err
 	return nil
 }
 
-// I don't really care about making the pegs the beds stand on.
+// I don't really care about making the pegs the beds stand on in the item preview.
 // It's a lot of effort for not much payoff.
 func BedInv(src image.Image) *image.NRGBA {
 	src = imaging.Resize(src, 64, 64, imaging.Box)

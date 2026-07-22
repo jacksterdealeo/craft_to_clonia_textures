@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -29,24 +30,24 @@ func RWTravelnet(input_pack_path, output_pack_path string, _ *configure.Config) 
 	craft_path := "block"
 	clonia_path := "travelnet"
 
-	in_path := input_pack_path + data.CraftPaths["block"]
-	out_path := output_pack_path + "/" + data.CloniaPaths["travelnet"]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths["block"])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths["travelnet"])
 	var block string
 
 	block = "lodestone_side.png"
-	lodestone_side, err := imaging.Open(in_path + block)
+	lodestone_side, err := imaging.Open(filepath.Join(in_path, block))
 	if err != nil {
 		return openErrMsg(stitch, craft_path, block)
 	}
 
 	block = "lodestone_top.png"
-	lodestone_top, err := imaging.Open(in_path + block)
+	lodestone_top, err := imaging.Open(filepath.Join(in_path, block))
 	if err != nil {
 		return openErrMsg(stitch, craft_path, block)
 	}
 
 	block = "glass.png"
-	glass, err := imaging.Open(in_path + block)
+	glass, err := imaging.Open(filepath.Join(in_path, block))
 	if err != nil {
 		return openErrMsg(stitch, craft_path, block)
 	}
@@ -59,13 +60,13 @@ func RWTravelnet(input_pack_path, output_pack_path string, _ *configure.Config) 
 	edgeless_glass = imaging.PasteCenter(edgeless_glass, edgeless_glass_crop)
 
 	block = "white_wool.png"
-	carpet, err := imaging.Open(in_path + block)
+	carpet, err := imaging.Open(filepath.Join(in_path, block))
 	if err != nil {
 		return openErrMsg(stitch, craft_path, block)
 	}
 
 	block = "orange_wool.png"
-	elevator_carpet, err := imaging.Open(in_path + block)
+	elevator_carpet, err := imaging.Open(filepath.Join(in_path, block))
 	if err != nil {
 		return openErrMsg(stitch, craft_path, block)
 	}
@@ -83,56 +84,56 @@ func RWTravelnet(input_pack_path, output_pack_path string, _ *configure.Config) 
 	Travelnet.Back = TravelnetBack()
 
 	block = "travelnet_travelnet_front_color.png"
-	err = imaging.Save(Travelnet.Front_Color, out_path+block)
+	err = imaging.Save(Travelnet.Front_Color, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_front.png"
-	err = imaging.Save(Travelnet.Front, out_path+block)
+	err = imaging.Save(Travelnet.Front, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_side_color.png"
-	err = imaging.Save(Travelnet.Side_Color, out_path+block)
+	err = imaging.Save(Travelnet.Side_Color, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_side.png"
-	err = imaging.Save(Travelnet.Side, out_path+block)
+	err = imaging.Save(Travelnet.Side, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_bottom.png"
-	err = imaging.Save(Travelnet.Bottom, out_path+block)
+	err = imaging.Save(Travelnet.Bottom, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_top.png"
-	err = imaging.Save(Travelnet.Top, out_path+block)
+	err = imaging.Save(Travelnet.Top, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_back_color.png"
-	err = imaging.Save(Travelnet.Back_Color, out_path+block)
+	err = imaging.Save(Travelnet.Back_Color, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_travelnet_back.png"
-	err = imaging.Save(Travelnet.Back, out_path+block)
+	err = imaging.Save(Travelnet.Back, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	// Door
 	block = "travelnet_elevator_door_glass.png"
-	err = imaging.Save(TravelnetGlassDoor(glass), out_path+block)
+	err = imaging.Save(TravelnetGlassDoor(glass), filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
@@ -149,31 +150,31 @@ func RWTravelnet(input_pack_path, output_pack_path string, _ *configure.Config) 
 
 	// Elevator
 	block = "travelnet_elevator_front.png"
-	err = imaging.Save(elevator.Front, out_path+block)
+	err = imaging.Save(elevator.Front, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_floor.png"
-	err = imaging.Save(elevator.Bottom, out_path+block)
+	err = imaging.Save(elevator.Bottom, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_controls.png"
-	err = imaging.Save(elevator.Back, out_path+block)
+	err = imaging.Save(elevator.Back, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_sides_outside.png"
-	err = imaging.Save(elevator.Side, out_path+block)
+	err = imaging.Save(elevator.Side, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inside_ceiling.png"
-	err = imaging.Save(elevator.Top, out_path+block)
+	err = imaging.Save(elevator.Top, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
@@ -181,19 +182,19 @@ func RWTravelnet(input_pack_path, output_pack_path string, _ *configure.Config) 
 	// Item icons
 
 	block = "travelnet_inv_base.png"
-	err = imaging.Save(Travelnet.Inv_Base, out_path+block)
+	err = imaging.Save(Travelnet.Inv_Base, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_inv_colorable.png"
-	err = imaging.Save(Travelnet.Inv_Color, out_path+block)
+	err = imaging.Save(Travelnet.Inv_Color, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}
 
 	block = "travelnet_elevator_inv.png"
-	err = imaging.Save(elevator.Inv_Base, out_path+block)
+	err = imaging.Save(elevator.Inv_Base, filepath.Join(out_path, block))
 	if err != nil {
 		return saveErrMsg(stitch, clonia_path, block)
 	}

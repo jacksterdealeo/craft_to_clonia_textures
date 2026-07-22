@@ -32,7 +32,7 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 	func() { // special slabs
 		t := data.CloniaSpecialSlabs
 		for _, e := range t {
-			block, err := imaging.Open(inPack + craftPaths[e.InPath] + e.InTexture)
+			block, err := imaging.Open(filepath.Join(inPack, craftPaths[e.InPath], e.InTexture))
 			_ = block
 			if err != nil {
 				fails = append(fails, e.InTexture+"failed to open!")
@@ -47,7 +47,7 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 				dst = imaging.Paste(dst, top, image.Pt(0, 0))
 				dst = imaging.Paste(dst, bottom, image.Pt(0, 15*scale))
 
-				if err := imaging.Save(dst, outPack+cloniaPaths[e.OutPath]+e.OutTexture); err != nil {
+				if err := imaging.Save(dst, filepath.Join(outPack, cloniaPaths[e.OutPath], e.OutTexture)); err != nil {
 					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
@@ -56,14 +56,14 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 
 	func() { // green plants
 		for _, e := range data.GreenPlants {
-			grayImage, err := imaging.Open(inPack + e.ReadPath())
+			grayImage, err := imaging.Open(filepath.Join(inPack, e.ReadPath()))
 			if err != nil {
 				fails = append(fails, e.InTexture+" failed to open!")
 			} else {
 				dst := imaging.New(grayImage.Bounds().Dx(), grayImage.Bounds().Dy(), color.NRGBA{0, 0, 0, 0})
 				dst = imaging.Overlay(dst, grayImage, image.Point{0, 0}, 1.0)
 				dst = mtg_green_it(dst)
-				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				if err = imaging.Save(dst, filepath.Join(outPack, e.SavePath())); err != nil {
 					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
@@ -72,7 +72,7 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 
 	func() { // offhand_slot
 		t := "hotbar_offhand_left.png"
-		if offHand, err := imaging.Open(inPack + craftPaths["hud"] + t); err != nil {
+		if offHand, err := imaging.Open(filepath.Join(inPack, craftPaths["hud"], t)); err != nil {
 			fails = append(fails, t+" failed to open!")
 		} else {
 			// 29 x 24
@@ -80,7 +80,7 @@ func do_fixes(inPack string, outPack string, c *configure.Config) *readWriteErro
 			// 22 x 22
 			dst := imaging.New(22*scale, 22*scale, color.NRGBA{0, 0, 0, 0})
 			dst = imaging.Paste(dst, offHand, image.Pt(0, -1*scale))
-			if err2 := imaging.Save(dst, outPack+cloniaPaths["offhand"]+"mcl_offhand_slot.png"); err2 != nil {
+			if err2 := imaging.Save(dst, filepath.Join(outPack, cloniaPaths["offhand"], "mcl_offhand_slot.png")); err2 != nil {
 				fails = append(fails, t+" failed to save!")
 			}
 		}
@@ -124,84 +124,84 @@ func hud_fix(inputPackLocation string, outputPackLocation string, config *config
 	}()
 
 	func() { // health HUD
-		heartLocation := inputPackLocation + craftPaths["hud"]
-		heart, err := imaging.Open(heartLocation + "heart/full.png")
+		heartLocation := filepath.Join(inputPackLocation, craftPaths["hud"])
+		heart, err := imaging.Open(filepath.Join(heartLocation, "heart/full.png"))
 		if err != nil {
 			fails = append(fails, "hud::heart/full.png failed to open!")
 			return
 		}
-		heartContainer, err := imaging.Open(heartLocation + "heart/container.png")
+		heartContainer, err := imaging.Open(filepath.Join(heartLocation, "heart/container.png"))
 		if err != nil {
 			fails = append(fails, "hud::heart/container.png failed to open!")
 			return
 		}
 		heartContainerRegen := imaging.AdjustFunc(heartContainer, make_pink)
 		dst := imaging.Overlay(heartContainerRegen, heart, image.Pt(0, 0), 1.0)
-		if err := imaging.Save(dst, outputPackLocation+cloniaPaths["potions"]+"hudbars_icon_regenerate.png"); err != nil {
+		if err := imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["potions"], "hudbars_icon_regenerate.png")); err != nil {
 			fails = append(fails, "potions::hudbars_icon_regenerate.png failed to save!")
 		}
 
 		dst = imaging.Overlay(heartContainer, heart, image.Pt(0, 0), 1.0)
-		saveErr := imaging.Save(dst, outputPackLocation+cloniaPaths["hudbars"]+"hudbars_icon_health.png")
+		saveErr := imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["hudbars"], "hudbars_icon_health.png"))
 		if saveErr != nil {
 			fails = append(fails, "hud::hudbars_icon_health.png failed to save!")
 			return
 		}
-		saveErr = imaging.Save(dst, outputPackLocation+cloniaPaths["hud_base_textures"]+"heart.png")
+		saveErr = imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["hud_base_textures"], "heart.png"))
 		if saveErr != nil {
 			fails = append(fails, "hud_base_textures::heart.png failed to save!")
 			return
 		}
 
-		heartAbsorbing, err := imaging.Open(heartLocation + "heart/absorbing_full.png")
+		heartAbsorbing, err := imaging.Open(filepath.Join(heartLocation, "heart/absorbing_full.png"))
 		if err != nil {
 			fails = append(fails, "hud::heart/absorbing_full.png failed to open!")
 		} else {
 			dst = imaging.Overlay(heartContainer, heartAbsorbing, image.Pt(0, 0), 1.0)
-			saveErr = imaging.Save(dst, outputPackLocation+cloniaPaths["potions"]+"mcl_potions_icon_absorb.png")
+			saveErr = imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["potions"], "mcl_potions_icon_absorb.png"))
 			if saveErr != nil {
 				fails = append(fails, "potions::mcl_potions_icon_absorb.png failed to save!")
 			}
 		}
 
-		heartWither, err := imaging.Open(heartLocation + "heart/withered_full.png")
+		heartWither, err := imaging.Open(filepath.Join(heartLocation, "heart/withered_full.png"))
 		if err != nil {
 			fails = append(fails, "hud::heart/withered_full.png failed to open!")
 		} else {
 			dst = imaging.Overlay(heartContainer, heartWither, image.Pt(0, 0), 1.0)
-			saveErr = imaging.Save(dst, outputPackLocation+cloniaPaths["potions"]+"mcl_potions_icon_wither.png")
+			saveErr = imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["potions"], "mcl_potions_icon_wither.png"))
 			if saveErr != nil {
 				fails = append(fails, "potions::mcl_potions_icon_wither.png failed to save!")
 			}
 
 			dst = imaging.Overlay(heartContainerRegen, heartWither, image.Pt(0, 0), 1.0)
-			if err := imaging.Save(dst, outputPackLocation+cloniaPaths["potions"]+"mcl_potions_icon_regen_wither.png"); err != nil {
+			if err := imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["potions"], "mcl_potions_icon_regen_wither.png")); err != nil {
 				fails = append(fails, "potions::mcl_potions_icon_regen_wither.png failed to save!")
 			}
 		}
 
-		heartPoison, err := imaging.Open(heartLocation + "heart/poisoned_full.png")
+		heartPoison, err := imaging.Open(filepath.Join(heartLocation, "heart/poisoned_full.png"))
 		if err != nil {
 			fails = append(fails, "hud::heart/poisoned_full.png failed to open!")
 		} else {
 			dst = imaging.Overlay(heartContainer, heartPoison, image.Pt(0, 0), 1.0)
-			saveErr = imaging.Save(dst, outputPackLocation+cloniaPaths["hunger"]+"hbhunger_icon_health_poison.png")
+			saveErr = imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["hunger"], "hbhunger_icon_health_poison.png"))
 			if saveErr != nil {
 				fails = append(fails, "hunger::hbhunger_icon_health_poison.png failed to save!")
 			}
 
 			dst = imaging.Overlay(heartContainerRegen, heartPoison, image.Pt(0, 0), 1.0)
-			if err := imaging.Save(dst, outputPackLocation+cloniaPaths["potions"]+"hbhunger_icon_regen_poison.png"); err != nil {
+			if err := imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["potions"], "hbhunger_icon_regen_poison.png")); err != nil {
 				fails = append(fails, "potions::hbhunger_icon_regen_poison.png failed to save!")
 			}
 		}
 
-		heartFrozen, err := imaging.Open(heartLocation + "heart/frozen_full.png")
+		heartFrozen, err := imaging.Open(filepath.Join(heartLocation, "heart/frozen_full.png"))
 		if err != nil {
 			fails = append(fails, "hud::heart/frozen_full.png failed to open!")
 		} else {
 			dst = imaging.Overlay(heartContainer, heartFrozen, image.Pt(0, 0), 1.0)
-			saveErr = imaging.Save(dst, outputPackLocation+cloniaPaths["powder_snow"]+"frozen_heart.png")
+			saveErr = imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["powder_snow"], "frozen_heart.png"))
 			if saveErr != nil {
 				fails = append(fails, "powder_snow::frozen_heart.png failed to save!")
 			}
@@ -209,35 +209,35 @@ func hud_fix(inputPackLocation string, outputPackLocation string, config *config
 	}()
 
 	func() { // hunger HUD
-		hungerLocation := inputPackLocation + craftPaths["hud"]
-		hunger, err := imaging.Open(hungerLocation + "food_full.png")
+		hungerLocation := filepath.Join(inputPackLocation, craftPaths["hud"])
+		hunger, err := imaging.Open(filepath.Join(hungerLocation, "food_full.png"))
 		if err != nil {
 			fails = append(fails, "hud::food_full.png failed to open!")
 			return
 		}
-		hungerContainer, err := imaging.Open(hungerLocation + "food_empty.png")
+		hungerContainer, err := imaging.Open(filepath.Join(hungerLocation, "food_empty.png"))
 		if err != nil {
 			fails = append(fails, "hud::food_empty.png failed to open!")
 			return
 		}
-		hungerContainerPoison, err := imaging.Open(hungerLocation + "food_empty_hunger.png")
+		hungerContainerPoison, err := imaging.Open(filepath.Join(hungerLocation, "food_empty_hunger.png"))
 		if err != nil {
 			fails = append(fails, "hud::food_empty.png failed to open!")
 			return
 		}
-		hungerFoodPoison, err := imaging.Open(hungerLocation + "food_full_hunger.png")
+		hungerFoodPoison, err := imaging.Open(filepath.Join(hungerLocation, "food_full_hunger.png"))
 		if err != nil {
 			fails = append(fails, "hud::food_empty.png failed to open!")
 			return
 		}
 		dst := imaging.Overlay(hungerContainer, hunger, image.Pt(0, 0), 1.0)
-		err = imaging.Save(dst, outputPackLocation+cloniaPaths["hunger"]+"hbhunger_icon.png")
+		err = imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["hunger"], "hbhunger_icon.png"))
 		if err != nil {
 			fails = append(fails, "hud::hbhunger_icon.png failed to save!")
 			return
 		}
 		dst = imaging.Overlay(hungerContainerPoison, hungerFoodPoison, image.Pt(0, 0), 1.0)
-		err = imaging.Save(dst, outputPackLocation+cloniaPaths["hunger"]+"mcl_hunger_icon_foodpoison.png")
+		err = imaging.Save(dst, filepath.Join(outputPackLocation, cloniaPaths["hunger"], "mcl_hunger_icon_foodpoison.png"))
 		if err != nil {
 			fails = append(fails, "hud::hbhunger_icon.png failed to save!")
 			return
@@ -260,7 +260,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 		// Netherite is hard to consistantly make look good in pink. :(
 		netherite_to_rose_gold := data.RoseGoldStuffMod_NetheriteToRoseGold
 		for _, e := range netherite_to_rose_gold {
-			netheriteItem, err := imaging.Open(inPath + e.ReadPath())
+			netheriteItem, err := imaging.Open(filepath.Join(inPath, e.ReadPath()))
 			if err != nil {
 				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
@@ -296,7 +296,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				if err = imaging.Save(dst, filepath.Join(outPack, e.SavePath())); err != nil {
 					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
@@ -304,7 +304,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 		copper_to_rose_gold_exposed := data.RoseGoldStuffMod_CopperToRoseGoldExposed
 		for _, e := range copper_to_rose_gold_exposed {
-			copperItem, err := imaging.Open(inPath + e.ReadPath())
+			copperItem, err := imaging.Open(filepath.Join(inPath, e.ReadPath()))
 			if err != nil {
 				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
@@ -328,7 +328,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				if err = imaging.Save(dst, filepath.Join(outPack, e.SavePath())); err != nil {
 					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
@@ -336,7 +336,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 		copper_to_rose_gold := data.RoseGoldStuffMod_CopperToRoseGold
 		for _, e := range copper_to_rose_gold {
-			copperItem, err := imaging.Open(inPath + e.ReadPath())
+			copperItem, err := imaging.Open(filepath.Join(inPath, e.ReadPath()))
 			if err != nil {
 				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
@@ -363,7 +363,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				if err = imaging.Save(dst, filepath.Join(outPack, e.SavePath())); err != nil {
 					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
@@ -403,14 +403,14 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				if err = imaging.Save(dst, filepath.Join(outPack, e.SavePath())); err != nil {
 					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
 		}
 		iron_to_rose_gold_no_filter := data.RoseGoldStuffMod_IronToRoseGoldNoFilter
 		for _, e := range iron_to_rose_gold_no_filter {
-			ironItem, err := imaging.Open(inPath + e.ReadPath())
+			ironItem, err := imaging.Open(filepath.Join(inPath, e.ReadPath()))
 			if err != nil {
 				fails = append(fails, e.InTexture+" failed to open for mod", mod)
 			} else {
@@ -435,7 +435,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 
 						return color.NRGBA{uint8(r), uint8(g), uint8(b), c.A}
 					})
-				if err = imaging.Save(dst, outPack+e.SavePath()); err != nil {
+				if err = imaging.Save(dst, filepath.Join(outPack, e.SavePath())); err != nil {
 					fails = append(fails, e.OutTexture+" failed to save!")
 				}
 			}
@@ -476,7 +476,7 @@ func mods_fixes(inPath, outPack string, c *configure.Config) *readWriteError {
 		} else {
 			img = greenIt(img)
 			img = imaging.Rotate270(img)
-			if err = imaging.Save(img, outPack+emerald_long_spear.SavePath()); err != nil {
+			if err = imaging.Save(img, filepath.Join(outPack, emerald_long_spear.SavePath())); err != nil {
 				fails = append(fails, emerald_long_spear.OutTexture+" failed to save!")
 			}
 		}

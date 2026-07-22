@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -14,18 +15,18 @@ func RWRedstoneLamp(inputPackPath, outputPackPath string, _ *configure.Config) e
 	craftPath := "block"
 	cloniaPath := "vl"
 
-	inPath := inputPackPath + data.CraftPaths[craftPath]
-	outPath := outputPackPath + "/" + data.CloniaPaths[cloniaPath]
+	inPath := filepath.Join(inputPackPath, data.CraftPaths[craftPath])
+	outPath := filepath.Join(outputPackPath, data.CloniaPaths[cloniaPath])
 
 	inBlock := "redstone_lamp_on.png"
 	outBlock := "mcl_lightstone_mask.png"
-	lampOn, err := imaging.Open(inPath + inBlock)
+	lampOn, err := imaging.Open(filepath.Join(inPath, inBlock))
 	if err != nil {
 		return openErrMsg(stitch, craftPath, inBlock)
 	}
 
 	dst := RedstoneLampMask(lampOn)
-	if saveErr := imaging.Save(dst, outPath+outBlock); saveErr != nil {
+	if saveErr := imaging.Save(dst, filepath.Join(outPath, outBlock)); saveErr != nil {
 		return saveErrMsg(stitch, craftPath, outBlock)
 	}
 

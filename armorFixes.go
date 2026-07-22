@@ -29,16 +29,16 @@ type armorSetTextures struct {
 func SaveArmorSet(outPath string, textures armorSetTextures, set basicArmorConversion) error {
 	fails := make([]string, 0)
 	if err := imaging.Save(textures.helmet, filepath.Join(outPath, cloniaPaths["armor"], set.outHelmet)); err != nil {
-		fails = append(fails, "Couldn't save ~"+set.outHelmet+"")
+		fails = append(fails, "Couldn't save ~"+set.outHelmet)
 	}
 	if err := imaging.Save(textures.chestplate, filepath.Join(outPath, cloniaPaths["armor"], set.outChestplate)); err != nil {
-		fails = append(fails, "Couldn't save ~"+set.outChestplate+"")
+		fails = append(fails, "Couldn't save ~"+set.outChestplate)
 	}
 	if err := imaging.Save(textures.leggings, filepath.Join(outPath, cloniaPaths["armor"], set.outLeggings)); err != nil {
-		fails = append(fails, "Couldn't save ~"+set.outLeggings+"")
+		fails = append(fails, "Couldn't save ~"+set.outLeggings)
 	}
 	if err := imaging.Save(textures.boots, filepath.Join(outPath, cloniaPaths["armor"], set.outBoots)); err != nil {
-		fails = append(fails, "Couldn't save ~"+set.outBoots+"")
+		fails = append(fails, "Couldn't save ~"+set.outBoots)
 	}
 	if len(fails) > 0 {
 		return fmt.Errorf("%v", fails)
@@ -236,16 +236,16 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 				})
 			*e = *dst
 		}
-		if err := imaging.Save(rose_gold_armor.helmet, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_helmet_rose_gold.png"); err != nil {
+		if err := imaging.Save(rose_gold_armor.helmet, filepath.Join(outPath, cloniaPaths["rose_gold_stuff"], "mcl_rose_gold_helmet_rose_gold.png")); err != nil {
 			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(rose_gold_armor.chestplate, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_chestplate_rose_gold.png"); err != nil {
+		if err := imaging.Save(rose_gold_armor.chestplate, filepath.Join(outPath, cloniaPaths["rose_gold_stuff"], "mcl_rose_gold_chestplate_rose_gold.png")); err != nil {
 			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(rose_gold_armor.leggings, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_leggings_rose_gold.png"); err != nil {
+		if err := imaging.Save(rose_gold_armor.leggings, filepath.Join(outPath, cloniaPaths["rose_gold_stuff"], "mcl_rose_gold_leggings_rose_gold.png")); err != nil {
 			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(rose_gold_armor.boots, outPath+cloniaPaths["rose_gold_stuff"]+"mcl_rose_gold_boots_rose_gold.png"); err != nil {
+		if err := imaging.Save(rose_gold_armor.boots, filepath.Join(outPath, cloniaPaths["rose_gold_stuff"], "mcl_rose_gold_boots_rose_gold.png")); err != nil {
 			fails = append(fails, "Rose Gold Armor Failed ~ "+err.Error())
 		}
 	}
@@ -277,16 +277,16 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 				})
 			*e = *dst
 		}
-		if err := imaging.Save(emerald_armor.helmet, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_helmet_emerald.png"); err != nil {
+		if err := imaging.Save(emerald_armor.helmet, filepath.Join(outPath, cloniaPaths["emerald_stuff"], "mcl_emerald_stuff_helmet_emerald.png")); err != nil {
 			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(emerald_armor.chestplate, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_chestplate_emerald.png"); err != nil {
+		if err := imaging.Save(emerald_armor.chestplate, filepath.Join(outPath, cloniaPaths["emerald_stuff"], "mcl_emerald_stuff_chestplate_emerald.png")); err != nil {
 			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(emerald_armor.leggings, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_leggings_emerald.png"); err != nil {
+		if err := imaging.Save(emerald_armor.leggings, filepath.Join(outPath, cloniaPaths["emerald_stuff"], "mcl_emerald_stuff_leggings_emerald.png")); err != nil {
 			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(emerald_armor.boots, outPath+cloniaPaths["emerald_stuff"]+"mcl_emerald_stuff_boots_emerald.png"); err != nil {
+		if err := imaging.Save(emerald_armor.boots, filepath.Join(outPath, cloniaPaths["emerald_stuff"], "mcl_emerald_stuff_boots_emerald.png")); err != nil {
 			fails = append(fails, "Emerald Armor Failed ~ "+err.Error())
 		}
 	}
@@ -294,16 +294,16 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 	copperPath := filepath.Join(outPath, cloniaPaths["copper_stuff"])
 	if tex, err := GetArmorSet(inPack, armorLocation, leggingsLocation, modded_copper_conversion); err == nil {
 		if err := imaging.Save(tex.helmet, filepath.Join(copperPath, modded_copper_conversion.outHelmet)); err != nil {
-			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outHelmet+"")
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outHelmet)
 		}
 		if err := imaging.Save(tex.chestplate, filepath.Join(copperPath, modded_copper_conversion.outChestplate)); err != nil {
-			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outChestplate+"")
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outChestplate)
 		}
 		if err := imaging.Save(tex.leggings, filepath.Join(copperPath, modded_copper_conversion.outLeggings)); err != nil {
-			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outLeggings+"")
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outLeggings)
 		}
 		if err := imaging.Save(tex.boots, filepath.Join(copperPath, modded_copper_conversion.outBoots)); err != nil {
-			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outBoots+"")
+			fails = append(fails, "Couldn't save ~"+modded_copper_conversion.outBoots)
 		}
 	} else if copper_armor, err := GetArmorSet(inPack, armorLocation, leggingsLocation, iron_conversion); err != nil {
 		fails = append(fails, "Copper Armor Failed ~ "+err.Error())
@@ -333,16 +333,16 @@ func armor_fixes(inPack string, outPath string) *readWriteError {
 				})
 			*e = *dst
 		}
-		if err := imaging.Save(copper_armor.helmet, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_helmet_copper.png"); err != nil {
+		if err := imaging.Save(copper_armor.helmet, filepath.Join(outPath, cloniaPaths["copper_stuff"], "mcl_copper_stuff_helmet_copper.png")); err != nil {
 			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(copper_armor.chestplate, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_chestplate_copper.png"); err != nil {
+		if err := imaging.Save(copper_armor.chestplate, filepath.Join(outPath, cloniaPaths["copper_stuff"], "mcl_copper_stuff_chestplate_copper.png")); err != nil {
 			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(copper_armor.leggings, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_leggings_copper.png"); err != nil {
+		if err := imaging.Save(copper_armor.leggings, filepath.Join(outPath, cloniaPaths["copper_stuff"], "mcl_copper_stuff_leggings_copper.png")); err != nil {
 			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
-		if err := imaging.Save(copper_armor.boots, outPath+cloniaPaths["copper_stuff"]+"mcl_copper_stuff_boots_copper.png"); err != nil {
+		if err := imaging.Save(copper_armor.boots, filepath.Join(outPath, cloniaPaths["copper_stuff"], "mcl_copper_stuff_boots_copper.png")); err != nil {
 			fails = append(fails, "Copper Armor Failed ~ "+err.Error())
 		}
 	}

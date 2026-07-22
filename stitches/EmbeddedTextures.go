@@ -9,7 +9,7 @@ import (
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
-	imaging "github.com/disintegration/imaging"
+	"github.com/disintegration/imaging"
 )
 
 // TODO: ACTUALLY FIX ERROR HANDLING! ADD AN ISSUE ON THE CODEBERG PAGE!
@@ -19,7 +19,7 @@ func RWEmbedded(input_pack_path, output_pack_path string, config *configure.Conf
 	// craft_path := "whoKnows"
 	clonia_path := "embedded"
 
-	out_path := output_pack_path + data.CloniaPaths[clonia_path]
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths[clonia_path])
 
 	fails := make([]error, 0)
 
@@ -33,12 +33,12 @@ func RWEmbedded(input_pack_path, output_pack_path string, config *configure.Conf
 		if entry.IsDir() {
 			continue
 		}
-		contents, err := data.TexturesFS.ReadFile(x16Dir + "/" + entry.Name())
+		contents, err := data.TexturesFS.ReadFile(filepath.Join(x16Dir, entry.Name()))
 		if err != nil {
 			fails = append(fails, fmt.Errorf("%v, %v, %w", x16Dir, entry.Name(), err))
 			continue
 		}
-		if err := os.WriteFile(out_path+entry.Name(), contents, 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(out_path, entry.Name()), contents, 0644); err != nil {
 			fails = append(fails, fmt.Errorf("%v, %v, %w", out_path, entry.Name(), err))
 		}
 	}
@@ -55,12 +55,12 @@ func RWEmbedded(input_pack_path, output_pack_path string, config *configure.Conf
 			if entry.IsDir() {
 				continue
 			}
-			contents, err := data.TexturesFS.ReadFile(x16SpearDir + "/" + entry.Name())
+			contents, err := data.TexturesFS.ReadFile(filepath.Join(x16SpearDir, entry.Name()))
 			if err != nil {
 				fails = append(fails, fmt.Errorf("%v, %v, %w", x16Dir, entry.Name(), err))
 				continue
 			}
-			if err := os.WriteFile(out_path+entry.Name(), contents, 0644); err != nil {
+			if err := os.WriteFile(filepath.Join(out_path, entry.Name()), contents, 0644); err != nil {
 				fails = append(fails, fmt.Errorf("%v, %v, %w", out_path, entry.Name(), err))
 			}
 		}

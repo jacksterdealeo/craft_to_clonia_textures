@@ -22,6 +22,7 @@ var CloniaPaths = map[string]string{
 	"offhand":           "/HUD/mcl_offhand/",
 
 	// -- IDK
+	"mtg":   "/mtg/",
 	"other": "/other_textures/", // use when the original directory is unknown or inconvenient
 	"skins": "/PLAYER/mcl_skins/",
 

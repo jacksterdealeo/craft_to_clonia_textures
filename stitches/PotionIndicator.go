@@ -3,6 +3,7 @@ package stitches
 import (
 	"fmt"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -13,17 +14,17 @@ func RWPotionIndicator(input_pack_path, output_pack_path string, _ *configure.Co
 	stitch := "PotionIndicator"
 	var errors string
 
-	bg_in_path := input_pack_path + data.CraftPaths["hud"]
+	bg_in_path := filepath.Join(input_pack_path, data.CraftPaths["hud"])
 	bg_in_texture := "effect_background.png"
-	effect_bg, err := imaging.Open(bg_in_path + bg_in_texture)
+	effect_bg, err := imaging.Open(filepath.Join(bg_in_path, bg_in_texture))
 	if err != nil {
 		effect_bg = imaging.New(24, 24, color.Transparent)
 		errors += fmt.Sprintln(openErrMsg(stitch, "hud", bg_in_texture))
 	}
 
 	for _, e := range data.SimpleMobEffect {
-		input_texture_dir := input_pack_path + data.CraftPaths[e.InPath] + e.InTexture
-		output_texture_dir := output_pack_path + data.CloniaPaths[e.OutPath] + e.OutTexture
+		input_texture_dir := filepath.Join(input_pack_path, data.CraftPaths[e.InPath], e.InTexture)
+		output_texture_dir := filepath.Join(output_pack_path, data.CloniaPaths[e.OutPath], e.OutTexture)
 
 		dst, err := imaging.Open(input_texture_dir)
 		if err != nil {

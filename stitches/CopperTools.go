@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -20,9 +21,9 @@ func RWCopperTools(inputPackPath, outputPackPath string, _ *configure.Config) er
 		possibleTexture := textureOfCopper.In[0]
 
 		// We assume this is going to err, because copper tool textures are new to the game.
-		copperItem, err := imaging.Open(inputPackPath + possibleTexture.FullPath())
+		copperItem, err := imaging.Open(filepath.Join(inputPackPath, possibleTexture.FullPath()))
 		if err == nil {
-			if saveErr := imaging.Save(copperItem, outputPackPath+textureOfCopper.SavePath()); saveErr != nil {
+			if saveErr := imaging.Save(copperItem, filepath.Join(outputPackPath, textureOfCopper.SavePath())); saveErr != nil {
 				errReport += fmt.Sprintf("\tFailed to save copper item \"%v\", giving up.\n", textureOfCopper.OutTexture)
 			}
 			continue
@@ -31,14 +32,14 @@ func RWCopperTools(inputPackPath, outputPackPath string, _ *configure.Config) er
 
 		// FALLBACK
 		possibleTexture = textureOfCopper.In[1]
-		ironItem, err := imaging.Open(inputPackPath + possibleTexture.FullPath())
+		ironItem, err := imaging.Open(filepath.Join(inputPackPath, possibleTexture.FullPath()))
 		if err != nil {
 			errReport += fmt.Sprintf("\tFailed to open iron item \"%v\", giving up.\n", possibleTexture.Texture)
 			continue
 		}
 
 		dst := CopperToolsFallback(ironItem)
-		if saveErr := imaging.Save(dst, outputPackPath+textureOfCopper.SavePath()); saveErr != nil {
+		if saveErr := imaging.Save(dst, filepath.Join(outputPackPath, textureOfCopper.SavePath())); saveErr != nil {
 			errReport += fmt.Sprintf("\tFailed to save iron item \"%v\", giving up.\n", textureOfCopper.OutTexture)
 		}
 	}

@@ -36,7 +36,7 @@ func RWChiseledBooks(input_pack_path, output_pack_path string, _ *configure.Conf
 	chiseled_books[4] = CropToScale(block, 6, 9, 10, 15, scale)
 	chiseled_books[5] = CropToScale(block, 11, 9, 15, 15, scale)
 
-	for i := 0; i < len(chiseled_books); i++ {
+	for i := range chiseled_books {
 		chiseled_books[i] = imaging.Resize(chiseled_books[i], 4, 6, imaging.NearestNeighbor)
 	}
 

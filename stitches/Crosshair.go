@@ -11,8 +11,8 @@ import (
 func RWCrosshair(input_pack_path, output_pack_path string, config *configure.Config) error {
 	stitch := "Crosshair"
 
-	in_path := input_pack_path + data.CraftPaths["hud"]
-	out_path := output_pack_path + data.CloniaPaths["hud_base_textures"]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths["hud"])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths["hud_base_textures"])
 	var err error
 
 	file_name := "crosshair.png"

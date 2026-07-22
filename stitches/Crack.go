@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 	"strconv"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
@@ -13,20 +14,20 @@ import (
 func RWCrack(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Crack"
 
-	in_path := input_pack_path + data.CraftPaths["block"]
-	out_path := output_pack_path + data.CloniaPaths["hud_base_textures"]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths["block"])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths["hud_base_textures"])
 
 	var err error
 	var destroy_imgs [10]image.Image
 	for i := 0; i <= 9; i++ {
-		file_name := in_path + "destroy_stage_" + strconv.Itoa(i) + ".png"
+		file_name := filepath.Join(in_path, "destroy_stage_"+strconv.Itoa(i)+".png")
 		destroy_imgs[i], err = imaging.Open(file_name)
 		if err != nil {
 			return openErrMsg(stitch, in_path, file_name)
 		}
 	}
 	dst := Crack(destroy_imgs)
-	if err = imaging.Save(dst, out_path+"crack_anylength.png"); err != nil {
+	if err = imaging.Save(dst, filepath.Join(out_path, "crack_anylength.png")); err != nil {
 		return saveErrMsg(stitch, out_path, "crack_anylength.png")
 	}
 	return nil

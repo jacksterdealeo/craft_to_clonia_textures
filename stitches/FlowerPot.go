@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -14,15 +15,15 @@ func RWFlowerPot(input_pack_path, output_pack_path string, _ *configure.Config) 
 	craft_path := "block"
 	clonia_path := "flowerpots"
 
-	in_path := input_pack_path + data.CraftPaths[craft_path]
-	out_path := output_pack_path + data.CloniaPaths[clonia_path]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths[craft_path])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths[clonia_path])
 
-	pot, err := imaging.Open(in_path + "flower_pot.png")
+	pot, err := imaging.Open(filepath.Join(in_path, "flower_pot.png"))
 	if err != nil {
 		return openErrMsg(stitch, craft_path, "flower_pot.png")
 	}
 
-	dirt, err := imaging.Open(in_path + "dirt.png")
+	dirt, err := imaging.Open(filepath.Join(in_path, "dirt.png"))
 	if err != nil {
 		return openErrMsg(stitch, craft_path, "dirt.png")
 	}
@@ -30,7 +31,7 @@ func RWFlowerPot(input_pack_path, output_pack_path string, _ *configure.Config) 
 	flowerpot_texture := FlowerPot(pot, dirt)
 	file_name := "mcl_flowerpots_flowerpot.png"
 
-	if err = imaging.Save(flowerpot_texture, out_path+file_name); err != nil {
+	if err = imaging.Save(flowerpot_texture, filepath.Join(out_path, file_name)); err != nil {
 		return saveErrMsg(stitch, clonia_path, file_name)
 	}
 

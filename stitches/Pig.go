@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -10,15 +11,15 @@ import (
 )
 
 func RWPig(input_pack_path, output_pack_path string, _ *configure.Config) error {
-	in_path := input_pack_path + data.CraftPaths["entity"] + "pig/"
-	out_path := output_pack_path + "/" + data.CloniaPaths["mobs_mc"]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths["entity"], "pig")
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths["mobs_mc"])
 
-	temperate_pig, err := imaging.Open(in_path + "temperate_pig.png")
+	temperate_pig, err := imaging.Open(filepath.Join(in_path, "temperate_pig.png"))
 	if err != nil {
 		return openErrMsg("Pig", "entity", "pig/temperate_pig.png")
 	}
 
-	if err = imaging.Save(CommonPig(temperate_pig), out_path+"mobs_mc_pig.png"); err != nil {
+	if err = imaging.Save(CommonPig(temperate_pig), filepath.Join(out_path, "mobs_mc_pig.png")); err != nil {
 		return saveErrMsg("Pig", "mobs_mc", "mobs_mc_pig.png")
 	}
 

@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -14,8 +15,8 @@ func RWDoubleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 	craft_path := "chest"
 	clonia_path := "chests"
 
-	in_path := input_pack_path + data.CraftPaths[craft_path]
-	out_path := output_pack_path + data.CloniaPaths[clonia_path]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths[craft_path])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths[clonia_path])
 
 	readFails := make([][2]string, 0)
 	saveFails := make([][2]string, 0)
@@ -27,12 +28,12 @@ func RWDoubleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 	}
 
 	for _, e := range equals {
-		chestLeft, err := imaging.Open(in_path + e[0])
+		chestLeft, err := imaging.Open(filepath.Join(in_path, e[0]))
 		if err != nil {
 			readFails = append(readFails, [2]string{craft_path, e[0]})
 			continue
 		}
-		chestRight, err := imaging.Open(in_path + e[1])
+		chestRight, err := imaging.Open(filepath.Join(in_path, e[1]))
 		if err != nil {
 			readFails = append(readFails, [2]string{craft_path, e[1]})
 			continue
@@ -139,7 +140,7 @@ func RWDoubleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 		dst = imaging.Overlay(dst, chestLockStrip6, image.Point{1 * scale, 1 * scale}, 1.0)
 		dst = imaging.Overlay(dst, chestLockStrip5, image.Point{5 * scale, 1 * scale}, 1.0)
 		dst = imaging.Overlay(dst, chestLockStrip4, image.Point{0 * scale, 1 * scale}, 1.0)
-		if err = imaging.Save(dst, out_path+e[2]); err != nil {
+		if err = imaging.Save(dst, filepath.Join(out_path, e[2])); err != nil {
 			saveFails = append(saveFails, [2]string{clonia_path, e[0]})
 			continue
 		}
@@ -152,8 +153,8 @@ func RWSingleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 	craft_path := "chest"
 	clonia_path := "chests"
 
-	in_path := input_pack_path + data.CraftPaths[craft_path]
-	out_path := output_pack_path + data.CloniaPaths[clonia_path]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths[craft_path])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths[clonia_path])
 
 	readFails := make([][2]string, 0)
 	saveFails := make([][2]string, 0)
@@ -167,7 +168,7 @@ func RWSingleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 	}
 
 	for _, e := range equals {
-		chestSingle, err := imaging.Open(in_path + e[0])
+		chestSingle, err := imaging.Open(filepath.Join(in_path, e[0]))
 		if err != nil {
 			readFails = append(readFails, [2]string{craft_path, e[0]})
 			continue
@@ -256,7 +257,7 @@ func RWSingleChests(input_pack_path, output_pack_path string, _ *configure.Confi
 		dst = imaging.Overlay(dst, chestLockBack, image.Point{4 * scale, 1 * scale}, 1.0)
 		dst = imaging.Overlay(dst, chestLockLeft, image.Point{0 * scale, 1 * scale}, 1.0)
 
-		if err = imaging.Save(dst, out_path+e[1]); err != nil {
+		if err = imaging.Save(dst, filepath.Join(out_path, e[1])); err != nil {
 			saveFails = append(saveFails, [2]string{clonia_path, e[1]})
 			continue
 		}

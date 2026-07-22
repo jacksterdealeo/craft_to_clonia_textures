@@ -3,6 +3,7 @@ package stitches
 import (
 	"image"
 	"image/color"
+	"path/filepath"
 
 	"codeberg.org/ostech/craft_to_clonia_textures/configure"
 	"codeberg.org/ostech/craft_to_clonia_textures/data"
@@ -12,27 +13,27 @@ import (
 func RWSigns(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Signs"
 
-	in_path := input_pack_path + data.CraftPaths["signs"]
-	out_path := output_pack_path + data.CloniaPaths["signs"]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths["signs"])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths["signs"])
 
-	sign_entity, err := imaging.Open(in_path + "spruce.png")
+	sign_entity, err := imaging.Open(filepath.Join(in_path, "spruce.png"))
 	if err != nil {
 		return openErrMsg(stitch, "signs", "spruce.png")
 	}
 
 	new_sign_entity := Signs(sign_entity)
-	if err := imaging.Save(new_sign_entity, out_path+"mcl_signs_sign_greyscale.png"); err != nil {
+	if err := imaging.Save(new_sign_entity, filepath.Join(out_path, "mcl_signs_sign_greyscale.png")); err != nil {
 		return saveErrMsg(stitch, "signs", "mcl_signs_sign_greyscale.png")
 	}
 
-	in_path = input_pack_path + data.CraftPaths["item"]
-	sign_item, err := imaging.Open(in_path + "spruce_sign.png")
+	in_path = filepath.Join(input_pack_path, data.CraftPaths["item"])
+	sign_item, err := imaging.Open(filepath.Join(in_path, "spruce_sign.png"))
 	if err != nil {
 		return openErrMsg(stitch, "signs", "spruce_sign.png")
 	}
 
 	new_sign_item := SignsItem(sign_item)
-	if err := imaging.Save(new_sign_item, out_path+"default_sign_greyscale.png"); err != nil {
+	if err := imaging.Save(new_sign_item, filepath.Join(out_path, "default_sign_greyscale.png")); err != nil {
 		return saveErrMsg(stitch, "signs", "default_sign_greyscale.png")
 	}
 

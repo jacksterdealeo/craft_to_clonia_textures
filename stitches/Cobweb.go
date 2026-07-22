@@ -13,8 +13,8 @@ import (
 func RWCobweb(input_pack_path, output_pack_path string, _ *configure.Config) error {
 	stitch := "Cobweb"
 
-	in_path := input_pack_path + data.CraftPaths["block"]
-	out_path := output_pack_path + data.CloniaPaths["core"]
+	in_path := filepath.Join(input_pack_path, data.CraftPaths["block"])
+	out_path := filepath.Join(output_pack_path, data.CloniaPaths["core"])
 	var err error
 
 	file_name := "cobweb.png"
