@@ -11,8 +11,6 @@ import (
 )
 
 type Config struct {
-	DefinedInput       bool
-	DefinedOutput      bool
 	ExportMinetestGame bool
 	ExportMineclonia   bool
 	// ExportVoxeLibre    bool
@@ -28,8 +26,6 @@ type Config struct {
 
 func NewConfig() *Config {
 	var config = Config{
-		DefinedInput:       false,
-		DefinedOutput:      false,
 		ExportMinetestGame: false,
 		ExportMineclonia:   true,
 		// ExportVoxeLibre:    false,
@@ -87,14 +83,6 @@ func ReadConfigFile(configLocation string) (*Config, error) {
 
 	config.InputDir = CutHomePath(config.InputDir)
 	config.OutputDir = CutHomePath(config.OutputDir)
-
-	if !config.DefinedInput {
-		config.InputDir = ("./input/")
-	}
-	if !config.DefinedOutput {
-		config.OutputDir = ("./output/")
-	}
-
 	return config, nil
 }
 

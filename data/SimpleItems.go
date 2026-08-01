@@ -211,15 +211,16 @@ var SimpleItems = [...]SimpleConversion{
 
 	//{"item", ".png", "armor", "wild_leggings.png", 1},
 	// -- mcl_bamboo
-	//{"block", ".png", "bamboo", "mcl_bamboo_bamboo.png", 1},
+	//{"block", ".png", "bamboo", "mcl_bamboo_bamboo.png", 1},   // special attention
 	{"block", "bamboo_block.png", "bamboo", "mcl_bamboo_bamboo_block.png", 1},
 	{"block", "stripped_bamboo_block.png", "bamboo", "mcl_bamboo_bamboo_block_stripped.png", 1},
 	{"block", "bamboo_block_top.png", "bamboo", "mcl_bamboo_bamboo_bottom.png", 1},
 	{"block", "stripped_bamboo_block_top.png", "bamboo", "mcl_bamboo_bamboo_bottom_stripped.png", 1},
 	//{"block", ".png", "bamboo", "mcl_bamboo_bamboo_fpm.png", 1},    // special attention
+	{"item", "bamboo.png", "bamboo", "mcl_bamboo_bamboo_inv.png", 1},   // Mineclonia only
+	{"item", "bamboo.png", "bamboo", "mcl_bamboo_bamboo_shoot.png", 1}, // Voxelibre only
 	{"block", "bamboo_planks.png", "bamboo", "mcl_bamboo_bamboo_plank.png", 1},
 	{"block", "bamboo_mosaic.png", "bamboo", "mcl_bamboo_bamboo_plank_mosaic.png", 1},
-	{"item", "bamboo.png", "bamboo", "mcl_bamboo_bamboo_shoot.png", 1},
 	//{"block", ".png", "bamboo", "mcl_bamboo_bamboo_sign.png", 1},    // special attention
 	{"item", "bamboo_sign.png", "bamboo", "mcl_bamboo_bamboo_sign_wield.png", 1},
 	//{"block", "bamboo_door_bottom.png", "bamboo", "mcl_bamboo_door_bottom.png", 1},
@@ -227,11 +228,13 @@ var SimpleItems = [...]SimpleConversion{
 	//{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top.png", 1},
 	//{"block", "bamboo_door_top.png", "bamboo", "mcl_bamboo_door_top_alt.png", 1},    //test
 	{"item", "bamboo_door.png", "bamboo", "mcl_bamboo_door_wield.png", 1},
-	//{"block", ".png", "bamboo", "mcl_bamboo_endcap.png", 1}, //what is this?
+	//{"block", ".png", "bamboo", "mcl_bamboo_endcap.png", 1}, // Voxelibre only
 	{"block", "bamboo_planks.png", "bamboo", "mcl_bamboo_fence_bamboo.png", 1},
 	{"block", "bamboo_planks.png", "bamboo", "mcl_bamboo_fence_gate_bamboo.png", 1},
+	{"block", "bamboo_large_leaves.png", "bamboo", "mcl_bamboo_leaf_big.png", 1},
+	{"block", "bamboo_small_leaves.png", "bamboo", "mcl_bamboo_leaf_small.png", 1},
+	//{"block", "bamboo_stage0.png", "bamboo", "mcl_bamboo_flower_pot.png", 1},    // unused.
 	// scaffolding is broken in vanilla Mineclonia right now.
-	//{"block", "bamboo_stage0.png", "bamboo", "mcl_bamboo_flower_pot.png", 1},    //broken?
 	{"block", "scaffolding_bottom.png", "bamboo", "mcl_bamboo_scaffolding_bottom.png", 1}, //broken?
 	{"block", "scaffolding_side.png", "bamboo", "mcl_bamboo_scaffolding_side.png", 1},     //broken?
 	{"block", "scaffolding_top.png", "bamboo", "mcl_bamboo_scaffolding_top.png", 1},

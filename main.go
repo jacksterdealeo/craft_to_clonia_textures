@@ -75,40 +75,6 @@ Minecraft to Mineclonia Texture Pack Converter
 
 	fmt.Println(config)
 	fmt.Print("\n\n")
-	if !config.DefinedInput {
-		config.InputDir = "./input/"
-		if fs.ValidPath("input") {
-			err := os.Mkdir("input", 0755)
-			if err != nil {
-				if errors.Is(err, fs.ErrPermission) {
-					log.Fatal("Permission was denied. \"input\" was not made.")
-				} else if errors.Is(err, fs.ErrExist) {
-					fmt.Println("Folder \"input\" already exists.")
-				} else {
-					log.Fatal(err)
-				}
-			} else {
-				fmt.Println("Made the input folder!")
-			}
-		}
-	}
-
-	if !config.DefinedOutput {
-		config.OutputDir = "./output/"
-		if fs.ValidPath("output") {
-			if err := os.Mkdir("output", 0755); err != nil {
-				if errors.Is(err, fs.ErrPermission) {
-					log.Fatal("Permission was denied. \"output\" was not made.")
-				} else if errors.Is(err, fs.ErrExist) {
-					fmt.Println("Folder \"output\" already exists.")
-				} else {
-					log.Fatal(err)
-				}
-			} else {
-				fmt.Println("Made the output folder!")
-			}
-		}
-	}
 
 	// GUI CODE HERE
 
@@ -117,8 +83,6 @@ Minecraft to Mineclonia Texture Pack Converter
 
 	progress := widget.NewProgressBarInfinite()
 
-	definedInputBool := binding.NewBool()
-	definedOutputBool := binding.NewBool()
 	exportMinetestGameBool := binding.NewBool()
 	exportMinecloniaBool := binding.NewBool()
 	inputDirString := binding.NewString()
@@ -128,8 +92,6 @@ Minecraft to Mineclonia Texture Pack Converter
 	spearVersionString := binding.NewString()
 	enlargeObjectCrosshair := binding.NewBool()
 
-	expect(definedInputBool.Set(config.DefinedInput))
-	expect(definedOutputBool.Set(config.DefinedOutput))
 	expect(exportMinetestGameBool.Set(config.ExportMinetestGame))
 	expect(exportMinecloniaBool.Set(config.ExportMineclonia))
 	expect(inputDirString.Set(config.InputDir))
@@ -143,10 +105,6 @@ Minecraft to Mineclonia Texture Pack Converter
 		go func() {
 			freshConfig := configure.NewConfig()
 			// Save window state into config here:
-			config.DefinedInput, err = definedInputBool.Get()
-			expect(err)
-			config.DefinedOutput, err = definedOutputBool.Get()
-			expect(err)
 			config.ExportMinetestGame, err = exportMinetestGameBool.Get()
 			expect(err)
 
@@ -185,8 +143,6 @@ Minecraft to Mineclonia Texture Pack Converter
 	w.SetContent(container.NewVBox(
 		widget.NewLabel("Craft to Clonia Textures"),
 
-		widget.NewCheckWithData("Use specified input directory?", definedInputBool),
-		widget.NewCheckWithData("Use specified output directory?", definedOutputBool),
 		widget.NewCheckWithData("Export for Minetest Game?", exportMinetestGameBool),
 		widget.NewCheckWithData("Export for Mineclonia?", exportMinecloniaBool),
 
