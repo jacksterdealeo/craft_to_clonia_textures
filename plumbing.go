@@ -6,6 +6,18 @@ import (
 	"path/filepath"
 )
 
+var (
+	Reset   = "\033[0m"
+	Red     = "\033[31m"
+	Green   = "\033[32m"
+	Yellow  = "\033[33m"
+	Blue    = "\033[34m"
+	Magenta = "\033[35m"
+	Cyan    = "\033[36m"
+	Gray    = "\033[37m"
+	White   = "\033[97m"
+)
+
 // Checks if packs in input directory are just asset folders.
 func assetsOnlyChecks(packsPath string) (err error) {
 	inputDir, err := os.ReadDir(packsPath)
