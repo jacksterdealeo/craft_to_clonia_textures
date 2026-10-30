@@ -18,15 +18,16 @@
 !README.md
 !CONFIG.md
 !LICENSE
-
 !build.sh
-!/data
-!/stitches
-!/mcmetahandler
-!/configure
 
-!/data/textures/
-!/data/textures/16/
-!/data/textures/16/*
+!/ctc_lib/
+!/ctc_lib/configure/
+!/ctc_lib/data/
+!/ctc_lib/mcmetahandler/
+!/ctc_lib/stitches/
+
+!/ctc_lib/data/textures/
+!/ctc_lib/data/textures/16/
+!/ctc_lib/data/textures/16/*
 
 # !Makefile

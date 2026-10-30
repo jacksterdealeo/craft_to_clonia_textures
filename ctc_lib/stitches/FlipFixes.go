@@ -1,0 +1,30 @@
+package stitches
+
+import (
+	"path/filepath"
+
+	"codeberg.org/ostech/craft_to_clonia_textures/ctc_lib/configure"
+	"codeberg.org/ostech/craft_to_clonia_textures/ctc_lib/data"
+	imaging "github.com/disintegration/imaging"
+)
+
+func RWCloniaFlipFixes(inputPackPath string, outputPackPath string, _ *configure.Config) error {
+	stitch := "FlipFixes"
+
+	readFails := [][2]string{}
+	writeFails := [][2]string{}
+	flips := data.CloniaFlipsHorizontal
+
+	for _, e := range flips {
+		img, err := imaging.Open(filepath.Join(inputPackPath, data.CraftPaths[e.InPath], e.InTexture))
+		if err != nil {
+			readFails = append(readFails, [2]string{e.InPath, e.InTexture})
+		} else {
+			img = flipH(img)
+			if err = imaging.Save(img, filepath.Join(outputPackPath, data.CloniaPaths[e.OutPath], e.OutTexture)); err != nil {
+				writeFails = append(readFails, [2]string{e.OutPath, e.OutTexture})
+			}
+		}
+	}
+	return multiErrMsg(stitch, readFails, writeFails)
+}

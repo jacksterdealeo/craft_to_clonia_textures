@@ -1,0 +1,161 @@
+package ctc_lib
+
+import (
+	"errors"
+	"fmt"
+	"io/fs"
+	"log"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"codeberg.org/ostech/craft_to_clonia_textures/ctc_lib/configure"
+	"codeberg.org/ostech/craft_to_clonia_textures/ctc_lib/data"
+
+	"github.com/disintegration/imaging"
+)
+
+var (
+	craftPaths  = data.CraftPaths
+	cloniaPaths = data.CloniaPaths
+)
+
+func ConvertPackClonia(inName string, outName string, config *configure.Config, timeStamp string) {
+	var (
+		successes          = 0
+		failures           = 0
+		inputPackLocation  = filepath.Join(config.InputDir, inName)
+		outputPackLocation = filepath.Join(config.OutputDir, outName)
+	)
+
+	var textureErrorsLog = strings.Builder{}
+	textureErrorsLog.WriteString(fmt.Sprintf("%v %v\n\n", inName, timeStamp))
+
+	if fs.ValidPath(outputPackLocation) {
+		if err := os.Mkdir(outputPackLocation, 0755); err != nil {
+			if errors.Is(err, fs.ErrInvalid) {
+				log.Panicf("Folder %s is an \"invalid argument\". Maybe rename %s?\n", outputPackLocation, inputPackLocation)
+			} else if errors.Is(err, fs.ErrPermission) {
+				log.Panicf("Permission was denied. %s was not made.\n", outputPackLocation)
+			} else if errors.Is(err, fs.ErrExist) {
+				fmt.Printf("Folder %s already exists. Writing into it.\n", outputPackLocation)
+			} else {
+				fmt.Printf("How.\n")
+				log.Panic(err)
+			}
+		}
+	}
+
+	for _, e := range data.CloniaPaths {
+		if err := os.MkdirAll(filepath.Join(outputPackLocation, e), 0755); err != nil {
+			log.Panic(err)
+		}
+	}
+
+	copyTextureFails := []string{}
+	ConvertAnimatedAndLogErrs := func(setsOfTextures ...[]data.SimpleConversion) {
+		for _, set := range setsOfTextures {
+			for _, texture := range set {
+				err := texture.Convert(inputPackLocation, outputPackLocation)
+				if err != nil {
+					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.ReadPath()+"::"+texture.SavePath())
+				} else {
+					successes += 1
+				}
+			}
+		}
+	}
+	ConvertAndLogErrs := func(setsOfTextures ...[]data.StaticTexture) {
+		for _, set := range setsOfTextures {
+			for _, texture := range set {
+				err := texture.Convert(inputPackLocation, outputPackLocation)
+				if err != nil {
+					copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.ReadPath()+"::"+texture.SavePath())
+				} else {
+					successes += 1
+				}
+			}
+		}
+	}
+
+	ConvertAnimatedAndLogErrs(data.SimpleItems[:])
+	ConvertAnimatedAndLogErrs(data.SimpleHUD[:])
+	ConvertAnimatedAndLogErrs(data.VoxeLibreSpecific[:])
+	ConvertAnimatedAndLogErrs(data.MinecloniaSpecific[:])
+
+	ConvertAndLogErrs(data.MinecloniaSpecificNoEdits[:])
+
+	for _, texture := range data.SimpleNoEdits {
+		if err := texture.Convert(inputPackLocation, outputPackLocation); err != nil {
+			copyTextureFails = append(copyTextureFails, err.Error()+" ~ "+texture.InPath+"::"+texture.InTexture)
+		} else {
+			successes += 1
+		}
+	}
+
+	if len(copyTextureFails) > 0 {
+		//fmt.Printf("\n%v\n\n", &readWriteError{copyTextureFails, "normal textures"})
+		textureErrorsLog.WriteString(fmt.Sprintf("%v\n\n", &readWriteError{copyTextureFails, "normal textures"}))
+		failures += len(copyTextureFails)
+	}
+
+	//// special casses
+	logRWErrs := func(e ...*readWriteError) {
+		for _, error := range e {
+			if error != nil {
+				failures += len(error.files)
+				textureErrorsLog.WriteString(fmt.Sprint(error.Error() + "\n\n"))
+			}
+		}
+	}
+
+	var stitches_error_log strings.Builder
+	mcStitches(inputPackLocation, outputPackLocation, &stitches_error_log, config)
+	textureErrorsLog.WriteString(stitches_error_log.String())
+	textureErrorsLog.WriteString("\n")
+
+	// I want to replace most or all the "fix" functions with "stitch" functions for better performace, and maintenance.
+	// Any that are commented out are replaced already. I am leaving them fully listed until they are all finished.
+	logRWErrs(
+		armor_fixes(inputPackLocation, outputPackLocation),
+		do_fixes(inputPackLocation, outputPackLocation, config),
+		hud_fix(inputPackLocation, outputPackLocation, config),
+		mods_fixes(inputPackLocation, outputPackLocation, config),
+
+		mobConvert(inputPackLocation, outputPackLocation),
+	)
+
+	// Experience Bar
+	if expProgress, err := imaging.Open(filepath.Join(inputPackLocation, data.GetCraftPath("hud"), "experience_bar_progress.png")); err != nil {
+		textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Open \"experience_bar_progress.png\".\n\n")
+		failures += 1
+	} else {
+		if err2 := imaging.Save(imaging.Rotate90(expProgress), filepath.Join(outputPackLocation, data.GetCloniaPath("experience"), "mcl_experience_bar.png")); err2 != nil {
+			textureErrorsLog.WriteString("Full Experience Bar failed. Couldn't Save \"mcl_experience_bar.png\".\n\n")
+			failures += 1
+		}
+	}
+	if expEmpty, err := imaging.Open(filepath.Join(inputPackLocation, data.GetCraftPath("hud"), "experience_bar_background.png")); err != nil {
+		textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Open \"experience_bar_background.png\".\n\n")
+		failures += 1
+	} else {
+		if err2 := imaging.Save(imaging.Rotate90(expEmpty), filepath.Join(outputPackLocation, data.GetCloniaPath("experience"), "mcl_experience_bar_background.png")); err2 != nil {
+			textureErrorsLog.WriteString("Empty Experience Bar failed. Couldn't Save \"mcl_experience_bar_background.png\".\n\n")
+			failures += 1
+		}
+	}
+
+	compatibilityRating := (successes * 100) / (successes + failures)
+	packConfigFile := fmt.Sprintf(`title = MC %s
+name = %s
+description = Mineclonia texture pack converted from Minecraft. %d successes, %d failures, %d%% compatible, converted %v.`,
+		inName, outName, successes, failures, compatibilityRating, timeStamp)
+	fmt.Printf("%s\n", packConfigFile)
+	if err := os.WriteFile(filepath.Join(outputPackLocation, "texture_pack.conf"), []byte(packConfigFile), 0644); err != nil {
+		log.Panic(err)
+	}
+
+	if err := os.WriteFile(filepath.Join(outputPackLocation, "craft_to_clonia_errors_log.txt"), []byte(textureErrorsLog.String()), 0644); err != nil {
+		log.Panic(err)
+	}
+}

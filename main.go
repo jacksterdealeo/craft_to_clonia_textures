@@ -10,7 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"codeberg.org/ostech/craft_to_clonia_textures/configure"
+	"codeberg.org/ostech/craft_to_clonia_textures/ctc_lib"
+	"codeberg.org/ostech/craft_to_clonia_textures/ctc_lib/configure"
 )
 
 var (
@@ -18,14 +19,17 @@ var (
 	ConfigLocation = "config.json"
 )
 
-type readWriteError struct {
-	files   []string
-	message string
-}
-
-func (e *readWriteError) Error() string {
-	return fmt.Sprintf("%s has %d fails:\n\t%v", e.message, len(e.files), strings.Join(e.files[:], "\n\t"))
-}
+var (
+	Reset   = "\033[0m"
+	Red     = "\033[31m"
+	Green   = "\033[32m"
+	Yellow  = "\033[33m"
+	Blue    = "\033[34m"
+	Magenta = "\033[35m"
+	Cyan    = "\033[36m"
+	Gray    = "\033[37m"
+	White   = "\033[97m"
+)
 
 func expect(err error) {
 	if err != nil {
@@ -81,11 +85,9 @@ func convertPacks(c *configure.Config) {
 			if _, statErr := os.Stat(filepath.Join(c.InputDir,
 				FileNameWithoutExt(inputFile.Name()))); errors.Is(statErr, os.ErrNotExist) {
 				fmt.Println("📁 Unzipping: " + inputFile.Name())
-				if unzipErr := unzipSource(
-					filepath.Join(
-						c.InputDir, inputFile.Name()),
-					filepath.Join(
-						c.InputDir, FileNameWithoutExt(inputFile.Name()))); unzipErr != nil {
+				if unzipErr := ctc_lib.UnzipSource(
+					filepath.Join(c.InputDir, inputFile.Name()),
+					filepath.Join(c.InputDir, FileNameWithoutExt(inputFile.Name()))); unzipErr != nil {
 					fmt.Println(Red+"Extraction Error: "+Reset, unzipErr)
 				}
 			} else {
@@ -96,7 +98,7 @@ func convertPacks(c *configure.Config) {
 
 	fmt.Println("\n" + Yellow + "Converting Packs" + Reset)
 
-	if err := assetsOnlyChecks(c.InputDir); err != nil {
+	if err := ctc_lib.AssetsOnlyChecks(c.InputDir); err != nil {
 		fmt.Println(err)
 	}
 
@@ -128,7 +130,7 @@ func convertPacks(c *configure.Config) {
 					}
 				}
 
-				convertPackClonia(inputFile.Name(), o, c)
+				ctc_lib.ConvertPackClonia(inputFile.Name(), o, c, nowShort)
 			}
 
 			if c.ExportMinetestGame {
@@ -140,7 +142,7 @@ func convertPacks(c *configure.Config) {
 					}
 				}
 
-				convertPackMTG(inputFile.Name(), o, c)
+				ctc_lib.ConvertPackMTG(inputFile.Name(), o, c, nowShort)
 			}
 
 			/*
